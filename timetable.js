@@ -77,13 +77,9 @@ var courses = [];
 var getCourse = function() {
   var courseName = $("#course-name").val().toUpperCase().trim();
   if (courseName.length == 8 && courses.indexOf(courseName) === -1) {
-    if (courseName == "ENGN1211") {
-      $("#warningModal").modal();
-    } else {
-      $("#add-course").html("Adding...");
-      $("#course-name").val("");
-      addCourse(courseName);
-    }
+    $("#add-course").html("Adding...");
+    $("#course-name").val("");
+    addCourse(courseName);
   }
 }
 
@@ -101,9 +97,6 @@ var addCourse = function (courseName) {
       removeCourse(courseName, event);
     })
     courses.push(courseName);
-    if (courseName == "MATH1115") {
-      $("#math1115_ad").removeClass("hidden");
-    }
   } else {
     $("#add-course").html("Course not found!");
     setTimeout(function () {
@@ -145,12 +138,6 @@ $(function() {
   $("#add-course").on("click", function(event) {
     getCourse();
     event.preventDefault();
-  });
-
-  $(".confirmDE").on("click", function(event) {
-    $("#add-course").html("Adding...");
-    $("#course-name").val("");
-    addCourse("ENGN1211");
   });
 
   $("#download").on("click", function (event) {
