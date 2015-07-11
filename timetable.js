@@ -99,7 +99,7 @@ var addCourse = function (courseName) {
     courses.push(courseName);
 
     // add course style class.
-    var courseStyleNum = courses.length() % 6;
+    var courseStyleNum = courses.length % 6;
     $("[data-name="+courseName+"]").addClass("lesson-style-"+courseStyleNum);
   } else {
     $("#add-course").html("Course not found!");
