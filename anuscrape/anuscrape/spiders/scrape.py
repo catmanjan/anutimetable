@@ -1,4 +1,4 @@
-#usage: scrapy crawl anuscrape -o timetable.json -t json -s CONCURRENT_REQUESTS=16
+#usage: scrapy crawl anuscrape -o timetable.json -t json -s CONCURRENT_REQUESTS=1
 from scrapy.spiders import Spider
 from scrapy.selector import Selector
 from items import AnuscrapeItem
