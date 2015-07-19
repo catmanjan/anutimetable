@@ -75,7 +75,7 @@ class Scrape(Spider):
                 if location:
                     item['location'] = location[0].strip()
                 if hour: 
-                    item['hour'] = self.time_to_hour(hour[0].strip()) + (i - 1)
+                    item['hour'] = self.time_to_hour(hour[0].strip()) + i
                 if day:
                     item['day'] = self.short_day(day[0].strip())
                 yield item
