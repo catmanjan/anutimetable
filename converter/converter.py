@@ -49,7 +49,7 @@ try:
         for i in range (0, n):
             item = Entry()
             item.id = cid
-            item.info = re.sub(r'(.+) (\D+)(\d+)(.+)', r'\2 \3', row[1])
+            item.info = re.sub(r'(.+)_S2 (\D+)(\d+)(.+)', r'\2 \3', row[1])
             item.name = row[0][:8]
             item.hour = st + i
             item.location = row[8]
