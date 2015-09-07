@@ -33,27 +33,36 @@ def shrinkDay(day):
 
 data = []
 
-f = open('Timetable_Test_Data_File.csv', 'rt')
+f = open('Timetable.csv', 'rt')
 try:
-    reader = csv.reader(f)
+    reader = csv.reader(f, quotechar='"')
     next(reader)
     cid = 0
     for row in reader:
-        if 'hidden' in row[1]:
+        if len(row) < 1:
             continue
+    
+        try:
+            # start time
+            st = int(row[7][:2])
+            # end time
+            et = int(row[8][:2])
+            n = et - st
+        except:
+            print(cid)
+            print(row)
             
-        st = int(row[3][:2])
-        et = int(row[4][:2])
-        n = et - st
-        
         for i in range (0, n):
             item = Entry()
             item.id = cid
-            item.info = re.sub(r'(.+)_S2 (\D+)(\d+)(.+)', r'\2 \3', row[1])
-            item.name = row[0][:8]
+            item.info = re.sub(r'(.+) (\D+)(\d+)(.+)', r'\2 \3', row[0])
+            # parent activity name
+            item.name = row[3][:8]
             item.hour = st + i
-            item.location = row[8]
-            item.day = shrinkDay(row[2])
+            # location
+            item.location = row[12]
+            # day
+            item.day = shrinkDay(row[6])
             data.append(item)
             
         cid = cid + 1
