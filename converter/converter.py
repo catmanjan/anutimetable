@@ -55,7 +55,7 @@ try:
         for i in range (0, n):
             item = Entry()
             item.id = cid
-            item.info = re.sub(r'(.+) (\D+)(\d+)(.+)', r'\2 \3', row[0])
+            item.info = re.sub(r'(.+) (\D+)(\d+)/(.+)', r'\2 \3', row[2])
             # parent activity name
             item.name = row[3][:8]
             item.hour = st + i
