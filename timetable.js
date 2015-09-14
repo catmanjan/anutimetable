@@ -171,5 +171,15 @@ $(function() {
 
     calString += "\nEND:VCALENDAR";
     download(calString, "anu_s1_timetable.ics", "text/plain");
-  })
+  });
+
+  $("#toggle-tutes").on("click", function (event) {
+    var tutes = $('.lesson[data-eventtype="group"]');
+    if (tutes.toggle().is(":visible")) {
+        $(this).html("Hide tutorials");
+    } else {
+        $(this).html("Show tutorials");
+    }
+  });
+
 });
