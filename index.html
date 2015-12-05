@@ -25,7 +25,10 @@
       <div class="well form-inline">
         <input type="text" id="course-name" class="form-control" style="width:325px" placeholder="Enter a course code here (for example LAWS1201)">
         <button id="add-course" class="btn btn-default">Add course</button>
-        <button id="download" class="btn btn-primary">Download as .ics</button>
+        <button id="load" class="btn btn-primary">Load timetable from .json</button>
+        <input type="file" id="file" class="hide">
+        <span id="load-status" class="text-success"></span>
+        <button id="download" class="btn btn-info pull-right">Download as .ics</button>
         <!-- <div id="courses" style="display: inline;"></div> -->
 		
       </div>
@@ -41,14 +44,15 @@
 </div>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  if(window.location.protocol !== 'file:') {
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-64755004-1', 'auto');
-  ga('send', 'pageview');
-
+      ga('create', 'UA-64755004-1', 'auto');
+      ga('send', 'pageview');
+  }
 </script>
 
 </div>
