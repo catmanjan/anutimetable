@@ -190,7 +190,7 @@ $(function () {
                 calString += eventTemplate({
                     padded_hour: (lesson.hour < 10 ? "0" : "") + lesson.hour,
                     padded_end_hour: (lesson.hour < 9 ? "0" : "") + (lesson.hour + 1),
-                    first_day: 16 + day,
+                    first_day: 15 + day,
                     day: lesson.day,
                     description: lesson.info,
                     location: lesson.location,
