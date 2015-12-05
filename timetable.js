@@ -1,7 +1,7 @@
 var rawLessons = [];
 var timetableData = {};
 
-$.get("/timetable.json", {}, function (data) {
+$.get("./timetable.json", {}, function (data) {
   rawLessons = data;
   timetableData = rearrangeLessons(rawLessons);
   var courses = Object.keys(timetableData);
