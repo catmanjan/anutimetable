@@ -225,7 +225,7 @@ $(function () {
     });
 
     $("#download").on("click", function (event) {
-        var ids = _($(".lesson")).map(function (x) {
+        var ids = _($(".lesson:not(:hidden)")).map(function (x) {
             return $(x).data("id")
         });
 
