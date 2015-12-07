@@ -2,6 +2,12 @@
 
 ## Updates
 
+### 2015-12-08
+* Added delete, clear, save and flush feature (use localStorage / cookie depends on the availability).
+* Fixed an issue with tutorial selection (explained in master upstream branch issue #22).
+* Fixed the issue with not being able to choose between one hour tutorials.
+* Fixed the issue with ics export will include all the tutorials regardless of choosing or not.
+
 ### 2015-12-06
 * The scraper is planned for deletion.
 * Instead, use the converter on the direct data source http://udsttweb99.anu.edu.au/Timetable2015/Timetable.csv (hopefully this will be updated by ANU for 2016)

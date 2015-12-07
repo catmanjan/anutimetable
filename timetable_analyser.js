@@ -65,13 +65,13 @@ var partitionLessons = function (lessons) {
     var lesson = lessons[i];
     var key = filterCompulsory(lesson.info);
     addToPartition(partition, key, lesson);
-  };
+  }
 
   var out = [];
 
   for (var key in partition) {
     if (partition.hasOwnProperty(key)) {
-      if (partition[key].length == 1 || isCompulsory(key)) {
+      if (isCompulsory(key)) {
         for(var member in partition[key]) {
           out.push(["compulsary", partition[key][member]]);
         }
