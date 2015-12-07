@@ -3,8 +3,9 @@
 ## Updates
 
 ### 2015-12-08
-* Added delete, clear, save and flush feature (use localStorage / cookie depends on the availability)
-* Fixed an issue with tutorial selection (explained in master upstream branch issue #22)
+* Added delete, clear, save and flush feature (use localStorage / cookie depends on the availability).
+* Fixed an issue with tutorial selection (explained in master upstream branch issue #22).
+* Fixed the issue with not being able to choose between one hour tutorials.
 
 ### 2015-12-06
 * The scraper is planned for deletion.
