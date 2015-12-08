@@ -2,22 +2,23 @@
 <html>
 <head>
   <title>ANU timetable builder</title>
-  <script src="underscore.js"></script>
-  <script src="jquery.js"></script>
-  <script src="download.js"></script>
-  <script src="bootstrap.min.js"></script>
-  <script src="timetable.js" defer></script>
-  <script src="timetable_analyser.js"></script>
+  <script src="js/underscore.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/typeahead.bundle.min.js"></script>
+  <script src="js/download.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/timetable.js" defer></script>
+  <script src="js/timetable_analyser.js"></script>
   <link rel="shortcut icon" href="favicon.ico" />
-  <link rel="stylesheet" type="text/css" href="bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
   <meta name="description" content="Intuitive timetable builder for the Australian National University.">
 </head>
 <body>
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-8 col-md-8">
+    <div class="col-sm-10 col-md-10">
       <h1>ANU timetable builder</h1>
       <p>Updated for 2016.</p>
       <p><i>Courses chosen<sup>1</sup>: <span id="chosenCourses">None.</span>
@@ -28,10 +29,10 @@
       <div class="well form-inline">
         <input type="text" id="course-name" class="form-control" style="width:325px" placeholder="Enter a course code here (for example LAWS1201)">
         <div class="btn-group">
-          <button id="add-course" class="btn btn-default">Add</button>
+          <button id="add-course" class="btn btn-default">Add<sup>2</sup></button>
           <button id="clear-courses" class="btn btn-default">Clear</button>
-          <button id="save-courses" class="btn btn-default">Save<sup>2</sup></button>
-          <button id="flush-storage" class="btn btn-default">Flush<sup>3</sup></button>
+          <button id="save-courses" class="btn btn-default">Save<sup>3</sup></button>
+          <button id="flush-storage" class="btn btn-default">Flush<sup>4</sup></button>
         </div>
         <button id="load" class="btn btn-primary">Load data from .json</button>
         <input type="file" id="file" class="hide">
@@ -45,8 +46,9 @@
     <div id="cal-container"></div>
     <p>
       <sup>1</sup> Saved courses will be displayed after a data source has been loaded.<br>
-      <sup>2</sup> Local storage / cookie is used to save courses, please use modern browsers / enable cookie if you want to do so (also remember to manually click 'save').<br>
-      <sup>3</sup> Flush is used to clear data stored in local storage / cookie.
+      <sup>2</sup> The interpreter will ignore everything after the first underscore (inclusive, e.g. gErm2103_ich-LieBe_dEutsch will be converted to GERM2103).<br>
+      <sup>3</sup> Local storage / cookie is used to save courses, please use modern browsers / enable cookie if you want to do so (also remember to manually click 'save').<br>
+      <sup>4</sup> Flush is used to clear data stored in local storage / cookie.
     </p>
     <p>Calendar downloads currently don't work in Safari. Report bugs to <a href="mailto:jan.ramon.martin@gmail.com">Jan Martin</a> or the <a href="https://github.com/catmanjan/anutimetable" target="_blank">ANU timetable builder GitHub project</a>.</p>
   </div>
