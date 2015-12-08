@@ -1,11 +1,11 @@
-var rawLessons = [];
-var timetableData = {};
+var rawLessons      = [];
+var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== "undefined";
-var recover = false;
+var recover         = false;
 
 if (window.location.protocol !== 'file:') {
-    $.get("./timetable.json", {}, function (data) {
-        rawLessons = data;
+    $.get("./data/timetable.json", {}, function (data) {
+        rawLessons    = data;
         timetableData = rearrangeLessons(rawLessons);
         recoverCourses();
     });
@@ -57,7 +57,7 @@ var putGroupItemInCalendar = function (item) {
             if ($item.data("group") == displayDiv.data("group")) {
                 if ($item.data("fgroup") != displayDiv.data("fgroup")) {
                     var index = $.inArray($item.data('fgroup'), tutorials[$item.data('group')]);
-                    if(index !== -1) tutorials[$item.data('group')].splice(index, 1);
+                    if (index !== -1) tutorials[$item.data('group')].splice(index, 1);
                     $item.hide('slide', $item.remove);
                 } else {
                     $("[data-fgroup='" + displayDiv.data("fgroup") + "'] a.choose").hide("scale");
@@ -75,16 +75,16 @@ var putGroupItemInCalendar = function (item) {
 var putLessonGroupInCalendar = function (group) {
     if (group[0] == "group") {
         for (var i = group[1].length - 1; i >= 0; i--) {
-            var key = group[1][i].name + filterNumbers(group[1][i].info),
+            var key      = group[1][i].name + filterNumbers(group[1][i].info),
                 tutFound = $.inArray(group[1][i].name + group[1][i].info, tutorials[key]) !== -1;
 
             // Build tutorial object if is not in recovering mode
-            if(!recover && !tutFound) {
-                if(!tutorials[key]) tutorials[key] = [];
+            if (!recover && !tutFound) {
+                if (!tutorials[key]) tutorials[key] = [];
                 tutorials[key].push(group[1][i].name + group[1][i].info);
             }
 
-            if(!recover || recover && tutFound) putGroupItemInCalendar(group[1][i]);
+            if (!recover || recover && tutFound) putGroupItemInCalendar(group[1][i]);
         }
     } else {
         putCompulsaryItemInCalendar(group[1]);
@@ -94,8 +94,8 @@ var putLessonGroupInCalendar = function (group) {
 var courses = [], tutorials = {};
 
 var getCourse = function () {
-    var courseName = $("#course-name").val().toUpperCase().trim();
-    if (courseName.length == 8 && courses.indexOf(courseName) === -1) {
+    var courseName = $("#course-name").val().split('_')[0].toUpperCase().trim();
+    if (courses.indexOf(courseName) === -1) {
         $("#add-course").html("Adding...");
         $("#course-name").val("");
         addCourse(courseName);
@@ -104,10 +104,10 @@ var getCourse = function () {
 
 var addCourse = function (courseName, isRecovering) {
     var data = timetableData[courseName];
-    recover = 'undefined' !== typeof isRecovering;
+    recover  = 'undefined' !== typeof isRecovering;
 
     if (data) {
-        $("#add-course").html("Add");
+        $("#add-course").html("Add<sup>2</sup>");
 
         _(data).each(putLessonGroupInCalendar);
 
@@ -121,7 +121,7 @@ var addCourse = function (courseName, isRecovering) {
     } else {
         $("#add-course").html("Course not found!");
         setTimeout(function () {
-            $("#add-course").html("Add");
+            $("#add-course").html("Add<sup>2</sup>");
         }, 2000);
     }
 };
@@ -130,8 +130,8 @@ var removeCourse = function (courseName) {
     courses = _(courses).without(courseName);
 
     // Delete all related tutorials
-    $.each(tutorials, function(index) {
-        if(index.indexOf(courseName !== -1)) delete tutorials[index]
+    $.each(tutorials, function (index) {
+        if (index.indexOf(courseName !== -1)) delete tutorials[index]
     });
 
     $(".lesson").each(function (index, lesson) {
@@ -147,12 +147,12 @@ var Cookie = {
     set: function (cname, cvalue, exdays) {
         var d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = 'expires=' + d.toUTCString();
+        var expires     = 'expires=' + d.toUTCString();
         document.cookie = cname + '=' + cvalue + '; ' + expires;
     },
     get: function (cname) {
         var name = cname + '=';
-        var ca = document.cookie.split(';');
+        var ca   = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
             while (c.charAt(0) == ' ') c = c.substring(1);
@@ -170,7 +170,7 @@ var displayCourses = function () {
     }
 
     var html = '';
-    $.each(courses, function(index, courseName) {
+    $.each(courses, function (index, courseName) {
         html += (index === 0 ? '' : ', ') + courseName + ' <a href="javascript:void(0)" onclick="removeCourse(\'' + courseName + '\')">(delete)</a>';
     });
     displayElement.empty().append(html);
@@ -178,8 +178,8 @@ var displayCourses = function () {
 
 var recoverCourses = function () {
     var savedCourses = getSavedData('courses');
-    var temp = getSavedData('tutorials');
-    tutorials = temp ? JSON.parse(temp) : {};
+    var temp         = getSavedData('tutorials');
+    tutorials        = temp ? JSON.parse(temp) : {};
     if (savedCourses) {
         $.each(JSON.parse(savedCourses), function (i, courseName) {
             addCourse(courseName, true);
@@ -197,17 +197,17 @@ var loadStatus = function (succeed, isLoading) {
     return succeed;
 };
 
-var getSavedData = function(name) {
+var getSavedData = function (name) {
     return hasLocalStorage ? localStorage.getItem(name) : Cookie.get(name);
 };
 
 $(function () {
     var calendarTemplate = _.template($("#calendar-template").text());
-    var calendarHtml = calendarTemplate({
-        start_hour: 8,
+    var calendarHtml     = calendarTemplate({
+        start_hour       : 8,
         normal_start_hour: 9,
-        normal_end_hour: 18,
-        end_hour: 20
+        normal_end_hour  : 18,
+        end_hour         : 20
     });
 
     $("#cal-container").append(calendarHtml);
@@ -237,16 +237,16 @@ $(function () {
             if (ids.indexOf(lesson.id) >= 0) {
                 var day = ["mon", "tue", "wed", "thu", "fri"].indexOf(lesson.day);
                 calString += eventTemplate({
-                    padded_hour: (lesson.hour < 10 ? "0" : "") + lesson.hour,
+                    padded_hour    : (lesson.hour < 10 ? "0" : "") + lesson.hour,
                     padded_end_hour: (lesson.hour < 9 ? "0" : "") + (lesson.hour + 1),
-                    first_day: 15 + day,
-                    day: lesson.day,
-                    description: lesson.info,
-                    location: lesson.location,
-                    course: lesson.name + " " + lesson.info,
-                    id: lesson.id,
-                    holiday1: (6 + day < 10) ? "0" + (6 + day) : (6 + day),
-                    holiday2: 13 + day
+                    first_day      : 15 + day,
+                    day            : lesson.day,
+                    description    : lesson.info,
+                    location       : lesson.location,
+                    course         : lesson.name + " " + lesson.info,
+                    id             : lesson.id,
+                    holiday1       : (6 + day < 10) ? "0" + (6 + day) : (6 + day),
+                    holiday2       : 13 + day
                 });
             }
         });
@@ -261,11 +261,11 @@ $(function () {
     });
 
     $('#file').change(function (e) {
-        var reader = new FileReader();
+        var reader         = new FileReader();
         reader.onloadstart = function () {
             loadStatus(0, 1);
         };
-        reader.onload = function (e) {
+        reader.onload      = function (e) {
             try {
                 rawLessons = $.parseJSON(e.target.result);
             } catch (err) {
@@ -283,7 +283,7 @@ $(function () {
 
     $('#save-courses').on('click', function (e) {
         e.preventDefault();
-        if(hasLocalStorage) {
+        if (hasLocalStorage) {
             localStorage.setItem('courses', JSON.stringify(courses));
             localStorage.setItem('tutorials', JSON.stringify(tutorials));
         } else {
@@ -298,15 +298,15 @@ $(function () {
 
     $('#clear-courses').on('click', function (e) {
         e.preventDefault();
-        courses = [];
+        courses   = [];
         tutorials = {};
         displayCourses();
         $("#cal-container").html(calendarHtml);
     });
 
-    $('#flush-storage').on('click', function(e) {
+    $('#flush-storage').on('click', function (e) {
         e.preventDefault();
-        if(hasLocalStorage) {
+        if (hasLocalStorage) {
             localStorage.setItem('courses', '');
             localStorage.setItem('tutorials', '');
         } else {
@@ -318,4 +318,22 @@ $(function () {
             $('#flush-storage').html('Flush<sup>3</sup>');
         }, 2000);
     });
+
+    $('#course-name').typeahead({
+        highlight: true,
+        hint     : false
+    }, {
+        source: function (query, process) {
+            var matches = [];
+
+            query = query.trim().toLowerCase();
+            $.each(rawLessons, function (i, course) {
+                if (course.fullName && course.fullName.toLowerCase().indexOf(query) !== -1 && $.inArray(course.fullName, matches) === -1 ||
+                    !course.fullName && course.name.toLowerCase().indexOf(query) !== -1 && $.inArray(course.name, matches) === -1)
+                    matches.push(course.fullName || course.name);
+            });
+            process(matches);
+        }
+    });
+
 });
