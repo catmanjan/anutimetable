@@ -46,4 +46,3 @@
 ## Known issues
 
 * The builder only display courses in whole hours calendar.
-* In Course.putLessonGroup, when you console.log(this.putCompulsaryItem) or any other methods it'll give you undefined. Need to explicitly call Course.
