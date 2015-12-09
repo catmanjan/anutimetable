@@ -1,7 +1,7 @@
-var rawLessons, fullNameIndexes = [];
-var timetableData               = {};
-var hasLocalStorage             = typeof(Storage) !== "undefined";
-var recover                     = false;
+var rawLessons      = [];
+var timetableData   = {};
+var hasLocalStorage = typeof(Storage) !== "undefined";
+var recover         = false;
 
 var Calendar = {
     initialize       : function () {
@@ -258,8 +258,7 @@ $(function () {
 
     Calendar.initialize();
 
-    // https://rawgit.com/samyex6/anutimetable/master/data
-    $.get("./data/timetable.json", {}, function (data) {
+    $.get("https://rawgit.com/samyex6/anutimetable/master/data/timetable.json", {}, function (data) {
         Course.processRaw(data);
         timetableData = rearrangeLessons(rawLessons);
         Course.recover();
