@@ -9,19 +9,24 @@ var download = function (filename, text) {
     document.body.removeChild(element);
 };
 
-if(jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
+if (jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
 
     var failString = '',
         queue      = jQuery('<div></div>'),
         courses    = [],
         succeed    = 0,
         failed     = 0,
-        id         = 1,
-        total      = jQuery('#dlObject').find('option').length;
+        id         = 0,
+        nid        = 0,
+        total      = jQuery('#dlObject').find('option').length,
+        fullNames  = [],
+        locations  = [],
+        infos      = [];
 
     jQuery('html').append('<div style="border: 3px solid #E3E3EF; border-radius: 10px; position: fixed; top: 45%; left: 40%; background: #FFF; padding: 20px 30px 20px 30px;" id="progress">Initializing..</div>');
 
     jQuery('#dlObject').find('option').each(function (i, courseElement) {
+
         var form = jQuery('#form1');
         queue.queue(function () {
             jQuery.post('http://timetabling.anu.edu.au/SWS2016/', {
@@ -41,28 +46,48 @@ if(jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
                 'RadioType'           : 'module_list;cyon_reports_list_url;dummy',
                 'bGetTimetable'       : 'View Timetable'
             }, function (html) {
-                var html     = jQuery(html),
-                    rows     = html.find('tbody > tr'),
-                    fullName = html.find('[data-role="collapsible"] > h3:first').text().replace(/&nbsp;/g, ' ');
+                var jhtml = jQuery(html),
+                    rows  = jhtml.find('tbody > tr');
+
                 rows.each(function (index, courseRow) {
                     var tds       = jQuery(courseRow).find('td'),
                         className = tds.eq(0).text().match(/([a-zA-Z0-9]+)_.+?\s(.+)/),
                         duration  = parseInt(tds.eq(5).text()),
-                        hour      = parseInt(tds.eq(3).text());
+                        hour      = parseInt(tds.eq(3).text()),
+                        location  = tds.eq(7).text().trim(),
+                        lid       = jQuery.inArray(location, locations),
+                        iid       = jQuery.inArray(className[2], infos);
+
+                    if (lid === -1) {
+                        lid = locations.length;
+                        locations.push(location);
+                    }
+                    if (iid === -1) {
+                        iid = infos.length;
+                        infos.push(className[2]);
+                    }
+
                     for (var i = 0; i < duration; i++) {
                         courses.push({
-                            fullName: fullName,
-                            info    : className[2],
-                            name    : className[1],
-                            hour    : hour + i,
-                            id      : id,
-                            location: tds.eq(7).text(),
-                            day     : tds.eq(2).text().toLowerCase().substr(0, 3)
+                            nid : nid,
+                            iid : iid,
+                            name: className[1],
+                            hour: hour + i,
+                            id  : id,
+                            lid : lid,
+                            day : tds.eq(2).text().toLowerCase().substr(0, 3)
                         });
+
                     }
                     id++;
                 });
                 succeed++;
+
+                if (rows.length > 0) {
+                    fullNames.push(jhtml.find('[data-role="collapsible"] > h3:first').text().replace(/&nbsp;/g, ' '));
+                    nid++;
+                }
+
                 queue.dequeue();
             }).fail(function () {
                 failString += (failString === '' ? '' : ', ') + courseElement.innerHTML;
@@ -76,7 +101,7 @@ if(jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
 
     queue.queue(function () {
         console.log('The following courses extraction has been failed: ' + failString);
-        download('timetable.json', JSON.stringify(courses).replace(/},/g, '},\r\n'));
+        download('timetable.json', JSON.stringify([fullNames, infos, locations, courses]).replace(/(}|]),/g, '$1,\r\n'));
         queue.dequeue();
     });
 
