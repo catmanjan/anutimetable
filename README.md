@@ -2,6 +2,21 @@
 
 ## Updates
 
+### 2015-12-09
+* Deprecated save & flush button, these operations will now be processed automatically. <issue #26>
+* Reconstructed functions & variables into OOP style.
+  * Not sure why 'this' keyword sometimes not working so using the direct name (e.g. Course.display()) instead for now.
+* Made the load JSON button only visible when the online source is not accessible. <issue #27>
+* Made the auto-complete more smarter. <issue #29, #31>
+  * It'll now order by matching relevance.
+  * The name will be more readable.
+  * Course addition will be now ignore everything after the dash, instead of underscore.
+* Changed the structure for JSON (**Note that the old JSON will no longer work!**).
+  * The structure will now be: [[fullName], [infos], [locations], [course]].
+  * Removed key 'fullName', added key 'nid', 'iid' and 'lid' in course object.
+  * This provides an index searching for fullName, location and info, which reduces the size of the data by about 50%.
+  * **The structure will change again in the upcoming days to merge same classes together and suit :30 classes. The file size will be significantly reduced.**
+
 ### 2015-12-08
 * Added delete, clear, save and flush feature (use localStorage / cookie depends on the availability).
 * Fixed an issue with tutorial selection (explained in master upstream branch issue #22).
