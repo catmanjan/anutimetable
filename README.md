@@ -12,7 +12,7 @@
   * The name will be more readable.
   * Course addition will be now ignore everything after the dash, instead of underscore.
 * Changed the structure for JSON (**Note that the old JSON will no longer work!**).
-  * The structure will now be: [[fullName], [infos], [locations], [course]].
+  * The structure will now be: [[fullName], [info], [location], [course]].
   * Removed key 'fullName', added key 'nid', 'iid' and 'lid' in course object.
   * This provides an index searching for fullName, location and info, which reduces the size of the data by about 50%.
   * **The structure will change again in the upcoming days to merge same classes together and suit :30 classes. The file size will be significantly reduced.**

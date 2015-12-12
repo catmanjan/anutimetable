@@ -3,39 +3,110 @@ var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== "undefined";
 var recover         = false;
 
+// TODO Fixed all id related code, such as ICS download
+
 var Calendar = {
     initialize       : function () {
-        this.template                 = _.template($("#calendar-template").text());
-        this.compulsaryLessonTemplate = $("#compulsary-event-template").text();
-        this.groupLessonTemplate      = $("#group-event-template").text();
-        this.html                     = this.template({
+        this.tradingHours             = {
             start_hour       : 8,
             normal_start_hour: 9,
             normal_end_hour  : 18,
             end_hour         : 20
-        });
+        };
+        this.weekdays                 = ['mon', 'tue', 'wed', 'thu', 'fri'];
+        this.template                 = _.template($("#calendar-template").text());
+        this.compulsaryLessonTemplate = $("#compulsary-event-template").text();
+        this.groupLessonTemplate      = $("#group-event-template").text();
+        this.html                     = this.template(this.tradingHours);
+        this.courseGrids              = []; // new Array(12 * 2).fill(new Array(5).fill([]));
+        for (var i = 0; i < (this.tradingHours.end_hour - this.tradingHours.start_hour) * 2; i++) {
+            var temp = [];
+            for (var j = 0; j < this.weekdays.length; j++)
+                temp.push([]);
+            this.courseGrids.push(temp);
+        }
     },
     putItem          : function (item, displayDiv) {
-        var place = _($(".timeslot")).filter(function (x) {
-            return $(x).data("day") == item.day &&
-                $(x).data("hour") == item.hour;
-        })[0];
 
-        if (item.hour == 8) {
-            _($(".timetable-row")).each(function (row) {
-                if ($(row).data("hour") == 8) {
-                    $(row).show('slide');
-                }
-            })
-        } else if (item.hour > 17) {
-            _($(".timetable-row")).each(function (row) {
-                if (parseInt($(row).data("hour")) > 16) {
-                    $(row).show('slide');
-                }
-            })
+        // Determine the index for search in courseGrids
+        var index    = (item.start - Calendar.tradingHours.start_hour) * 2;
+        var dayIndex = Calendar.weekdays.indexOf(item.day);
+        var rowspan  = item.dur * 2;
+        var dayCell  = $('.table.table-striped th.col-sm-2:nth(' + dayIndex + ')');
+        var colspan  = !dayCell.attr('colspan') ? 0 : parseInt(dayCell.attr('colspan'));
+
+        // If the target is not found, that means it was merged by upper cells, separate it.
+        // There are one possible separation, colspan separation.
+        if (!recover) Calendar.columnSeparate();
+
+        // Find the left most possible space and fill in the value
+        // For example, if we need to fill up 2 blocks with value v
+        // from vertical index 2 then the transition will be like:
+        // var a = [[[], [0     , 0, 0], [], [], []],
+        //          [[], [1     , 0, 0], [], [], []],
+        //          [[], [0 -> v, 2, 0], [], [], []],
+        //          [[], [0 -> v, 2, 3], [], [], []]];
+        var fillArray = function (array, hour, day, blockNum, currentIndex) {
+            if ('undefined' === typeof array[hour][day][currentIndex] || !array[hour][day].length) {
+                $.each(array, function (i) {
+                    array[i][day].push(i < hour || i >= hour + blockNum ? 0 : item.info);
+                });
+            } else {
+                var counter = 1;
+                $.each(array, function (i, row) {
+                    if (i <= hour) return;
+                    if (i >= hour + blockNum) return false;
+                    counter = !row[day][currentIndex] ? counter + 1 : 0;
+                });
+                if (counter < blockNum) return fillArray(array, hour, day, blockNum, currentIndex + 1);
+                for (var j = 0; j < blockNum; j++)
+                    array[hour + j][day][currentIndex] = item.info;
+            }
+            return [currentIndex, array];
+        };
+
+        Calendar.courseGrids = fillArray(Calendar.courseGrids, (item.start - Calendar.tradingHours.start_hour) * 2, dayIndex, rowspan, 0);
+        var currentIndex     = Calendar.courseGrids[0];
+        Calendar.courseGrids = Calendar.courseGrids[1];
+
+        // Changing the colspan of the title (mon, tue, ...)
+        dayCell.attr('colspan', Calendar.courseGrids[0][dayIndex].length + 1);
+
+        // Creating empty cells if not exist, or separating the existing one
+        if (!$('.timeslot[data-day="' + item.day + '"][data-index="' + currentIndex + '"]').length) {
+            $('.timetable-row').each(function () {
+                var beforeElement = $(this).find('[data-day="' + item.day + '"]:last');
+                beforeElement.after(beforeElement.clone().removeAttr('rowspan').removeAttr('colspan').attr('data-index', currentIndex).empty());
+            });
         }
 
-        $(place).prepend(displayDiv).hide().show('slide');
+        var targetElement = $('.timeslot[data-hour="' + item.start + '"][data-day="' + item.day + '"][data-index="' + currentIndex + '"]');
+
+        // Fill with the content
+        targetElement.attr('rowspan', rowspan).append(displayDiv);
+
+        // Remove cells for rowspan
+        for (var i = 0.5; i < item.dur; i += 0.5)
+            $('.timeslot[data-hour="' + (item.start + i) + '"][data-day="' + item.day + '"][data-index="' + currentIndex + '"]').remove();
+
+        // If it's not recovering courses from storage, then merge horizontal cells
+        if (!recover) Calendar.columnMerge();
+
+        /*if (item.hour == 8) {
+         _($(".timetable-row")).each(function (row) {
+         if ($(row).data("hour") == 8) {
+         $(row).show('slide');
+         }
+         })
+         } else if (item.hour > 17) {
+         _($(".timetable-row")).each(function (row) {
+         if (parseInt($(row).data("hour")) > 16) {
+         $(row).show('slide');
+         }
+         })
+         }*/
+
+        //$(place).prepend(displayDiv).hide().show('slide');
     },
     putCompulsaryItem: function (item) {
         var displayDiv = $(_.template(Calendar.compulsaryLessonTemplate, {item: item}));
@@ -83,6 +154,46 @@ var Calendar = {
         } else {
             Calendar.putCompulsaryItem(group[1]);
         }
+    },
+    columnMerge      : function () {
+        $.each(Calendar.courseGrids, function (j) {
+            $.each($(this), function (k, arr) {
+                var colspan = 1;
+                for (var i = arr.length - 1; i >= 0; i--) {
+                    var element = $('.timeslot[data-hour="' + (0.5 * j + Calendar.tradingHours.start_hour) + '"][data-day="' + Calendar.weekdays[k] + '"][data-index="' + i + '"]');
+                    if (arr[i] !== 0 || i === 0) {
+                        if (colspan !== 1) element.attr('colspan', colspan);
+                        return;
+                    }
+                    element.remove();
+                    colspan++;
+                }
+            });
+        });
+    },
+    columnSeparate   : function () {
+        return;
+        $('.timeslot[colspan]').each(function () {
+            var cloneNum = $(this).attr('colspan');
+            var index    = parseInt($(this).data('index'));
+            var hour     = parseInt($(this).data('hour'));
+            var day = $(this).data('day');
+
+            if (cloneNum <= 1) return;
+            console.log(cloneNum);
+            for (var i = 1; i < cloneNum; i++) {
+                $(this).after($(this).clone().removeAttr('rowspan').removeAttr('colspan').attr('data-index', index + i).empty());
+            }
+            $(this).removeAttr('colspan');
+
+            if ($(this).attr('rowspan') > 1) {
+                for (i = 0.5; i < $(this).attr('rowspan') / 2; i += 0.5) {
+                    if($('.timeslot[data-hour="' + (hour + i) + '"][data-day="' + day + '"][data-index="' + index + '"]').length) continue;
+                    var last = $('.timeslot[data-hour="' + (hour + i) + '"][data-day="' + day + '"]:last');
+                    last.after(last.clone().removeAttr('rowspan').removeAttr('colspan').attr('data-index', index).empty());
+                }
+            }
+        });
     }
 };
 
@@ -130,7 +241,10 @@ var Course = {
             Course.courses.push(courseName);
 
             // add course style class.
-            var courseStyleNum = Course.courses.length % 6;
+            var courseStyleNum = Math.abs(courseName.split("").reduce(function (a, b) {
+                    a = ((a << 5) - a) + b.charCodeAt(0);
+                    return a & a
+                }, 0)) % 6;
             $("[data-name=" + courseName + "]").addClass("lesson-style-" + courseStyleNum);
 
             Course.display().save();
@@ -156,8 +270,8 @@ var Course = {
             if ($lesson.data("name") == courseName)
                 $lesson.hide("slide", $lesson.remove);
         });
-        Course.display().save();
 
+        Course.display().save();//.recover();
         return Course;
     },
     display   : function () {
@@ -180,12 +294,13 @@ var Course = {
         var temp         = getSavedData('tutorials');
         Course.tutorials = temp ? JSON.parse(temp) : {};
         if (savedCourses) {
+            Calendar.columnSeparate();
             $.each(JSON.parse(savedCourses), function (i, courseName) {
                 Course.add(courseName, true);
             });
+            Calendar.columnMerge();
         }
         Course.display();
-
         return Course;
     },
     save      : function () {
@@ -258,7 +373,8 @@ $(function () {
 
     Calendar.initialize();
 
-    $.get("https://rawgit.com/samyex6/anutimetable/master/data/timetable.json", {}, function (data) {
+    // https://rawgit.com/samyex6/anutimetable/master/data/timetable.json
+    $.get("./data/timetable.json", {}, function (data) {
         Course.processRaw(data);
         timetableData = rearrangeLessons(rawLessons);
         Course.recover();
@@ -286,7 +402,7 @@ $(function () {
 
         _(rawLessons).each(function (lesson) {
             if (ids.indexOf(lesson.id) >= 0) {
-                var day = ["mon", "tue", "wed", "thu", "fri"].indexOf(lesson.day);
+                var day = Calendar.weekdays.indexOf(lesson.day);
                 calString += eventTemplate({
                     padded_hour    : (lesson.hour < 10 ? "0" : "") + lesson.hour,
                     padded_end_hour: (lesson.hour < 9 ? "0" : "") + (lesson.hour + 1),

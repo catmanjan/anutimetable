@@ -95,11 +95,13 @@ END:VEVENT
 
 <script type="text/template" id="compulsary-event-template">
   <div class='lesson' data-eventtype='compulsary'
-    data-name='<%= item.name %>' data-id='<%= item.id %>'>
+    data-name='<%= item.name %>'>
     <p>
       <strong><%= item.name %></strong>.
       <em><%= item.location %></em>.
-      <%= item.info %>
+      <%= item.info %>.
+      <i><%= Math.floor(item.start) + ':' + (item.start == Math.floor(item.start) ? '0' : '3') + '0-' +
+        Math.floor(item.start + item.dur) + ':' + (item.start + item.dur == Math.floor(item.start + item.dur) ? '0' : '3') + '0' %></i>
     </p>
   </div>
 </script>
@@ -108,11 +110,13 @@ END:VEVENT
   <div class='lesson' data-eventtype='group'
     data-group='<%= item.name + filterNumbers(item.info) %>'
     data-fgroup='<%= item.name + item.info %>'
-    data-name='<%= item.name %>' data-id='<%= item.id %>'>
+    data-name='<%= item.name %>'>
     <p>
       <strong><%= item.name %></strong>.
       <em><%= item.location %></em>.
-      <%= item.info %>
+      <%= item.info %>.
+      <i><%= Math.floor(item.start) + ':' + (item.start == Math.floor(item.start) ? '0' : '3') + '0-' +
+        Math.floor(item.start + item.dur) + ':' + (item.start + item.dur == Math.floor(item.start + item.dur) ? '0' : '3') + '0' %></i><br>
       <a class="choose" href>(choose)</a>
     </p>
   </div>
@@ -130,18 +134,17 @@ END:VEVENT
         <% } %>
       </tr>
 
-      <% for (var hour = start_hour; hour < end_hour; hour ++) { %>
+      <% for (var hour = start_hour; hour < end_hour; hour += 0.5) { %>
         <tr class="timetable-row" data-hour="<%= hour %>"
           <% if (hour < normal_start_hour || hour >= normal_end_hour) { %>
             style='display:none'
           <% } %>
           >
-          <th>
-            <%= hour %>:00
+          <th><%= (hour / 0.5 - start_hour * 2) %> -
+            <%= Math.floor(hour) %>:<%= hour == Math.floor(hour) ? '0' : '3' %>0
           </th>
           <% for (var i = 0; i < 5; i++) { %>
-            <td class="timeslot" data-hour="<%= hour %>"
-                                 data-day="<%= days[i] %>">
+            <td class="timeslot" data-hour="<%= hour %>" data-day="<%= days[i] %>" data-index="-1">
             </td>
           <% } %>
         </tr>
