@@ -35,6 +35,7 @@ var Calendar = {
         var dayCell  = $('.table.table-striped th.col-sm-2:nth(' + dayIndex + ')');
         var colspan  = !dayCell.attr('colspan') ? 0 : parseInt(dayCell.attr('colspan'));
 
+
         // If the target is not found, that means it was merged by upper cells, separate it.
         // There are one possible separation, colspan separation.
         if (!recover) Calendar.columnSeparate();
@@ -270,8 +271,8 @@ var Course = {
             if ($lesson.data("name") == courseName)
                 $lesson.hide("slide", $lesson.remove);
         });
+        Course.display().save();
 
-        Course.display().save();//.recover();
         return Course;
     },
     display   : function () {
