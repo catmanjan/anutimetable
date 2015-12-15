@@ -151,6 +151,30 @@ var Calendar = {
                 }
             });
         });
+
+        /*
+         $('.timeslot:not(:empty)').each(function () {
+         var removeList = [];
+         var hour       = parseInt($(this).data('hour'));
+         var day        = $(this).data('day');
+         var index      = parseInt($(this).data('index'));
+         var siblings   = $(this).find('~[data-day="' + day + '"]');
+         if (siblings.length === siblings.filter(':empty').length && siblings.filter(':last').data('index') == index + siblings.length) {
+         $(this).attr('colspan', siblings.length + 1);
+         removeList.push(siblings);
+         if ($(this).attr('rowspan')) {
+         for (var i = 0; i < $(this).attr('rowspan') / 2; i += 0.5) {
+         var nextSiblings = $('.timeslot[data-hour="' + (hour + i) + '"][data-day="' + day + '"][data-index="' + (index + 1) + '"] ~');
+         if (siblings.length !== nextSiblings.find('~[data-day="' + day + '"]').length + 1 || nextSiblings.filter(':last').data('index') != index + siblings.length) {
+         return;
+         }
+         removeList.push(nextSiblings.find('~[data-day="' + day + '"]'));
+         }
+         }
+         }
+         $.each(removeList, function (i, v) {
+         v.remove();
+         });*/
         return Calendar;
     },
     columnSeparate    : function () {
@@ -476,7 +500,8 @@ $(function () {
 
     Calendar.initialize();
 
-    $.get('https://rawgit.com/samyex6/anutimetable/master/data/timetable.json', {}, function (data) {
+    // https://rawgit.com/samyex6/anutimetable/master
+    $.get('./data/timetable-test.json', {}, function (data) {
         Course.processRaw(data);
         timetableData = rearrangeLessons(rawLessons);
         Course.recover();
