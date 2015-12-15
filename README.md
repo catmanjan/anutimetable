@@ -2,6 +2,17 @@
 
 ## Updates
 
+### 2015-12-15
+* Added maximum 6 courses adding limitation.
+  * Code is messy, will need to rewrite it someday.
+  * **If the table displays in an abnormal way, submit an issue with a screeshot and the course addition/deletion order.**
+* Added :30 courses supports.
+* Updated the newest timetable.json.
+* Changed the structure for JSON (**Note that the old JSON will no longer work!**).
+  * Removed key 'hour', added key 'start', altered key from 'duration' to 'dur'.
+  * Combined all identical data classes.
+  * Size reduced by 50%.
+
 ### 2015-12-09
 * Deprecated save & flush button, these operations will now be processed automatically. <issue #26>
 * Reconstructed functions & variables into OOP style.

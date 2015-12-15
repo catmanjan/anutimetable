@@ -53,8 +53,8 @@
     text-align     : center;
 }
 
-.table td {
-    height : 1px;
+.table td, .table th {
+    border : 1px solid #E3E3EF;
 }
 
 /* From http://stackoverflow.com/questions/20198247/twitters-typeahead-js-suggestions-are-not-styled-have-no-border-transparent-b */
