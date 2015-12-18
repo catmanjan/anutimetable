@@ -1,13 +1,22 @@
 # anutimetable
 
+* Timetable database last update: 2015-12-19
+
 ## Updates
+
+### 2015-12-19
+* Rewrote the code related to :30 courses support.
+  * Instead of remove unused cells, it will now just hide them, this makes searching much easier.
+  * It's now fully functional and the code is much cleaner than the previous version.
+  * **There should be no broken table if used proper, but if it occurs, please submit an issue with a screeshot and the course addition/deletion order.**
+* 'class' label is now treated as 'non-compulsory' category and is selectable between different ones.
+* Since there's a limitation course numbers, one more color was added to make sure each course get a different widget color.
 
 ### 2015-12-15
 * Added maximum 6 courses adding limitation.
   * Code is messy, will need to rewrite it someday.
-  * **If the table displays in an abnormal way, submit an issue with a screeshot and the course addition/deletion order.**
+  * If the table displays in an abnormal way, submit an issue with a screeshot and the course addition/deletion order.
 * Added :30 courses supports.
-* Updated the newest timetable.json.
 * Changed the structure for JSON (**Note that the old JSON will no longer work!**).
   * Removed key 'hour', added key 'start', altered key from 'duration' to 'dur'.
   * Combined all identical data classes.
@@ -26,7 +35,7 @@
   * The structure will now be: [[fullName], [info], [location], [course]].
   * Removed key 'fullName', added key 'nid', 'iid' and 'lid' in course object.
   * This provides an index searching for fullName, location and info, which reduces the size of the data by about 50%.
-  * **The structure will change again in the upcoming days to merge same classes together and suit :30 classes. The file size will be significantly reduced.**
+  * The structure will change again in the upcoming days to merge same classes together and suit :30 classes. The file size will be significantly reduced.
 
 ### 2015-12-08
 * Added delete, clear, save and flush feature (use localStorage / cookie depends on the availability).
@@ -34,7 +43,6 @@
 * Fixed the issue with not being able to choose between one hour tutorials.
 * Fixed the issue with ics export will include all the tutorials regardless of choosing or not.
 * Categorized files into folders (js, css and data, all json files will be saved in data).
-* Updated the newest timetable.json.
 * Added auto-complete feature.
   * For matching, if the user is using his/her/theirs own data without fullName field, then it'll use name instead.
 * Added a spider written in jQuery.
@@ -54,6 +62,5 @@
 * Fixed the /timetable.json relative path issue (was directing to the root directory).
 * Changed the ics import button location and color.
 
-## Known issues
-
-* The builder only display courses in whole hours calendar.
+### Known issues
+* After choosing the tutorial for a lesson, the choose button will be hid, but if the page is refreshed, it will appear again.

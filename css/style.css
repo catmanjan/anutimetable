@@ -48,6 +48,11 @@
     background-color : #CCFFCC;
 }
 
+.lesson-style-6 {
+    border-color     : #006666;
+    background-color : #CCFFFF;
+}
+
 .table th {
     vertical-align : middle !important;
     text-align     : center;

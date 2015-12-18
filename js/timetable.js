@@ -4,7 +4,7 @@ var hasLocalStorage = typeof(Storage) !== "undefined";
 var recover         = false;
 
 var Calendar = {
-    initialize        : function () {
+    initialize          : function () {
         this.tradingHours             = {
             start_hour       : 8,
             normal_start_hour: 9,
@@ -24,41 +24,44 @@ var Calendar = {
             this.courseGrids.push(temp);
         }
     },
-    putItem           : function (item, displayDiv) {
+    putItem             : function (item, displayDiv) {
 
         // Determine the index for search in courseGrids
         var index    = (item.start - Calendar.tradingHours.start_hour) * 2;
         var dayIndex = Calendar.weekdays.indexOf(item.day);
         var rowspan  = item.dur * 2;
-        var dayCell  = $('.table.table-striped th.col-sm-2:nth(' + dayIndex + ')');
+        var dayCell  = Calendar.dayHeaderElement('dayHeaderElement');
         var colspan  = !dayCell.attr('colspan') ? 0 : parseInt(dayCell.attr('colspan'));
 
         // Separate empty cells
         if (!recover) Calendar.columnSeparate();
 
-        Calendar.courseGrids = Calendar.fillArray(Calendar.courseGrids, item.name + ' ' + item.info, (item.start - Calendar.tradingHours.start_hour) * 2, dayIndex, rowspan, 0);
-        var currentIndex     = Calendar.courseGrids[0];
-        Calendar.courseGrids = Calendar.courseGrids[1];
+        var temp             = Calendar.fillArray(Calendar.courseGrids, item.name + ' ' + item.info, (item.start - Calendar.tradingHours.start_hour) * 2, dayIndex, rowspan, 0);
+        var currentIndex     = temp[0];
+        Calendar.courseGrids = temp[1];
 
         // Changing the colspan of the title (mon, tue, ...)
         dayCell.attr('colspan', Calendar.courseGrids[0][dayIndex].length + 1);
 
         // Creating empty cells if not exist, or separating the existing one
-        if (!$('.timeslot[data-day="' + item.day + '"][data-index="' + currentIndex + '"]').length) {
+        if (!Calendar.timeslotElement(null, item.day, currentIndex).length) {
             $('.timetable-row').each(function () {
                 var beforeElement = $(this).find('[data-day="' + item.day + '"]:last');
-                beforeElement.after(beforeElement.clone().show().removeAttr('rowspan').removeAttr('colspan').attr('data-index', currentIndex).empty());
+                beforeElement.after(beforeElement.clone().removeClass('hide').removeClass('rowspanHide').removeAttr('rowspan').removeAttr('colspan').attr('data-index', currentIndex).empty());
             });
         }
 
-        var targetElement = $('.timeslot[data-hour="' + item.start + '"][data-day="' + item.day + '"][data-index="' + currentIndex + '"]');
+        var targetElement = Calendar.timeslotElement(item.start, item.day, currentIndex);
 
         // Fill with the content
-        targetElement.attr('rowspan', rowspan).append(displayDiv.hide().fadeIn());
+        if (rowspan > 1) {
+            targetElement.attr('rowspan', rowspan).append(displayDiv.hide());
+            displayDiv.show('slide');
+        }
 
-        // Remove cells for rowspan
+        // Hide cells for rowspan
         for (var i = 0.5; i < item.dur; i += 0.5)
-            $('.timeslot[data-hour="' + (item.start + i) + '"][data-day="' + item.day + '"][data-index="' + currentIndex + '"]').remove();
+            Calendar.timeslotElement(item.start + i, item.day, currentIndex).addClass('hide').addClass('rowspanHide');
 
         // If it's not recovering courses from storage, then merge horizontal cells
         if (!recover) Calendar.columnMerge().togglePlaceholders();
@@ -72,11 +75,11 @@ var Calendar = {
         }
 
     },
-    putCompulsaryItem : function (item) {
+    putCompulsaryItem   : function (item) {
         var displayDiv = $(_.template(Calendar.compulsaryLessonTemplate, {item: item}));
         Calendar.putItem(item, displayDiv);
     },
-    putGroupItem      : function (item) {
+    putGroupItem        : function (item) {
         var displayDiv = $(_.template(Calendar.groupLessonTemplate, {item: item}));
 
         $(displayDiv.find("a.choose")[0]).on("click", function (event) {
@@ -87,7 +90,10 @@ var Calendar = {
                     if ($item.data("fgroup") != displayDiv.data("fgroup")) {
                         var index = $.inArray($item.data('fgroup'), Course.tutorials[$item.data('group')]);
                         if (index !== -1) Course.tutorials[$item.data('group')].splice(index, 1);
-                        $item.hide('slide', $item.remove);
+                        $item.hide('slide', function () {
+                            $item.parent().empty();
+                            Calendar.columnSeparate().columnMerge().togglePlaceholders();
+                        });
                     } else {
                         $("[data-fgroup='" + displayDiv.data("fgroup") + "'] a.choose").hide("scale");
                     }
@@ -101,7 +107,7 @@ var Calendar = {
         // Hide all but one of the (choose) links
         $("[data-fgroup='" + displayDiv.data("fgroup") + "'] a.choose").slice(1).hide();
     },
-    putLessonGroup    : function (group) {
+    putLessonGroup      : function (group) {
         if (group[0] == "group") {
             for (var i = group[1].length - 1; i >= 0; i--) {
                 var key      = group[1][i].name + filterNumbers(group[1][i].info),
@@ -119,202 +125,167 @@ var Calendar = {
             Calendar.putCompulsaryItem(group[1]);
         }
     },
-    columnMerge       : function () {
+    columnMerge         : function () {
 
-        $.each(Calendar.courseGrids, function (j, row) {
-            $.each(row, function (k, arr) {
-                var colspan     = 1;
-                var removeLists = [];
-                var elements    = $('.timeslot[data-hour="' + (0.5 * j + Calendar.tradingHours.start_hour) + '"][data-day="' + Calendar.weekdays[k] + '"]');
-                for (var i = arr.length - 1; i >= 0; i--) {
-                    var targetElement = elements.filter('[data-index="' + i + '"]:not([rowspan])');
-                    if (!targetElement.length) {
-                        if (removeLists.length > 1 && arr.length - 1 !== i) {
-                            targetElement = elements.filter('[data-index="' + (i + 1) + '"]');
-                            targetElement.attr('colspan', colspan - 1);
-                            removeLists.pop();
-                            $.each(removeLists, function (i, element) {
-                                element.remove();
-                            });
+        $('.timeslot[data-index!="-1"]:not(.hide)').each(function () {
+
+            var afterElement = $(this),
+                hour         = parseFloat(afterElement.data('hour')),
+                day          = afterElement.data('day'),
+                index        = parseInt(afterElement.data('index')),
+                emptyCount   = 0,
+                lastIndex    = index,
+                hideList     = [[]],
+                rowspan;
+
+            // Add consecutive empty cells after the timeslot to the
+            // hiding pending list and accumulates empty counts for rowspan
+            while ((afterElement = afterElement.find('+ [data-day="' + day + '"]:empty:not(.rowspanHide)')).length) {
+                if (lastIndex + 1 !== (lastIndex = parseInt(afterElement.data('index')))) break;
+                hideList[0].push(afterElement);
+                emptyCount++;
+            }
+
+            if (!emptyCount) return;
+
+            // If rowspan exists, proceeding to the bound rows and add cells
+            // which suits consecutive empty cells condition to the hiding
+            // list, abort and delete the previous added elements if found
+            // any non empty or .rowspanHide cells.
+            if (rowspan = parseInt($(this).attr('rowspan'))) {
+                var abort = false;
+                for (var i = 0.5; i < rowspan / 2; i += 0.5) {
+                    for (var j = 1; j <= emptyCount; j++) {
+                        var nextElement = Calendar.timeslotElement(hour + i, day, index + j).filter(':empty:not(.rowspanHide)');
+                        if (!nextElement.length) {
+                            abort      = j;
+                            emptyCount = j - 1;
+                            break;
                         }
-                        break;
-                    } else if (arr[i] !== 0 || i === 0) {
-                        var rowspan = targetElement.attr('rowspan');
-                        if (colspan > 1)   targetElement.attr('colspan', colspan);
-                        $.each(removeLists, function (i, element) {
-                            element.remove();
+                        if (!hideList[j]) hideList[j] = [];
+                        hideList[j].push(nextElement);
+                    }
+                    if (abort !== false) {
+                        $.each(hideList, function (j) {
+                            hideList[j].splice(abort - 1, 100);
                         });
                         break;
                     }
-                    removeLists.push(targetElement);
-                    colspan++;
                 }
+            }
+
+            $.each(hideList, function (i, v) {
+                $.each(v, function (j, l) {
+                    l.addClass('hide');
+                });
             });
+
+            if (emptyCount > 0) $(this).attr('colspan', emptyCount + 1);
         });
 
-        /*
-         $('.timeslot:not(:empty)').each(function () {
-         var removeList = [];
-         var hour       = parseInt($(this).data('hour'));
-         var day        = $(this).data('day');
-         var index      = parseInt($(this).data('index'));
-         var siblings   = $(this).find('~[data-day="' + day + '"]');
-         if (siblings.length === siblings.filter(':empty').length && siblings.filter(':last').data('index') == index + siblings.length) {
-         $(this).attr('colspan', siblings.length + 1);
-         removeList.push(siblings);
-         if ($(this).attr('rowspan')) {
-         for (var i = 0; i < $(this).attr('rowspan') / 2; i += 0.5) {
-         var nextSiblings = $('.timeslot[data-hour="' + (hour + i) + '"][data-day="' + day + '"][data-index="' + (index + 1) + '"] ~');
-         if (siblings.length !== nextSiblings.find('~[data-day="' + day + '"]').length + 1 || nextSiblings.filter(':last').data('index') != index + siblings.length) {
-         return;
-         }
-         removeList.push(nextSiblings.find('~[data-day="' + day + '"]'));
-         }
-         }
-         }
-         $.each(removeList, function (i, v) {
-         v.remove();
-         });*/
         return Calendar;
     },
-    columnSeparate    : function () {
+    columnSeparate      : function () {
 
-        // Creating a pending list for correct order
-        var pendingList = {}, sortKeyList = [];
-        $('.timeslot[rowspan]:empty').each(function () {
-            var index   = parseInt($(this).data('index'));
-            var hour    = parseInt($(this).data('hour'));
-            var day     = $(this).data('day');
-            var colspan = $(this).attr('colspan');
+        var timeslots = $('.timeslot');
 
-            for (var i = 0.5; i < $(this).attr('rowspan') / 2; i += 0.5) {
-                if (!pendingList[index]) {
-                    pendingList[index] = [];
-                    sortKeyList.push(index);
-                }
-                pendingList[index].push([
-                    $('.timeslot[data-hour="' + (hour + i) + '"][data-day="' + day + '"]:last'),
-                    $(this).clone().show().attr('data-hour', hour + i).removeAttr('rowspan').attr('data-index', index).empty()
-                ]);
-            }
+        // Remove all colspan and display all related hidden cells
+        timeslots.filter('[colspan]').removeAttr('colspan');
+        timeslots.filter('.hide[data-index!="-1"]:not(.rowspanHide)').removeClass('hide');
+
+        // Remove rowspan for empty cells and all related hidden cells
+        timeslots.filter('[rowspan]:empty').each(function () {
+            var hour    = parseFloat($(this).data('hour')),
+                day     = $(this).data('day'),
+                index   = $(this).data('index'),
+                rowspan = parseInt($(this).attr('rowspan'));
+            for (var i = 0.5; i < rowspan / 2; i += 0.5)
+                Calendar.timeslotElement(hour + i, day, index).removeClass('hide').removeClass('rowspanHide');
             $(this).removeAttr('rowspan');
-
-        });
-
-        sortKeyList.sort();
-        $.each(sortKeyList, function (i, key) {
-            console.log(pendingList[key]);
-            $.each(pendingList[key], function (j, v) {
-                v[0].after(v[1]);
-            });
-        });
-
-        $('.timeslot[colspan]').each(function () {
-            var cloneNum = $(this).attr('colspan');
-            var index    = parseInt($(this).data('index'));
-            var hour     = parseInt($(this).data('hour'));
-            var day      = $(this).data('day');
-
-            $(this).removeAttr('colspan');
-            if (cloneNum <= 1) return;
-
-            var lastCell = $(this);
-            for (var i = 1; i < cloneNum; i++) {
-                lastCell.after(lastCell = lastCell.clone().show().removeAttr('rowspan').removeAttr('colspan').attr('data-index', index + i).empty());
-                if ($(this).attr('rowspan') > 1) {
-                    for (var j = 0.5; j < $(this).attr('rowspan') / 2; j += 0.5) {
-                        if ($('.timeslot[data-hour="' + (hour + j) + '"][data-day="' + day + '"][data-index="' + (index + i) + '"]').length) continue;
-                        var last = $('.timeslot[data-hour="' + (hour + j) + '"][data-day="' + day + '"]:last');
-                        last.after(last.clone().show().removeAttr('rowspan').removeAttr('colspan').attr('data-index', index + i).empty());
-                    }
-                }
-            }
         });
 
         return Calendar;
     },
-    removeFromGrid    : function (courseName) {
-        var checkDayNIndex = [];
+    removeFromGrid      : function (courseName) {
 
         // Delete the course from grid array
         $.each(Calendar.courseGrids, function (i, v) {
             $.each(v, function (j, h) {
                 $.each(h, function (k, n) {
-                    if (n.toString().indexOf(courseName) !== -1) {
-                        Calendar.courseGrids[i][j][k] = 0;
-                        checkDayNIndex.push([j, k]);
-                    }
+                    if (n.toString().indexOf(courseName) !== -1) Calendar.courseGrids[i][j][k] = 0;
                 });
             });
         });
 
-        // Uniquify the array to reduce multiple checking
-        checkDayNIndex = _.uniq(checkDayNIndex, function (item) {
-            return item[0] + ' ' + item[1];
-        });
-
-
         // UI update
-        Calendar.columnSeparate();
-        $('.lesson[data-name="' + courseName + '"]').remove();
-        $.each(checkDayNIndex, function (i, v) {
-            var checkElement = $('.timeslot[data-day="' + Calendar.weekdays[v[0]] + '"][data-index="' + v[1] + '"]');
-            console.log(checkElement.length + '_' + checkElement.filter(':empty').length + '_' + (checkElement.length > 0 && checkElement.length === checkElement.filter(':empty').length) + '_' + '.timeslot[data-day="' + Calendar.weekdays[v[0]] + '"][data-index="' + v[1] + '"]');
-            if (checkElement.length > 0 && checkElement.length === checkElement.filter(':empty').length) {
-                var dayCell = $('.table.table-striped th.col-sm-2:nth(' + v[0] + ')');
-                checkElement.remove();
-                if (dayCell.attr('colspan') - 1 > 1) dayCell.attr('colspan', dayCell.attr('colspan') - 1);
-            }
+        $('.lesson[data-name="' + courseName + '"]').hide('slide', function () {
+            $(this).parent().empty();
+            Calendar.columnSeparate().columnMerge().togglePlaceholders();
         });
-        Calendar.columnMerge().togglePlaceholders();
 
     },
-    togglePlaceholders: function () {
+    togglePlaceholders  : function () {
 
         $.each(Calendar.weekdays, function (i, v) {
-            var timeslots    = $('.timeslot[data-day="' + v + '"]');
+            var timeslots    = $('.timeslot[data-day="' + v + '"]:not(.hide)');
             var placeHolders = timeslots.filter('[data-index="-1"]');
-            var dayCell      = $('.table.table-striped th.col-sm-2:nth(' + i + ')');
-            var isEqual      = placeHolders.length === timeslots.length;
-            var nicht        = timeslots.filter('[data-hour="8"][data-index!="-1"]');
-            var colspan      = 0;
-            nicht.each(function () {
+
+            if (placeHolders.length === timeslots.length) {
+                placeHolders.removeClass('hide');
+                return;
+            }
+
+            var notPlaceHolder = timeslots.filter('[data-hour="8"][data-index!="-1"]');
+            var colspan        = 0;
+            notPlaceHolder.each(function () {
                 colspan += parseInt($(this).attr('colspan')) || 1;
             });
 
-            if (isEqual) {
-                placeHolders.show();
-            } else {
-                placeHolders.hide();
-                dayCell.attr('colspan', colspan);
-            }
+            placeHolders.addClass('hide');
+            Calendar.dayHeaderElement(i).attr('colspan', colspan);
         });
         return Calendar;
     },
-    fillArray         : function (array, fillWith, hour, day, blockNum, currentIndex) {
+    fillArray           : function (array, fillWith, hour, day, blockNum, currentIndex) {
+
         // Find the left most possible space and fill in the value
         // For example, if we need to fill up 2 blocks with value v
         // from vertical index 2 then the transition will be like:
-        // var a = [[[], [0     , 0, 0], [], [], []],
-        //          [[], [1     , 0, 0], [], [], []],
-        //          [[], [0 -> v, 2, 0], [], [], []],
-        //          [[], [0 -> v, 2, 3], [], [], []]];
+        // var a = [[[], [0        , 0, 0], [], [], []],
+        //          [[], [1        , 0, 0], [], [], []],
+        //          [[], [0 -> v   , 2, 0], [], [], []],
+        //          [[], [0 -> v~~~, 2, 3], [], [], []]];
+        // ~~~ is used to identify if this should be an empty cell
+        // but occupied by v from last cell vertically.
         if ('undefined' === typeof array[hour][day][currentIndex] || !array[hour][day].length) {
             $.each(array, function (i) {
-                array[i][day].push(i < hour || i >= hour + blockNum ? 0 : fillWith);
+                array[i][day].push(i < hour || i >= hour + blockNum ? 0 : fillWith + (hour == i ? '' : '~~~'));
             });
         } else {
             var counter = 1;
+
+            // Finding the available vertical blocks set
             $.each(array, function (i, row) {
                 if (i <= hour) return;
                 if (i >= hour + blockNum) return false;
                 counter = !row[day][currentIndex] ? counter + 1 : 0;
             });
             if (counter < blockNum) return Calendar.fillArray(array, fillWith, hour, day, blockNum, currentIndex + 1);
+
             for (var j = 0; j < blockNum; j++)
-                array[hour + j][day][currentIndex] = fillWith;
+                array[hour + j][day][currentIndex] = fillWith + (j === 0 ? '' : '~~~');
         }
         return [currentIndex, array];
+    },
+    timeslotElement     : function (hour, day, index) {
+        var selector = '.timeslot[data-index!="-1"]';
+        if (null !== hour) selector += '[data-hour="' + hour + '"]';
+        if (null !== day) selector += '[data-day="' + day + '"]';
+        if (null !== index) selector += '[data-index="' + index + '"]';
+        return $(selector);
+    },
+    dayHeaderElement    : function (day) {
+        return $('.table.table-striped th.col-sm-2:nth(' + (parseInt(day).toString() === day.toString() ? day : Calendar.weekdays.indexOf(day)) + ')');
     }
 };
 
@@ -342,10 +313,11 @@ var Course = {
     courses   : [],
     tutorials : {},
     get       : function () {
-        var courseName = $("#course-name").val().split('-')[0].toUpperCase().trim();
+        var courseNameElement = $("#course-name");
+        var courseName = courseNameElement.val().split('-')[0].toUpperCase().trim();
         if (courseName && Course.courses.indexOf(courseName) === -1) {
             $("#add-course").html("Adding...");
-            $("#course-name").val("");
+            courseNameElement.val("");
             Course.add(courseName);
         }
         return Course;
@@ -365,10 +337,7 @@ var Course = {
             Course.courses.push(courseName);
 
             // add course style class.
-            var courseStyleNum = Math.abs(courseName.split("").reduce(function (a, b) {
-                    a = ((a << 5) - a) + b.charCodeAt(0);
-                    return a & a
-                }, 0)) % 6;
+            var courseStyleNum = Math.abs(Course.courses.indexOf(courseName) % 5) + 1;
             $("[data-name=" + courseName + "]").addClass("lesson-style-" + courseStyleNum);
 
             Course.display().save();
@@ -500,8 +469,7 @@ $(function () {
 
     Calendar.initialize();
 
-    // https://rawgit.com/samyex6/anutimetable/master
-    $.get('./data/timetable-test.json', {}, function (data) {
+    $.get('https://rawgit.com/samyex6/anutimetable/master/data/timetable-test.json', {}, function (data) {
         Course.processRaw(data);
         timetableData = rearrangeLessons(rawLessons);
         Course.recover();
