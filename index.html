@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>ANU timetable builder</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Intuitive timetable builder for the Australian National University.">
   <script src="js/underscore.js"></script>
   <script src="js/jquery.js"></script>
   <script src="js/typeahead.bundle.min.js"></script>
@@ -12,8 +14,6 @@
   <link rel="shortcut icon" href="favicon.ico" />
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
-  <meta charset="utf-8">
-  <meta name="description" content="Intuitive timetable builder for the Australian National University.">
 </head>
 <body>
 
@@ -21,7 +21,7 @@
   <div class="row">
     <div class="col-sm-10 col-md-10">
       <h1>ANU timetable builder</h1>
-      <p>Updated for 2016.</p>
+      <p>Default timetable last updated at: <span id="jsonUpdatedTime"></span></p>
       <p><i>Courses chosen: <span id="chosenCourses">Loading data from data/timetable.json...</span>
         <span id="courses" style="display: inline;"></span></i></p>
     </div>

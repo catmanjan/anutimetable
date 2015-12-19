@@ -10,7 +10,10 @@
   * It's now fully functional and the code is much cleaner than the previous version.
   * **There should be no broken table if used proper, but if it occurs, please submit an issue with a screeshot and the course addition/deletion order.**
 * 'class' label is now treated as 'non-compulsory' category and is selectable between different ones.
-* Since there's a limitation course numbers, one more color was added to make sure each course get a different widget color.
+* Added one more color to make sure six courses all get a different widget color.
+* Replaced the text 'Updated for 2016.' with default timetable update time.
+* Changed the table to show borders since it's hard to see which timeslot section the class belongs to without them
+  * If we set the lesson block to inherit the cell height (cell height 1px and lesson block height 100%), it'll cause some issues when adding/deleting classes, even not, it shows too much space and looks weird).
 
 ### 2015-12-15
 * Added maximum 6 courses adding limitation.

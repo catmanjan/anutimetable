@@ -2,9 +2,10 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== "undefined";
 var recover         = false;
+var jsonUpdatedTime = '2015-12-19';
 
 var Calendar = {
-    initialize          : function () {
+    initialize        : function () {
         this.tradingHours             = {
             start_hour       : 8,
             normal_start_hour: 9,
@@ -24,7 +25,7 @@ var Calendar = {
             this.courseGrids.push(temp);
         }
     },
-    putItem             : function (item, displayDiv) {
+    putItem           : function (item, displayDiv) {
 
         // Determine the index for search in courseGrids
         var index    = (item.start - Calendar.tradingHours.start_hour) * 2;
@@ -56,7 +57,7 @@ var Calendar = {
         // Fill with the content
         if (rowspan > 1) {
             targetElement.attr('rowspan', rowspan).append(displayDiv.hide());
-            displayDiv.show('slide');
+            displayDiv.slideDown();
         }
 
         // Hide cells for rowspan
@@ -69,17 +70,17 @@ var Calendar = {
         if (item.start < 9 || item.start >= 18) {
             _($(".timetable-row")).each(function (row) {
                 if ($(row).data('hour') < 9 || $(row).data('hour') >= 18) {
-                    $(row).show('slide');
+                    $(row).slideDown();
                 }
             })
         }
 
     },
-    putCompulsaryItem   : function (item) {
+    putCompulsaryItem : function (item) {
         var displayDiv = $(_.template(Calendar.compulsaryLessonTemplate, {item: item}));
         Calendar.putItem(item, displayDiv);
     },
-    putGroupItem        : function (item) {
+    putGroupItem      : function (item) {
         var displayDiv = $(_.template(Calendar.groupLessonTemplate, {item: item}));
 
         $(displayDiv.find("a.choose")[0]).on("click", function (event) {
@@ -90,7 +91,7 @@ var Calendar = {
                     if ($item.data("fgroup") != displayDiv.data("fgroup")) {
                         var index = $.inArray($item.data('fgroup'), Course.tutorials[$item.data('group')]);
                         if (index !== -1) Course.tutorials[$item.data('group')].splice(index, 1);
-                        $item.hide('slide', function () {
+                        $item.slideUp(function () {
                             $item.parent().empty();
                             Calendar.columnSeparate().columnMerge().togglePlaceholders();
                         });
@@ -107,7 +108,7 @@ var Calendar = {
         // Hide all but one of the (choose) links
         $("[data-fgroup='" + displayDiv.data("fgroup") + "'] a.choose").slice(1).hide();
     },
-    putLessonGroup      : function (group) {
+    putLessonGroup    : function (group) {
         if (group[0] == "group") {
             for (var i = group[1].length - 1; i >= 0; i--) {
                 var key      = group[1][i].name + filterNumbers(group[1][i].info),
@@ -125,7 +126,7 @@ var Calendar = {
             Calendar.putCompulsaryItem(group[1]);
         }
     },
-    columnMerge         : function () {
+    columnMerge       : function () {
 
         $('.timeslot[data-index!="-1"]:not(.hide)').each(function () {
 
@@ -185,7 +186,7 @@ var Calendar = {
 
         return Calendar;
     },
-    columnSeparate      : function () {
+    columnSeparate    : function () {
 
         var timeslots = $('.timeslot');
 
@@ -206,7 +207,7 @@ var Calendar = {
 
         return Calendar;
     },
-    removeFromGrid      : function (courseName) {
+    removeFromGrid    : function (courseName) {
 
         // Delete the course from grid array
         $.each(Calendar.courseGrids, function (i, v) {
@@ -218,13 +219,13 @@ var Calendar = {
         });
 
         // UI update
-        $('.lesson[data-name="' + courseName + '"]').hide('slide', function () {
+        $('.lesson[data-name="' + courseName + '"]').slideDown(function () {
             $(this).parent().empty();
             Calendar.columnSeparate().columnMerge().togglePlaceholders();
         });
 
     },
-    togglePlaceholders  : function () {
+    togglePlaceholders: function () {
 
         $.each(Calendar.weekdays, function (i, v) {
             var timeslots    = $('.timeslot[data-day="' + v + '"]:not(.hide)');
@@ -246,7 +247,7 @@ var Calendar = {
         });
         return Calendar;
     },
-    fillArray           : function (array, fillWith, hour, day, blockNum, currentIndex) {
+    fillArray         : function (array, fillWith, hour, day, blockNum, currentIndex) {
 
         // Find the left most possible space and fill in the value
         // For example, if we need to fill up 2 blocks with value v
@@ -277,14 +278,14 @@ var Calendar = {
         }
         return [currentIndex, array];
     },
-    timeslotElement     : function (hour, day, index) {
+    timeslotElement   : function (hour, day, index) {
         var selector = '.timeslot[data-index!="-1"]';
         if (null !== hour) selector += '[data-hour="' + hour + '"]';
         if (null !== day) selector += '[data-day="' + day + '"]';
         if (null !== index) selector += '[data-index="' + index + '"]';
         return $(selector);
     },
-    dayHeaderElement    : function (day) {
+    dayHeaderElement  : function (day) {
         return $('.table.table-striped th.col-sm-2:nth(' + (parseInt(day).toString() === day.toString() ? day : Calendar.weekdays.indexOf(day)) + ')');
     }
 };
@@ -314,7 +315,7 @@ var Course = {
     tutorials : {},
     get       : function () {
         var courseNameElement = $("#course-name");
-        var courseName = courseNameElement.val().split('-')[0].toUpperCase().trim();
+        var courseName        = courseNameElement.val().split('-')[0].toUpperCase().trim();
         if (courseName && Course.courses.indexOf(courseName) === -1) {
             $("#add-course").html("Adding...");
             courseNameElement.val("");
@@ -374,8 +375,8 @@ var Course = {
         return Course;
     },
     recover   : function () {
-        var savedCourses = getSavedData('courses');
-        var temp         = getSavedData('tutorials');
+        var savedCourses = Tools.getSavedData('courses');
+        var temp         = Tools.getSavedData('tutorials');
         Course.tutorials = temp ? JSON.parse(temp) : {};
         if (savedCourses) {
             Calendar.columnSeparate();
@@ -450,29 +451,33 @@ var loadJSON = {
 };
 
 var Tools = {
-    pad    : function (n, width, z) {
+    pad               : function (n, width, z) {
         z = z || '0';
         n = n + '';
         return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
     },
-    hourify: function (num) {
+    hourify           : function (num) {
         var parts = num.toString().split('.');
         return Tools.pad(parts[0], 2) + (parts[1] === '5' ? '30' : '00');
+    },
+    getSavedData      : function (name) {
+        return hasLocalStorage ? localStorage.getItem(name) : Cookie.get(name);
+    },
+    displayUpdatedTime: function (itemNumber) {
+        $('#jsonUpdatedTime').html(jsonUpdatedTime + '.' + ('undefined' !== typeof itemNumber ? ' (' + itemNumber + ' classes)' : ''));
     }
-};
-
-var getSavedData = function (name) {
-    return hasLocalStorage ? localStorage.getItem(name) : Cookie.get(name);
 };
 
 $(function () {
 
     Calendar.initialize();
+    Tools.displayUpdatedTime();
 
     $.get('https://rawgit.com/samyex6/anutimetable/master/data/timetable-test.json', {}, function (data) {
         Course.processRaw(data);
         timetableData = rearrangeLessons(rawLessons);
         Course.recover();
+        Tools.displayUpdatedTime(rawLessons.length);
     }).fail(function () {
         $('#load').removeClass('hide');
         $('#chosenCourses').html('Unable to load data from source, please try to refresh or manually load pre-fetched JSON from ./data folder.');
