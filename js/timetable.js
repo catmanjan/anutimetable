@@ -2,7 +2,7 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== "undefined";
 var recover         = false;
-var jsonUpdatedTime = '2015-12-21';
+var jsonUpdatedTime = '2015-12-21 15:48';
 
 var Calendar = {
     initialize        : function () {
@@ -486,8 +486,8 @@ $(function () {
     $("#cal-container").append(Calendar.html);
 
     document.onkeydown = function (e) {
-        if (e.which == 13) {
-            event.preventDefault();
+        if ((e.which || e.keyCode) == 13) {
+            e.preventDefault();
             Course.get();
         }
     };

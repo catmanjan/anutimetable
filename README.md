@@ -6,6 +6,7 @@
 
 ### 2015-12-21
 * Fixed course deletion animation (slideDown() -> slideUp()).
+* Fixed pressing enter will not add a course issue under some browsers (event.which is not supported).
 
 ### 2015-12-19
 * Rewrote the code related to :30 courses support.
@@ -71,3 +72,4 @@
 ### Known issues
 * After choosing the tutorial for a lesson, the choose button will be hid, but if the page is refreshed, it will appear again.
 * After deleting a course located at a index other than the last index, if the current index column is all empty, it won't delete this unused index column, which will cause a redundant gap column, but it'll be re-indexed after refreshing.
+* After updating the timetable database, if there're new tutorials available, the user won't notice until they re-add the course.
