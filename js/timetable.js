@@ -2,7 +2,7 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== "undefined";
 var recover         = false;
-var jsonUpdatedTime = '2015-12-19';
+var jsonUpdatedTime = '2015-12-21';
 
 var Calendar = {
     initialize        : function () {
@@ -219,7 +219,7 @@ var Calendar = {
         });
 
         // UI update
-        $('.lesson[data-name="' + courseName + '"]').slideDown(function () {
+        $('.lesson[data-name="' + courseName + '"]').slideUp(function () {
             $(this).parent().empty();
             Calendar.columnSeparate().columnMerge().togglePlaceholders();
         });
