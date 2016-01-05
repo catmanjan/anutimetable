@@ -2,7 +2,6 @@ var isCompulsory = function(string) {
 	// Best guess as to whether the class is compulsory
 	if(string.toLowerCase().indexOf('lecture') > -1
 	|| string.toLowerCase().indexOf('group teaching') > -1
-	|| string.toLowerCase().indexOf('class') > -1
 	|| string.toLowerCase().indexOf('seminar') > -1) {
 		return true;
 	}

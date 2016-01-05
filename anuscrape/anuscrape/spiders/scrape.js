@@ -52,8 +52,6 @@ if (jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
                 rows.each(function (index, courseRow) {
                     var tds       = jQuery(courseRow).find('td'),
                         className = tds.eq(0).text().match(/([a-zA-Z0-9]+)_.+?\s(.+)/),
-                        duration  = parseInt(tds.eq(5).text()),
-                        hour      = parseInt(tds.eq(3).text()),
                         location  = tds.eq(7).text().trim(),
                         lid       = jQuery.inArray(location, locations),
                         iid       = jQuery.inArray(className[2], infos);
@@ -66,19 +64,16 @@ if (jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
                         iid = infos.length;
                         infos.push(className[2]);
                     }
+                    courses.push({
+                        nid  : nid,
+                        iid  : iid,
+                        lid  : lid,
+                        name : className[1],
+                        start: parseFloat(tds.eq(3).text().replace(':30', '.5')),
+                        dur  : parseFloat(tds.eq(5).text().replace(':30', '.5')),
+                        day  : tds.eq(2).text().toLowerCase().substr(0, 3)
+                    });
 
-                    for (var i = 0; i < duration; i++) {
-                        courses.push({
-                            nid : nid,
-                            iid : iid,
-                            name: className[1],
-                            hour: hour + i,
-                            id  : id,
-                            lid : lid,
-                            day : tds.eq(2).text().toLowerCase().substr(0, 3)
-                        });
-
-                    }
                     id++;
                 });
                 succeed++;
