@@ -472,7 +472,7 @@ $(function () {
     Tools.displayUpdatedTime();
 
     // https://rawgit.com/samyex6/anutimetable/master/data/timetable.json
-    $.get('./data/timetable.json', {}, function (data) {
+    $.get('https://rawgit.com/samyex6/anutimetable/master/data/timetable.json', {}, function (data) {
         Course.processRaw(data);
         timetableData = rearrangeLessons(rawLessons);
         Course.recover();
