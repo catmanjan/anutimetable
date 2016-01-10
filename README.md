@@ -1,8 +1,12 @@
 # anutimetable
 
-* Timetable database last update: 2015-12-21
+* Timetable database last update: 2016-01-11 10:07
 
 ## Updates
+
+### 2016-01-06
+* Fixed an issue with colspan.
+* Cleared redundant code.
 
 ### 2015-12-21
 * Fixed course deletion animation (slideDown() -> slideUp()).
