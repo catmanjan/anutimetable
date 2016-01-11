@@ -220,7 +220,9 @@ var Calendar = {
 
         // UI update
         $('.lesson[data-name="' + courseName + '"]').slideUp(function () {
-            $(this).parent().empty();
+            $(this).parent().removeClass(function(i, c) {
+                return (c.match(/(^|\s)lesson-style-\d+/g) || []).join(' ');
+            }).empty();
             Calendar.columnSeparate().columnMerge().togglePlaceholders();
         });
 

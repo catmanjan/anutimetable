@@ -7,6 +7,7 @@
 ### 2016-01-11
 * Style changes to save vertical real estate.
 * Made lesson style fit to whole block.
+* Fixed the issue where the color remains when a class is removed.
 
 ### 2016-01-06
 * Fixed an issue with colspan.
