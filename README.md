@@ -4,6 +4,9 @@
 
 ## Updates
 
+### 2016-01-11
+* Style changes to save vertical real estate.
+
 ### 2016-01-06
 * Fixed an issue with colspan.
 * Cleared redundant code.

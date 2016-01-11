@@ -17,7 +17,7 @@ var Calendar = {
         this.compulsaryLessonTemplate = $("#compulsary-event-template").text();
         this.groupLessonTemplate      = $("#group-event-template").text();
         this.html                     = this.template(this.tradingHours);
-        this.courseGrids              = []; // new Array(12 * 2).fill(new Array(5).fill([]));
+        this.courseGrids              = [];
         for (var i = 0; i < (this.tradingHours.end_hour - this.tradingHours.start_hour) * 2; i++) {
             var temp = [];
             for (var j = 0; j < this.weekdays.length; j++)
@@ -471,7 +471,6 @@ $(function () {
     Calendar.initialize();
     Tools.displayUpdatedTime();
 
-    // https://rawgit.com/samyex6/anutimetable/master/data/timetable.json
     $.get('https://rawgit.com/samyex6/anutimetable/master/data/timetable.json', {}, function (data) {
         Course.processRaw(data);
         timetableData = rearrangeLessons(rawLessons);
