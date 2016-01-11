@@ -220,9 +220,7 @@ var Calendar = {
 
         // UI update
         $('.lesson[data-name="' + courseName + '"]').hide(0, function () {
-            $(this).parent().removeClass(function(i, c) {
-                return (c.match(/(^|\s)lesson-style-\d+/g) || []).join(' ');
-            }).empty();
+            $(this).parent().empty().get(0).className = 'timeslot';
             Calendar.columnSeparate().columnMerge().togglePlaceholders();
         });
 
