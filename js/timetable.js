@@ -57,7 +57,7 @@ var Calendar = {
         // Fill with the content
         if (rowspan > 1) {
             targetElement.attr('rowspan', rowspan).append(displayDiv.hide());
-            displayDiv.slideDown();
+            displayDiv.show();
         }
 
         // Hide cells for rowspan
@@ -70,7 +70,7 @@ var Calendar = {
         if (item.start < 9 || item.start >= 18) {
             _($(".timetable-row")).each(function (row) {
                 if ($(row).data('hour') < 9 || $(row).data('hour') >= 18) {
-                    $(row).slideDown();
+                    $(row).show();
                 }
             })
         }
@@ -91,12 +91,12 @@ var Calendar = {
                     if ($item.data("fgroup") != displayDiv.data("fgroup")) {
                         var index = $.inArray($item.data('fgroup'), Course.tutorials[$item.data('group')]);
                         if (index !== -1) Course.tutorials[$item.data('group')].splice(index, 1);
-                        $item.slideUp(function () {
+                        $item.hide(0, function () {
                             $item.parent().empty();
                             Calendar.columnSeparate().columnMerge().togglePlaceholders();
                         });
                     } else {
-                        $("[data-fgroup='" + displayDiv.data("fgroup") + "'] a.choose").hide("scale");
+                        $("[data-fgroup='" + displayDiv.data("fgroup") + "'] a.choose").hide();
                     }
                 }
             });
@@ -219,7 +219,7 @@ var Calendar = {
         });
 
         // UI update
-        $('.lesson[data-name="' + courseName + '"]').slideUp(function () {
+        $('.lesson[data-name="' + courseName + '"]').hide(0, function () {
             $(this).parent().removeClass(function(i, c) {
                 return (c.match(/(^|\s)lesson-style-\d+/g) || []).join(' ');
             }).empty();
