@@ -2,7 +2,7 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '2016-01-11 10:07';
+var jsonUpdatedTime = '11th of January, 2016';
 
 var Calendar = {
     initialize        : function () {
@@ -462,7 +462,7 @@ var Tools = {
         return hasLocalStorage ? localStorage.getItem(name) : Cookie.get(name);
     },
     displayUpdatedTime: function (itemNumber) {
-        $('#jsonUpdatedTime').html(jsonUpdatedTime + '.' + ('undefined' !== typeof itemNumber ? ' (' + itemNumber + ' classes)' : ''));
+        $('#jsonUpdatedTime').html(jsonUpdatedTime + '.' + ('undefined' !== typeof itemNumber ? ' (' + itemNumber + ' courses)' : ''));
     }
 };
 
