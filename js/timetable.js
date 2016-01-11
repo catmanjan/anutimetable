@@ -337,7 +337,7 @@ var Course = {
 
             // Add course style class.
             var courseStyleNum = Math.abs(Course.courses.indexOf(courseName) % 5) + 1;
-            $("[data-name=" + courseName + "]").addClass("lesson-style-" + courseStyleNum);
+            $("[data-name=" + courseName + "]").parent().addClass("lesson-style-" + courseStyleNum);
 
             Course.display().save();
         }
