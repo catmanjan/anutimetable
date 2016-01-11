@@ -2,19 +2,9 @@
 
 .lesson {
     color         : #555;
-    border-radius : 3px;
-    border-width  : 1px;
     padding-left  : 3px;
     margin-top    : 2px;
     margin-bottom : 2px;
-}
-
-.lesson[data-eventtype="compulsary"] {
-    border-style : solid;
-}
-
-.lesson[data-eventtype="group"] {
-    border-style : dashed;
 }
 
 .lesson-style-0 {
