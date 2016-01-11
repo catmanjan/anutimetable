@@ -1,8 +1,8 @@
 var rawLessons      = [];
 var timetableData   = {};
-var hasLocalStorage = typeof(Storage) !== "undefined";
+var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '21st of December, 2015';
+var jsonUpdatedTime = '11th of January, 2016';
 
 var Calendar = {
     initialize        : function () {
@@ -17,7 +17,7 @@ var Calendar = {
         this.compulsaryLessonTemplate = $("#compulsary-event-template").text();
         this.groupLessonTemplate      = $("#group-event-template").text();
         this.html                     = this.template(this.tradingHours);
-        this.courseGrids              = []; // new Array(12 * 2).fill(new Array(5).fill([]));
+        this.courseGrids              = [];
         for (var i = 0; i < (this.tradingHours.end_hour - this.tradingHours.start_hour) * 2; i++) {
             var temp = [];
             for (var j = 0; j < this.weekdays.length; j++)
@@ -31,7 +31,7 @@ var Calendar = {
         var index    = (item.start - Calendar.tradingHours.start_hour) * 2;
         var dayIndex = Calendar.weekdays.indexOf(item.day);
         var rowspan  = item.dur * 2;
-        var dayCell  = Calendar.dayHeaderElement('dayHeaderElement');
+        var dayCell  = Calendar.dayHeaderElement(item.day);
         var colspan  = !dayCell.attr('colspan') ? 0 : parseInt(dayCell.attr('colspan'));
 
         // Separate empty cells
@@ -48,7 +48,7 @@ var Calendar = {
         if (!Calendar.timeslotElement(null, item.day, currentIndex).length) {
             $('.timetable-row').each(function () {
                 var beforeElement = $(this).find('[data-day="' + item.day + '"]:last');
-                beforeElement.after(beforeElement.clone().removeClass('hide').removeClass('rowspanHide').removeAttr('rowspan').removeAttr('colspan').attr('data-index', currentIndex).empty());
+                beforeElement.after(beforeElement.clone().removeClass('hide rowspanHide').removeAttr('rowspan colspan').attr('data-index', currentIndex).empty());
             });
         }
 
@@ -62,7 +62,7 @@ var Calendar = {
 
         // Hide cells for rowspan
         for (var i = 0.5; i < item.dur; i += 0.5)
-            Calendar.timeslotElement(item.start + i, item.day, currentIndex).addClass('hide').addClass('rowspanHide');
+            Calendar.timeslotElement(item.start + i, item.day, currentIndex).addClass('hide rowspanHide');
 
         // If it's not recovering courses from storage, then merge horizontal cells
         if (!recover) Calendar.columnMerge().togglePlaceholders();
@@ -201,7 +201,7 @@ var Calendar = {
                 index   = $(this).data('index'),
                 rowspan = parseInt($(this).attr('rowspan'));
             for (var i = 0.5; i < rowspan / 2; i += 0.5)
-                Calendar.timeslotElement(hour + i, day, index).removeClass('hide').removeClass('rowspanHide');
+                Calendar.timeslotElement(hour + i, day, index).removeClass('hide rowspanHide');
             $(this).removeAttr('rowspan');
         });
 
@@ -252,15 +252,13 @@ var Calendar = {
         // Find the left most possible space and fill in the value
         // For example, if we need to fill up 2 blocks with value v
         // from vertical index 2 then the transition will be like:
-        // var a = [[[], [0        , 0, 0], [], [], []],
-        //          [[], [1        , 0, 0], [], [], []],
-        //          [[], [0 -> v   , 2, 0], [], [], []],
-        //          [[], [0 -> v~~~, 2, 3], [], [], []]];
-        // ~~~ is used to identify if this should be an empty cell
-        // but occupied by v from last cell vertically.
+        // var a = [[[], [0     , 0, 0], [], [], []],
+        //          [[], [1     , 0, 0], [], [], []],
+        //          [[], [0 -> v, 2, 0], [], [], []],
+        //          [[], [0 -> v, 2, 3], [], [], []]];
         if ('undefined' === typeof array[hour][day][currentIndex] || !array[hour][day].length) {
             $.each(array, function (i) {
-                array[i][day].push(i < hour || i >= hour + blockNum ? 0 : fillWith + (hour == i ? '' : '~~~'));
+                array[i][day].push(i < hour || i >= hour + blockNum ? 0 : fillWith);
             });
         } else {
             var counter = 1;
@@ -274,7 +272,7 @@ var Calendar = {
             if (counter < blockNum) return Calendar.fillArray(array, fillWith, hour, day, blockNum, currentIndex + 1);
 
             for (var j = 0; j < blockNum; j++)
-                array[hour + j][day][currentIndex] = fillWith + (j === 0 ? '' : '~~~');
+                array[hour + j][day][currentIndex] = fillWith;
         }
         return [currentIndex, array];
     },
@@ -337,7 +335,7 @@ var Course = {
             _(data).each(Calendar.putLessonGroup);
             Course.courses.push(courseName);
 
-            // add course style class.
+            // Add course style class.
             var courseStyleNum = Math.abs(Course.courses.indexOf(courseName) % 5) + 1;
             $("[data-name=" + courseName + "]").addClass("lesson-style-" + courseStyleNum);
 
@@ -473,7 +471,7 @@ $(function () {
     Calendar.initialize();
     Tools.displayUpdatedTime();
 
-    $.get('https://rawgit.com/samyex6/anutimetable/master/data/timetable-test.json', {}, function (data) {
+    $.get('https://rawgit.com/samyex6/anutimetable/master/data/timetable.json', {}, function (data) {
         Course.processRaw(data);
         timetableData = rearrangeLessons(rawLessons);
         Course.recover();
