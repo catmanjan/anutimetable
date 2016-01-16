@@ -1,8 +1,35 @@
 # anutimetable
 
-* Timetable database last update: 2016-01-11 10:07
+* Timetable database last update: 2016-01-16 23:09
 
 ## Updates
+
+### 2016-01-16
+* Compressed JSON structure.
+  * `day` will now be index instead of string.
+  * Removed `name` because it's redundant.
+  * Added `id`.
+* Added tutorial re-choose feature (appeared as icons).
+* Added pinned classes icon effect.
+* Added confirm window when deleting courses.
+* Added `revisionNum`.
+  * If a new value is found, then clear tutorials.
+  * **This value is only changed when changing data structure!**
+* Added mouseover effects when you hover a choosable tutorial.
+  * The purpose of this is to ease the pain of finding same tutorials with different time.
+* Changed `delete` button next to course name to icons.
+* Changed the behaviour of tutorial displaying.
+  * It will now automatically add newly updated classes to the cookie/localStorage instead of ignoring its existence.
+  * After choosing a tutorial, the element will be deleted instead of set to hidden.
+  * The `choose` button will now longer appear if there's a chosen tutorial.
+  * Because of the order changing after re-choose tuts, lesson style will now determined by the existence of lesson-style-x, instead of hash.
+* Changed the way of deciding how different groups belong to one tutorial.
+  * The normal format of a class name is: `{COURSE_NAME}{GROUP_TYPE}{GROUP_NUMBER}/ {NUMBER}`, {NUMBER} will be used.
+* Changed the structure of Course.structure (`{ class: chosen tutorial id, ... }`).
+* Changed weekdays header to full.
+* Removed leading zeros in `item.info` and ending `/`s (because the official data sometimes mistakenly gives different numbers such as `01` and `1`).
+* Removed usage of `data-fgroup`, `data-id` will now be used.
+* Fixed a bug where when creating an empty timeslot, it will clone the lesson style class as well.
 
 ### 2016-01-11
 * Style changes to save vertical real estate.
@@ -80,6 +107,4 @@
 * Changed the ics import button location and color.
 
 ### Known issues
-* After choosing the tutorial for a lesson, the choose button will be hid, but if the page is refreshed, it will appear again.
 * After deleting a course located at a index other than the last index, if the current index column is all empty, it won't delete this unused index column, which will cause a redundant gap column, but it'll be re-indexed after refreshing.
-* After updating the timetable database, if there're new tutorials available, the user won't notice until they re-add the course.

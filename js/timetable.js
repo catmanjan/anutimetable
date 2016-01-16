@@ -2,7 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '11th of January, 2016';
+var jsonUpdatedTime = '16th of January, 2016';
+var revisionNum     = 1;
 
 var Calendar = {
     initialize        : function () {
@@ -12,7 +13,8 @@ var Calendar = {
             normal_end_hour  : 18,
             end_hour         : 20
         };
-        this.weekdays                 = ['mon', 'tue', 'wed', 'thu', 'fri'];
+        this.weekdays                 = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+        this.weekdaysFull             = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         this.template                 = _.template($("#calendar-template").text());
         this.compulsaryLessonTemplate = $("#compulsary-event-template").text();
         this.groupLessonTemplate      = $("#group-event-template").text();
@@ -48,7 +50,7 @@ var Calendar = {
         if (!Calendar.timeslotElement(null, item.day, currentIndex).length) {
             $('.timetable-row').each(function () {
                 var beforeElement = $(this).find('[data-day="' + item.day + '"]:last');
-                beforeElement.after(beforeElement.clone().removeClass('hide rowspanHide').removeAttr('rowspan colspan').attr('data-index', currentIndex).empty());
+                beforeElement.after(beforeElement.clone().removeClass().addClass('timeslot').removeAttr('rowspan colspan').attr('data-index', currentIndex).empty());
             });
         }
 
@@ -56,8 +58,17 @@ var Calendar = {
 
         // Fill with the content
         if (rowspan > 1) {
-            targetElement.attr('rowspan', rowspan).append(displayDiv.hide());
-            displayDiv.show();
+            targetElement.attr('rowspan', rowspan).append(displayDiv);
+
+            if (displayDiv.data('group') && !Course.tutorials[displayDiv.data('group')]) {
+                targetElement.on('mouseover', function () {
+                    $(this).css('cursor', 'pointer');
+                    $('.lesson[data-group!="' + displayDiv.data('group') + '"]').parent().css({'background-color': '#fcfcfc'});
+                }).on('mouseout', function () {
+                    $(this).css('cursor', '');
+                    $('.lesson[data-group!="' + displayDiv.data('group') + '"]').parent().css({'background-color': ''});
+                });
+            }
         }
 
         // Hide cells for rowspan
@@ -83,20 +94,19 @@ var Calendar = {
     putGroupItem      : function (item) {
         var displayDiv = $(_.template(Calendar.groupLessonTemplate, {item: item}));
 
-        $(displayDiv.find("a.choose")[0]).on("click", function (event) {
+        $(displayDiv.find('a.choose')[0]).on('click', function (event) {
             event.preventDefault();
+
+            Course.tutorials[displayDiv.data('group')] = displayDiv.data('id');
             _($(".lesson")).each(function (item) {
                 var $item = $(item);
                 if ($item.data("group") == displayDiv.data("group")) {
-                    if ($item.data("fgroup") != displayDiv.data("fgroup")) {
-                        var index = $.inArray($item.data('fgroup'), Course.tutorials[$item.data('group')]);
-                        if (index !== -1) Course.tutorials[$item.data('group')].splice(index, 1);
-                        $item.hide(0, function () {
-                            $item.parent().empty();
-                            Calendar.columnSeparate().columnMerge().togglePlaceholders();
-                        });
+                    if ($item.data('id') != displayDiv.data('id')) {
+                        $item.parent().off('mouseover mouseout');
+                        Calendar.removeLessonGrid($item);
                     } else {
-                        $("[data-fgroup='" + displayDiv.data("fgroup") + "'] a.choose").hide();
+                        $item.find('a.choose').hide();
+                        $item.parent().off('mouseover');
                     }
                 }
             });
@@ -104,23 +114,17 @@ var Calendar = {
         });
 
         Calendar.putItem(item, displayDiv);
-
-        // Hide all but one of the (choose) links
-        $("[data-fgroup='" + displayDiv.data("fgroup") + "'] a.choose").slice(1).hide();
     },
     putLessonGroup    : function (group) {
-        if (group[0] == "group") {
+        if (group[0] === 'group') {
             for (var i = group[1].length - 1; i >= 0; i--) {
-                var key      = group[1][i].name + filterNumbers(group[1][i].info),
-                    tutFound = $.inArray(group[1][i].name + group[1][i].info, Course.tutorials[key]) !== -1;
+                var key = group[1][i].name + filterNumbers(group[1][i].info);
 
                 // Build tutorial object if is not in recovering mode
-                if (!recover && !tutFound) {
-                    if (!Course.tutorials[key]) Course.tutorials[key] = [];
-                    Course.tutorials[key].push(group[1][i].name + group[1][i].info);
-                }
+                if (!Course.tutorials[key]) Course.tutorials[key] = 0;
 
-                if (!recover || recover && tutFound) Calendar.putGroupItem(group[1][i]);
+                if (!Course.tutorials[key] || Course.tutorials[key] == group[1][i].id)
+                    Calendar.putGroupItem(group[1][i]);
             }
         } else {
             Calendar.putCompulsaryItem(group[1]);
@@ -219,10 +223,7 @@ var Calendar = {
         });
 
         // UI update
-        $('.lesson[data-name="' + courseName + '"]').hide(0, function () {
-            $(this).parent().empty().get(0).className = 'timeslot';
-            Calendar.columnSeparate().columnMerge().togglePlaceholders();
-        });
+        Calendar.removeLessonGrid($('.lesson[data-name="' + courseName + '"]'));
 
     },
     togglePlaceholders: function () {
@@ -245,6 +246,7 @@ var Calendar = {
             placeHolders.addClass('hide');
             Calendar.dayHeaderElement(i).attr('colspan', colspan);
         });
+
         return Calendar;
     },
     fillArray         : function (array, fillWith, hour, day, blockNum, currentIndex) {
@@ -256,6 +258,7 @@ var Calendar = {
         //          [[], [1     , 0, 0], [], [], []],
         //          [[], [0 -> v, 2, 0], [], [], []],
         //          [[], [0 -> v, 2, 3], [], [], []]];
+
         if ('undefined' === typeof array[hour][day][currentIndex] || !array[hour][day].length) {
             $.each(array, function (i) {
                 array[i][day].push(i < hour || i >= hour + blockNum ? 0 : fillWith);
@@ -285,6 +288,17 @@ var Calendar = {
     },
     dayHeaderElement  : function (day) {
         return $('.table.table-striped th.col-sm-2:nth(' + (parseInt(day).toString() === day.toString() ? day : Calendar.weekdays.indexOf(day)) + ')');
+    },
+    removeLessonGrid  : function (element) {
+        element.hide(0, function () {
+            $(this).parent().empty().get(0).className = 'timeslot';
+            Calendar.columnSeparate().columnMerge().togglePlaceholders();
+        });
+    },
+    hideChooseLinks   : function () {
+        for (var i in Course.tutorials) {
+            if (Course.tutorials[i] > 0) $('[data-id="' + Course.tutorials[i] + '"] a.choose').hide();
+        }
     }
 };
 
@@ -309,9 +323,9 @@ var Cookie = {
 };
 
 var Course = {
-    courses   : [],
-    tutorials : {},
-    get       : function () {
+    courses         : [],
+    tutorials       : {},
+    get             : function () {
         var courseNameElement = $("#course-name");
         var courseName        = courseNameElement.val().split('-')[0].toUpperCase().trim();
         if (courseName && Course.courses.indexOf(courseName) === -1) {
@@ -321,30 +335,36 @@ var Course = {
         }
         return Course;
     },
-    add       : function (courseName, isRecovering) {
+    add             : function (courseName, isRecovering) {
         var data = timetableData[courseName];
         recover  = 'undefined' !== typeof isRecovering;
 
         if (Course.courses.length >= 6 || !data) {
             $("#add-course").html(!data ? 'Course not found!' : 'Too many courses!');
             setTimeout(function () {
-                $("#add-course").html("Add");
+                $("#add-course").html('Add');
             }, 2000);
         } else {
-            $("#add-course").html("Add");
+            $("#add-course").html('Add');
             _(data).each(Calendar.putLessonGroup);
             Course.courses.push(courseName);
 
             // Add course style class.
-            var courseStyleNum = Math.abs(Course.courses.indexOf(courseName) % 5) + 1;
-            $("[data-name=" + courseName + "]").parent().addClass("lesson-style-" + courseStyleNum);
+            for (var i = 1; i <= 6; i++) {
+                if (i === 6 || $('.lesson-style-' + i).length < 1) {
+                    $('.lesson[data-name=' + courseName + ']').parent().addClass('lesson-style-' + i);
+                    break;
+                }
+            }
 
             Course.display().save();
         }
 
         return Course;
     },
-    remove    : function (courseName) {
+    remove          : function (courseName) {
+        if(!confirm('Are you sure you want to delete this course?')) return;
+
         Course.courses = _(Course.courses).without(courseName);
 
         // Delete all related tutorials
@@ -357,7 +377,7 @@ var Course = {
 
         return Course;
     },
-    display   : function () {
+    display         : function () {
         var displayElement = $('#chosenCourses');
         if (Course.courses.length <= 0) {
             displayElement.html('None.');
@@ -366,13 +386,15 @@ var Course = {
 
         var html = '';
         $.each(Course.courses, function (index, courseName) {
-            html += (index === 0 ? '' : ', ') + courseName + ' <a href="javascript:void(0)" onclick="Course.remove(\'' + courseName + '\')">(delete)</a>';
+            html += (index === 0 ? '' : ', ') + courseName + ' ';
+            html += '<a href="javascript:void(0)" onclick="Course.rechooseTutorial(\'' + courseName + '\')" title="Re-choose"><span class="glyphicon glyphicon-refresh"></span></a> ';
+            html += '<a href="javascript:void(0)" onclick="Course.remove(\'' + courseName + '\')" title="Delete"><span class="glyphicon glyphicon-trash"></span></a>';
         });
         displayElement.empty().append(html);
 
         return Course;
     },
-    recover   : function () {
+    recover         : function () {
         var savedCourses = Tools.getSavedData('courses');
         var temp         = Tools.getSavedData('tutorials');
         Course.tutorials = temp ? JSON.parse(temp) : {};
@@ -381,22 +403,18 @@ var Course = {
             $.each(JSON.parse(savedCourses), function (i, courseName) {
                 Course.add(courseName, true);
             });
-            Calendar.columnMerge().togglePlaceholders();
+            Calendar.columnMerge().togglePlaceholders().hideChooseLinks();
         }
         Course.display();
         return Course;
     },
-    save      : function () {
-        if (hasLocalStorage) {
-            localStorage.setItem('courses', JSON.stringify(Course.courses));
-            localStorage.setItem('tutorials', JSON.stringify(Course.tutorials));
-        } else {
-            Cookie.set('courses', JSON.stringify(Course.courses));
-            Cookie.set('tutorials', JSON.stringify(Course.tutorials));
-        }
+    save            : function (isOnlyTutorial) {
+        if('undefined' === typeof isOnlyTutorial)
+            Tools.updateSavedData('courses', JSON.stringify(Course.courses));
+        Tools.updateSavedData('tutorials', JSON.stringify(Course.tutorials));
         return Course;
     },
-    clear     : function (e) {
+    clear           : function (e) {
         ('undefined' !== typeof e) && e.preventDefault();
         Course.courses   = [];
         Course.tutorials = {};
@@ -404,16 +422,21 @@ var Course = {
         $("#cal-container").html(Calendar.html);
         return Course;
     },
-    processRaw: function (rawData) {
+    processRaw      : function (rawData) {
         $.each(rawData[3], function (i, course) {
             rawData[3][i].fullName = rawData[0][course.nid];
-            rawData[3][i].info     = rawData[1][course.iid];
+            rawData[3][i].info     = rawData[1][course.iid].replace(/(\s|([^\d]))(0+)/g, '$2').replace('/', ' / ');
             rawData[3][i].location = rawData[2][course.lid];
+            rawData[3][i].name     = rawData[3][i].fullName.match(/^([a-zA-Z0-9]+)_.+?\s(.+)/)[1];
+            rawData[3][i].day      = parseInt(course.day) !== course.day ? course.day : Calendar.weekdays[course.day]; // update transition detection
             delete rawData[3][i].nid;
             delete rawData[3][i].iid;
             delete rawData[3][i].lid;
         });
         rawLessons = rawData[3];
+    },
+    rechooseTutorial: function (courseName) {
+        Course.save().remove(courseName).add(courseName);
     }
 };
 
@@ -422,7 +445,7 @@ var loadJSON = {
         var element = $('#load');
         succeed ? element.removeClass('text-warning').html('Loaded!') : element.addClass('text-warning').html(isLoading ? 'Loading..' : 'Not a valid JSON file!');
         setTimeout(function () {
-            element.html("Load data from .json");
+            element.html('Load data from .json');
         }, 2000);
         return succeed;
     },
@@ -461,17 +484,29 @@ var Tools = {
     getSavedData      : function (name) {
         return hasLocalStorage ? localStorage.getItem(name) : Cookie.get(name);
     },
+    updateSavedData   : function (name, value) {
+        return hasLocalStorage ? localStorage.setItem(name, value) : Cookie.set(name, value);
+    },
     displayUpdatedTime: function (itemNumber) {
         $('#jsonUpdatedTime').html(jsonUpdatedTime + '.' + ('undefined' !== typeof itemNumber ? ' (' + itemNumber + ' courses)' : ''));
+    },
+    size              : function (object) {
+        return object.length || Object.keys(object).length;
     }
 };
 
 $(function () {
 
+    if (Tools.getSavedData('revisionNum') != revisionNum) {
+        Tools.updateSavedData('revisionNum', revisionNum);
+        Course.tutorials = {};
+        Course.save(true);
+    }
+
     Calendar.initialize();
     Tools.displayUpdatedTime();
 
-    $.get('https://rawgit.com/samyex6/anutimetable/master/data/timetable.json', {}, function (data) {
+    $.get('./data/timetable-test.json', {}, function (data) {
         Course.processRaw(data);
         timetableData = rearrangeLessons(rawLessons);
         Course.recover();
@@ -481,8 +516,10 @@ $(function () {
         $('#chosenCourses').html('Unable to load data from source, please try to refresh or manually load pre-fetched JSON from ./data folder.');
     });
 
-    $("#cal-container").append(Calendar.html);
+    // Generate UI table
+    $('#cal-container').append(Calendar.html);
 
+    // Bind key Enter with Add button
     document.onkeydown = function (e) {
         if ((e.which || e.keyCode) == 13) {
             e.preventDefault();
@@ -490,9 +527,10 @@ $(function () {
         }
     };
 
-    $("#download").on("click", function (event) {
+    // Generate downloadable ICS calendar
+    $('#download').on('click', function (event) {
 
-        var calString     = $("#cal-header").text();
+        var calString     = $('#cal-header').text();
         var eventTemplate = _.template($("#event-template").html());
 
         _(rawLessons).each(function (lesson) {
@@ -506,14 +544,14 @@ $(function () {
                     description    : lesson.info,
                     location       : lesson.location,
                     course         : lesson.name + ' ' + lesson.info,
-                    holiday1       : (6 + day < 10) ? "0" + (6 + day) : (6 + day),
+                    holiday1       : (6 + day < 10) ? '0' + (6 + day) : (6 + day),
                     holiday2       : 13 + day
                 });
             }
         });
 
         calString += "\nEND:VCALENDAR";
-        download(calString, "anu_s1_timetable.ics", "text/plain");
+        download(calString, 'anu_s1_timetable.ics', 'text/plain');
     });
 
     $('#add-course').on('click', Course.get);
@@ -547,7 +585,7 @@ $(function () {
                 return a.matchIndex - b.matchIndex + a.name.localeCompare(b.name);
             });
 
-            // Builds the final result.
+            // Build the final result.
             matches = [];
             $.each(matchIndexes, function (i, course) {
                 matches.push(course.name);

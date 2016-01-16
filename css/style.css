@@ -7,11 +7,6 @@
     margin-bottom : 2px;
 }
 
-.lesson-style-0 {
-    border-color     : #006666;
-    background-color : #CCFFFF;
-}
-
 .lesson-style-1 {
     border-color     : #660066;
     background-color : #FFCCFF;
@@ -97,5 +92,5 @@
 }
 
 .course-list-date {
-	float: right;
+    float : right;
 }
