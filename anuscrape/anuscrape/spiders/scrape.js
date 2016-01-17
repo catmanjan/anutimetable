@@ -16,7 +16,7 @@ if (jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
         courses    = [],
         succeed    = 0,
         failed     = 0,
-        id         = 0,
+        id         = 1,
         nid        = 0,
         total      = jQuery('#dlObject').find('option').length,
         fullNames  = [],
@@ -46,12 +46,13 @@ if (jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
                 'RadioType'           : 'module_list;cyon_reports_list_url;dummy',
                 'bGetTimetable'       : 'View Timetable'
             }, function (html) {
-                var jhtml = jQuery(html),
-                    rows  = jhtml.find('tbody > tr');
+                var jhtml    = jQuery(html),
+                    rows     = jhtml.find('tbody > tr'),
+                    weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
                 rows.each(function (index, courseRow) {
                     var tds       = jQuery(courseRow).find('td'),
-                        className = tds.eq(0).text().match(/([a-zA-Z0-9]+)_.+?\s(.+)/),
+                        className = tds.eq(0).text().trim().match(/([a-zA-Z0-9]+)_.+?\s(.+)/) || ['', '', ''],
                         location  = tds.eq(7).text().trim(),
                         lid       = jQuery.inArray(location, locations),
                         iid       = jQuery.inArray(className[2], infos);
@@ -65,13 +66,13 @@ if (jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
                         infos.push(className[2]);
                     }
                     courses.push({
+                        id   : id,
                         nid  : nid,
                         iid  : iid,
                         lid  : lid,
-                        name : className[1],
                         start: parseFloat(tds.eq(3).text().replace(':30', '.5')),
                         dur  : parseFloat(tds.eq(5).text().replace(':30', '.5')),
-                        day  : tds.eq(2).text().toLowerCase().substr(0, 3)
+                        day  : weekdays.indexOf(tds.eq(2).text().toLowerCase().substr(0, 3))
                     });
 
                     id++;

@@ -95,6 +95,7 @@
 <script type="text/template" id="compulsary-event-template">
   <div class='lesson' data-eventtype='compulsary'
        data-name='<%= item.name %>'>
+    <span class="glyphicon glyphicon-pushpin"></span>
     <strong><%= item.name %></strong>.
     <em><%= item.location %></em>.
     <%= item.info %>.
@@ -106,8 +107,8 @@
 <script type="text/template" id="group-event-template">
   <div class='lesson' data-eventtype='group'
        data-group='<%= item.name + filterNumbers(item.info) %>'
-       data-fgroup='<%= item.name + item.info %>'
-       data-name='<%= item.name %>'>
+       data-name='<%= item.name %>'
+       data-id='<%= item.id %>'>
     <strong><%= item.name %></strong>.
     <em><%= item.location %></em>.
     <%= item.info %>.
@@ -118,14 +119,12 @@
 </script>
 
 <script type="text/template" id="calendar-template">
-  <% var days = ["mon", "tue", "wed", "thu", "fri"]; %>
-
   <table class="table table-striped table-condensed">
     <tbody>
     <tr>
       <td class="col-sm-1"></td>
       <% for (var i = 0; i < 5; i++) { %>
-      <th class="col-sm-2"><%= days[i] %></th>
+      <th class="col-sm-2"><%= Calendar.weekdaysFull[i] %></th>
       <% } %>
     </tr>
 
@@ -139,7 +138,7 @@
       <%= Tools.pad(Math.floor(hour), 2) %>:<%= hour == Math.floor(hour) ? '0' : '3' %>0
     </th>
     <% for (var i = 0; i < 5; i++) { %>
-    <td class="timeslot" data-hour="<%= hour %>" data-day="<%= days[i] %>" data-index="-1">
+    <td class="timeslot" data-hour="<%= hour %>" data-day="<%= Calendar.weekdays[i] %>" data-index="-1">
     </td>
     <% } %>
     </tr>
