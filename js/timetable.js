@@ -2,7 +2,7 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '16th of January, 2016';
+var jsonUpdatedTime = '19th of January, 2016';
 var revisionNum     = 1;
 
 var Calendar = {
@@ -297,7 +297,7 @@ var Calendar = {
     },
     hideChooseLinks   : function () {
         for (var i in Course.tutorials) {
-            if (Course.tutorials[i] > 0) $('[data-id="' + Course.tutorials[i] + '"] a.choose').hide();
+            if (Course.tutorials.hasOwnProperty(i) && Course.tutorials[i] > 0) $('[data-id="' + Course.tutorials[i] + '"] a.choose').hide();
         }
     }
 };
@@ -362,8 +362,8 @@ var Course = {
 
         return Course;
     },
-    remove          : function (courseName) {
-        if(!confirm('Are you sure you want to delete this course?')) return;
+    remove          : function (courseName, prompt) {
+        if('undefined' !== typeof prompt && !confirm('Are you sure you want to delete this course?')) return;
 
         Course.courses = _(Course.courses).without(courseName);
 
@@ -388,7 +388,7 @@ var Course = {
         $.each(Course.courses, function (index, courseName) {
             html += (index === 0 ? '' : ', ') + courseName + ' ';
             html += '<a href="javascript:void(0)" onclick="Course.rechooseTutorial(\'' + courseName + '\')" title="Re-choose"><span class="glyphicon glyphicon-refresh"></span></a> ';
-            html += '<a href="javascript:void(0)" onclick="Course.remove(\'' + courseName + '\')" title="Delete"><span class="glyphicon glyphicon-trash"></span></a>';
+            html += '<a href="javascript:void(0)" onclick="Course.remove(\'' + courseName + '\', true)" title="Delete"><span class="glyphicon glyphicon-trash"></span></a>';
         });
         displayElement.empty().append(html);
 
@@ -506,7 +506,7 @@ $(function () {
     Calendar.initialize();
     Tools.displayUpdatedTime();
 
-    $.get('./data/timetable-test.json', {}, function (data) {
+    $.get('./data/timetable.json', {}, function (data) {
         Course.processRaw(data);
         timetableData = rearrangeLessons(rawLessons);
         Course.recover();
