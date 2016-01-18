@@ -37,6 +37,11 @@
     background-color : #CCFFFF;
 }
 
+.table {
+    border-collapse : separate;
+    border-spacing  : 2px;
+}
+
 .table th {
     vertical-align : middle !important;
     text-align     : center;

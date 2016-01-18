@@ -1,8 +1,12 @@
 # anutimetable
 
-* Timetable database last update: 2016-01-16 23:09
+* Timetable database last update: 2016-01-19 01:07
 
 ## Updates
+
+### 2016-01-18
+* Fixed the problem with confirm window popping out while clicking re-choose buttons.
+* Added border spacing.
 
 ### 2016-01-16
 * Compressed JSON structure.
