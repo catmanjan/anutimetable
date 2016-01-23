@@ -2,7 +2,7 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '19th of January, 2016';
+var jsonUpdatedTime = '23rd of January, 2016';
 var revisionNum     = 1;
 
 var Calendar = {
@@ -258,7 +258,6 @@ var Calendar = {
         //          [[], [1     , 0, 0], [], [], []],
         //          [[], [0 -> v, 2, 0], [], [], []],
         //          [[], [0 -> v, 2, 3], [], [], []]];
-
         if ('undefined' === typeof array[hour][day][currentIndex] || !array[hour][day].length) {
             $.each(array, function (i) {
                 array[i][day].push(i < hour || i >= hour + blockNum ? 0 : fillWith);
@@ -363,7 +362,7 @@ var Course = {
         return Course;
     },
     remove          : function (courseName, prompt) {
-        if('undefined' !== typeof prompt && !confirm('Are you sure you want to delete this course?')) return;
+        if ('undefined' !== typeof prompt && !confirm('Are you sure you want to delete this course?')) return;
 
         Course.courses = _(Course.courses).without(courseName);
 
@@ -409,7 +408,7 @@ var Course = {
         return Course;
     },
     save            : function (isOnlyTutorial) {
-        if('undefined' === typeof isOnlyTutorial)
+        if ('undefined' === typeof isOnlyTutorial)
             Tools.updateSavedData('courses', JSON.stringify(Course.courses));
         Tools.updateSavedData('tutorials', JSON.stringify(Course.tutorials));
         return Course;
@@ -492,6 +491,12 @@ var Tools = {
     },
     size              : function (object) {
         return object.length || Object.keys(object).length;
+    }
+};
+
+var Magic = {
+    pick: function (allowConflict) {
+        return false;
     }
 };
 
