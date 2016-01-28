@@ -1,8 +1,12 @@
 # anutimetable
 
-* Timetable database last update: 2016-01-23 17:18
+* Timetable database last update: 2016-01-28 17:47
 
 ## Updates
+
+### 2016-01-28
+* Temporarily fixed the problem with choosable compulsory courses.
+  * It will be deprecated soon.
 
 ### 2016-01-18
 * Fixed the problem with confirm window popping out while clicking re-choose buttons.
@@ -112,3 +116,4 @@
 
 ### Known issues
 * After deleting a course located at a index other than the last index, if the current index column is all empty, it won't delete this unused index column, which will cause a redundant gap column, but it'll be re-indexed after refreshing.
+* When there is only one class for a certain group left, the choose button shouldn't be visible.
