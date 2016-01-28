@@ -1,5 +1,6 @@
 var isCompulsory = function (string) {
     // Best guess as to whether the class is compulsory
+    return false;
     if (string.toLowerCase().indexOf('lecture') > -1
         || string.toLowerCase().indexOf('group teaching') > -1
         || string.toLowerCase().indexOf('seminar') > -1) {
@@ -8,35 +9,16 @@ var isCompulsory = function (string) {
 }
 
 var filterCompulsory = function (string) {
-    if (isCompulsory) {
-        return string;
-    }
-
     // Fallback to old filter (number based)
-    return filterNumbers(string);
-};
-
-var filterSingleChars = function (string) {
-    var isNotSingleChar = function (x) {
-        return x.length > 1;
-    };
-    return string.split(" ").filter(isNotSingleChar).join(" ");
+    return isCompulsory ? string : filterNumbers(string);
 };
 
 var filterNumbers = function (string) {
     return string.split('/')[0].trim();
 };
 
-var filterNumbersAndSingleChars = function (string) {
-    return filterNumbers(filterSingleChars(string));
-};
-
 var removeSquareBracketedBits = function (string) {
     return string.replace(/\[(.*?)\]/, "");
-};
-
-var Partition = function () {
-    this.partition = {}
 };
 
 var tidyLessons = function (lessons) {
