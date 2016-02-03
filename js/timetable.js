@@ -29,6 +29,8 @@ var Calendar = {
     },
     putItem           : function (item, displayDiv) {
 
+        Magic.preCast(item);
+
         // Determine the index for search in courseGrids
         var index    = (item.start - Calendar.tradingHours.start_hour) * 2;
         var dayIndex = Calendar.weekdays.indexOf(item.day);
@@ -289,10 +291,8 @@ var Calendar = {
         return $('.table.table-striped th.col-sm-2:nth(' + (parseInt(day).toString() === day.toString() ? day : Calendar.weekdays.indexOf(day)) + ')');
     },
     removeLessonGrid  : function (element) {
-        element.hide(0, function () {
-            $(this).parent().empty().get(0).className = 'timeslot';
-            Calendar.columnSeparate().columnMerge().togglePlaceholders();
-        });
+        element.parent().empty().get(0).className = 'timeslot';
+        Calendar.columnSeparate().columnMerge().togglePlaceholders();
     },
     hideChooseLinks   : function () {
         for (var i in Course.tutorials) {
@@ -415,6 +415,7 @@ var Course = {
     },
     clear           : function (e) {
         ('undefined' !== typeof e) && e.preventDefault();
+        Magic.init();
         Course.courses   = [];
         Course.tutorials = {};
         Course.display().save();
@@ -491,12 +492,70 @@ var Tools = {
     },
     size              : function (object) {
         return object.length || Object.keys(object).length;
+    },
+    deepCopy: function(object) {
+        return JSON.parse(JSON.stringify(object));
     }
 };
 
 var Magic = {
-    pick: function (allowConflict) {
-        return false;
+    spells           : {},
+    queue            : $('<div></div>'),
+    spellCombinations: [],
+    initAllocation   : {mon: {}, tue: {}, wed: {}, thu: {}, fri: {}, sat: {}, sun: {}},
+    init             : function () {
+        this.spells            = {};
+        this.spellCombinations = [];
+    },
+    preCast          : function (spell) {
+        var name = spell.name + ' - ' + spell.info.split('/')[0].trim();
+        if (!this.spells[name]) {
+            this.spells[name] = [];
+        }
+        this.spells[name].push(spell);
+    },
+    cast             : function () {
+        this.useWand(this.spells, [], this.initAllocation, 0);
+        this.spellCombinations.sort(function (a, b) {
+            return a.clashes - b.clashes;
+        });
+        return this.spellCombinations;
+    },
+    useWand          : function (spells, currentCombination, currentAllocation, clashesCount) {
+        if (!Object.keys(spells).length) {
+            this.spellCombinations.push({combination: currentCombination, clashes: clashesCount});
+            return;
+        }
+
+        var that       = this;
+        var nextSpells = Tools.deepCopy(spells);
+        var firstKey   = Object.keys(nextSpells)[0];
+
+        delete nextSpells[firstKey];
+
+        $(spells[firstKey]).each(function () {
+
+            // Append ids to combination list
+            var newCombination = Tools.deepCopy(currentCombination);
+            newCombination.push(this.name + ' - ' + this.info);
+
+            // Append time allocations
+            var newAllocation = that.uniqueSpell(Tools.deepCopy(currentAllocation), this);
+
+            // Recursion, next day
+            that.useWand(nextSpells,
+                newCombination,
+                newAllocation !== false ? newAllocation : currentAllocation,
+                newAllocation !== false ? clashesCount : clashesCount + 1);
+
+        });
+    },
+    uniqueSpell      : function (allocations, classObj) {
+        for (var i = classObj.start, j = classObj.start + classObj.dur; i < j; i += .5) {
+            if (allocations[classObj.day][i]) return false;
+            allocations[classObj.day][i] = 1;
+        }
+        return allocations;
     }
 };
 

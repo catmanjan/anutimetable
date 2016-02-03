@@ -4,6 +4,11 @@
 
 ## Updates
 
+### 2016-02-04
+* Added auto-selecting feature.
+  * No UI for now, use Magic.cast() in console to see effects.
+  * The result will be ordered by clashes in ascending order.
+
 ### 2016-01-28
 * Temporarily fixed the problem with choosable compulsory courses.
   * It will be deprecated soon.
