@@ -632,7 +632,12 @@ $(function () {
         });
 
         calString += "\nEND:VCALENDAR";
-        download(calString, 'anu_s1_timetable.ics', 'text/plain');
+
+        try {
+            download(calString, 'anu_s1_timetable.ics', 'text/plain');
+        } catch(e) {
+            window.open('download.php?data=' + calString);
+        }
     });
 
     $('#add-course').on('click', Course.get);
