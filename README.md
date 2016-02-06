@@ -1,8 +1,16 @@
 # anutimetable
 
-* Timetable database last update: 2016-02-01 17:47
+* Timetable database last update: 2016-02-07 00:08
 
 ## Updates
+
+### 2016-02-06
+* Fixed table displaying issue.
+
+### 2016-02-04
+* Added auto-selecting feature.
+  * No UI for now, use Magic.cast() in console to see effects.
+  * The result will be ordered by clashes in ascending order.
 
 ### 2016-01-28
 * Temporarily fixed the problem with choosable compulsory courses.

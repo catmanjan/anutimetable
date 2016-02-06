@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '1st of February, 2016';
-var revisionNum     = 1;
+var jsonUpdatedTime = '7th of February, 2016';
+var revisionNum     = 2;
 
 var Calendar = {
     initialize        : function () {
@@ -28,6 +28,8 @@ var Calendar = {
         }
     },
     putItem           : function (item, displayDiv) {
+
+        Magic.preCast(item);
 
         // Determine the index for search in courseGrids
         var index    = (item.start - Calendar.tradingHours.start_hour) * 2;
@@ -131,8 +133,10 @@ var Calendar = {
         }
     },
     columnMerge       : function () {
+//return Calendar;
+        var ignoreList = [];
 
-        $('.timeslot[data-index!="-1"]:not(.hide)').each(function () {
+        $('.timeslot[data-index!="-1"]:not(.hide):not(.rowspanHide)').each(function () {
 
             var afterElement = $(this),
                 hour         = parseFloat(afterElement.data('hour')),
@@ -141,11 +145,16 @@ var Calendar = {
                 emptyCount   = 0,
                 lastIndex    = index,
                 hideList     = [[]],
-                rowspan;
+                rowspan      = parseInt($(this).attr('rowspan'));
+
+            for (var k in ignoreList) {
+                var s = ignoreList[k];
+                if (s[0] === hour && s[1] === day && s[2] === index) return;
+            }
 
             // Add consecutive empty cells after the timeslot to the
             // hiding pending list and accumulates empty counts for rowspan
-            while ((afterElement = afterElement.find('+ [data-day="' + day + '"]:empty:not(.rowspanHide)')).length) {
+            while ((afterElement = afterElement.find('+ [data-day="' + day + '"]:empty:not(.hide):not(.rowspanHide)')).length) {
                 if (lastIndex + 1 !== (lastIndex = parseInt(afterElement.data('index')))) break;
                 hideList[0].push(afterElement);
                 emptyCount++;
@@ -157,11 +166,11 @@ var Calendar = {
             // which suits consecutive empty cells condition to the hiding
             // list, abort and delete the previous added elements if found
             // any non empty or .rowspanHide cells.
-            if (rowspan = parseInt($(this).attr('rowspan'))) {
+            if (rowspan > 1) {
                 var abort = false;
-                for (var i = 0.5; i < rowspan / 2; i += 0.5) {
-                    for (var j = 1; j <= emptyCount; j++) {
-                        var nextElement = Calendar.timeslotElement(hour + i, day, index + j).filter(':empty:not(.rowspanHide)');
+                for (var j = 1; j <= emptyCount; j++) {
+                    for (var i = 0.5; i < rowspan / 2; i += 0.5) {
+                        var nextElement = Calendar.timeslotElement(hour + i, day, index + j).filter(':empty:not(.hide):not(.rowspanHide)');
                         if (!nextElement.length) {
                             abort      = j;
                             emptyCount = j - 1;
@@ -181,6 +190,7 @@ var Calendar = {
 
             $.each(hideList, function (i, v) {
                 $.each(v, function (j, l) {
+                    ignoreList.push([parseFloat(l.data('hour')), l.data('day'), parseInt(l.data('index'))]);
                     l.addClass('hide');
                 });
             });
@@ -289,10 +299,9 @@ var Calendar = {
         return $('.table.table-striped th.col-sm-2:nth(' + (parseInt(day).toString() === day.toString() ? day : Calendar.weekdays.indexOf(day)) + ')');
     },
     removeLessonGrid  : function (element) {
-        element.hide(0, function () {
-            $(this).parent().empty().get(0).className = 'timeslot';
-            Calendar.columnSeparate().columnMerge().togglePlaceholders();
-        });
+    console.log(element);
+        element.parent().empty().get(0).className = 'timeslot';
+        Calendar.columnSeparate().columnMerge().togglePlaceholders();
     },
     hideChooseLinks   : function () {
         for (var i in Course.tutorials) {
@@ -415,6 +424,7 @@ var Course = {
     },
     clear           : function (e) {
         ('undefined' !== typeof e) && e.preventDefault();
+        Magic.init();
         Course.courses   = [];
         Course.tutorials = {};
         Course.display().save();
@@ -491,12 +501,78 @@ var Tools = {
     },
     size              : function (object) {
         return object.length || Object.keys(object).length;
+    },
+    deepCopy          : function (object) {
+        return JSON.parse(JSON.stringify(object));
     }
 };
 
 var Magic = {
-    pick: function (allowConflict) {
-        return false;
+    maxShow          : 5,
+    spells           : {},
+    queue            : $('<div></div>'),
+    spellCombinations: [],
+    initAllocation   : {mon: {}, tue: {}, wed: {}, thu: {}, fri: {}, sat: {}, sun: {}},
+    appearCount      : {},
+    init             : function () {
+        this.spells            = {};
+        this.spellCombinations = [];
+    },
+    preCast          : function (spell) {
+        var name = spell.name + ' - ' + spell.info.split('/')[0].trim();
+        if (!this.spells[name]) {
+            this.spells[name] = [];
+        }
+        this.spells[name].push(spell);
+    },
+    cast             : function () {
+        this.useWand(this.spells, [], this.initAllocation, 0);
+        this.spellCombinations.sort(function (a, b) {
+            return a.clashes - b.clashes;
+        });
+        return this.spellCombinations;
+    },
+    useWand          : function (spells, currentCombination, currentAllocation, clashesCount) {
+
+        if (this.appearCount[clashesCount] >= this.maxShow) return;
+
+        if (!Object.keys(spells).length) {
+            this.spellCombinations.push({combination: currentCombination, clashes: clashesCount});
+            if (!this.appearCount[clashesCount]) this.appearCount[clashesCount] = 0;
+            this.appearCount[clashesCount] = this.appearCount[clashesCount] + (clashesCount === 0 ? 0.5 : 1);
+            console.log(this.spellCombinations.length);
+            return;
+        }
+
+        var that       = this;
+        var nextSpells = Tools.deepCopy(spells);
+        var firstKey   = Object.keys(nextSpells)[0];
+
+        delete nextSpells[firstKey];
+
+        $(spells[firstKey]).each(function () {
+
+            // Append ids to combination list
+            var newCombination = Tools.deepCopy(currentCombination);
+            newCombination.push(this.name + ' - ' + this.info);
+
+            // Append time allocations
+            var newAllocation = that.uniqueSpell(Tools.deepCopy(currentAllocation), this);
+
+            // Recursion, next day
+            that.useWand(nextSpells,
+                newCombination,
+                newAllocation !== false ? newAllocation : currentAllocation,
+                newAllocation !== false ? clashesCount : clashesCount + 1);
+
+        });
+    },
+    uniqueSpell      : function (allocations, classObj) {
+        for (var i = classObj.start, j = classObj.start + classObj.dur; i < j; i += .5) {
+            if (allocations[classObj.day][i]) return false;
+            allocations[classObj.day][i] = 1;
+        }
+        return allocations;
     }
 };
 
