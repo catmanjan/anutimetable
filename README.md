@@ -4,6 +4,9 @@
 
 ## Updates
 
+### 2016-02-06
+* Fixed table displaying issue.
+
 ### 2016-02-04
 * Added auto-selecting feature.
   * No UI for now, use Magic.cast() in console to see effects.
