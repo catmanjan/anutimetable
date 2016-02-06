@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '1st of February, 2016';
-var revisionNum     = 1;
+var jsonUpdatedTime = '7th of February, 2016';
+var revisionNum     = 2;
 
 var Calendar = {
     initialize        : function () {
@@ -299,6 +299,7 @@ var Calendar = {
         return $('.table.table-striped th.col-sm-2:nth(' + (parseInt(day).toString() === day.toString() ? day : Calendar.weekdays.indexOf(day)) + ')');
     },
     removeLessonGrid  : function (element) {
+    console.log(element);
         element.parent().empty().get(0).className = 'timeslot';
         Calendar.columnSeparate().columnMerge().togglePlaceholders();
     },

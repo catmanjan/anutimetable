@@ -35,7 +35,7 @@ var addToPartition = function (partition, key, value) {
     } else {
         partition[key] = [value];
     }
-}
+};
 
 var partitionLessons = function (lessons) {
     var partition = {}, key, lesson;
