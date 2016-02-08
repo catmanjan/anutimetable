@@ -2,7 +2,7 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '7th of February, 2016';
+var jsonUpdatedTime = '8th of February, 2016';
 var revisionNum     = 2;
 
 var Calendar = {
@@ -133,7 +133,7 @@ var Calendar = {
         }
     },
     columnMerge       : function () {
-//return Calendar;
+
         var ignoreList = [];
 
         $('.timeslot[data-index!="-1"]:not(.hide):not(.rowspanHide)').each(function () {
@@ -632,7 +632,12 @@ $(function () {
         });
 
         calString += "\nEND:VCALENDAR";
-        download(calString, 'anu_s1_timetable.ics', 'text/plain');
+
+        //try {
+            download(calString, 'anu_s1_timetable.ics', 'text/plain');
+        //} catch(e) {
+        //    window.open('download.php?data=' + calString);
+        //}
     });
 
     $('#add-course').on('click', Course.get);
