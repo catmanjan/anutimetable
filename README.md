@@ -4,10 +4,6 @@
 
 ## Updates
 
-### 2016-02-07
-* Fixed the Download ICS button was unable to work in Safari issue.
-  * This is a temporary solution (using PHP).
-
 ### 2016-02-06
 * Fixed table displaying issue.
 
