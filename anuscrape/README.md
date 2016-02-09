@@ -1,3 +1,0 @@
-# anuscrape
-
-```pip install scrapy```
