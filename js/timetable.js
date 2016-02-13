@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '11th of February, 2016';
-var revisionNum     = 2;
+var jsonUpdatedTime = '14th of February, 2016';
+var revisionNum     = 3;
 
 var Calendar = {
     initialize        : function () {
