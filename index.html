@@ -57,39 +57,37 @@
       ga('send', 'pageview');
     }
   </script>
-
 </div>
 
 <script type="text/template" id="cal-header">
-  BEGIN:VCALENDAR
-  PRODID:-//Google Inc//Google Calendar 70.9054//EN
-  VERSION:2.0
-  CALSCALE:GREGORIAN
-  METHOD:PUBLISH
-  X-WR-CALNAME:ANU Semester 1
-  X-WR-TIMEZONE:Australia/Sydney
-  X-WR-CALDESC:This is the classes for semester 1.
-
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:ANU Semester 1
+X-WR-TIMEZONE:Australia/Sydney
+X-WR-CALDESC:This is the classes for semester 1.
 </script>
 
 <script type="text/template" id="event-template">
-  BEGIN:VEVENT
-  DTSTART;TZID=Australia/Sydney:201602<%= first_day %>T<%= padded_hour %>00
-  DTEND;TZID=Australia/Sydney:201602<%= first_day %>T<%= padded_end_hour %>00
-  RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
-  EXDATE;TZID=Australia/Sydney:201604<%= holiday2 %>T<%= padded_hour %>00
-  EXDATE;TZID=Australia/Sydney:201604<%= holiday1 %>T<%= padded_hour %>00
-  DTSTAMP:20160119T180209Z
-  CREATED:20160119T172444Z
-  DESCRIPTION:<%= description %>
-  LAST-MODIFIED:20160119T172540Z
-  LOCATION:<%= location %>
-  SEQUENCE:1
-  UID:buck_anu2016s1_<%= course %>
-  STATUS:CONFIRMED
-  SUMMARY:<%= course %>
-  TRANSP:OPAQUE
-  END:VEVENT
+BEGIN:VEVENT
+DTSTART;TZID=Australia/Sydney:201602<%= first_day %>T<%= padded_hour %>00
+DTEND;TZID=Australia/Sydney:201602<%= first_day %>T<%= padded_end_hour %>00
+RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
+EXDATE;TZID=Australia/Sydney:201604<%= holiday2 %>T<%= padded_hour %>00
+EXDATE;TZID=Australia/Sydney:201604<%= holiday1 %>T<%= padded_hour %>00
+DTSTAMP:20160119T180209Z
+CREATED:20160119T172444Z
+DESCRIPTION:<%= description %>
+LAST-MODIFIED:20160119T172540Z
+LOCATION:<%= location %>
+SEQUENCE:1
+UID:buck_anu2016s1_<%= course %>
+STATUS:CONFIRMED
+SUMMARY:<%= course %>
+TRANSP:OPAQUE
+END:VEVENT
 </script>
 
 <script type="text/template" id="compulsary-event-template">
@@ -146,8 +144,6 @@
     </tbody>
   </table>
 </script>
-
-
 
 </body>
 </html>
