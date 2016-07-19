@@ -40,7 +40,9 @@ if (jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
                 'dlFilter'            : '',
                 'tWildcard'           : '',
                 'dlObject'            : courseElement.value,
-                'lbWeeks'             : '1-52',
+				// Note this should be changed depending on the semester:
+				// 29-46 for semester 2
+                'lbWeeks'             : '29-46',
                 'lbDays'              : '1-7;1;2;3;4;5;6;7',
                 'dlPeriod'            : '1-32;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;',
                 'RadioType'           : 'module_list;cyon_reports_list_url;dummy',
