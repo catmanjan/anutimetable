@@ -71,18 +71,18 @@ X-WR-CALDESC:ANU Semester 1.
 
 <script type="text/template" id="event-template">
 BEGIN:VEVENT
-DTSTART;TZID=Australia/Sydney:201602<%= first_day %>T<%= padded_hour %>00
-DTEND;TZID=Australia/Sydney:201602<%= first_day %>T<%= padded_end_hour %>00
+DTSTART;TZID=Australia/Sydney:201702<%= first_day %>T<%= padded_hour %>00
+DTEND;TZID=Australia/Sydney:201702<%= first_day %>T<%= padded_end_hour %>00
 RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
-EXDATE;TZID=Australia/Sydney:201604<%= holiday2 %>T<%= padded_hour %>00
-EXDATE;TZID=Australia/Sydney:201604<%= holiday1 %>T<%= padded_hour %>00
-DTSTAMP:20160119T180209Z
-CREATED:20160119T172444Z
+EXDATE;TZID=Australia/Sydney:201704<%= holiday2 %>T<%= padded_hour %>00
+EXDATE;TZID=Australia/Sydney:201704<%= holiday1 %>T<%= padded_hour %>00
+DTSTAMP:20170119T180209Z
+CREATED:20170119T172444Z
 DESCRIPTION:<%= description %>
-LAST-MODIFIED:20160119T172540Z
+LAST-MODIFIED:20170119T172540Z
 LOCATION:<%= location %>
 SEQUENCE:1
-UID:buck_anu2016s1_<%= course %>
+UID:anu2017s1_<%= course %>
 STATUS:CONFIRMED
 SUMMARY:<%= course %>
 TRANSP:OPAQUE
