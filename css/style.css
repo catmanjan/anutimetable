@@ -8,33 +8,33 @@
 }
 
 .lesson-style-1 {
-    border-color     : #660066;
-    background-color : #FFCCFF;
+    border-color     : #660066 !important;
+    background-color : #FFCCFF !important;
 }
 
 .lesson-style-2 {
-    border-color     : #666600;
-    background-color : #FFFFCC;
+    border-color     : #666600 !important;
+    background-color : #FFFFCC !important;
 }
 
 .lesson-style-3 {
-    border-color     : #000066;
-    background-color : #CCCCFF;
+    border-color     : #000066 !important;
+    background-color : #CCCCFF !important;
 }
 
 .lesson-style-4 {
-    border-color     : #660000;
-    background-color : #FFCCCC;
+    border-color     : #660000 !important;
+    background-color : #FFCCCC !important;
 }
 
 .lesson-style-5 {
-    border-color     : #006600;
-    background-color : #CCFFCC;
+    border-color     : #006600 !important;
+    background-color : #CCFFCC !important;
 }
 
 .lesson-style-6 {
-    border-color     : #006666;
-    background-color : #CCFFFF;
+    border-color     : #006666 !important;
+    background-color : #CCFFFF !important;
 }
 
 .table {
