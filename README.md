@@ -1,8 +1,12 @@
 # anutimetable
 
-* Timetable database last update: 2016-02-24 19:24
+* Timetable database last update: 2016-01-21
 
 ## Updates
+
+### 2017-01-21
+* Added a PHP scraper (for non-ANU network use)
+* Fixed the background color issue (temporarily)
 
 ### 2016-02-06
 * Fixed table displaying issue.
