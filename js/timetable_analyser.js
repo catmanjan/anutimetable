@@ -51,7 +51,7 @@ var partitionLessons = function (lessons) {
         if (partition.hasOwnProperty(key)) {
             if (isCompulsory(key)) {
                 for (var member in partition[key]) {
-                    out.push(["compulsary", partition[key][member]]);
+                    out.push(["compulsory", partition[key][member]]);
                 }
             } else {
                 out.push(["group", partition[key]]);
