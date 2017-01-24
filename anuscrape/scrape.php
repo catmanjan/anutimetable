@@ -42,8 +42,8 @@ function postRequest ($url, $data = [], $cookies = []) {
             'follow_location' => 1,
             'content'         => $data,
             'timeout'         => 100,
-            'header'          => 'Content-Length: ' . strlen($data) . "\r\n" . 
-                                 'Content-type: application/x-www-form-urlencoded' . "\r\n"
+            'header'          => 'Content-Length: ' . strlen($data) . "\r\n" .
+                'Content-type: application/x-www-form-urlencoded' . "\r\n"
         ]
     ];
 
@@ -76,12 +76,13 @@ function postRequest ($url, $data = [], $cookies = []) {
     return ['cookie' => $cookies_new, 'content' => str_get_html($content), 'content_raw' => $content];
 }
 
-function retrieveField($content, $name) {
+function retrieveField ($content, $name) {
     preg_match('/<input type="hidden" name="' . $name . '" id="' . $name . '" value="(.+?)" \/>/', $content, $matches);
     return isset($matches[1]) ? $matches[1] : FALSE;
 }
 
-$url  = 'http://timetabling.anu.edu.au/sws2017/';
+$url   = 'http://timetabling.anu.edu.au/sws2017/';
+$stime = time();
 
 // Enter the landing page and acquire the session id
 echo 'Entering landing page...' . PHP_EOL;
@@ -154,8 +155,14 @@ foreach ($response['content']->find('#dlObject option') as $courseElement) {
         $lid      = array_search($location, $locations);
         $iid      = array_search($className[2], $infos);
 
-        if ($lid === FALSE) $lid = count($locations[] = $location    ) - 1;
-        if ($iid === FALSE) $iid = count($infos[]     = $className[2]) - 1;
+        if ($lid === FALSE) {
+            $locations[] = $location;
+            $lid         = count($locations) - 1;
+        }
+        if ($iid === FALSE) {
+            $infos[] = $className[2];
+            $iid     = count($infos) - 1;
+        }
 
         $courses[] = [
             'id'    => $id,
@@ -187,4 +194,13 @@ $fp = fopen('timetable.json', 'w+');
 fwrite($fp, preg_replace('/(}|]),/', '$1,' . PHP_EOL, json_encode([$fullNames, $infos, $locations, $courses])));
 fclose($fp);
 
-echo 'Scrapping complete, scrapped ' . array_sum($count) . ' courses in total, ' . $count[1] . ' of them has empty data.' . PHP_EOL;
+$min   = floor((time() - $stime) / 60);
+$sec   = (time() - $stime) % 60;
+$part  = 'scraped ' . array_sum($count) . ' courses in total, ' . $count[1] . ' of them have empty data';
+$part2 = 'time elapsed: ' . $min . ' minute' . ($min < 2 ? '' : 's') . ' and ' . $sec . ' second' . ($sec < 2 ? '' : 's') . '.';
+
+$fp = fopen('scrape.log', 'a');
+fwrite($fp, date('Y-m-d H:i:s', $stime) . '~' . date('Y-m-d H:i:s') . ' - ' . $part . ', ' . $part2 . PHP_EOL);
+fclose($fp);
+
+echo 'Scraping complete, ' . $part . ', ' . $part2 . PHP_EOL;
