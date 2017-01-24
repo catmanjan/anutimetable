@@ -15,4 +15,4 @@
 * After scraping, a file `timetable.json` will be generated under the same folder as `scrape.php`, remember to give it permission to read if you want to save it through `http://partch.anu.edu.au.virtual.anu.edu.au/~u0000000/`
 
 
-![PHP Scraping](http://imgur.com/a/4E29f)
+![PHP Scraping](http://i.imgur.com/73Dfax0.png)

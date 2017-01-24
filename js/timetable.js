@@ -2,7 +2,7 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '21st of January, 2017';
+var jsonUpdatedTime = '24th of January, 2017';
 var revisionNum     = 8;
 
 var Calendar = {
@@ -310,8 +310,12 @@ var Calendar = {
         return $('.table.table-striped th.col-sm-2:nth(' + (parseInt(day).toString() === day.toString() ? day : Calendar.weekdays.indexOf(day)) + ')');
     },
     removeLessonGrid  : function (element) {
-    console.log(element);
-        element.parent().empty().get(0).className = 'timeslot';
+        var parents = element.parent();
+        for (var i in parents) {
+            if (!parents.hasOwnProperty(i)) continue;
+            parents[i].className = 'timeslot';
+        }
+        parents.empty();
         Calendar.columnSeparate().columnMerge().togglePlaceholders();
     },
     hideChooseLinks   : function () {

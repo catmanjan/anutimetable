@@ -1,8 +1,16 @@
 # anutimetable
 
-* Timetable database last update: 2016-01-21
+* Timetable database last update: 2016-01-24
 
 ## Updates
+
+### 2017-01-24
+* Fixed an issue with scraper generating wrong iid
+* Fixed an issue with some cell's color won't go away after deleting the course (`parent().get(0)` only returns one element, therefore need to loop over `parent()`)
+
+### 2017-01-22
+* Enhanced `choose` button to be displayed only when there's alternatives
+* Fixed some spelling errors
 
 ### 2017-01-21
 * Added a PHP scraper (for non-ANU network use)
