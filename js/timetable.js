@@ -16,7 +16,7 @@ var Calendar = {
         this.weekdays                 = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
         this.weekdaysFull             = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         this.template                 = _.template($("#calendar-template").text());
-        this.compulsaryLessonTemplate = $("#compulsary-event-template").text();
+        this.compulsoryLessonTemplate = $("#compulsory-event-template").text();
         this.groupLessonTemplate      = $("#group-event-template").text();
         this.html                     = this.template(this.tradingHours);
         this.courseGrids              = [];
@@ -89,16 +89,19 @@ var Calendar = {
         }
 
     },
-    putCompulsaryItem : function (item) {
-        var displayDiv = $(_.template(Calendar.compulsaryLessonTemplate, {item: item}));
+    putCompulsoryItem : function (item) {
+        var displayDiv = $(_.template(Calendar.compulsoryLessonTemplate, {item: item}));
         Calendar.putItem(item, displayDiv);
     },
     putGroupItem      : function (item) {
+		
         var displayDiv = $(_.template(Calendar.groupLessonTemplate, {item: item}));
-
+		
         $(displayDiv.find('a.choose')[0]).on('click', function (event) {
             event.preventDefault();
 
+			//Cycles through every item on the timetable and compares it to the one which has been 'chosen'
+			//and appropriately removes identical items. Hides the 'choose' button on the 'chosen' one.
             Course.tutorials[displayDiv.data('group')] = displayDiv.data('id');
             _($(".lesson")).each(function (item) {
                 var $item = $(item);
@@ -116,8 +119,13 @@ var Calendar = {
         });
 
         Calendar.putItem(item, displayDiv);
+		
+		if (item.solo) { //If the class has no alternatives, automatically 'choose' it
+			$(displayDiv.find('a.choose')[0]).click();
+		}
     },
     putLessonGroup    : function (group) {
+
         if (group[0] === 'group') {
             for (var i = group[1].length - 1; i >= 0; i--) {
                 var key = group[1][i].name + filterNumbers(group[1][i].info);
@@ -125,11 +133,14 @@ var Calendar = {
                 // Build tutorial object if is not in recovering mode
                 if (!Course.tutorials[key]) Course.tutorials[key] = 0;
 
+				
+				
                 if (!Course.tutorials[key] || Course.tutorials[key] == group[1][i].id)
-                    Calendar.putGroupItem(group[1][i]);
+					Calendar.putGroupItem(group[1][i]);
+				
             }
         } else {
-            Calendar.putCompulsaryItem(group[1]);
+            Calendar.putCompulsoryItem(group[1]);
         }
     },
     columnMerge       : function () {
@@ -358,6 +369,37 @@ var Course = {
             }, 2000);
         } else {
             $("#add-course").html('Add');
+			
+			//Count the number of alternatives to each class. If there are none, mark it with .solo=true so it can be pre-chosen
+			var classAlternatives = []; //info as key, num alternatives as return
+			var classTypes = []; //info as key, id as return
+			var classEnum = []; //id as key, info as return
+			
+			_(data).each(
+				function (group) {
+					if (group[0] === 'group') {
+						var info = filterNumbers(group[1][0].info);
+						
+						if (classTypes[info] == undefined) {
+							classTypes[info] = classEnum.length;
+							classEnum[classEnum.length] = info;
+						}
+						if (classAlternatives[info] == undefined) classAlternatives[info] = 0;
+						classAlternatives[info]++;
+					}
+				}
+			);
+			
+			_(data).each(
+				function (group) {
+					if (group[0] === 'group') {
+						var info = filterNumbers(group[1][0].info);
+						if (classAlternatives[info]==1) group[1][0].solo = true;
+						else group[1][0].solo = false;
+					}
+				}
+			);
+			
             _(data).each(Calendar.putLessonGroup);
             Course.courses.push(courseName);
 
