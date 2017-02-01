@@ -2,16 +2,16 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '24th of January, 2017';
+var jsonUpdatedTime = '2nd of February, 2017';
 var revisionNum     = 8;
 
 var Calendar = {
-    initialize        : function () {
+    initialize: function () {
         this.tradingHours             = {
-            start_hour       : 8,
+            start_hour: 8,
             normal_start_hour: 9,
-            normal_end_hour  : 18,
-            end_hour         : 20
+            normal_end_hour: 18,
+            end_hour: 20
         };
         this.weekdays                 = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
         this.weekdaysFull             = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -27,7 +27,7 @@ var Calendar = {
             this.courseGrids.push(temp);
         }
     },
-    putItem           : function (item, displayDiv) {
+    putItem: function (item, displayDiv) {
 
         Magic.preCast(item);
 
@@ -89,19 +89,19 @@ var Calendar = {
         }
 
     },
-    putCompulsoryItem : function (item) {
+    putCompulsoryItem: function (item) {
         var displayDiv = $(_.template(Calendar.compulsoryLessonTemplate, {item: item}));
         Calendar.putItem(item, displayDiv);
     },
-    putGroupItem      : function (item) {
-		
+    putGroupItem: function (item) {
+
         var displayDiv = $(_.template(Calendar.groupLessonTemplate, {item: item}));
-		
+
         $(displayDiv.find('a.choose')[0]).on('click', function (event) {
             event.preventDefault();
 
-			//Cycles through every item on the timetable and compares it to the one which has been 'chosen'
-			//and appropriately removes identical items. Hides the 'choose' button on the 'chosen' one.
+            //Cycles through every item on the timetable and compares it to the one which has been 'chosen'
+            //and appropriately removes identical items. Hides the 'choose' button on the 'chosen' one.
             Course.tutorials[displayDiv.data('group')] = displayDiv.data('id');
             _($(".lesson")).each(function (item) {
                 var $item = $(item);
@@ -119,12 +119,12 @@ var Calendar = {
         });
 
         Calendar.putItem(item, displayDiv);
-		
-		if (item.solo) { //If the class has no alternatives, automatically 'choose' it
-			$(displayDiv.find('a.choose')[0]).click();
-		}
+
+        if (item.solo) { //If the class has no alternatives, automatically 'choose' it
+            $(displayDiv.find('a.choose')[0]).click();
+        }
     },
-    putLessonGroup    : function (group) {
+    putLessonGroup: function (group) {
 
         if (group[0] === 'group') {
             for (var i = group[1].length - 1; i >= 0; i--) {
@@ -133,17 +133,16 @@ var Calendar = {
                 // Build tutorial object if is not in recovering mode
                 if (!Course.tutorials[key]) Course.tutorials[key] = 0;
 
-				
-				
+
                 if (!Course.tutorials[key] || Course.tutorials[key] == group[1][i].id)
-					Calendar.putGroupItem(group[1][i]);
-				
+                    Calendar.putGroupItem(group[1][i]);
+
             }
         } else {
             Calendar.putCompulsoryItem(group[1]);
         }
     },
-    columnMerge       : function () {
+    columnMerge: function () {
 
         var ignoreList = [];
 
@@ -211,7 +210,7 @@ var Calendar = {
 
         return Calendar;
     },
-    columnSeparate    : function () {
+    columnSeparate: function () {
 
         var timeslots = $('.timeslot');
 
@@ -232,7 +231,7 @@ var Calendar = {
 
         return Calendar;
     },
-    removeFromGrid    : function (courseName) {
+    removeFromGrid: function (courseName) {
 
         // Delete the course from grid array
         $.each(Calendar.courseGrids, function (i, v) {
@@ -270,7 +269,7 @@ var Calendar = {
 
         return Calendar;
     },
-    fillArray         : function (array, fillWith, hour, day, blockNum, currentIndex) {
+    fillArray: function (array, fillWith, hour, day, blockNum, currentIndex) {
 
         // Find the left most possible space and fill in the value
         // For example, if we need to fill up 2 blocks with value v
@@ -299,17 +298,17 @@ var Calendar = {
         }
         return [currentIndex, array];
     },
-    timeslotElement   : function (hour, day, index) {
+    timeslotElement: function (hour, day, index) {
         var selector = '.timeslot[data-index!="-1"]';
         if (null !== hour) selector += '[data-hour="' + hour + '"]';
         if (null !== day) selector += '[data-day="' + day + '"]';
         if (null !== index) selector += '[data-index="' + index + '"]';
         return $(selector);
     },
-    dayHeaderElement  : function (day) {
+    dayHeaderElement: function (day) {
         return $('.table.table-striped th.col-sm-2:nth(' + (parseInt(day).toString() === day.toString() ? day : Calendar.weekdays.indexOf(day)) + ')');
     },
-    removeLessonGrid  : function (element) {
+    removeLessonGrid: function (element) {
         var parents = element.parent();
         for (var i in parents) {
             if (!parents.hasOwnProperty(i)) continue;
@@ -318,7 +317,7 @@ var Calendar = {
         parents.empty();
         Calendar.columnSeparate().columnMerge().togglePlaceholders();
     },
-    hideChooseLinks   : function () {
+    hideChooseLinks: function () {
         for (var i in Course.tutorials) {
             if (Course.tutorials.hasOwnProperty(i) && Course.tutorials[i] > 0) $('[data-id="' + Course.tutorials[i] + '"] a.choose').hide();
         }
@@ -346,9 +345,9 @@ var Cookie = {
 };
 
 var Course = {
-    courses         : [],
-    tutorials       : {},
-    get             : function () {
+    courses: [],
+    tutorials: {},
+    get: function () {
         var courseNameElement = $("#course-name");
         var courseName        = courseNameElement.val().split('-')[0].toUpperCase().trim();
         if (courseName && Course.courses.indexOf(courseName) === -1) {
@@ -358,7 +357,7 @@ var Course = {
         }
         return Course;
     },
-    add             : function (courseName, isRecovering) {
+    add: function (courseName, isRecovering) {
         var data = timetableData[courseName];
         recover  = 'undefined' !== typeof isRecovering;
 
@@ -369,37 +368,37 @@ var Course = {
             }, 2000);
         } else {
             $("#add-course").html('Add');
-			
-			//Count the number of alternatives to each class. If there are none, mark it with .solo=true so it can be pre-chosen
-			var classAlternatives = []; //info as key, num alternatives as return
-			var classTypes = []; //info as key, id as return
-			var classEnum = []; //id as key, info as return
-			
-			_(data).each(
-				function (group) {
-					if (group[0] === 'group') {
-						var info = filterNumbers(group[1][0].info);
-						
-						if (classTypes[info] == undefined) {
-							classTypes[info] = classEnum.length;
-							classEnum[classEnum.length] = info;
-						}
-						if (classAlternatives[info] == undefined) classAlternatives[info] = 0;
-						classAlternatives[info]++;
-					}
-				}
-			);
-			
-			_(data).each(
-				function (group) {
-					if (group[0] === 'group') {
-						var info = filterNumbers(group[1][0].info);
-						if (classAlternatives[info]==1) group[1][0].solo = true;
-						else group[1][0].solo = false;
-					}
-				}
-			);
-			
+
+            //Count the number of alternatives to each class. If there are none, mark it with .solo=true so it can be pre-chosen
+            var classAlternatives = []; //info as key, num alternatives as return
+            var classTypes        = []; //info as key, id as return
+            var classEnum         = []; //id as key, info as return
+
+            _(data).each(
+                function (group) {
+                    if (group[0] === 'group') {
+                        var info = filterNumbers(group[1][0].info);
+
+                        if (classTypes[info] == undefined) {
+                            classTypes[info]            = classEnum.length;
+                            classEnum[classEnum.length] = info;
+                        }
+                        if (classAlternatives[info] == undefined) classAlternatives[info] = 0;
+                        classAlternatives[info]++;
+                    }
+                }
+            );
+
+            _(data).each(
+                function (group) {
+                    if (group[0] === 'group') {
+                        var info = filterNumbers(group[1][0].info);
+                        if (classAlternatives[info] == 1) group[1][0].solo = true;
+                        else group[1][0].solo = false;
+                    }
+                }
+            );
+
             _(data).each(Calendar.putLessonGroup);
             Course.courses.push(courseName);
 
@@ -416,7 +415,7 @@ var Course = {
 
         return Course;
     },
-    remove          : function (courseName, prompt) {
+    remove: function (courseName, prompt) {
         if ('undefined' !== typeof prompt && !confirm('Are you sure you want to delete this course?')) return;
 
         Course.courses = _(Course.courses).without(courseName);
@@ -431,7 +430,7 @@ var Course = {
 
         return Course;
     },
-    display         : function () {
+    display: function () {
         var displayElement = $('#chosenCourses');
         if (Course.courses.length <= 0) {
             displayElement.html('None.');
@@ -448,7 +447,7 @@ var Course = {
 
         return Course;
     },
-    recover         : function () {
+    recover: function () {
         var savedCourses = Tools.getSavedData('courses');
         var temp         = Tools.getSavedData('tutorials');
         Course.tutorials = temp ? JSON.parse(temp) : {};
@@ -462,13 +461,13 @@ var Course = {
         Course.display();
         return Course;
     },
-    save            : function (isOnlyTutorial) {
+    save: function (isOnlyTutorial) {
         if ('undefined' === typeof isOnlyTutorial)
             Tools.updateSavedData('courses', JSON.stringify(Course.courses));
         Tools.updateSavedData('tutorials', JSON.stringify(Course.tutorials));
         return Course;
     },
-    clear           : function (e) {
+    clear: function (e) {
         ('undefined' !== typeof e) && e.preventDefault();
         Magic.init();
         Course.courses   = [];
@@ -477,7 +476,7 @@ var Course = {
         $("#cal-container").html(Calendar.html);
         return Course;
     },
-    processRaw      : function (rawData) {
+    processRaw: function (rawData) {
         $.each(rawData[3], function (i, course) {
             rawData[3][i].fullName = rawData[0][course.nid];
             rawData[3][i].info     = rawData[1][course.iid].replace(/(\s|([^\d]))(0+)/g, '$2').replace('/', ' / ');
@@ -496,7 +495,7 @@ var Course = {
 };
 
 var loadJSON = {
-    status      : function (succeed, isLoading) {
+    status: function (succeed, isLoading) {
         var element = $('#load');
         succeed ? element.removeClass('text-warning').html('Loaded!') : element.addClass('text-warning').html(isLoading ? 'Loading..' : 'Not a valid JSON file!');
         setTimeout(function () {
@@ -527,58 +526,58 @@ var loadJSON = {
 };
 
 var Tools = {
-    pad               : function (n, width, z) {
+    pad: function (n, width, z) {
         z = z || '0';
         n = n + '';
         return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
     },
-    hourify           : function (num) {
+    hourify: function (num) {
         var parts = num.toString().split('.');
         return Tools.pad(parts[0], 2) + (parts[1] === '5' ? '30' : '00');
     },
-    getSavedData      : function (name) {
+    getSavedData: function (name) {
         return hasLocalStorage ? localStorage.getItem(name) : Cookie.get(name);
     },
-    updateSavedData   : function (name, value) {
+    updateSavedData: function (name, value) {
         return hasLocalStorage ? localStorage.setItem(name, value) : Cookie.set(name, value);
     },
     displayUpdatedTime: function (itemNumber) {
         $('#jsonUpdatedTime').html(jsonUpdatedTime + '.' + ('undefined' !== typeof itemNumber ? ' (' + itemNumber + ' courses)' : ''));
     },
-    size              : function (object) {
+    size: function (object) {
         return object.length || Object.keys(object).length;
     },
-    deepCopy          : function (object) {
+    deepCopy: function (object) {
         return JSON.parse(JSON.stringify(object));
     }
 };
 
 var Magic = {
-    maxShow          : 5,
-    spells           : {},
-    queue            : $('<div></div>'),
+    maxShow: 5,
+    spells: {},
+    queue: $('<div></div>'),
     spellCombinations: [],
-    initAllocation   : {mon: {}, tue: {}, wed: {}, thu: {}, fri: {}, sat: {}, sun: {}},
-    appearCount      : {},
-    init             : function () {
+    initAllocation: {mon: {}, tue: {}, wed: {}, thu: {}, fri: {}, sat: {}, sun: {}},
+    appearCount: {},
+    init: function () {
         this.spells            = {};
         this.spellCombinations = [];
     },
-    preCast          : function (spell) {
+    preCast: function (spell) {
         var name = spell.name + ' - ' + spell.info.split('/')[0].trim();
         if (!this.spells[name]) {
             this.spells[name] = [];
         }
         this.spells[name].push(spell);
     },
-    cast             : function () {
+    cast: function () {
         this.useWand(this.spells, [], this.initAllocation, 0);
         this.spellCombinations.sort(function (a, b) {
             return a.clashes - b.clashes;
         });
         return this.spellCombinations;
     },
-    useWand          : function (spells, currentCombination, currentAllocation, clashesCount) {
+    useWand: function (spells, currentCombination, currentAllocation, clashesCount) {
 
         if (this.appearCount[clashesCount] >= this.maxShow) return;
 
@@ -613,7 +612,7 @@ var Magic = {
 
         });
     },
-    uniqueSpell      : function (allocations, classObj) {
+    uniqueSpell: function (allocations, classObj) {
         for (var i = classObj.start, j = classObj.start + classObj.dur; i < j; i += .5) {
             if (allocations[classObj.day][i]) return false;
             allocations[classObj.day][i] = 1;
@@ -664,15 +663,15 @@ $(function () {
             if (Course.courses.indexOf(lesson.name) !== -1) {
                 var day = Calendar.weekdays.indexOf(lesson.day);
                 calString += eventTemplate({
-                    padded_hour    : Tools.hourify(lesson.start),
+                    padded_hour: Tools.hourify(lesson.start),
                     padded_end_hour: Tools.hourify(lesson.start + lesson.dur),
-                    first_day      : 15 + day,
-                    day            : lesson.day,
-                    description    : lesson.info,
-                    location       : lesson.location,
-                    course         : lesson.name + ' ' + lesson.info,
-                    holiday1       : (6 + day < 10) ? '0' + (6 + day) : (6 + day),
-                    holiday2       : 13 + day
+                    first_day: 15 + day,
+                    day: lesson.day,
+                    description: lesson.info,
+                    location: lesson.location,
+                    course: lesson.name + ' ' + lesson.info,
+                    holiday1: (6 + day < 10) ? '0' + (6 + day) : (6 + day),
+                    holiday2: 13 + day
                 });
             }
         });
@@ -680,7 +679,7 @@ $(function () {
         calString += "\nEND:VCALENDAR";
 
         //try {
-            download(calString, 'anu_s1_timetable.ics', 'text/plain');
+        download(calString, 'anu_s1_timetable.ics', 'text/plain');
         //} catch(e) {
         //    window.open('download.php?data=' + calString);
         //}
@@ -692,7 +691,7 @@ $(function () {
 
     $('#course-name').typeahead({
         highlight: true,
-        hint     : false
+        hint: false
     }, {
         source: function (query, process) {
             var matchIndexes = [], matches = [];
@@ -705,7 +704,7 @@ $(function () {
                     simplifiedName = course.fullName.replace(/_[a-zA-Z][0-9]/, ' -');
                 if (course.fullName && matchIndex !== -1 && $.inArray(simplifiedName, matches) === -1) {
                     matchIndexes.push({
-                        name      : simplifiedName,
+                        name: simplifiedName,
                         matchIndex: matchIndex
                     });
                     matches.push(simplifiedName);
