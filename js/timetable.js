@@ -3,7 +3,7 @@ var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
 var jsonUpdatedTime = '2nd of February, 2017';
-var revisionNum     = 8;
+var revisionNum     = 9;
 
 var Calendar = {
     initialize: function () {
