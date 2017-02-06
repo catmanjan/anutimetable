@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '6th of February, 2017';
-var revisionNum     = 10;
+var jsonUpdatedTime = '7th of February, 2017';
+var revisionNum     = 11;
 
 var Calendar = {
     initialize: function () {
@@ -626,6 +626,7 @@ $(function () {
     if (Tools.getSavedData('revisionNum') != revisionNum) {
         Tools.updateSavedData('revisionNum', revisionNum);
         Course.tutorials = {};
+        Course.courses   = {};
         Course.save(true);
     }
 
