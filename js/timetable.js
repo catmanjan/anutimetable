@@ -2,7 +2,7 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '7th of February, 2017';
+var jsonUpdatedTime = '11th of February, 2017';
 var revisionNum     = 11;
 
 var Calendar = {
@@ -633,7 +633,7 @@ $(function () {
     Calendar.initialize();
     Tools.displayUpdatedTime();
 
-    $.get('./data/timetable.json', {}, function (data) {
+    $.get('./data/timetable.json?VERSION=' + revisionNum, {}, function (data) {
         Course.processRaw(data);
         timetableData = rearrangeLessons(rawLessons);
         Course.recover();
