@@ -2,8 +2,18 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '11th of February, 2017';
-var revisionNum     = 11;
+var jsonUpdatedTime = '13th of February, 2017';
+var revisionNum     = 12;
+
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function (value) {
+        for (var i in this) {
+            if (!this.hasOwnProperty(i)) continue;
+            if (this[i] === value) return i;
+        }
+        return -1;
+    };
+}
 
 var Calendar = {
     initialize: function () {
