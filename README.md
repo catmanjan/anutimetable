@@ -1,8 +1,11 @@
 # anutimetable
 
-* Timetable database last update: 2017-02-13
+* Timetable database last update: 2017-02-15
 
 ## Updates
+
+### 2017-02-14
+* Added `autofocus` property for the course input box
 
 ### 2017-02-13
 * Fixed an issue with IE/Edge where `Array.prototype.indexOf` method does not exist
