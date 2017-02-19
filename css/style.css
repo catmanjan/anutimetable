@@ -1,3 +1,13 @@
+h1 {
+	display: inline-block;
+}
+
+h2 {
+	display: inline-block;
+	font-size: 10pt;
+	color: red;
+}
+
 /* Colours to distinguish different classes */
 
 .lesson {
