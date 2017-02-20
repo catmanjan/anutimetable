@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '18th of February, 2017';
-var revisionNum     = 15;
+var jsonUpdatedTime = '20th of February, 2017';
+var revisionNum     = 16;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
@@ -638,6 +638,20 @@ $(function () {
         Course.tutorials = {};
         Course.courses   = {};
         Course.save(true);
+    }
+    console.log(1, window.applicationCache);
+    if (window.applicationCache) {
+        window.applicationCache.addEventListener('updateready', function(e) {
+            if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+                // Browser downloaded a new app cache.
+                if (confirm('A new version of this site is available. Load it?')) {
+                    window.location.reload();
+                }
+            } else {
+                // Manifest didn't changed. Nothing new to server.
+            }
+        }, false);
+        console.log(2, window.applicationCache);
     }
 
     Calendar.initialize();

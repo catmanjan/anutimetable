@@ -1,8 +1,11 @@
 # anutimetable
 
-* Timetable database last update: 2017-02-18
+* Timetable database last update: 2017-02-20
 
 ## Updates
+
+### 2017-02-20 
+* Added offline support
 
 ### 2017-02-14
 * Added `autofocus` property for the course input box
