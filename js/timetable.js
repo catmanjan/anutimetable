@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '17th of March, 2017';
-var revisionNum     = 19;
+var jsonUpdatedTime = '16th of June, 2017';
+var revisionNum     = 20;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
@@ -360,6 +360,7 @@ var Course = {
     get: function () {
         var courseNameElement = $("#course-name");
         var courseName        = courseNameElement.val().split('-')[0].toUpperCase().trim();
+        console.log(Course.courses);
         if (courseName && Course.courses.indexOf(courseName) === -1) {
             $("#add-course").html("Adding...");
             courseNameElement.val("");
@@ -403,8 +404,7 @@ var Course = {
                 function (group) {
                     if (group[0] === 'group') {
                         var info = filterNumbers(group[1][0].info);
-                        if (classAlternatives[info] == 1) group[1][0].solo = true;
-                        else group[1][0].solo = false;
+                        group[1][0].solo = classAlternatives[info] == 1;
                     }
                 }
             );
@@ -639,19 +639,14 @@ $(function () {
         Course.courses   = {};
         Course.save(true);
     }
-    console.log(1, window.applicationCache);
     if (window.applicationCache) {
-        window.applicationCache.addEventListener('updateready', function(e) {
+        window.applicationCache.addEventListener('updateready', function() {
             if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
-                // Browser downloaded a new app cache.
                 if (confirm('A new version of this site is available. Load it?')) {
                     window.location.reload();
                 }
-            } else {
-                // Manifest didn't changed. Nothing new to server.
             }
         }, false);
-        console.log(2, window.applicationCache);
     }
 
     Calendar.initialize();

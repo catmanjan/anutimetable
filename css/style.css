@@ -5,7 +5,7 @@ h1 {
 h2 {
 	display: inline-block;
 	font-size: 10pt;
-	color: red;
+	/*color: red;*/
 }
 
 /* Colours to distinguish different classes */
