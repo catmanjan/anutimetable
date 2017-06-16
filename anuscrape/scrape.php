@@ -55,7 +55,8 @@ function postRequest ($url, $data = [], $cookies = []) {
 
     $content = file_get_contents($url, FALSE, stream_context_create($context));
 
-    $found = FALSE;
+    $found   = FALSE;
+    $matches = ['', ''];
     foreach ($http_response_header as $header) {
         preg_match('/^Set-Cookie:\s*([^;]*)/mi', $header, $matches);
         if ($matches) {
@@ -120,6 +121,10 @@ $id        = 1;
 $count     = [0, 0];
 $weekdays  = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 foreach ($response['content']->find('#dlObject option') as $courseElement) {
+
+    // get only semester 2 courses
+    if (substr($courseElement->value, -2) !== 'S2')
+        continue;
 
     $response = postRequest($url, [
         '__EVENTTARGET'        => '',
