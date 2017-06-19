@@ -67,25 +67,25 @@ PRODID:-//Google Inc//Google Calendar 70.9054//EN
 VERSION:2.0
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:ANU Semester 1
+X-WR-CALNAME:ANU Semester 2
 X-WR-TIMEZONE:Australia/Sydney
-X-WR-CALDESC:ANU Semester 1.
+X-WR-CALDESC:ANU Semester 2.
 </script>
 
 <script type="text/template" id="event-template">
 BEGIN:VEVENT
-DTSTART;TZID=Australia/Sydney:201702<%= first_day %>T<%= padded_hour %>00
-DTEND;TZID=Australia/Sydney:201702<%= first_day %>T<%= padded_end_hour %>00
+DTSTART;TZID=Australia/Sydney:201707<%= first_day %>T<%= padded_hour %>00
+DTEND;TZID=Australia/Sydney:201707<%= first_day %>T<%= padded_end_hour %>00
 RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
-EXDATE;TZID=Australia/Sydney:201704<%= holiday2 %>T<%= padded_hour %>00
-EXDATE;TZID=Australia/Sydney:201704<%= holiday1 %>T<%= padded_hour %>00
-DTSTAMP:20170119T180209Z
-CREATED:20170119T172444Z
+EXDATE;TZID=Australia/Sydney:201710<%= holiday2 %>T<%= padded_hour %>00
+EXDATE;TZID=Australia/Sydney:201710<%= holiday1 %>T<%= padded_hour %>00
+DTSTAMP:20170724T000000Z
+CREATED:20170724T000000Z
 DESCRIPTION:<%= description %>
-LAST-MODIFIED:20170119T172540Z
+LAST-MODIFIED:20170724T000000Z
 LOCATION:<%= location %>
 SEQUENCE:1
-UID:anu2017s1_<%= course %>
+UID:anu2017s2_<%= course %>
 STATUS:CONFIRMED
 SUMMARY:<%= course %>
 TRANSP:OPAQUE
