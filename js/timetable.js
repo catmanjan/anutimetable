@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '16th of June, 2017';
-var revisionNum     = 20;
+var jsonUpdatedTime = '19th of June, 2017';
+var revisionNum     = 21;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
@@ -699,7 +699,7 @@ $(function () {
         calString += "\nEND:VCALENDAR";
 
         //try {
-        download(calString, 'anu_s1_timetable.ics', 'text/plain');
+        download(calString, 'anu_s2_timetable.ics', 'text/plain');
         //} catch(e) {
         //    window.open('download.php?data=' + calString);
         //}
