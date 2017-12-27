@@ -123,7 +123,7 @@ $weekdays  = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 foreach ($response['content']->find('#dlObject option') as $courseElement) {
 
     // get only semester 2 courses
-    if (substr($courseElement->value, -2) !== 'S2')
+    if (substr($courseElement->value, -2) !== 'S1')
         continue;
 
     $response = postRequest($url, [
