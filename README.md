@@ -1,8 +1,13 @@
 # anutimetable
 
-* Timetable database last update: 2017-12-27
+* Timetable database last update: 2017-12-28
 
 ## Updates
+
+### 2017-12-28 
+* Changed scrapers to use the 2018 timetable website
+* Changed mode to _S1 courses only
+
 
 ### 2017-02-20 
 * Added offline support

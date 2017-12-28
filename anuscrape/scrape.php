@@ -82,7 +82,7 @@ function retrieveField ($content, $name) {
     return isset($matches[1]) ? $matches[1] : FALSE;
 }
 
-$url   = 'http://timetabling.anu.edu.au/sws2017/';
+$url   = 'http://timetabling.anu.edu.au/sws2018/';
 $stime = time();
 
 // Enter the landing page and acquire the session id

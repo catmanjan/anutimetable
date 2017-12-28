@@ -1,7 +1,7 @@
 # anuscrape
 
 ## JavaScript version
-* Browse to http://timetabling.anu.edu.au/sws2017/
+* Browse to http://timetabling.anu.edu.au/sws2018/
 * Select "Courses"
 * Run scrape.js in the browser console
 
