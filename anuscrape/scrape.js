@@ -29,7 +29,7 @@ if (jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
 
         var form = jQuery('#form1');
         queue.queue(function () {
-            jQuery.post('http://timetabling.anu.edu.au/sws2017/', {
+            jQuery.post('http://timetabling.anu.edu.au/sws2018/', {
                 '__EVENTTARGET'       : '',
                 '__EVENTARGUMENT'     : '',
                 '__LASTFOCUS'         : '',
@@ -42,8 +42,8 @@ if (jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
                 'dlObject'            : courseElement.value,
 				// Note this should be changed depending on the semester:
 				// 29-46 for semester 2
-		    		// THIS DOES NOT WORK ANY MORE! S1 courses are postfixed with _S1, S2 with _S2 so
-		    		// changing this will cause the script to fail
+				// THIS DOES NOT WORK ANY MORE! S1 courses are postfixed with _S1, S2 with _S2 so
+				// changing this will cause the script to fail.
                 'lbWeeks'             : '1-52',
                 'lbDays'              : '1-7;1;2;3;4;5;6;7',
                 'dlPeriod'            : '1-32;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;',
