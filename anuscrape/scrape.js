@@ -56,7 +56,7 @@ if (jQuery('#tFilterTitle').html().indexOf('Course') !== -1) {
 
                 rows.each(function (index, courseRow) {
                     var tds       = jQuery(courseRow).find('td'),
-                        className = tds.eq(0).text().trim().match(/([a-zA-Z0-9]+)_.+?\s(.+)/) || ['', '', ''],
+                        className = tds.eq(0).text().trim().match(/([a-zA-Z0-9]+)_.+?-(.+)/) || ['', '', ''],
                         location  = tds.eq(7).text().trim(),
                         lid       = jQuery.inArray(location, locations),
                         iid       = jQuery.inArray(className[2], infos);

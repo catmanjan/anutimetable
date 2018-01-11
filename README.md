@@ -1,8 +1,12 @@
 # anutimetable
 
-* Timetable database last update: 2018-01-05
+* Timetable database last update: 2018-01-12
 
 ## Updates
+
+### 2017-01-12
+* Changed the regex used in the scrapers to work correctly with the 2018 timetable
+* Added a verify.py script that takes the timetable.json file and checks for conflicting course activities in terms of iid values
 
 ### 2017-12-28 
 * Changed scrapers to use the 2018 timetable website

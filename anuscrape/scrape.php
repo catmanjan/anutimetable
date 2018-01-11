@@ -151,7 +151,7 @@ foreach ($response['content']->find('#dlObject option') as $courseElement) {
 
         if (!isset($tds[7]) || $tds[7]->class === 'type-string') continue;
 
-        preg_match('/([a-zA-Z0-9]+)_.+?\s(.+)/', trim($tds[0]->plaintext), $className);
+        preg_match('/([a-zA-Z0-9]+)_.+?-(.+)/', trim($tds[0]->plaintext), $className);
         if (!$className) {
             $className = ['', '', ''];
         }
