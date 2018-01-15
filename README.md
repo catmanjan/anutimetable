@@ -1,8 +1,14 @@
 # anutimetable
 
-* Timetable database last update: 2018-01-12
+* Timetable database last update: 2018-01-15
 
 ## Updates
+
+### 2017-01-16
+* Finalised auto-scraper and added the following scripts under /anutimtable/anuscrape:
+  1. `commit.sh`
+  2. `schedule_scraping.bak`
+  3. `update_date.py`
 
 ### 2017-01-12
 * Changed the regex used in the scrapers to work correctly with the 2018 timetable
