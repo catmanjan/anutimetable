@@ -1,5 +1,8 @@
 # anuscrape
 
+## Automated scraping server setup
+* TODO
+
 ## JavaScript version
 * Browse to http://timetabling.anu.edu.au/sws2018/
 * Select "Courses"
