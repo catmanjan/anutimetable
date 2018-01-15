@@ -4,6 +4,12 @@
 
 ## Updates
 
+### 2017-01-16
+* Finalised auto-scraper and added the following scripts under /anutimtable/anuscrape:
+  1. `commit.sh`
+  2. `schedule_scraping.bak`
+  3. `update_date.py`
+
 ### 2017-01-12
 * Changed the regex used in the scrapers to work correctly with the 2018 timetable
 * Added a verify.py script that takes the timetable.json file and checks for conflicting course activities in terms of iid values
