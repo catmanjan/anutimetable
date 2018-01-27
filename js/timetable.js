@@ -5,6 +5,7 @@ var recover         = false;
 var jsonUpdatedTime = '27th of January, 2018';
 var revisionNum     = 40;
 
+
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
         for (var i in this) {
