@@ -2,7 +2,6 @@
 
 * Timetable database last update: 2018-01-27
 
-
 ## Updates
 
 ### 2018-01-16
