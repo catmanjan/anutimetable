@@ -678,28 +678,42 @@ $(function () {
 
         var calString     = $('#cal-header').text();
         var eventTemplate = _.template($("#event-template").html());
-
+		var unselected_tutorials = false;
+		if (Course.courses.length == 0){
+			$('#download').html("No courses selected");
+			 setTimeout(function() { $('#download').html("Download as .ics")}, 2000);
+			 return;
+		}
         _(rawLessons).each(function (lesson) {
-            if (Course.courses.indexOf(lesson.name) !== -1) {
+            if (Course.courses.indexOf(lesson.name) !== -1 && $.inArray(lesson.id, Object.values(Course.tutorials)) !== -1) {
                 var day = Calendar.weekdays.indexOf(lesson.day);
                 calString += eventTemplate({
                     padded_hour: Tools.hourify(lesson.start),
                     padded_end_hour: Tools.hourify(lesson.start + lesson.dur),
-                    first_day: 15 + day,
+                    first_day: 19 + day,
                     day: lesson.day,
                     description: lesson.info,
                     location: lesson.location,
                     course: lesson.name + ' ' + lesson.info,
-                    holiday1: (6 + day < 10) ? '0' + (6 + day) : (6 + day),
-                    holiday2: 13 + day
+                    holiday1: (2 + day < 10) ? '0' + (2 + day) : (2 + day),
+                    holiday2:(9 + day < 10) ? '0' + (9 + day) : (9 + day)
                 });
             }
+		if($.inArray(0, Object.values(Course.tutorials)) !== -1){
+			unselected_tutorials = true;
+		}
         });
+		if(unselected_tutorials){
+			if(!confirm("You have unselected tutorials. These will not be exported. Click OK to continue."))
+			{
+				return;
+			}
+		}
 
         calString += "\nEND:VCALENDAR";
 
         //try {
-        download(calString, 'anu_s2_timetable.ics', 'text/plain');
+        download(calString, 'anu_s1_timetable.ics', 'text/plain');
         //} catch(e) {
         //    window.open('download.php?data=' + calString);
         //}

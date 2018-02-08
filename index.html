@@ -68,17 +68,17 @@ VERSION:2.0
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME:ANU Semester 1
-X-WR-TIMEZONE:Australia/Sydney
+X-WR-TIMEZONE:/Australia/Sydney
 X-WR-CALDESC:ANU Semester 1.
 </script>
 
 <script type="text/template" id="event-template">
 BEGIN:VEVENT
-DTSTART;TZID=Australia/Sydney:201801<%= first_day %>T<%= padded_hour %>00
-DTEND;TZID=Australia/Sydney:201801<%= first_day %>T<%= padded_end_hour %>00
-RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
-EXDATE;TZID=Australia/Sydney:201801<%= holiday2 %>T<%= padded_hour %>00
-EXDATE;TZID=Australia/Sydney:201801<%= holiday1 %>T<%= padded_hour %>00
+DTSTART;TZID=/Australia/Sydney:201802<%= first_day %>T<%= padded_hour %>00
+DTEND;TZID=/Australia/Sydney:201802<%= first_day %>T<%= padded_end_hour %>00
+RRULE:FREQ=WEEKLY;COUNT=14;BYDAY=<%= day.slice(0,2).toUpperCase() %>
+EXDATE;TZID=/Australia/Sydney:201804<%= holiday2 %>T<%= padded_hour %>00
+EXDATE;TZID=/Australia/Sydney:201804<%= holiday1 %>T<%= padded_hour %>00
 DTSTAMP:20180101T000000Z
 CREATED:20180101T000000Z
 DESCRIPTION:<%= description %>
