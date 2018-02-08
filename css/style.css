@@ -17,6 +17,11 @@ h2 {
     margin-bottom : 2px;
 }
 
+
+.title {
+    color         : #4C6E78;
+}
+
 .lesson-style-1 {
     border-color     : #660066;
     background-color : #FFCCFF;
