@@ -15,6 +15,7 @@ if (!Array.prototype.indexOf) {
     };
 }
 
+
 var Calendar = {
     initialize: function () {
         this.tradingHours             = {
@@ -672,10 +673,17 @@ $(function () {
             Course.get();
         }
     };
+	
+	$('#screenshot').on('click', function(event){
+		html2canvas(document.querySelector("#cal-container")).then(canvas => {
+			var img    = canvas.toDataURL("image/png", 0);
+		window.open(img);
+		});
+	});
+	
 
     // Generate downloadable ICS calendar
     $('#download').on('click', function (event) {
-
         var calString     = $('#cal-header').text();
         var eventTemplate = _.template($("#event-template").html());
 		var unselected_tutorials = false;
