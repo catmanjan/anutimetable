@@ -11,6 +11,7 @@
   <script src="js/bootstrap.min.js"></script>
   <script src="js/timetable.js" defer></script>
   <script src="js/timetable_analyser.js"></script>
+  <script src="js/html2canvas.min.js"></script>
   <link rel="shortcut icon" href="favicon.ico" />
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -21,7 +22,7 @@
   <div class="row">
     <div class="col-sm-12 col-md-12">
       <div>
-	    <h1>ANU Timetable Builder</h1>
+	    <h1 class="title">ANU Timetable Builder</h1>
         <h2>2018S1 (offline compatible)</h2>
       </div>
       <p class="course-list-date">Course list updated on <span id="jsonUpdatedTime"></span></p>
@@ -37,15 +38,18 @@
         </div>
         <button id="load" class="btn btn-primary hide">Load data from .json</button>
         <input type="file" id="file" class="hide">
-        <button id="download" class="btn btn-info pull-right">Download as .ics</button>
+		<div class="btn-group pull-right">
+		<button id="screenshot" class="btn btn-info">Export timetable image</button>
+         <button id="download" class="btn btn-info pull-right">Download as .ics</button>
+		</div>
       </div>
-    </div>
+    </div> 
   </div>
 
   <div class="row">
     <div class="col-xs-12">
       <div id="cal-container"></div>
-      <p>Report bugs to <a href="mailto:jan.ramon.martin@gmail.com">Jan Martin</a> or the <a href="https://github.com/catmanjan/anutimetable" target="_blank">ANU timetable builder GitHub project</a>.</p>
+      <p>Report bugs to the  <a href="mailto:emmanuel.morfiadakis@gmail.com">website maintainer</a> or the <a href="https://github.com/catmanjan/anutimetable" target="_blank">ANU timetable builder GitHub project</a>.</p>
     </div>
   </div>
 
@@ -68,17 +72,17 @@ VERSION:2.0
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME:ANU Semester 1
-X-WR-TIMEZONE:Australia/Sydney
+X-WR-TIMEZONE:/Australia/Sydney
 X-WR-CALDESC:ANU Semester 1.
 </script>
 
 <script type="text/template" id="event-template">
 BEGIN:VEVENT
-DTSTART;TZID=Australia/Sydney:201801<%= first_day %>T<%= padded_hour %>00
-DTEND;TZID=Australia/Sydney:201801<%= first_day %>T<%= padded_end_hour %>00
-RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
-EXDATE;TZID=Australia/Sydney:201801<%= holiday2 %>T<%= padded_hour %>00
-EXDATE;TZID=Australia/Sydney:201801<%= holiday1 %>T<%= padded_hour %>00
+DTSTART;TZID=/Australia/Sydney:201802<%= first_day %>T<%= padded_hour %>00
+DTEND;TZID=/Australia/Sydney:201802<%= first_day %>T<%= padded_end_hour %>00
+RRULE:FREQ=WEEKLY;COUNT=14;BYDAY=<%= day.slice(0,2).toUpperCase() %>
+EXDATE;TZID=/Australia/Sydney:201804<%= holiday2 %>T<%= padded_hour %>00
+EXDATE;TZID=/Australia/Sydney:201804<%= holiday1 %>T<%= padded_hour %>00
 DTSTAMP:20180101T000000Z
 CREATED:20180101T000000Z
 DESCRIPTION:<%= description %>
@@ -119,7 +123,7 @@ END:VEVENT
 </script>
 
 <script type="text/template" id="calendar-template">
-  <table class="table table-striped table-condensed">
+  <table class="table table-striped table-condensed" >
     <tbody>
     <tr>
       <td class="col-sm-1"></td>
