@@ -676,9 +676,15 @@ $(function () {
 	
 	$('#screenshot').on('click', function(event){
 		html2canvas(document.querySelector("#cal-container")).then(canvas => {
-			var img    = canvas.toDataURL("image/png", 0);
-		window.open(img);
-		});
+			var dataURL = canvas.toDataURL("image/png" );
+			var data = atob( dataURL.substring( "data:image/png;base64,".length ) ),
+			asArray = new Uint8Array(data.length);
+			for( var i = 0, len = data.length; i < len; ++i ) {
+				asArray[i] = data.charCodeAt(i);    
+			}
+			var blob = new Blob( [ asArray.buffer ], {type: "image/png"} );		
+			download(blob, "timetable.png");
+	});
 	});
 	
 
