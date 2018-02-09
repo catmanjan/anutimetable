@@ -695,7 +695,7 @@ $(function () {
 		var unselected_tutorials = false;
 		if (Course.courses.length == 0){
 			$('#download').html("No courses selected");
-			 setTimeout(function() { $('#download').html("Download as .ics")}, 2000);
+			 setTimeout(function() { $('#download').html("Export .ics")}, 2000);
 			 return;
 		}
         _(rawLessons).each(function (lesson) {
