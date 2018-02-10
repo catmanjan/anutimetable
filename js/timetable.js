@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '7th of February, 2018';
-var revisionNum     = 45;
+var jsonUpdatedTime = '9th of February, 2018';
+var revisionNum     = 46;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
@@ -644,7 +644,7 @@ $(function () {
         window.applicationCache.addEventListener('updateready', function() {
             if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
                 if (confirm('A new version of this site is available. Load it?')) {
-                    window.location.reload();
+                    window.location.reload(true);
                 }
             }
         }, false);
