@@ -644,7 +644,7 @@ $(function () {
         window.applicationCache.addEventListener('updateready', function() {
             if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
                 if (confirm('A new version of this site is available. Load it?')) {
-                    window.location.reload();
+                    window.location.reload(true);
                 }
             }
         }, false);
