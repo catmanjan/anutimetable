@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '13th of February, 2018';
-var revisionNum     = 49;
+var jsonUpdatedTime = '16th of February, 2018';
+var revisionNum     = 51;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
@@ -107,6 +107,22 @@ var Calendar = {
     putGroupItem: function (item) {
 
         var displayDiv = $(_.template(Calendar.groupLessonTemplate, {item: item}));
+		
+        $(displayDiv.find('a.hide_temp')[0]).on('click', function (event) {
+            event.preventDefault();
+			console.log(displayDiv.data('id'));
+            _($(".lesson")).each(function (item) {
+                var $item = $(item);
+                if ($item.data("group") == displayDiv.data("group")) {
+                    if ($item.data('id') == displayDiv.data('id')) {
+						$item.mouseleave();
+						$item.parent().off();
+						
+                        Calendar.removeLessonGrid($item);
+                    }
+                }
+            });
+        });
 
         $(displayDiv.find('a.choose')[0]).on('click', function (event) {
             event.preventDefault();
@@ -675,7 +691,7 @@ $(function () {
     };
 	
 	$('#screenshot').on('click', function(event){
-		html2canvas(document.querySelector("#cal-container")).then(canvas => {
+		html2canvas(document.querySelector("#cal-container"), {scale:2}).then(canvas => {
 			var dataURL = canvas.toDataURL("image/png" );
 			var data = atob( dataURL.substring( "data:image/png;base64,".length ) ),
 			asArray = new Uint8Array(data.length);
