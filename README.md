@@ -4,10 +4,6 @@
 
 ## Updates
 
-### 2018-02-15
-* Added option to take a .PNG screenshot of the timetable
-* Added hide button to activities (requested by email from a few people)
-
 ### 2018-01-16
 * Finalised auto-scraper and added the following scripts under /anutimtable/anuscrape:
   1. `commit.sh` - bash script that checks for new timetable data and updates the GitHub repo
