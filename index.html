@@ -119,7 +119,7 @@ END:VEVENT
     <%= item.info %>.
     <i><%= Tools.pad(Math.floor(item.start), 2) + ':' + (item.start == Math.floor(item.start) ? '0' : '3') + '0-' +
       Math.floor(item.start + item.dur) + ':' + (item.start + item.dur == Math.floor(item.start + item.dur) ? '0' : '3') + '0' %></i><br>
-    <a class="choose" href>(choose)</a>
+    <a class="choose" href>(choose)&nbsp</a> <a class="hide_temp" href>(hide)</a>
   </div>
 </script>
 

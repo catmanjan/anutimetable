@@ -107,6 +107,22 @@ var Calendar = {
     putGroupItem: function (item) {
 
         var displayDiv = $(_.template(Calendar.groupLessonTemplate, {item: item}));
+		
+        $(displayDiv.find('a.hide_temp')[0]).on('click', function (event) {
+            event.preventDefault();
+			console.log(displayDiv.data('id'));
+            _($(".lesson")).each(function (item) {
+                var $item = $(item);
+                if ($item.data("group") == displayDiv.data("group")) {
+                    if ($item.data('id') == displayDiv.data('id')) {
+						$item.mouseleave();
+						$item.parent().off();
+						
+                        Calendar.removeLessonGrid($item);
+                    }
+                }
+            });
+        });
 
         $(displayDiv.find('a.choose')[0]).on('click', function (event) {
             event.preventDefault();
@@ -494,6 +510,7 @@ var Course = {
             rawData[3][i].location = rawData[2][course.lid];
             rawData[3][i].name     = rawData[3][i].fullName.match(/^([a-zA-Z0-9]+)_.+?\s(.+)/)[1];
             rawData[3][i].day      = parseInt(course.day) !== course.day ? course.day : Calendar.weekdays[course.day]; // update transition detection
+            delete rawData[3][i].nid;
             delete rawData[3][i].nid;
             delete rawData[3][i].iid;
             delete rawData[3][i].lid;
