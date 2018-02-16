@@ -1,8 +1,12 @@
 # anutimetable
 
-* Timetable database last update: 2018-02-14
+* Timetable database last update: 2018-02-16
 
 ## Updates
+
+### 2018-02-15
+* Added option to take a .PNG screenshot of the timetable
+* Added hide button to activities (requested by email from a few people)
 
 ### 2018-01-16
 * Finalised auto-scraper and added the following scripts under /anutimtable/anuscrape:
