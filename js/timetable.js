@@ -511,7 +511,6 @@ var Course = {
             rawData[3][i].name     = rawData[3][i].fullName.match(/^([a-zA-Z0-9]+)_.+?\s(.+)/)[1];
             rawData[3][i].day      = parseInt(course.day) !== course.day ? course.day : Calendar.weekdays[course.day]; // update transition detection
             delete rawData[3][i].nid;
-            delete rawData[3][i].nid;
             delete rawData[3][i].iid;
             delete rawData[3][i].lid;
         });
