@@ -692,7 +692,7 @@ $(function () {
     };
 	
 	$('#screenshot').on('click', function(event){
-		html2canvas(document.querySelector("#cal-container")).then(canvas => {
+		html2canvas(document.querySelector("#cal-container"), {scale:2}).then(canvas => {
 			var dataURL = canvas.toDataURL("image/png" );
 			var data = atob( dataURL.substring( "data:image/png;base64,".length ) ),
 			asArray = new Uint8Array(data.length);
