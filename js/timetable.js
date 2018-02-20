@@ -4,7 +4,12 @@ var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
 var jsonUpdatedTime = '20th of February, 2018';
 var revisionNum     = 54;
+var alerted = localStorage.getItem('alerted') || '';
 
+if (alerted != 'yes') {
+    alert("A one-time reminder that some activities occur only in certain weeks, so be sure to cross-reference with your course outlines to avoid confusion. Do not hesitate to send us an email if there are any inconsistencies.");
+    localStorage.setItem('alerted','yes');
+}
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
         for (var i in this) {
