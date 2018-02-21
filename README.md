@@ -1,6 +1,6 @@
 # anutimetable
 
-* Timetable database last update: 2018-02-20
+* Timetable database last update: 2018-02-21
 
 ## Updates
 
