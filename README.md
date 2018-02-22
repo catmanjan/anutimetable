@@ -4,6 +4,9 @@
 
 ## Updates
 
+### 2018-02-22
+* Fixed an issue where updating the revision num will cause a `Course.course` initialize error
+
 ### 2018-02-15
 * Added option to take a .PNG screenshot of the timetable
 * Added hide button to activities (requested by email from a few people)
