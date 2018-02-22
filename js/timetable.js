@@ -3,10 +3,10 @@ var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
 var jsonUpdatedTime = '22nd of February, 2018';
-var revisionNum     = 57;
-var alerted = localStorage.getItem('alerted') || '';
+var revisionNum     = 58;
+var alerted         = localStorage.getItem('alerted') || '';
 
-if (alerted != 'yes') {
+if (alerted !== 'yes') {
     alert("A one-time reminder that some activities occur only in certain weeks, so be sure to cross-reference with your course outlines to avoid confusion. Do not hesitate to send us an email if there are any inconsistencies.");
     localStorage.setItem('alerted','yes');
 }
@@ -658,7 +658,7 @@ $(function () {
     if (Tools.getSavedData('revisionNum') != revisionNum) {
         Tools.updateSavedData('revisionNum', revisionNum);
         Course.tutorials = {};
-        Course.courses   = {};
+        Course.courses   = [];
         Course.save(true);
     }
     if (window.applicationCache) {
