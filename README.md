@@ -6,6 +6,8 @@
 
 ### 2018-02-22
 * Fixed an issue where updating the revision num will cause a `Course.course` initialize error
+* Removed auto-selector residual code for now
+* Added Mocha test directory
 
 ### 2018-02-15
 * Added option to take a .PNG screenshot of the timetable

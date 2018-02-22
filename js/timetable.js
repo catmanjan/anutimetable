@@ -3,10 +3,10 @@ var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
 var jsonUpdatedTime = '22nd of February, 2018';
-var revisionNum     = 58;
-var alerted         = localStorage.getItem('alerted') || '';
+var revisionNum     = 59;
+var alerted         = hasLocalStorage && localStorage.getItem('alerted') || '';
 
-if (alerted !== 'yes') {
+if (hasLocalStorage && alerted !== 'yes') {
     alert("A one-time reminder that some activities occur only in certain weeks, so be sure to cross-reference with your course outlines to avoid confusion. Do not hesitate to send us an email if there are any inconsistencies.");
     localStorage.setItem('alerted','yes');
 }
@@ -44,8 +44,6 @@ var Calendar = {
         }
     },
     putItem: function (item, displayDiv) {
-
-        Magic.preCast(item);
 
         // Determine the index for search in courseGrids
         var index    = (item.start - Calendar.tradingHours.start_hour) * 2;
@@ -115,7 +113,6 @@ var Calendar = {
 		
         $(displayDiv.find('a.hide_temp')[0]).on('click', function (event) {
             event.preventDefault();
-			console.log(displayDiv.data('id'));
             _($(".lesson")).each(function (item) {
                 var $item = $(item);
                 if ($item.data("group") == displayDiv.data("group")) {
@@ -382,7 +379,6 @@ var Course = {
     get: function () {
         var courseNameElement = $("#course-name");
         var courseName        = courseNameElement.val().split('-')[0].toUpperCase().trim();
-        console.log(Course.courses);
         if (courseName && Course.courses.indexOf(courseName) === -1) {
             $("#add-course").html("Adding...");
             courseNameElement.val("");
@@ -501,7 +497,6 @@ var Course = {
     },
     clear: function (e) {
         ('undefined' !== typeof e) && e.preventDefault();
-        Magic.init();
         Course.courses   = [];
         Course.tutorials = {};
         Course.display().save();
@@ -584,215 +579,156 @@ var Tools = {
     }
 };
 
-var Magic = {
-    maxShow: 5,
-    spells: {},
-    queue: $('<div></div>'),
-    spellCombinations: [],
-    initAllocation: {mon: {}, tue: {}, wed: {}, thu: {}, fri: {}, sat: {}, sun: {}},
-    appearCount: {},
-    init: function () {
-        this.spells            = {};
-        this.spellCombinations = [];
-    },
-    preCast: function (spell) {
-        var name = spell.name + ' - ' + spell.info.split('/')[0].trim();
-        if (!this.spells[name]) {
-            this.spells[name] = [];
+if (typeof global === 'undefined' || typeof global.it !== 'function') {
+    $(function () {
+
+        if (Tools.getSavedData('revisionNum') != revisionNum) {
+            Tools.updateSavedData('revisionNum', revisionNum);
+            Course.tutorials = {};
+            Course.courses   = [];
+            Course.save(true);
         }
-        this.spells[name].push(spell);
-    },
-    cast: function () {
-        this.useWand(this.spells, [], this.initAllocation, 0);
-        this.spellCombinations.sort(function (a, b) {
-            return a.clashes - b.clashes;
-        });
-        return this.spellCombinations;
-    },
-    useWand: function (spells, currentCombination, currentAllocation, clashesCount) {
-
-        if (this.appearCount[clashesCount] >= this.maxShow) return;
-
-        if (!Object.keys(spells).length) {
-            this.spellCombinations.push({combination: currentCombination, clashes: clashesCount});
-            if (!this.appearCount[clashesCount]) this.appearCount[clashesCount] = 0;
-            this.appearCount[clashesCount] = this.appearCount[clashesCount] + (clashesCount === 0 ? 0.5 : 1);
-            console.log(this.spellCombinations.length);
-            return;
-        }
-
-        var that       = this;
-        var nextSpells = Tools.deepCopy(spells);
-        var firstKey   = Object.keys(nextSpells)[0];
-
-        delete nextSpells[firstKey];
-
-        $(spells[firstKey]).each(function () {
-
-            // Append ids to combination list
-            var newCombination = Tools.deepCopy(currentCombination);
-            newCombination.push(this.name + ' - ' + this.info);
-
-            // Append time allocations
-            var newAllocation = that.uniqueSpell(Tools.deepCopy(currentAllocation), this);
-
-            // Recursion, next day
-            that.useWand(nextSpells,
-                newCombination,
-                newAllocation !== false ? newAllocation : currentAllocation,
-                newAllocation !== false ? clashesCount : clashesCount + 1);
-
-        });
-    },
-    uniqueSpell: function (allocations, classObj) {
-        for (var i = classObj.start, j = classObj.start + classObj.dur; i < j; i += .5) {
-            if (allocations[classObj.day][i]) return false;
-            allocations[classObj.day][i] = 1;
-        }
-        return allocations;
-    }
-};
-
-$(function () {
-
-    if (Tools.getSavedData('revisionNum') != revisionNum) {
-        Tools.updateSavedData('revisionNum', revisionNum);
-        Course.tutorials = {};
-        Course.courses   = [];
-        Course.save(true);
-    }
-    if (window.applicationCache) {
-        window.applicationCache.addEventListener('updateready', function() {
-            if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
-                if (confirm('A new version of this site is available. Load it?')) {
-                    window.location.reload(true);
+        if (window.applicationCache) {
+            window.applicationCache.addEventListener('updateready', function() {
+                if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+                    if (confirm('A new version of this site is available. Load it?')) {
+                        window.location.reload(true);
+                    }
                 }
-            }
-        }, false);
-    }
-
-    Calendar.initialize();
-    Tools.displayUpdatedTime();
-
-    $.get('./data/timetable.json?VERSION=' + revisionNum, {}, function (data) {
-        Course.processRaw(data);
-        timetableData = rearrangeLessons(rawLessons);
-        Course.recover();
-        Tools.displayUpdatedTime(rawLessons.length);
-    }).fail(function () {
-        $('#load').removeClass('hide');
-        $('#chosenCourses').html('Unable to load data from source, please try to refresh or manually load pre-fetched JSON from ./data folder.');
-    });
-
-    // Generate UI table
-    $('#cal-container').append(Calendar.html);
-
-    // Bind key Enter with Add button
-    document.onkeydown = function (e) {
-        if ((e.which || e.keyCode) == 13) {
-            e.preventDefault();
-            Course.get();
+            }, false);
         }
-    };
-	
-	$('#screenshot').on('click', function(event){
-		html2canvas(document.querySelector("#cal-container"), {scale:2}).then(canvas => {
-			var dataURL = canvas.toDataURL("image/png" );
-			var data = atob( dataURL.substring( "data:image/png;base64,".length ) ),
-			asArray = new Uint8Array(data.length);
-			for( var i = 0, len = data.length; i < len; ++i ) {
-				asArray[i] = data.charCodeAt(i);    
-			}
-			var blob = new Blob( [ asArray.buffer ], {type: "image/png"} );		
-			download(blob, "timetable.png");
-	});
-	});
-	
 
-    // Generate downloadable ICS calendar
-    $('#download').on('click', function (event) {
-        var calString     = $('#cal-header').text();
-        var eventTemplate = _.template($("#event-template").html());
-		var unselected_tutorials = false;
-		if (Course.courses.length == 0){
-			$('#download').html("No courses selected");
-			 setTimeout(function() { $('#download').html("Export .ics")}, 2000);
-			 return;
-		}
-        _(rawLessons).each(function (lesson) {
-            if (Course.courses.indexOf(lesson.name) !== -1 && $.inArray(lesson.id, Object.values(Course.tutorials)) !== -1) {
-                var day = Calendar.weekdays.indexOf(lesson.day);
-                calString += eventTemplate({
-                    padded_hour: Tools.hourify(lesson.start),
-                    padded_end_hour: Tools.hourify(lesson.start + lesson.dur),
-                    first_day: 19 + day,
-                    day: lesson.day,
-                    description: lesson.info,
-                    location: lesson.location,
-                    course: lesson.name + ' ' + lesson.info,
-                    holiday1: (2 + day < 10) ? '0' + (2 + day) : (2 + day),
-                    holiday2:(9 + day < 10) ? '0' + (9 + day) : (9 + day)
-                });
-            }
-		if($.inArray(0, Object.values(Course.tutorials)) !== -1){
-			unselected_tutorials = true;
-		}
+        Calendar.initialize();
+        Tools.displayUpdatedTime();
+
+        $.get('./data/timetable.json?VERSION=' + revisionNum, {}, function (data) {
+            Course.processRaw(data);
+            timetableData = rearrangeLessons(rawLessons);
+            Course.recover();
+            Tools.displayUpdatedTime(rawLessons.length);
+        }).fail(function () {
+            $('#load').removeClass('hide');
+            $('#chosenCourses').html('Unable to load data from source, please try to refresh or manually load pre-fetched JSON from ./data folder.');
         });
-		if(unselected_tutorials){
-			if(!confirm("You have unselected tutorials. These will not be exported. Click OK to continue."))
-			{
-				return;
-			}
-		}
 
-        calString += "\nEND:VCALENDAR";
+        // Generate UI table
+        $('#cal-container').append(Calendar.html);
 
-        //try {
-        download(calString, 'anu_s1_timetable.ics', 'text/plain');
-        //} catch(e) {
-        //    window.open('download.php?data=' + calString);
-        //}
-    });
+        // Bind key Enter with Add button
+        document.onkeydown = function (e) {
+            if ((e.which || e.keyCode) == 13) {
+                e.preventDefault();
+                Course.get();
+            }
+        };
 
-    $('#add-course').on('click', Course.get);
-    $('#clear-courses').on('click', Course.clear);
-    $('#load').on('click', $('#file').change(loadJSON.eventHandler).click);
+        $('#screenshot').on('click', function(event){
+            html2canvas(document.querySelector("#cal-container"), {scale:2}).then(canvas => {
+                var dataURL = canvas.toDataURL("image/png" );
+            var data = atob( dataURL.substring( "data:image/png;base64,".length ) ),
+                asArray = new Uint8Array(data.length);
+            for( var i = 0, len = data.length; i < len; ++i ) {
+                asArray[i] = data.charCodeAt(i);
+            }
+            var blob = new Blob( [ asArray.buffer ], {type: "image/png"} );
+            download(blob, "timetable.png");
+        });
+        });
 
-    $('#course-name').typeahead({
-        highlight: true,
-        hint: false
-    }, {
-        source: function (query, process) {
-            var matchIndexes = [], matches = [];
 
-            // Building the array matchIndexes which stores query's appearance position
-            // in the course name, also fills the array matches for temporary ease of use.
-            query = query.trim().toLowerCase();
-            $.each(rawLessons, function (i, course) {
-                var matchIndex     = course.fullName.toLowerCase().indexOf(query),
-                    simplifiedName = course.fullName.replace(/_[a-zA-Z][0-9]/, ' -');
-                if (course.fullName && matchIndex !== -1 && $.inArray(simplifiedName, matches) === -1) {
-                    matchIndexes.push({
-                        name: simplifiedName,
-                        matchIndex: matchIndex
+        // Generate downloadable ICS calendar
+        $('#download').on('click', function (event) {
+            var calString     = $('#cal-header').text();
+            var eventTemplate = _.template($("#event-template").html());
+            var unselected_tutorials = false;
+            if (Course.courses.length == 0){
+                $('#download').html("No courses selected");
+                setTimeout(function() { $('#download').html("Export .ics")}, 2000);
+                return;
+            }
+            _(rawLessons).each(function (lesson) {
+                if (Course.courses.indexOf(lesson.name) !== -1 && $.inArray(lesson.id, Object.values(Course.tutorials)) !== -1) {
+                    var day = Calendar.weekdays.indexOf(lesson.day);
+                    calString += eventTemplate({
+                        padded_hour: Tools.hourify(lesson.start),
+                        padded_end_hour: Tools.hourify(lesson.start + lesson.dur),
+                        first_day: 19 + day,
+                        day: lesson.day,
+                        description: lesson.info,
+                        location: lesson.location,
+                        course: lesson.name + ' ' + lesson.info,
+                        holiday1: (2 + day < 10) ? '0' + (2 + day) : (2 + day),
+                        holiday2:(9 + day < 10) ? '0' + (9 + day) : (9 + day)
                     });
-                    matches.push(simplifiedName);
+                }
+                if($.inArray(0, Object.values(Course.tutorials)) !== -1){
+                    unselected_tutorials = true;
                 }
             });
+            if(unselected_tutorials){
+                if(!confirm("You have unselected tutorials. These will not be exported. Click OK to continue."))
+                {
+                    return;
+                }
+            }
 
-            // Sort them depends on the appeared position and name in ascending order
-            matchIndexes.sort(function (a, b) {
-                return a.matchIndex - b.matchIndex + a.name.localeCompare(b.name);
-            });
+            calString += "\nEND:VCALENDAR";
 
-            // Build the final result.
-            matches = [];
-            $.each(matchIndexes, function (i, course) {
-                matches.push(course.name);
-            });
+            //try {
+            download(calString, 'anu_s1_timetable.ics', 'text/plain');
+            //} catch(e) {
+            //    window.open('download.php?data=' + calString);
+            //}
+        });
 
-            process(matches);
-        }
+        $('#add-course').on('click', Course.get);
+        $('#clear-courses').on('click', Course.clear);
+        $('#load').on('click', $('#file').change(loadJSON.eventHandler).click);
+
+        $('#course-name').typeahead({
+            highlight: true,
+            hint: false
+        }, {
+            source: function (query, process) {
+                var matchIndexes = [], matches = [];
+
+                // Building the array matchIndexes which stores query's appearance position
+                // in the course name, also fills the array matches for temporary ease of use.
+                query = query.trim().toLowerCase();
+                $.each(rawLessons, function (i, course) {
+                    var matchIndex     = course.fullName.toLowerCase().indexOf(query),
+                        simplifiedName = course.fullName.replace(/_[a-zA-Z][0-9]/, ' -');
+                    if (course.fullName && matchIndex !== -1 && $.inArray(simplifiedName, matches) === -1) {
+                        matchIndexes.push({
+                            name: simplifiedName,
+                            matchIndex: matchIndex
+                        });
+                        matches.push(simplifiedName);
+                    }
+                });
+
+                // Sort them depends on the appeared position and name in ascending order
+                matchIndexes.sort(function (a, b) {
+                    return a.matchIndex - b.matchIndex + a.name.localeCompare(b.name);
+                });
+
+                // Build the final result.
+                matches = [];
+                $.each(matchIndexes, function (i, course) {
+                    matches.push(course.name);
+                });
+
+                process(matches);
+            }
+        });
+
     });
-
-});
+} else {
+    exports._ = {
+        Calendar: Calendar,
+        Cookie: Cookie,
+        Course: Course,
+        loadJSON: loadJSON,
+        Tools: Tools
+    };
+}
