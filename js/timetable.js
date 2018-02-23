@@ -3,7 +3,7 @@ var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
 var jsonUpdatedTime = '23rd of February, 2018';
-var revisionNum     = 58;
+var revisionNum     = 59;
 var alerted = localStorage.getItem('alerted') || '';
 
 if (alerted != 'yes') {
