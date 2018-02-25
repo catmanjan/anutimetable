@@ -4,11 +4,11 @@ var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
 var jsonUpdatedTime = '25th of February, 2018';
 var revisionNum     = 60;
-var alerted         = hasLocalStorage && localStorage.getItem('alerted') || '';
+var alerted         = hasLocalStorage && localStorage.getItem('alertFlood') || '';
 
 if (hasLocalStorage && alerted !== 'yes') {
-    alert("A one-time reminder that some activities occur only in certain weeks, so be sure to cross-reference with your course outlines to avoid confusion. Do not hesitate to send us an email if there are any inconsistencies.");
-    localStorage.setItem('alerted','yes');
+    alert("No classes (this includes labs, tutorials, etc.) on the 26th of February 2018. Stay safe.");
+    localStorage.setItem('alertFlood','yes');
 }
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
