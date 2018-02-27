@@ -4,12 +4,7 @@ var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
 var jsonUpdatedTime = '27th of February, 2018';
 var revisionNum     = 62;
-var alerted         = hasLocalStorage && localStorage.getItem('alertFlood') || '';
 
-if (hasLocalStorage && alerted !== 'yes') {
-    alert("No classes (this includes labs, tutorials, etc.) on the 26th of February 2018. Stay safe.");
-    localStorage.setItem('alertFlood','yes');
-}
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
         for (var i in this) {
