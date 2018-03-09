@@ -2,7 +2,7 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '8th of March, 2018';
+var jsonUpdatedTime = '9th of March, 2018';
 var revisionNum     = 69;
 
 if (!Array.prototype.indexOf) {
