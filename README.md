@@ -1,8 +1,11 @@
 # anutimetable
 
-* Timetable database last update: 2018-03-06
+* Timetable database last update: 2018-03-09
 
 ## Updates
+
+### 2018-03-09
+* Temporarily removed location of classes as requested by ANU
 
 ### 2018-02-22
 * Fixed an issue where updating the revision num will cause a `Course.course` initialize error
