@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '9th of March, 2018';
-var revisionNum     = 69;
+var jsonUpdatedTime = '11th of March, 2018';
+var revisionNum     = 70;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
@@ -15,6 +15,12 @@ if (!Array.prototype.indexOf) {
     };
 }
 
+// https://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php
+Date.prototype.getWeekNumber = function() {
+    var onejan = new Date(this.getFullYear(),0,1);
+    var millisecsInDay = 86400000;
+    return Math.ceil((((this - onejan) /millisecsInDay) + onejan.getDay()+1)/7);
+};
 
 var Calendar = {
     initialize: function () {
@@ -30,7 +36,13 @@ var Calendar = {
         this.compulsoryLessonTemplate = $("#compulsory-event-template").text();
         this.groupLessonTemplate      = $("#group-event-template").text();
         this.html                     = this.template(this.tradingHours);
-        this.courseGrids              = [];
+        this.startingDate             = 0;
+        this.endingDate               = 0;
+        this.currentWeek              = 0;
+        this.generateCourseGrid();
+    },
+    generateCourseGrid: function () {
+        this.courseGrids = [];
         for (var i = 0; i < (this.tradingHours.end_hour - this.tradingHours.start_hour) * 2; i++) {
             var temp = [];
             for (var j = 0; j < this.weekdays.length; j++)
@@ -345,6 +357,18 @@ var Calendar = {
         for (var i in Course.tutorials) {
             if (Course.tutorials.hasOwnProperty(i) && Course.tutorials[i] > 0) $('[data-id="' + Course.tutorials[i] + '"] a.choose').hide();
         }
+    },
+    getOffsetWeek: function (startWeek, currentWeek) {
+        return currentWeek - startWeek + 1;
+    },
+    updateView: function () {
+        $('#week-num').html(Calendar.getOffsetWeek(new Date(this.startingDate).getWeekNumber(), this.currentWeek));
+    },
+    shiftWeek: function (offset) {
+        this.currentWeek = Math.max(1, this.currentWeek + offset);
+        Calendar.generateCourseGrid();
+        Course.clear(null, true).recover();
+        Calendar.updateView();
     }
 };
 
@@ -361,8 +385,8 @@ var Cookie = {
         var ca   = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1);
-            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            while (c.charAt(0) === ' ') c = c.substring(1);
+            if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
         }
         return '';
     }
@@ -382,16 +406,33 @@ var Course = {
         return Course;
     },
     add: function (courseName, isRecovering) {
-        var data = timetableData[courseName];
+        var data_tmp = timetableData[courseName];
         recover  = 'undefined' !== typeof isRecovering;
 
-        if (Course.courses.length >= 6 || !data) {
-            $("#add-course").html(!data ? 'Course not found!' : 'Too many courses!');
+        if (Course.courses.length >= 6 || !data_tmp) {
+            $("#add-course").html(!data_tmp ? 'Course not found!' : 'Too many courses!');
             setTimeout(function () {
                 $("#add-course").html('Add');
             }, 2000);
         } else {
             $("#add-course").html('Add');
+
+            // remove classes which are irrelevant to the given week number
+            var data = [];
+            _(data_tmp).each(function (l) {
+                var weeks   = l[1][0].weeks.split(',');
+                var matched = false;
+                for (var i in weeks) {
+                    var range = weeks[i].split('‑'); // this is not a regular -
+                    if (range[1] && Calendar.currentWeek >= range[0] && Calendar.currentWeek <= range[1] ||
+                        !range[1] && Calendar.currentWeek === parseInt(range[0]))
+                        matched = true;
+                }
+                if (matched) {
+                    data.push(l);
+                }
+            });
+            console.log(data);
 
             //Count the number of alternatives to each class. If there are none, mark it with .solo=true so it can be pre-chosen
             var classAlternatives = []; //info as key, num alternatives as return
@@ -490,11 +531,12 @@ var Course = {
         Tools.updateSavedData('tutorials', JSON.stringify(Course.tutorials));
         return Course;
     },
-    clear: function (e) {
-        ('undefined' !== typeof e) && e.preventDefault();
+    clear: function (e, redraw) {
+        ('undefined' !== typeof e && null !== e) && e.preventDefault();
         Course.courses   = [];
         Course.tutorials = {};
-        Course.display().save();
+        Course.display();
+        if (!redraw) Course.save();
         $("#cal-container").html(Calendar.html);
         return Course;
     },
@@ -510,6 +552,10 @@ var Course = {
             delete rawData[3][i].lid;
         });
         rawLessons = rawData[3];
+
+        Calendar.startingDate = rawData[4][0] * 1000;
+        Calendar.endingDate   = rawData[4][1] * 1000;
+        Calendar.currentWeek  = (new Date()).getWeekNumber();
     },
     rechooseTutorial: function (courseName) {
         Course.save().remove(courseName).add(courseName);
@@ -601,6 +647,7 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
             timetableData = rearrangeLessons(rawLessons);
             Course.recover();
             Tools.displayUpdatedTime(rawLessons.length);
+            Calendar.updateView();
         }).fail(function () {
             $('#load').removeClass('hide');
             $('#chosenCourses').html('Unable to load data from source, please try to refresh or manually load pre-fetched JSON from ./data folder.');
@@ -617,17 +664,17 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
             }
         };
 
-        $('#screenshot').on('click', function(event){
-            html2canvas(document.querySelector("#cal-container"), {scale:2}).then(canvas => {
+        $('#screenshot').on('click', function(){
+            html2canvas(document.querySelector("#cal-container"), {scale:2}).then(function(canvas) {
                 var dataURL = canvas.toDataURL("image/png" );
-            var data = atob( dataURL.substring( "data:image/png;base64,".length ) ),
-                asArray = new Uint8Array(data.length);
-            for( var i = 0, len = data.length; i < len; ++i ) {
-                asArray[i] = data.charCodeAt(i);
-            }
-            var blob = new Blob( [ asArray.buffer ], {type: "image/png"} );
-            download(blob, "timetable.png");
-        });
+                var data = atob( dataURL.substring( "data:image/png;base64,".length ) ),
+                    asArray = new Uint8Array(data.length);
+                for( var i = 0, len = data.length; i < len; ++i ) {
+                    asArray[i] = data.charCodeAt(i);
+                }
+                var blob = new Blob( [ asArray.buffer ], {type: "image/png"} );
+                download(blob, "timetable.png");
+            });
         });
 
 
@@ -636,7 +683,7 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
             var calString     = $('#cal-header').text();
             var eventTemplate = _.template($("#event-template").html());
             var unselected_tutorials = false;
-            if (Course.courses.length == 0){
+            if (Course.courses.length === 0){
                 $('#download').html("No courses selected");
                 setTimeout(function() { $('#download').html("Export .ics")}, 2000);
                 return;

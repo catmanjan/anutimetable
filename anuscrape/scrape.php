@@ -2,6 +2,10 @@
 
 include 'simple_html_dom.php';
 
+const SEMESTER = 1;
+
+date_default_timezone_set('Australia/Sydney');
+
 function postRequest ($url, $data = [], $cookies = []) {
 
     // Partch server disabled curl extension
@@ -119,11 +123,12 @@ $fullNames = [];
 $nid       = 0;
 $id        = 1;
 $count     = [0, 0];
+$dates     = [0, 0];
 $weekdays  = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 foreach ($response['content']->find('#dlObject option') as $courseElement) {
 
     // get only semester 2 courses
-    if (substr($courseElement->value, -2) !== 'S1')
+    if (substr($courseElement->value, -2) !== 'S' . SEMESTER)
         continue;
 
     $response = postRequest($url, [
@@ -137,12 +142,23 @@ foreach ($response['content']->find('#dlObject option') as $courseElement) {
         'dlFilter'             => '',
         'tWildcard'            => '',
         'dlObject'             => $courseElement->value,
-        'lbWeeks'              => '1-52',
+        'lbWeeks'              => [null, '8-24', '30-46'][SEMESTER], // 8-24 for sem1, 30-46 for sem2
         'lbDays'               => '1-7;1;2;3;4;5;6;7',
         'dlPeriod'             => '1-32;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;',
         'RadioType'            => 'module_list;cyon_reports_list_url;dummy',
         'bGetTimetable'        => 'View Timetable'
     ], $response['cookie']);
+
+    if (!$dates || !$dates[0] && !$dates[1]) {
+        $tmp = trim($response['content']->find('.date-info-display', 0)->plaintext);
+        if ($tmp) {
+            preg_match('/(\d+ [a-zA-Z]+ \d+) \- (\d+ [a-zA-Z]+ \d+)/', $tmp, $matches);
+            array_shift($matches);
+            if (!empty($matches[0]) && !empty($matches[1])) {
+                $dates = $matches;
+            }
+        }
+    }
 
     $pre_id = $id;
     foreach ($response['content']->find('tbody > tr') as $courseRow) {
@@ -169,15 +185,23 @@ foreach ($response['content']->find('#dlObject option') as $courseElement) {
             $iid     = count($infos) - 1;
         }
 
-        $courses[] = [
+        $tmp = [
             'id'    => $id,
             'nid'   => $nid,
             'iid'   => $iid,
             'lid'   => $lid,
             'start' => (float) str_replace(':30', '.5', trim($tds[3]->plaintext)),
             'dur'   => (float) str_replace(':30', '.5', trim($tds[5]->plaintext)),
+            'weeks' => trim(html_entity_decode($tds[6]->find('a', 0)->plaintext)),
             'day'   => array_search(strtolower(substr(trim($tds[2]->plaintext), 0, 3)), $weekdays)
         ];
+
+        // only add note field if it's not empty to reduce data redundancy
+        $note = trim(html_entity_decode($tds[1]->plaintext));
+        if ($note)
+            $tmp['note'] = $note;
+
+        $courses[] = $tmp;
 
         ++$id;
     }
@@ -196,7 +220,10 @@ foreach ($response['content']->find('#dlObject option') as $courseElement) {
 }
 
 $fp = fopen('timetable.json', 'w+');
-fwrite($fp, preg_replace('/(}|]),/', '$1,' . PHP_EOL, json_encode([$fullNames, $infos, $locations, $courses])));
+fwrite($fp, preg_replace('/(}|]),/', '$1,' . PHP_EOL, json_encode([
+    $fullNames, $infos, $locations, $courses,
+    array_map('strtotime', $dates)
+], JSON_UNESCAPED_UNICODE)));
 fclose($fp);
 
 $min   = floor((time() - $stime) / 60);
@@ -208,4 +235,4 @@ $fp = fopen('scrape.log', 'a');
 fwrite($fp, date('Y-m-d H:i:s', $stime) . '~' . date('Y-m-d H:i:s') . ' - ' . $part . ', ' . $part2 . PHP_EOL);
 fclose($fp);
 
-echo 'Scraping complete, ' . $part . ', ' . $part2 . PHP_EOL;
+echo 'Scraping complete, ' . $part . ', ' . $part2 . PHP_EOL . 'Date detected: ' . implode(' - ', $dates) . PHP_EOL;

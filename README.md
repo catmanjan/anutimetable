@@ -1,8 +1,12 @@
 # anutimetable
 
-* Timetable database last update: 2018-03-09
+* Timetable database last update: 2018-03-11
 
 ## Updates
+
+### 2018-03-11
+* Restored display of class locations
+* Added week switcher
 
 ### 2018-03-09
 * Temporarily removed location of classes as requested by ANU
