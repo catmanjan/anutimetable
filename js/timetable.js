@@ -365,7 +365,7 @@ var Calendar = {
         $('#week-num').html(Calendar.getOffsetWeek(new Date(this.startingDate).getWeekNumber(), this.currentWeek));
     },
     shiftWeek: function (offset) {
-        this.currentWeek = Math.max(1, this.currentWeek + offset);
+        this.currentWeek = Math.max((new Date(this.startingDate)).getWeekNumber(), this.currentWeek + offset);
         Calendar.generateCourseGrid();
         Course.clear(null, true).recover();
         Calendar.updateView();
