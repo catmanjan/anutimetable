@@ -1,3 +1,5 @@
+// TODO - OUTDATED
+
 // From http://stackoverflow.com/questions/3665115/create-a-file-in-memory-for-user-to-download-not-through-server
 var download = function (filename, text) {
     var element = document.createElement('a');
