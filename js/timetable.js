@@ -161,21 +161,17 @@ var Calendar = {
         }
     },
     putLessonGroup: function (group) {
-
         if (group[0] === 'group') {
             for (var i = group[1].length - 1; i >= 0; i--) {
                 var key = group[1][i].name + filterNumbers(group[1][i].info);
-
                 // Build tutorial object if is not in recovering mode
                 if (!Course.tutorials[key]) Course.tutorials[key] = 0;
-
-
-                if (!Course.tutorials[key] || Course.tutorials[key] == group[1][i].id)
-                    Calendar.putGroupItem(group[1][i]);
+				Calendar.putGroupItem(group[1][i]);
 
             }
         } else {
             Calendar.putCompulsoryItem(group[1]);
+			
         }
     },
     columnMerge: function () {
@@ -365,7 +361,8 @@ var Calendar = {
         $('#week-num').html(Calendar.getOffsetWeek(new Date(this.startingDate).getWeekNumber(), this.currentWeek));
     },
     shiftWeek: function (offset) {
-        this.currentWeek = Math.max((new Date(this.startingDate)).getWeekNumber(), this.currentWeek + offset);
+		// TODO change for semester 2
+        this.currentWeek = Math.min(Math.max((new Date(this.startingDate)).getWeekNumber(), this.currentWeek + offset), 21); //21 is uni week 14 (12 of teaching + 2 break)
         Calendar.generateCourseGrid();
         Course.clear(null, true).recover();
         Calendar.updateView();
@@ -420,16 +417,25 @@ var Course = {
             // remove classes which are irrelevant to the given week number
             var data = [];
             _(data_tmp).each(function (l) {
-                var weeks   = l[1][0].weeks.split(',');
-                var matched = false;
-                for (var i in weeks) {
-                    var range = weeks[i].split('‑'); // this is not a regular -
-                    if (range[1] && Calendar.currentWeek >= range[0] && Calendar.currentWeek <= range[1] ||
-                        !range[1] && Calendar.currentWeek === parseInt(range[0]))
-                        matched = true;
-                }
+				// First try with the first group item and then iterate to check others
+				var matched = false;
+				var data_item = l.slice();
+				for(k = 0; k < l[1].length; k++){
+					var weeks   = l[1][k].weeks.split(',');			
+					for (var i in weeks) {
+						var range = weeks[i].split('‑'); // this is not a regular -
+						if (range[1] && Calendar.currentWeek >= range[0] && Calendar.currentWeek <= range[1] ||
+							!range[1] && Calendar.currentWeek === parseInt(range[0])){
+							matched = true;
+							data_item[1] = [l[1][k]];
+						}
+					}
+				if(matched) break;
+				}
+
+
                 if (matched) {
-                    data.push(l);
+                    data.push(data_item);
                 }
             });
             console.log(data);
