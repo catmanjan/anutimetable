@@ -166,7 +166,8 @@ var Calendar = {
                 var key = group[1][i].name + filterNumbers(group[1][i].info);
                 // Build tutorial object if is not in recovering mode
                 if (!Course.tutorials[key]) Course.tutorials[key] = 0;
-				Calendar.putGroupItem(group[1][i]);
+				 if (!Course.tutorials[key] || group[1][i].solo == true || Course.tutorials[key] == group[1][i].id)
+					Calendar.putGroupItem(group[1][i]);
 
             }
         } else {
