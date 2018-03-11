@@ -118,8 +118,8 @@ END:VEVENT
        data-name='<%= item.name %>'
        data-id='<%= item.id %>'>
     <strong><%= item.name %></strong>.
-    <em><%= item.location %></em>.
-    <%= item.info %>.
+	<%= item.info %>. <br> <br>
+    <em><%= item.location %></em>. 
     <% if (item.note) { %>
       <span class="glyphicon glyphicon-info-sign" title="<%= item.note %>"></span>
     <% } %>
@@ -135,7 +135,7 @@ END:VEVENT
     <tr>
       <th class="col-sm-1">
         <span class="glyphicon glyphicon-chevron-left cursor" onclick="Calendar.shiftWeek(-1)"></span>
-        Week <span id="week-num"></span>
+        <span id="week-num"></span>
         <span class="glyphicon glyphicon-chevron-right cursor" onclick="Calendar.shiftWeek(1)"></span>
       </th>
       <% for (var i = 0; i < 5; i++) { %>
