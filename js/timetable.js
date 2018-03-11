@@ -358,7 +358,12 @@ var Calendar = {
         return currentWeek - startWeek + 1;
     },
     updateView: function () {
-        $('#week-num').html(Calendar.getOffsetWeek(new Date(this.startingDate).getWeekNumber(), this.currentWeek));
+		var date = Calendar.getOffsetWeek(new Date(this.startingDate).getWeekNumber(), this.currentWeek)
+		if(date == 7 || date == 8) 
+			date = "Break";
+		else 
+			date = "Week " + date;
+        $('#week-num').html(date);
     },
     shiftWeek: function (offset) {
 		// TODO change for semester 2
