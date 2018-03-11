@@ -117,3 +117,7 @@ h2 {
 #donate-button{
     margin-bottom:5px;
 }
+
+.cursor {
+    cursor: pointer;
+}
