@@ -1,3 +1,10 @@
+.old_stuff {
+	text-align:center; 
+	position:fixed;
+	bottom:10px;
+	width:100%;
+	}
+
 h1 {
 	display: inline-block;
 }
