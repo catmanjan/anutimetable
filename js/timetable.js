@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '27th of May, 2018';
-var revisionNum     = 121;
+var jsonUpdatedTime = '19th of June, 2018';
+var revisionNum     = 122;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
@@ -359,7 +359,7 @@ var Calendar = {
         return currentWeek - startWeek + 1;
     },
     updateView: function () {
-		var date = Calendar.getOffsetWeek(new Date(this.startingDate).getWeekNumber(), this.currentWeek)
+		var date = Math.max(Calendar.getOffsetWeek(new Date(this.startingDate).getWeekNumber(), this.currentWeek),1)
 		if(date == 7 || date == 8) 
 			date = "Break";
 		else 
@@ -367,8 +367,7 @@ var Calendar = {
         $('#week-num').html(date);
     },
     shiftWeek: function (offset) {
-		// TODO change for semester 2
-        this.currentWeek = Math.min(Math.max((new Date(this.startingDate)).getWeekNumber(), this.currentWeek + offset), 21); //21 is uni week 14 (12 of teaching + 2 break)
+        this.currentWeek = Math.min(Math.max((new Date(this.startingDate)).getWeekNumber(), this.currentWeek + offset), 43); //43 is the calendar week of the end of the teaching semester
         Calendar.generateCourseGrid();
         Course.clear(null, true).recover();
         Calendar.updateView();
@@ -660,6 +659,7 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
             Course.recover();
             Tools.displayUpdatedTime(rawLessons.length);
             Calendar.updateView();
+            Calendar.shiftWeek(0); // This is a stupid hack to get the correct week to display before the current week gets changed. Please remove this if you find a work around!
         }).fail(function () {
             $('#load').removeClass('hide');
             $('#chosenCourses').html('Unable to load data from source, please try to refresh or manually load pre-fetched JSON from ./data folder.');
