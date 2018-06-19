@@ -367,7 +367,7 @@ var Calendar = {
         $('#week-num').html(date);
     },
     shiftWeek: function (offset) {
-        this.currentWeek = Math.min(Math.max((new Date(this.startingDate)).getWeekNumber(), this.currentWeek + offset), 43); //21 is uni week 14 (12 of teaching + 2 break)
+        this.currentWeek = Math.min(Math.max((new Date(this.startingDate)).getWeekNumber(), this.currentWeek + offset), 43); //43 is the calendar week of the end of the teaching semester
         Calendar.generateCourseGrid();
         Course.clear(null, true).recover();
         Calendar.updateView();
@@ -659,7 +659,7 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
             Course.recover();
             Tools.displayUpdatedTime(rawLessons.length);
             Calendar.updateView();
-            Calendar.shiftWeek(0);
+            Calendar.shiftWeek(0); // This is a stupid hack to get the correct week to display before the current week gets changed. Please remove this if you find a work around!
         }).fail(function () {
             $('#load').removeClass('hide');
             $('#chosenCourses').html('Unable to load data from source, please try to refresh or manually load pre-fetched JSON from ./data folder.');
