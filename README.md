@@ -7,6 +7,7 @@
 ### 2018-06-18
 
 - This version now maintained by [@mdchia](https://github.com/mdchia/anutimetable)
+- Patched up for semester 2 by [@jackadamson](https://github.com/jackadamson)
 
 ### 2018-03-11
 
