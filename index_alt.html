@@ -22,7 +22,11 @@
     <div class="col-sm-12 col-md-12">
       <div>
 	    <h1 class="title">(Unofficial) ANU Timetable Planner</h1>
+<<<<<<< HEAD
         <h2 class="title">2018S2 (offline compatible)</h2>
+=======
+        <h2 class="title">2018S1 (offline compatible)</h2>
+>>>>>>> master
       </div>
       <p class="course-list-date">Course list updated on <span id="jsonUpdatedTime"></span></p>
       <p><i>Courses chosen: <span id="chosenCourses">Loading data from data/timetable.json...</span> <span id="courses" style="display: inline;"></span></i></p>
@@ -42,13 +46,18 @@
          <button id="download" class="btn btn-info pull-right">Export .ics</button>
 		</div>
       </div>
+<<<<<<< HEAD
     </div> 
+=======
+    </div>
+>>>>>>> master
   </div>
 
   <div class="row">
     <div class="col-xs-12">
       <div id="cal-container"></div>
       <p> <b> Disclaimer:</b> The website is not updated in real time and information may not be accurate. Please consult with the<a href="http://timetabling.anu.edu.au/sws2018/"> official ANU timetable</a> first and use this website as a planner only. We are not affiliated with the ANU,
+<<<<<<< HEAD
 	  so any enquiries should be sent to the <a href="https://github.com/catmanjan/anutimetable" target="_blank">ANU timetable builder GitHub project </a>. This includes bugs, inconsistencies, requests for features and so on.</p>
 	  <div id='donate-button'><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy us a Coffee', '#1ba352', 'anutmtble');kofiwidget2.draw();</script> </div>
 	</div>
@@ -65,6 +74,12 @@
       ga('send', 'pageview');
     }
   </script>
+=======
+	  so any enquiries should be sent to the <a href="https://github.com/mdchia/anutimetable" target="_blank">ANU timetable builder GitHub project </a>. This includes bugs, inconsistencies, requests for features and so on.</p>
+	  <!-- <div id='donate-button'><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy us a Coffee', '#1ba352', 'anutmtble');kofiwidget2.draw();</script> </div> -->
+	</div>
+  </div>
+>>>>>>> master
 </div>
 
 <script type="text/template" id="cal-header">BEGIN:VCALENDAR
@@ -119,7 +134,11 @@ END:VEVENT
        data-id='<%= item.id %>'>
     <strong><%= item.name %></strong>.
 	<%= item.info %>. <br> <br>
+<<<<<<< HEAD
     <em><%= item.location %></em>. 
+=======
+    <em><%= item.location %></em>.
+>>>>>>> master
     <% if (item.note) { %>
       <span class="glyphicon glyphicon-info-sign" title="<%= item.note %>"></span>
     <% } %>
