@@ -4,6 +4,10 @@
 
 ## Updates
 
+### 2018-07-17
+
+- Updated semester 2 database thanks to [@calmelb](https://github.com/calmelb), [@caitelatte](https://github.com/caitelatte), and [@tetris12367](https://github.com/tetris12367)
+
 ### 2018-06-18
 
 - This version now maintained by [@mdchia](https://github.com/mdchia/anutimetable)
