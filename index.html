@@ -49,8 +49,8 @@
     <div class="col-xs-12">
       <div id="cal-container"></div>
       <p> <b> Disclaimer:</b> The website is not updated in real time and information may not be accurate. Please consult with the<a href="http://timetabling.anu.edu.au/sws2018/"> official ANU timetable</a> first and use this website as a planner only. We are not affiliated with the ANU,
-	  so any enquiries should be sent to the <a href="https://github.com/mdchia/anutimetable" target="_blank">ANU timetable builder GitHub project </a>. This includes bugs, inconsistencies, requests for features and so on.</p>
-	  <a href='https://ko-fi.com/mdchia'>Support development on Ko-fi</a>
+	  so any enquiries should be sent to the <a href="http://issues.anutimetable.com/" target="_blank">ANU timetable builder GitHub project </a>. This includes bugs, inconsistencies, requests for features and so on.</p>
+	  <div id='donate-button'><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy us a Coffee', '#1ba352', 'anutmtble');kofiwidget2.draw();</script> </div>
 	</div>
   </div>
 </div>
@@ -149,6 +149,15 @@ END:VEVENT
     </tbody>
   </table>
 </script>
-
+<script>	
+if(window.location.protocol !== 'file:') {	
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){	
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),	
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)	
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');	
+ga('create', 'UA-64755004-1', 'auto');	
+ga('send', 'pageview');	
+}	
+</script>
 </body>
 </html>
