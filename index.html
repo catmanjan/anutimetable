@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="manifest.appcache">
 <head>
   <title>Unofficial ANU timetable planner</title>
   <meta charset="utf-8">
@@ -60,25 +60,25 @@ PRODID:-//Google Inc//Google Calendar 70.9054//EN
 VERSION:2.0
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:ANU Semester 1
+X-WR-CALNAME:ANU Semester 2
 X-WR-TIMEZONE:/Australia/Sydney
-X-WR-CALDESC:ANU Semester 1.
+X-WR-CALDESC:ANU Semester 2.
 </script>
 
 <script type="text/template" id="event-template">
 BEGIN:VEVENT
-DTSTART;TZID=/Australia/Sydney:201802<%= first_day %>T<%= padded_hour %>00
-DTEND;TZID=/Australia/Sydney:201802<%= first_day %>T<%= padded_end_hour %>00
-RRULE:FREQ=WEEKLY;COUNT=14;BYDAY=<%= day.slice(0,2).toUpperCase() %>
-EXDATE;TZID=/Australia/Sydney:201804<%= holiday2 %>T<%= padded_hour %>00
-EXDATE;TZID=/Australia/Sydney:201804<%= holiday1 %>T<%= padded_hour %>00
-DTSTAMP:20180101T000000Z
-CREATED:20180101T000000Z
+DTSTART;TZID=/Australia/Sydney:201807<%= first_day %>T<%= padded_hour %>00
+DTEND;TZID=/Australia/Sydney:201807<%= first_day %>T<%= padded_end_hour %>00
+RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
+EXDATE;TZID=/Australia/Sydney:201807<%= holiday2 %>T<%= padded_hour %>00
+EXDATE;TZID=/Australia/Sydney:201807<%= holiday1 %>T<%= padded_hour %>00
+DTSTAMP:20180718T000000Z
+CREATED:20180718T000000Z
 DESCRIPTION:<%= description %>
-LAST-MODIFIED:20180101T000000Z
+LAST-MODIFIED:20180718T000000Z
 LOCATION:<%= location %>
 SEQUENCE:1
-UID:anu2018s1_<%= course %>
+UID:anu2018s2_<%= course %>
 STATUS:CONFIRMED
 SUMMARY:<%= course %>
 TRANSP:OPAQUE
