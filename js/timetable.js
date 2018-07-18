@@ -552,7 +552,6 @@ var Course = {
         return Course;
     },
     processRaw: function (rawData) {
-	try {
         $.each(rawData[3], function (i, course) {
             rawData[3][i].fullName = rawData[0][course.nid];
             rawData[3][i].info     = rawData[1][course.iid].replace(/(\s|([^\d]))(0+)/g, '$2').replace('/', ' / ');
@@ -565,10 +564,12 @@ var Course = {
         });
         rawLessons = rawData[3];
 
-        Calendar.startingDate = rawData[4][0] * 1000;
-        Calendar.endingDate   = rawData[4][1] * 1000;
+        if (rawData[4]) {
+            Calendar.startingDate = rawData[4][0] * 1000;
+            Calendar.endingDate   = rawData[4][1] * 1000;
+	}
+
         Calendar.currentWeek  = (new Date()).getWeekNumber();
-	}catch(e){}
     },
     rechooseTutorial: function (courseName) {
         Course.save().remove(courseName).add(courseName);
