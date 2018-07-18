@@ -564,11 +564,8 @@ var Course = {
         });
         rawLessons = rawData[3];
 
-        if (rawData[4]) {
-            Calendar.startingDate = rawData[4][0] * 1000;
-            Calendar.endingDate   = rawData[4][1] * 1000;
-	}
-
+        Calendar.startingDate = rawData[4][0] * 1000;
+        Calendar.endingDate   = rawData[4][1] * 1000;
         Calendar.currentWeek  = (new Date()).getWeekNumber();
     },
     rechooseTutorial: function (courseName) {
