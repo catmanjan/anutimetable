@@ -2,7 +2,7 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '18th of July, 2018';
+var jsonUpdatedTime = '19th of June, 2018';
 var revisionNum     = 122;
 
 if (!Array.prototype.indexOf) {
@@ -117,7 +117,7 @@ var Calendar = {
     putGroupItem: function (item) {
 
         var displayDiv = $(_.template(Calendar.groupLessonTemplate, {item: item}));
-
+		
         $(displayDiv.find('a.hide_temp')[0]).on('click', function (event) {
             event.preventDefault();
             _($(".lesson")).each(function (item) {
@@ -126,7 +126,7 @@ var Calendar = {
                     if ($item.data('id') == displayDiv.data('id')) {
 						$item.mouseleave();
 						$item.parent().off();
-
+						
                         Calendar.removeLessonGrid($item);
                     }
                 }
@@ -172,7 +172,7 @@ var Calendar = {
             }
         } else {
             Calendar.putCompulsoryItem(group[1]);
-
+			
         }
     },
     columnMerge: function () {
@@ -360,9 +360,9 @@ var Calendar = {
     },
     updateView: function () {
 		var date = Math.max(Calendar.getOffsetWeek(new Date(this.startingDate).getWeekNumber(), this.currentWeek),1)
-		if(date == 7 || date == 8)
+		if(date == 7 || date == 8) 
 			date = "Break";
-		else
+		else 
 			date = "Week " + date;
         $('#week-num').html(date);
     },
@@ -426,7 +426,7 @@ var Course = {
 				var matched = false;
 				var data_item = l.slice();
 				for(k = 0; k < l[1].length; k++){
-					var weeks   = l[1][k].weeks.split(',');
+					var weeks   = l[1][k].weeks.split(',');			
 					for (var i in weeks) {
 						var range = weeks[i].split('‑'); // this is not a regular -
 						if (range[1] && Calendar.currentWeek >= range[0] && Calendar.currentWeek <= range[1] ||
