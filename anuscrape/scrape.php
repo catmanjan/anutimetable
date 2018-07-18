@@ -2,7 +2,7 @@
 
 include 'simple_html_dom.php';
 
-const SEMESTER = 1;
+const SEMESTER = 2;
 
 date_default_timezone_set('Australia/Sydney');
 
@@ -127,7 +127,7 @@ $dates     = [0, 0];
 $weekdays  = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 foreach ($response['content']->find('#dlObject option') as $courseElement) {
 
-    // get only semester 2 courses
+    // get only SEMESTER courses
     if (substr($courseElement->value, -2) !== 'S' . SEMESTER)
         continue;
 
