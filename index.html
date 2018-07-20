@@ -70,8 +70,8 @@ BEGIN:VEVENT
 DTSTART;TZID=/Australia/Sydney:201807<%= first_day %>T<%= padded_hour %>00
 DTEND;TZID=/Australia/Sydney:201807<%= first_day %>T<%= padded_end_hour %>00
 RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
-EXDATE;TZID=/Australia/Sydney:201807<%= holiday2 %>T<%= padded_hour %>00
-EXDATE;TZID=/Australia/Sydney:201807<%= holiday1 %>T<%= padded_hour %>00
+EXDATE;TZID=/Australia/Sydney:201809<%= holiday2 %>T<%= padded_hour %>00
+EXDATE;TZID=/Australia/Sydney:201809<%= holiday1 %>T<%= padded_hour %>00
 DTSTAMP:20180718T000000Z
 CREATED:20180718T000000Z
 DESCRIPTION:<%= description %>
