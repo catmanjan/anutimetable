@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="manifest.appcache">
 <head>
   <title>Unofficial ANU timetable planner</title>
   <meta charset="utf-8">
@@ -12,7 +12,6 @@
   <script src="js/timetable.js" defer></script>
   <script src="js/timetable_analyser.js"></script>
   <script src="js/html2canvas.min.js"></script>
-  <link rel="shortcut icon" href="favicon.ico" />
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -24,7 +23,8 @@
 	    <h1 class="title">(Unofficial) ANU Timetable Planner</h1>
         <h2 class="title">2018S2 (offline compatible)</h2>
       </div>
-      <p class="course-list-date">Course list updated on <span id="jsonUpdatedTime"></span></p>
+      <p class="course-list-date">Course list updated on <span id="jsonUpdatedTime"></span><br />
+        <span class="special-note">Not seeing tutorials? Check week 2</span></p>
       <p><i>Courses chosen: <span id="chosenCourses">Loading data from data/timetable.json...</span> <span id="courses" style="display: inline;"></span></i></p>
     </div>
 
@@ -50,7 +50,6 @@
       <div id="cal-container"></div>
       <p> <b> Disclaimer:</b> The website is not updated in real time and information may not be accurate. Please consult with the<a href="http://timetabling.anu.edu.au/sws2018/"> official ANU timetable</a> first and use this website as a planner only. We are not affiliated with the ANU,
 	  so any enquiries should be sent to the <a href="http://issues.anutimetable.com/" target="_blank">ANU timetable builder GitHub project </a>. This includes bugs, inconsistencies, requests for features and so on.</p>
-	  <div id='donate-button'><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy us a Coffee', '#1ba352', 'anutmtble');kofiwidget2.draw();</script> </div>
 	</div>
   </div>
 </div>
@@ -60,25 +59,25 @@ PRODID:-//Google Inc//Google Calendar 70.9054//EN
 VERSION:2.0
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:ANU Semester 1
+X-WR-CALNAME:ANU Semester 2
 X-WR-TIMEZONE:/Australia/Sydney
-X-WR-CALDESC:ANU Semester 1.
+X-WR-CALDESC:ANU Semester 2.
 </script>
 
 <script type="text/template" id="event-template">
 BEGIN:VEVENT
-DTSTART;TZID=/Australia/Sydney:201802<%= first_day %>T<%= padded_hour %>00
-DTEND;TZID=/Australia/Sydney:201802<%= first_day %>T<%= padded_end_hour %>00
-RRULE:FREQ=WEEKLY;COUNT=14;BYDAY=<%= day.slice(0,2).toUpperCase() %>
-EXDATE;TZID=/Australia/Sydney:201804<%= holiday2 %>T<%= padded_hour %>00
-EXDATE;TZID=/Australia/Sydney:201804<%= holiday1 %>T<%= padded_hour %>00
-DTSTAMP:20180101T000000Z
-CREATED:20180101T000000Z
+DTSTART;TZID=/Australia/Sydney:201807<%= first_day %>T<%= padded_hour %>00
+DTEND;TZID=/Australia/Sydney:201807<%= first_day %>T<%= padded_end_hour %>00
+RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
+EXDATE;TZID=/Australia/Sydney:201809<%= holiday2 %>T<%= padded_hour %>00
+EXDATE;TZID=/Australia/Sydney:201809<%= holiday1 %>T<%= padded_hour %>00
+DTSTAMP:20180718T000000Z
+CREATED:20180718T000000Z
 DESCRIPTION:<%= description %>
-LAST-MODIFIED:20180101T000000Z
+LAST-MODIFIED:20180718T000000Z
 LOCATION:<%= location %>
 SEQUENCE:1
-UID:anu2018s1_<%= course %>
+UID:anu2018s2_<%= course %>
 STATUS:CONFIRMED
 SUMMARY:<%= course %>
 TRANSP:OPAQUE

@@ -1,5 +1,5 @@
 .old_stuff {
-	text-align:center; 
+	text-align:center;
 	position:fixed;
 	bottom:10px;
 	width:100%;
@@ -121,8 +121,8 @@ h2 {
     float : right;
 }
 
-#donate-button{
-    margin-bottom:5px;
+.special-note {
+		color: #F00;
 }
 
 .cursor {
