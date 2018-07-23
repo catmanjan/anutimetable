@@ -3,7 +3,7 @@ var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
 var jsonUpdatedTime = '23rd of July, 2018';
-var revisionNum     = 123;
+var revisionNum     = 125;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
@@ -117,7 +117,7 @@ var Calendar = {
     putGroupItem: function (item) {
 
         var displayDiv = $(_.template(Calendar.groupLessonTemplate, {item: item}));
-		
+
         $(displayDiv.find('a.hide_temp')[0]).on('click', function (event) {
             event.preventDefault();
             _($(".lesson")).each(function (item) {
@@ -126,7 +126,7 @@ var Calendar = {
                     if ($item.data('id') == displayDiv.data('id')) {
 						$item.mouseleave();
 						$item.parent().off();
-						
+
                         Calendar.removeLessonGrid($item);
                     }
                 }
@@ -172,7 +172,7 @@ var Calendar = {
             }
         } else {
             Calendar.putCompulsoryItem(group[1]);
-			
+
         }
     },
     columnMerge: function () {
@@ -360,9 +360,9 @@ var Calendar = {
     },
     updateView: function () {
 		var date = Math.max(Calendar.getOffsetWeek(new Date(this.startingDate).getWeekNumber(), this.currentWeek),1)
-		if(date == 7 || date == 8) 
+		if(date == 7 || date == 8)
 			date = "Break";
-		else 
+		else
 			date = "Week " + date;
         $('#week-num').html(date);
     },
@@ -426,7 +426,7 @@ var Course = {
 				var matched = false;
 				var data_item = l.slice();
 				for(k = 0; k < l[1].length; k++){
-					var weeks   = l[1][k].weeks.split(',');			
+					var weeks   = l[1][k].weeks.split(',');
 					for (var i in weeks) {
 						var range = weeks[i].split('‑'); // this is not a regular -
 						if (range[1] && Calendar.currentWeek >= range[0] && Calendar.currentWeek <= range[1] ||
@@ -659,7 +659,8 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
             Course.recover();
             Tools.displayUpdatedTime(rawLessons.length);
             Calendar.updateView();
-            Calendar.shiftWeek(0); // This is a stupid hack to get the correct week to display before the current week gets changed. Please remove this if you find a work around!
+            Calendar.shiftWeek(1); // This is a stupid hack to get the correct week to display before the current week gets changed. Please remove this if you find a work around!
+            // shiftWeek(1) loads up week 2 to display most labs/tutes by default
         }).fail(function () {
             $('#load').removeClass('hide');
             $('#chosenCourses').html('Unable to load data from source, please try to refresh or manually load pre-fetched JSON from ./data folder.');
@@ -706,13 +707,13 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
                     calString += eventTemplate({
                         padded_hour: Tools.hourify(lesson.start),
                         padded_end_hour: Tools.hourify(lesson.start + lesson.dur),
-                        first_day: 19 + day,
+                        first_day: 23 + day,
                         day: lesson.day,
                         description: lesson.info,
                         location: lesson.location,
                         course: lesson.name + ' ' + lesson.info,
-                        holiday1: (2 + day < 10) ? '0' + (2 + day) : (2 + day),
-                        holiday2:(9 + day < 10) ? '0' + (9 + day) : (9 + day)
+                        holiday1: (3 + day < 10) ? '0' + (3 + day) : (3 + day),
+                        holiday2:(10 + day < 10) ? '0' + (10 + day) : (10 + day)
                     });
                 }
                 if($.inArray(0, Object.values(Course.tutorials)) !== -1){
