@@ -8,9 +8,9 @@ __copyright__ = "Copyright 2018, E. M."
 __license__ = "MIT"
 __version__ = "1.0.0"
 
-from pathlib import Path
 from datetime import datetime as dt
 import sys
+import os
 
 # The two functions here were taken from https://stackoverflow.com/questions/5891555/display-the-date-like-may-5th-using-pythons-strftime
 
@@ -29,7 +29,7 @@ def custom_strftime(format, t):
     """
     return t.strftime(format).replace('{S}', str(t.day) + suffix(t.day))
 
-home = str(Path.home()) + "/anutimetable"
+home = str(os.path.dirname(os.path.abspath(__file__))) + "/.."
 scrape_directory = home + "/anuscrape"
 js_directory = home + "/js"
 current_date_string = custom_strftime('{S} of %B, %Y', dt.now())
@@ -73,6 +73,3 @@ manifest.writelines(lines)
 manifest.close()
 
 sys.exit(0)
-
-
-
