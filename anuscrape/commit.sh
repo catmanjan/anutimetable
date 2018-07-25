@@ -1,6 +1,8 @@
 #!/bin/sh
 # TODO add basic instructions so anyone can replicate the server
-echo Starting ...
+
+# Start scraping
+php ./scrape.php
 
 # Check if the newly scraped file does not exist. Print meaningful message and exit with failure
 if [ ! -e ./timetable.json ]; then
