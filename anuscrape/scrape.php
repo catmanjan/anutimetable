@@ -2,7 +2,7 @@
 
 include 'simple_html_dom.php';
 
-const SEMESTER = 2;
+const SEMESTER = 1;
 
 date_default_timezone_set('Australia/Sydney');
 
