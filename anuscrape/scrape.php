@@ -2,7 +2,7 @@
 
 include 'simple_html_dom.php';
 
-const SEMESTER = 2;
+const SEMESTER = 1;
 
 date_default_timezone_set('Australia/Sydney');
 
@@ -148,6 +148,9 @@ foreach ($response['content']->find('#dlObject option') as $courseElement) {
         'RadioType'            => 'module_list;cyon_reports_list_url;dummy',
         'bGetTimetable'        => 'View Timetable'
     ], $response['cookie']);
+
+    // uncomment to get raw scrape data
+    // $logfile = file_put_contents('logs.txt', $response['content'].PHP_EOL , FILE_APPEND | LOCK_EX);
 
     if (!$dates || !$dates[0] && !$dates[1]) {
         $tmp = trim($response['content']->find('.date-info-display', 0)->plaintext);
