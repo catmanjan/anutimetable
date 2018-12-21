@@ -21,7 +21,7 @@
     <div class="col-sm-12 col-md-12">
       <div>
 	    <h1 class="title">(Unofficial) ANU Timetable Planner</h1>
-        <h2 class="title">2018S2 (offline compatible)</h2>
+        <h2 class="title">2019S1 (offline compatible)</h2>
       </div>
       <p class="course-list-date">Course list updated on <span id="jsonUpdatedTime"></span><br />
         <span class="special-note">Not seeing tutorials? Check week 2</span></p>
@@ -59,25 +59,25 @@ PRODID:-//Google Inc//Google Calendar 70.9054//EN
 VERSION:2.0
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:ANU Semester 2
+X-WR-CALNAME:ANU Semester 1
 X-WR-TIMEZONE:/Australia/Sydney
-X-WR-CALDESC:ANU Semester 2.
+X-WR-CALDESC:ANU Semester 1.
 </script>
 
 <script type="text/template" id="event-template">
 BEGIN:VEVENT
-DTSTART;TZID=/Australia/Sydney:201807<%= first_day %>T<%= padded_hour %>00
-DTEND;TZID=/Australia/Sydney:201807<%= first_day %>T<%= padded_end_hour %>00
+DTSTART;TZID=/Australia/Sydney:201902<%= first_day %>T<%= padded_hour %>00
+DTEND;TZID=/Australia/Sydney:201902<%= first_day %>T<%= padded_end_hour %>00
 RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
-EXDATE;TZID=/Australia/Sydney:201809<%= holiday2 %>T<%= padded_hour %>00
-EXDATE;TZID=/Australia/Sydney:201809<%= holiday1 %>T<%= padded_hour %>00
+EXDATE;TZID=/Australia/Sydney:201906<%= holiday2 %>T<%= padded_hour %>00
+EXDATE;TZID=/Australia/Sydney:201906<%= holiday1 %>T<%= padded_hour %>00
 DTSTAMP:20180718T000000Z
 CREATED:20180718T000000Z
 DESCRIPTION:<%= description %>
 LAST-MODIFIED:20180718T000000Z
 LOCATION:<%= location %>
 SEQUENCE:1
-UID:anu2018s2_<%= course %>
+UID:anu2019s1_<%= course %>
 STATUS:CONFIRMED
 SUMMARY:<%= course %>
 TRANSP:OPAQUE
@@ -148,15 +148,15 @@ END:VEVENT
     </tbody>
   </table>
 </script>
-<script>	
-if(window.location.protocol !== 'file:') {	
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){	
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),	
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)	
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');	
-ga('create', 'UA-64755004-1', 'auto');	
-ga('send', 'pageview');	
-}	
+<script>
+if(window.location.protocol !== 'file:') {
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-64755004-1', 'auto');
+ga('send', 'pageview');
+}
 </script>
 </body>
 </html>
