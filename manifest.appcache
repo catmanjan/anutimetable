@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#  2018-12-25 v132
+#  2019-01-08 v133
 
 CACHE:
 js/bootstrap.min.js
@@ -17,7 +17,7 @@ fonts/glyphicons-halflings-regular.svg
 fonts/glyphicons-halflings-regular.ttf
 fonts/glyphicons-halflings-regular.woff
 fonts/glyphicons-halflings-regular.woff2
-/
+./
 
 NETWORK:
 *
