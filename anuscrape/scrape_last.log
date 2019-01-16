@@ -191,7 +191,7 @@ Course ASIA2307_S1 succeed!
 Course ASIA2516_S1 succeed!
 Course ASIA3012_S1 has no data!
 Course ASIA3023_S1 succeed!
-Course ASIA3024_S1 has no data!
+Course ASIA3024_S1 succeed!
 Course ASIA3029_S1 succeed!
 Course ASIA3031_S1 succeed!
 Course ASIA3040_S1 succeed!
@@ -371,7 +371,7 @@ Course CBEA3066_S1 succeed!
 Course CBEA3070_S1 succeed!
 Course CBEA6070_S1 succeed!
 Course CBEA8820_S1 has no data!
-Course CECS6001_S1 has no data!
+Course CECS6001_S1 succeed!
 Course CECS8001_S1 has no data!
 Course CHEM1101_S1 succeed!
 Course CHEM2202_S1 succeed!
@@ -432,7 +432,7 @@ Course COMP2550_S1 succeed!
 Course COMP2620_S1 succeed!
 Course COMP2710_S1 succeed!
 Course COMP3120_S1 succeed!
-Course COMP3310_S1 has no data!
+Course COMP3310_S1 succeed!
 Course COMP3425_S1 succeed!
 Course COMP3500_S1 succeed!
 Course COMP3550_S1 succeed!
@@ -462,7 +462,7 @@ Course COMP6250_S1 succeed!
 Course COMP6262_S1 succeed!
 Course COMP6300_S1 succeed!
 Course COMP6320_S1 succeed!
-Course COMP6331_S1 has no data!
+Course COMP6331_S1 succeed!
 Course COMP6340_S1 succeed!
 Course COMP6420_S1 succeed!
 Course COMP6442_S1 succeed!
@@ -613,6 +613,7 @@ Course EMSC4008_S1 has no data!
 Course EMSC4017_S1 succeed!
 Course EMSC4018_S1 succeed!
 Course EMSC4020_S1 succeed!
+Course EMSC4033_S1 succeed!
 Course EMSC4040_S1 has no data!
 Course EMSC4121_S1 succeed!
 Course EMSC4123_S1 succeed!
@@ -631,6 +632,8 @@ Course EMSC8021_S1 succeed!
 Course EMSC8023_S1 has no data!
 Course EMSC8024_S1 succeed!
 Course EMSC8030_S1 has no data!
+Course EMSC8033_S1 succeed!
+Course EMSC8034_S1 succeed!
 Course EMSC8701_S1 has no data!
 Course EMSC8706_S1 succeed!
 Course EMSC8712_S1 succeed!
@@ -1356,6 +1359,7 @@ Course POLS4047_S1 succeed!
 Course POLS8027_S1 succeed!
 Course POLS8031_S1 succeed!
 Course POLS8039_S1 succeed!
+Course POLS8042_S1 succeed!
 Course POLS8043_S1 succeed!
 Course POLS8046_S1 succeed!
 Course POLS8047_S1 succeed!
@@ -1409,14 +1413,9 @@ Course PSYC8303_S1 has no data!
 Course PSYC8304_S1 has no data!
 Course PSYC9015_S1 has no data!
 Course PSYC9312_S1 has no data!
-Course REGN8002_S1 succeed!
-Course REGN8006_S1 succeed!
 Course REGN8008_S1 has no data!
 Course REGN8009_S1 has no data!
-Course REGN8011_S1 succeed!
 Course REGN8052_S1 succeed!
-Course REGN9052_S1 succeed!
-Course REGN9053_S1 succeed!
 Course RUSS1003_S1 succeed!
 Course RUSS6002_S1 succeed!
 Course SCOM1001_S1 succeed!
@@ -1577,5 +1576,5 @@ Course VIET6102_S1 succeed!
 Course VIET6502_S1 succeed!
 Course WARS1001_S1 succeed!
 Course WARS2001_S1 succeed!
-Scraping complete, scraped 1576 courses in total, 387 of them have empty data, time elapsed: 6 minutes and 11 seconds.
+Scraping complete, scraped 1575 courses in total, 383 of them have empty data, time elapsed: 6 minutes and 30 seconds.
 Date detected: 18 Feb 19 - 16 Jun 19
