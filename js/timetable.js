@@ -659,7 +659,7 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
             Course.recover();
             Tools.displayUpdatedTime(rawLessons.length);
             Calendar.updateView();
-            Calendar.shiftWeek(-41); // This is a stupid hack to get the correct week to display before the current week gets changed. Please remove this if you find a work around!
+            Calendar.shiftWeek(1); // This is a stupid hack to get the correct week to display before the current week gets changed. Please remove this if you find a work around!
             // shiftWeek(1) loads up week 2 to display most labs/tutes by default
         }).fail(function () {
             $('#load').removeClass('hide');
