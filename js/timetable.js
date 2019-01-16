@@ -3,7 +3,7 @@ var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
 var jsonUpdatedTime = '16th of January, 2019';
-var revisionNum     = 134;
+var revisionNum     = 135;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
