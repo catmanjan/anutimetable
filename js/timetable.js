@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '25th of February, 2019';
-var revisionNum     = 137;
+var jsonUpdatedTime = '4th of March, 2019';
+var revisionNum     = 138;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
@@ -356,10 +356,10 @@ var Calendar = {
         }
     },
     getOffsetWeek: function (startWeek, currentWeek) {
-        return currentWeek - startWeek + 1;
+        return currentWeek - startWeek;
     },
     updateView: function () {
-		var date = Math.max(Calendar.getOffsetWeek(new Date(this.startingDate).getWeekNumber(), this.currentWeek),1)
+		var date = Math.max(Calendar.getOffsetWeek(new Date(this.startingDate).getWeekNumber(), this.currentWeek), 1);
 		if(date == 7 || date == 8)
 			date = "Break";
 		else
@@ -443,7 +443,6 @@ var Course = {
                     data.push(data_item);
                 }
             });
-            console.log(data);
 
             //Count the number of alternatives to each class. If there are none, mark it with .solo=true so it can be pre-chosen
             var classAlternatives = []; //info as key, num alternatives as return
@@ -564,7 +563,8 @@ var Course = {
         });
         rawLessons = rawData[3];
 
-        Calendar.startingDate = rawData[4][0] * 1000;
+        // timestamp retrieved from raw data begins at o-week, add 7 days then offset to sunday (beginning of the week)
+        Calendar.startingDate = (rawData[4][0] + 60 * 60 * 24 * 7) * 1000; 
         Calendar.endingDate   = rawData[4][1] * 1000;
         Calendar.currentWeek  = (new Date()).getWeekNumber();
     },
@@ -659,8 +659,6 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
             Course.recover();
             Tools.displayUpdatedTime(rawLessons.length);
             Calendar.updateView();
-            Calendar.shiftWeek(1); // This is a stupid hack to get the correct week to display before the current week gets changed. Please remove this if you find a work around!
-            // shiftWeek(1) loads up week 2 to display most labs/tutes by default
         }).fail(function () {
             $('#load').removeClass('hide');
             $('#chosenCourses').html('Unable to load data from source, please try to refresh or manually load pre-fetched JSON from ./data folder.');
