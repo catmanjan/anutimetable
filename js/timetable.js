@@ -3,7 +3,7 @@ var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
 var jsonUpdatedTime = '4th of March, 2019';
-var revisionNum     = 139;
+var revisionNum     = 140;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
@@ -356,7 +356,7 @@ var Calendar = {
         }
     },
     getOffsetWeek: function (startWeek, currentWeek) {
-        return currentWeek - startWeek;
+        return currentWeek - startWeek + 1;
     },
     updateView: function () {
 		var date = Math.max(Calendar.getOffsetWeek(new Date(this.startingDate).getWeekNumber(), this.currentWeek), 1);
