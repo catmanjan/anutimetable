@@ -66,13 +66,13 @@ X-WR-CALDESC:ANU Semester 1.
 
 <script type="text/template" id="event-template">
 BEGIN:VEVENT
-DTSTART;TZID=/Australia/Sydney:201902<%= first_day %>T<%= padded_hour %>00
-DTEND;TZID=/Australia/Sydney:201902<%= first_day %>T<%= padded_end_hour %>00
+DTSTART;TZID=/Australia/Sydney:201907<%= first_day %>T<%= padded_hour %>00
+DTEND;TZID=/Australia/Sydney:201907<%= first_day %>T<%= padded_end_hour %>00
 RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
-EXDATE;TZID=/Australia/Sydney:201906<%= holiday2 %>T<%= padded_hour %>00
-EXDATE;TZID=/Australia/Sydney:201906<%= holiday1 %>T<%= padded_hour %>00
-DTSTAMP:20180918T000000Z
-CREATED:20180918T000000Z
+EXDATE;TZID=/Australia/Sydney:201911<%= holiday2 %>T<%= padded_hour %>00
+EXDATE;TZID=/Australia/Sydney:201911<%= holiday1 %>T<%= padded_hour %>00
+DTSTAMP:20190719T000000Z
+CREATED:20190719T000000Z
 DESCRIPTION:<%= description %>
 LAST-MODIFIED:20180718T000000Z
 LOCATION:<%= location %>
