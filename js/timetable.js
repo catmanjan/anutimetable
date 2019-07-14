@@ -733,7 +733,7 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
             calString += "\nEND:VCALENDAR";
 
             //try {
-            download(calString, 'anu_s1_timetable.ics', 'text/plain');
+            download(calString, 'anu_s2_timetable.ics', 'text/plain');
             //} catch(e) {
             //    window.open('download.php?data=' + calString);
             //}
