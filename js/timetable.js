@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '4th of July, 2019';
-var revisionNum     = 142;
+var jsonUpdatedTime = '14th of July, 2019';
+var revisionNum     = 143;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
@@ -479,7 +479,11 @@ var Course = {
             // Add course style class.
             for (var i = 1; i <= 6; i++) {
                 if (i === 6 || $('.lesson-style-' + i).length < 1) {
-                    $('.lesson[data-name=' + courseName + ']').parent().addClass('lesson-style-' + i);
+                     //https://stackoverflow.com/questions/6469993/jquery-selector-problem-when-using-a-single-parenthesis
+                    var escapedcourseName = courseName
+                        .replace('(', '\\(')
+                        .replace(')', '\\)')
+                    $('.lesson[data-name=' + escapedcourseName + ']').parent().addClass('lesson-style-' + i);
                     break;
                 }
             }
