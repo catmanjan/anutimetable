@@ -3,7 +3,7 @@ var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
 var jsonUpdatedTime = '25th of July, 2019';
-var revisionNum     = 146;
+var revisionNum     = 147;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
@@ -710,7 +710,7 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
                     calString += eventTemplate({
                         padded_hour: Tools.hourify(lesson.start),
                         padded_end_hour: Tools.hourify(lesson.start + lesson.dur),
-                        first_day: 23 + day,
+                        first_day: 22 + day,
                         day: lesson.day,
                         description: lesson.info,
                         location: lesson.location,
