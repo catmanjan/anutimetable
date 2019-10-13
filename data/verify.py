@@ -29,7 +29,7 @@ def has_uniques(list_of_iids):
     return True
 
 # Load JSON data from timetable.json
-data = json.load(open('timetable.json'))
+data = json.load(open('timetable.json', encoding='UTF-8'))
 courses_dict = {}
 
 # data[3] has the format {"id":,"nid":,"iid":,"lid":,"start":,"dur":,"day":}
