@@ -33,8 +33,7 @@ def shrinkDay(day):
 
 data = []
 
-f = open('Timetable.csv', 'rt')
-try:
+with open('Timetable.csv', 'rt') as f:
     reader = csv.reader(f, quotechar='"')
     next(reader)
     cid = 0
@@ -66,9 +65,7 @@ try:
             data.append(item)
             
         cid = cid + 1
+
         
-finally:
-    f.close()
-    
 with open('timetable.json', 'w') as jsonf:
     jsonf.write(json.dumps(data, sort_keys=True, indent=4, cls=StupidEncoder))
