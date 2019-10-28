@@ -1,0 +1,23 @@
+CACHE MANIFEST
+#  2019-03-04 v140
+
+CACHE:
+js/bootstrap.min.js
+js/download.js
+js/jquery.js
+js/timetable.js
+js/timetable_analyser.js
+js/typeahead.bundle.min.js
+js/underscore.js
+data/timetable.json
+css/bootstrap.css
+css/style.css
+fonts/glyphicons-halflings-regular.eot
+fonts/glyphicons-halflings-regular.svg
+fonts/glyphicons-halflings-regular.ttf
+fonts/glyphicons-halflings-regular.woff
+fonts/glyphicons-halflings-regular.woff2
+./
+
+NETWORK:
+*
