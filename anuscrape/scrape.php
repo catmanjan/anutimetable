@@ -2,7 +2,7 @@
 
 include 'simple_html_dom.php';
 
-const SEMESTER = 2;
+const SEMESTER = 1;
 
 date_default_timezone_set('Australia/Sydney');
 
@@ -86,7 +86,7 @@ function retrieveField ($content, $name) {
     return isset($matches[1]) ? $matches[1] : FALSE;
 }
 
-$url   = 'http://timetabling.anu.edu.au/sws2019/';
+$url   = 'http://timetabling.anu.edu.au/sws2020/';
 $stime = time();
 
 // Enter the landing page and acquire the session id
