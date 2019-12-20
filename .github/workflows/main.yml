@@ -7,7 +7,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: franzliedke/gh-action-php@0.2.0
+      - name: Checkout
+        uses: actions/checkout@v1
+      
+      - name: Use PHP
+        uses: franzliedke/gh-action-php@0.2.0
+  
       - name: Scrape database
         run: |
           cd anuscrape
