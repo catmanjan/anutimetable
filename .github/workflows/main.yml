@@ -1,0 +1,14 @@
+name: Scrape the ANU Timetable
+
+on: [push]
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: franzliedke/gh-action-php@0.2.0
+    - name: Scrape database
+      run: |
+        cd anuscrape
+        php ./scrape.php
