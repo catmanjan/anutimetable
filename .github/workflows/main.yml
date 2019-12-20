@@ -14,8 +14,18 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: '7.1'
-  
+
       - name: Scrape database
         run: |
           cd anuscrape
           php ./scrape.php
+     
+      - name: Check if file complete
+        run: |
+          ./github_actions_check_scraping.sh
+      
+      - name: Set up Python 3.8
+        if: success()
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
