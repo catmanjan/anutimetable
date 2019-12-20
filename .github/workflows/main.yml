@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: franzliedke/gh-action-php@0.2.0
-    - name: Scrape database
-      run: |
-        cd anuscrape
-        php ./scrape.php
+      - uses: franzliedke/gh-action-php@0.2.0
+      - name: Scrape database
+        run: |
+          cd anuscrape
+          php ./scrape.php
