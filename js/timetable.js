@@ -320,7 +320,7 @@ var Calendar = {
 
             // Finding the available vertical blocks set
             $.each(array, function (i, row) {
-                if (i < hour) return;
+                if (i <= hour) return;
                 if (i >= hour + blockNum) return false;
                 counter = !row[day][currentIndex] ? counter + 1 : 0;
             });
