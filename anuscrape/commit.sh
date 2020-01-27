@@ -19,7 +19,7 @@ if [ $? -ne 0 ]; then
     python3 ./update_date.py
     git add *
     git commit -m "Updated on `date`"
-    # git push
+    git push
     exit 0
 else 
     echo No changes on `date` >> ./updatelog.txt
