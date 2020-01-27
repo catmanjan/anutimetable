@@ -1,8 +1,7 @@
 #!/bin/sh
-# TODO add basic instructions so anyone can replicate the server
 
 # Start scraping
-php ./scrape.php
+python3 ./scraper.py
 
 # Check if the newly scraped file does not exist. Print meaningful message and exit with failure
 if [ ! -e ./timetable.json ]; then
@@ -20,7 +19,7 @@ if [ $? -ne 0 ]; then
     python3 ./update_date.py
     git add *
     git commit -m "Updated on `date`"
-    git push
+    # git push
     exit 0
 else 
     echo No changes on `date` >> ./updatelog.txt

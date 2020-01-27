@@ -1,10 +1,5 @@
 # anuscrape
 
-## JavaScript version
-* Browse to http://timetabling.anu.edu.au/sws2018/
-* Select "Courses"
-* Run scrape.js in the browser console
-
 ## PHP version
 * This version is best for scrapping outside ANU, because when using a non-ANU network the scraping speed will become ridiculously slow.
 * This version sets up your own ANU server and scraping internally
