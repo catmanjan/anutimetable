@@ -17,10 +17,16 @@ if [ $? -ne 0 ]; then
     echo New update found at `date` >> $HOME/updatelog.txt
     mv -f ./timetable.json ../data/
     python3 ./update_date.py
-    git add *
+    git add ../README.md ../data/timetable.json ../js/timetable.js ../manifest.appcache
     git commit -m "Updated on `date`"
-    git push
-    exit 0
+    git status
+    read -p "Are you sure? " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        git push
+        exit 0
+    fi
 else 
     echo No changes on `date` >> ./updatelog.txt
     exit 1
