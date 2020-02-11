@@ -3,7 +3,9 @@
 ## Python Scraper
 
 ### Python requirements:
+
 As per Pipfile:
+
 - Python version: 3.7
 - Requests package
 - BeatifulSoup4 package
@@ -11,8 +13,7 @@ As per Pipfile:
 
 ### Usage instructions
 
-1. Run ./scraper.py (Takes about 2 mins from outside the ANU network)
+1. Run ./scraper.py (Takes about 2 mins from outside the ANU network, 3 mins inside)
 2. Open a pull request on the github website
-
 
 Contact [BishopOfTurkey](https://github.com/BishopOfTurkey) if you have any problems
