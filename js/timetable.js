@@ -408,7 +408,13 @@ var Course = {
         return Course;
     },
     add: function (courseName, isRecovering) {
+
+        // fix for the courses with unmatched cases
+        // i.e. COMP2710 SOFTWARE SECURITY -> COMP2710 Software Security
+        courseName = courseName.replace(/(\s\w)(\w+)/g, (m, a, b) => a + b.toLowerCase());
+
         var data_tmp = timetableData[courseName];
+
         recover  = 'undefined' !== typeof isRecovering;
 
         if (Course.courses.length >= 6 || !data_tmp) {
@@ -483,7 +489,7 @@ var Course = {
                     var escapedcourseName = courseName
                         .replace('(', '\\(')
                         .replace(')', '\\)')
-                    $('.lesson[data-name=' + escapedcourseName + ']').parent().addClass('lesson-style-' + i);
+                    $('.lesson[data-name="' + escapedcourseName + '"]').parent().addClass('lesson-style-' + i);
                     break;
                 }
             }
