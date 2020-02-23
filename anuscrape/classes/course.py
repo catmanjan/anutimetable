@@ -10,6 +10,7 @@ def splitHeaderTable(res):
     courses = []
     # print('-------------New page-------------')
     if len(table) == 0 or len(header) == 0:
+        print(soup.prettify())
         raise PermissionError
     for (t, h) in itertools.zip_longest(table, header):
         c = Course(h, t)
@@ -24,14 +25,14 @@ class Course:
         self.title = header.find("h3").string
         self.link = header.find("a")['href']
         self.dates = header.find('h3', class_="date-info-display").string.strip()
-        self.classes: List[Lesson] = self.__getClasses__(table)
-    def __getClasses__(self, table):
+        self.classes: List[Lesson] = self._getClasses(table)
+    def _getClasses(self, table):
         classes = []
         for row in table.find_all("tr"):
             classes.append(Lesson(row))
         return classes
     def __str__(self):
-        return "{} -- {}".format(self.title, self.dates)
+        return f"{self.title} -- {self.dates}"
 
 
 class Lesson:

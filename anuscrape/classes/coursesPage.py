@@ -11,21 +11,21 @@ class CoursesPage:
     }
     def __init__(self, response):
         self.soup = BeautifulSoup(response.content, 'html.parser')
-        self.courseList = self.__courseList__()
-        self.semList = self.__getSems__()
+        self.courseList = self._courseList()
+        self.semList = self._getSems()
     def getBody(self, semseter):
         body = {}
         body.update(self.CONSTANT_PARAMS)
         body['lbWeeks'] = self.semList[semseter-1]
         return body
-    def __courseList__(self):
+    def _courseList(self):
         list = []
         select = self.soup.find(id="dlObject")
         for c in select.find_all('option'):
             list.append((c.string, c["value"]))
         return list
 
-    def __getSems__(self):
+    def _getSems(self):
         list = []
         select = self.soup.find(id="lbWeeks")
         for c in select.find_all('option'):
