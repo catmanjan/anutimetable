@@ -50,7 +50,6 @@ def formatCourses(courses: List[Course]):
             lessonJSON["start"] = clockToDecimal(lesson.start)
             lessonJSON["dur"] = clockToDecimal(lesson.duration)
             lessonJSON["weeks"] = lesson.weeks
-            # .replace("‑","-")
             lessonJSON["day"] = dayToNum(lesson.day)
             if lesson.description:
                 lessonJSON["note"] = lesson.description

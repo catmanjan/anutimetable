@@ -1,2 +1,6 @@
 Scraping failed at Mi, 19. Feb 2020 23:16:33
 Scraping failed at Mi, 19. Feb 2020 23:17:20
+Scraping failed at Sun 23 Feb 2020 10:37:32 AEDT
+Scraping failed at Sun 23 Feb 2020 10:38:09 AEDT
+Scraping failed at Sun 23 Feb 2020 10:40:18 AEDT
+New update found at Sun 23 Feb 2020 11:08:53 AEDT

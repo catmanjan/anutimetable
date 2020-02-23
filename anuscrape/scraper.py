@@ -31,10 +31,10 @@ cookies = res.cookies
 session =  SessionData(BeautifulSoup(res.content, 'html.parser'))
 coursesPage = CoursesPage(res)
 
-coursesPage.courseList = list(filter(lambda x: x[0].endswith("S{}".format(SEMESTER)), coursesPage.courseList))
+coursesPage.courseList = list(filter(lambda x: x[0].endswith(f"S{SEMESTER}"), coursesPage.courseList))
 
 courseCount = len(coursesPage.courseList)
-print("Found {} courses.".format(courseCount))
+print(f"Found {courseCount} courses.")
 
 
 body = coursesPage.getBody(SEMESTER)
@@ -56,4 +56,4 @@ for courseCodes in Chunk(coursesPage, CHUNK):
     printProgressBar(len(courses), courseCount)
 
 formatCourses(courses)
-print("Scraping complete, scraped {} courses in total, 391 of them have empty data, time elapsed: {}s".format(len(courses), time.time() - start_time))
+print(f"Scraping complete, scraped {len(courses)} courses in total, time elapsed: { time.time() - start_time}s")
