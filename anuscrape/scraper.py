@@ -12,10 +12,10 @@ from classes.loadingBar import printProgressBar
 from classes.toJSON import formatCourses
 
 URL = "http://timetabling.anu.edu.au/sws2020/"
-SEMESTER = 1
+SEMESTER = 2
 
 # 1-50: 50 is the maximum allowed request
-CHUNK = 50
+CHUNK = 1
 
 start_time = time.time()
 # Get landing page
