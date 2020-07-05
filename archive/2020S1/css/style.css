@@ -1,0 +1,130 @@
+.old_stuff {
+	text-align:center;
+	position:fixed;
+	bottom:10px;
+	width:100%;
+	}
+
+h1 {
+	display: inline-block;
+}
+
+h2 {
+	display: inline-block;
+	font-size: 10pt;
+	/*color: red;*/
+}
+
+/* Colours to distinguish different classes */
+
+.lesson {
+    color         : #555;
+    padding-left  : 3px;
+    margin-top    : 2px;
+    margin-bottom : 2px;
+}
+
+.title {
+    color         : #4C6E78;
+}
+
+.lesson-style-1 {
+    border-color     : #660066;
+    background-color : #FFCCFF;
+}
+
+.lesson-style-2 {
+    border-color     : #666600;
+    background-color : #FFFFCC;
+}
+
+.lesson-style-3 {
+    border-color     : #000066;
+    background-color : #CCCCFF;
+}
+
+.lesson-style-4 {
+    border-color     : #660000;
+    background-color : #FFCCCC;
+}
+
+.lesson-style-5 {
+    border-color     : #006600;
+    background-color : #CCFFCC;
+}
+
+.lesson-style-6 {
+    border-color     : #006666;
+    background-color : #CCFFFF;
+}
+
+.table {
+    border-collapse : separate;
+    border-spacing  : 2px;
+}
+
+.table th {
+    vertical-align : middle !important;
+    text-align     : center;
+}
+
+.table td, .table th {
+    border : 1px solid #E3E3EF;
+}
+
+/* From http://stackoverflow.com/questions/20198247/twitters-typeahead-js-suggestions-are-not-styled-have-no-border-transparent-b */
+.tt-query {
+    -webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+    color : #999;
+    top   : auto !important;
+}
+
+.tt-menu {
+    width                 : 422px;
+    margin-top            : 10px;
+    padding               : 4px 0;
+    background-color      : #FFF;
+    border                : 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-border-radius : 4px;
+    -moz-border-radius    : 4px;
+    border-radius         : 4px;
+    -webkit-box-shadow    : 0 5px 10px rgba(0, 0, 0, .2);
+    -moz-box-shadow       : 0 5px 10px rgba(0, 0, 0, .2);
+    box-shadow            : 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.tt-suggestion {
+    padding     : 3px 20px;
+    line-height : 24px;
+    cursor      : pointer;
+}
+
+.tt-suggestion.tt-cursor, .tt-suggestion:hover {
+    color            : #FFF;
+    background-color : #0097CF;
+}
+
+.tt-suggestion p {
+    margin : 0;
+}
+
+.twitter-typeahead {
+    display : inline !important;
+}
+
+.course-list-date {
+    float : right;
+}
+
+.special-note {
+		color: #F00;
+}
+
+.cursor {
+    cursor: pointer;
+}
