@@ -15,7 +15,7 @@ URL = "http://timetabling.anu.edu.au/sws2020/"
 SEMESTER = 2
 
 # 1-50: 50 is the maximum allowed request
-CHUNK = 1
+CHUNK = 50
 
 start_time = time.time()
 # Get landing page
