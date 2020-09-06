@@ -77,6 +77,7 @@ class App extends Component {
             for (let course of this.state.courses) {
               let start = range[0];
               let end = range[range.length-1];
+              console.log(process.env);
 
               fetch(`${process.env.REACT_APP_ENDPOINT}?ModuleDescription=${course}
                 &StartTime=${start.getYear()}-${start.getMonth()}-${start.getDay()}
