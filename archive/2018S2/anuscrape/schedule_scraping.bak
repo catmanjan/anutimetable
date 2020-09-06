@@ -1,1 +1,0 @@
-30 17 */2 * * php $HOME/anutimetable/anuscrape/scrape.php && echo Success at `date` >> $HOME/timelogs.txt && $HOME/anutimetable/anuscrape/commit.sh
