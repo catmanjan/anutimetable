@@ -78,7 +78,7 @@ class App extends Component {
               let start = range[0];
               let end = range[range.length-1];
 
-              fetch(`${process.env.REACT_APP_DAY_START}${process.env.REACT_APP_ENDPOINT}?ModuleDescription=${course
+              fetch(`${process.env.REACT_APP_ENDPOINT}?ModuleDescription=${course
                 }&StartTime=${moment(start).format("YYYY-MM-DD")
                 }&EndTime=${moment(end).format("YYYY-MM-DD")}`, {
                 headers: {
