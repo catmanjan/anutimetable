@@ -117,7 +117,7 @@ class App extends Component {
             }
           }}
         />
-        <p style={{height: "2vh"}}>Made with 💖 by <a href="https://github.com/pl4nty">Tom Plant</a>, report issues <a href="https://github.com/pl4nty/anutimetable/issues">here</a></p>
+        <p style={{height: "2vh"}}>Made with <span role="img" aria-label="love">💖</span> by <a href="https://github.com/pl4nty">Tom Plant</a>, report issues <a href="https://github.com/pl4nty/anutimetable/issues">here</a></p>
       </div>
     );
   }
