@@ -77,11 +77,10 @@ class App extends Component {
             for (let course of this.state.courses) {
               let start = range[0];
               let end = range[range.length-1];
-              console.log(process.env);
 
-              fetch(`${process.env.REACT_APP_ENDPOINT}?ModuleDescription=${course}
-                &StartTime=${start.getYear()}-${start.getMonth()}-${start.getDay()}
-                &EndTime=${end.getYear()}-${end.getMonth()}-${end.getDay()}`, {
+              fetch(`${process.env.REACT_APP_DAY_START}${process.env.REACT_APP_ENDPOINT}?ModuleDescription=${course
+                }&StartTime=${moment(start).format("YYYY-MM-DD")
+                }&EndTime=${moment(end).format("YYYY-MM-DD")}`, {
                 headers: {
                   'accept': 'application/json',
                   'authorization': `Basic ${process.env.REACT_APP_AUTH_KEY}`,
@@ -96,6 +95,7 @@ class App extends Component {
                     console.log(this.state.events);
                     let acc = [];
                     for (let e of res.TeachingSessions) {
+                      // TODO add faculty or randomised (hash) colours
                       acc.push({
                         title: `${e.moduledescription} ${e.activitytype}`,
                         start: new Date(e.teachingsessionstartdatetime),
