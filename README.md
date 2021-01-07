@@ -1,6 +1,6 @@
 # anutimetable
 
-* Timetable database last update: 2020-07-31
+* Timetable database last update: 2021-01-07 thanks to [@BishopOfTurkey](https://github.com/BishopOfTurkey)
 
 ## Updates
 
