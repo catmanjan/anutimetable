@@ -21,7 +21,7 @@
     <div class="col-sm-12 col-md-12">
       <div>
 	    <h1 class="title">(Unofficial) ANU Timetable Planner</h1>
-        <h2 class="title">2020S2 (offline compatible)</h2>
+        <h2 class="title">2021S1 (offline compatible)</h2>
       </div>
       <p class="course-list-date">Course list updated on <span id="jsonUpdatedTime"></span><br />
         <span class="special-note">Not seeing tutorials? Try changing weeks</span></p>
@@ -67,11 +67,11 @@ X-WR-CALDESC:ANU Semester 1.
 
 <script type="text/template" id="event-template">
 BEGIN:VEVENT
-DTSTART;TZID=/Australia/Sydney:202007<%= first_day %>T<%= padded_hour %>00
-DTEND;TZID=/Australia/Sydney:202007<%= first_day %>T<%= padded_end_hour %>00
+DTSTART;TZID=/Australia/Sydney:202102<%= first_day %>T<%= padded_hour %>00
+DTEND;TZID=/Australia/Sydney:202102<%= first_day %>T<%= padded_end_hour %>00
 RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
-EXDATE;TZID=/Australia/Sydney:202005<%= holiday2 %>T<%= padded_hour %>00
-EXDATE;TZID=/Australia/Sydney:202005<%= holiday1 %>T<%= padded_hour %>00
+EXDATE;TZID=/Australia/Sydney:202102%= holiday2 %>T<%= padded_hour %>00
+EXDATE;TZID=/Australia/Sydney:202102<%= holiday1 %>T<%= padded_hour %>00
 DTSTAMP:20200223T000000Z
 CREATED:20200223T000000Z
 DESCRIPTION:<%= description %>
