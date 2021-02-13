@@ -4,6 +4,9 @@
 
 ## Updates
 
+### 2021-02-13
+- Added automatic daily scrapes of the timetable thanks to [@BishopOfTurkey](https://github.com/BishopOfTurkey)
+
 ### 2018-07-20
 
 - Fixed iCal export thanks to [@Alwinius](https://github.com/Alwinius)
