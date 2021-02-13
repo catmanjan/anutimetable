@@ -20,5 +20,9 @@ jobs:
       run: |
         cd anuscrape
         ./scrape_prepare.sh
-    - name: Diff
-      run: git diff
+    - name: Git commit and push
+      run: |
+        git config --global user.name 'Obi Symons'
+        git config --global user.email 'BishopOfTurkey@users.noreply.github.com'
+        git commit -am "Automatic Scrape"
+        git push
