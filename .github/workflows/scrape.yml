@@ -1,0 +1,35 @@
+name: Scrape Timetable
+
+on: 
+  push:
+
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install pipenv
+      run: python -m pip install pipenv
+    - name: Install dependencies
+      run: |
+        cd anuscrape
+        python -m pipenv install --system
+    - name: Run scraper
+      id: main
+      run: |
+        cd anuscrape
+        OUTPUT=$(./scrape_prepare.sh | tail -1) &&
+        echo "::set-output name=OUTPUT::$OUTPUT"
+    - name: Git commit and push
+      if: steps.main.outputs.OUTPUT == 0
+      run: |
+        git config --global user.name 'Obi Symons'
+        git config --global user.email 'BishopOfTurkey@users.noreply.github.com'
+        git commit -am "Automatic Scrape"
+        git push
