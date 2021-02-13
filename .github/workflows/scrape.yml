@@ -24,6 +24,7 @@ jobs:
     - name: Run scraper
       run: |
         cd anuscrape
+        pipenv shell
         ./scrape_prepare.sh
     - name: Diff
       run: git diff
