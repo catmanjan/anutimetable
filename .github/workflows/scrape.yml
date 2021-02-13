@@ -15,10 +15,10 @@ jobs:
     - name: Install dependencies
       run: |
         cd anuscrape
-        python -m pipenv install
+        python -m pipenv install --system
     - name: Run scraper
       run: |
         cd anuscrape
-        pipenv run ./scrape_prepare.sh
+        ./scrape_prepare.sh
     - name: Diff
       run: git diff
