@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7]
+        python-version: [3.8]
 
     steps:
     - uses: actions/checkout@v2
@@ -21,3 +21,7 @@ jobs:
       run: |
         cd anuscrape
         python -m pipenv install
+    - name: Run scraper
+      run: ./scrape_prepare.sh
+    - name: Diff
+      run: git diff
