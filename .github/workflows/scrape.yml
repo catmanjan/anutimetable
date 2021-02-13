@@ -22,6 +22,8 @@ jobs:
         cd anuscrape
         python -m pipenv install
     - name: Run scraper
-      run: ./scrape_prepare.sh
+      run: |
+        cd anuscrape
+        ./scrape_prepare.sh
     - name: Diff
       run: git diff
