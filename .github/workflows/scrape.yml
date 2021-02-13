@@ -21,10 +21,13 @@ jobs:
         cd anuscrape
         python -m pipenv install --system
     - name: Run scraper
+      id: main
       run: |
         cd anuscrape
-        ./scrape_prepare.sh
+        OUTPUT=$(./scrape_prepare.sh | tail -1) &&
+        echo "::set-output name=OUTPUT::$OUTPUT"
     - name: Git commit and push
+      if: steps.main.outputs.OUTPUT == 0
       run: |
         git config --global user.name 'Obi Symons'
         git config --global user.email 'BishopOfTurkey@users.noreply.github.com'
