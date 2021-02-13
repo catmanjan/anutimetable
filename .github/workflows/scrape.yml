@@ -1,0 +1,23 @@
+name: Scrape Timetable
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install pipenv
+      run: python -m pip install pipenv
+    - name: Install dependencies
+      run: |
+        cd anuscrape
+        python -m pipenv install
