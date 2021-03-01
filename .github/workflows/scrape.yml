@@ -31,7 +31,7 @@ jobs:
         run: diff ./timetable.json ../data/timetable.json
 
       - name: Git commit and push
-        if: steps.compare.outcome == "failure"
+        if: ${{ steps.compare.outcome == 'failure' }}
         run: |
           cd anuscrape
           echo New update found at `date` >> ./updatelog.txt
