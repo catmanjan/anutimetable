@@ -26,6 +26,7 @@ jobs:
         cd anuscrape
         OUTPUT=$(./scrape_prepare.sh | cat) &&
         echo "::set-output name=OUTPUT::$OUTPUT"
+      shell: bash {0}
     - name: Git commit and push
       if: steps.main.outputs.OUTPUT == 0
       run: |
