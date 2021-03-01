@@ -22,6 +22,7 @@ jobs:
         run: |
           python -m pipenv install --system
       - name: Run Scraper
+        working-directory: anuscrape
         run: python3 ./scraper.py
 
       - name: Compare new and old timetable
