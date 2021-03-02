@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 
 # Start scraping
 python3 ./scraper.py
@@ -10,7 +11,9 @@ if [ ! -e ./timetable.json ]; then
 fi 
 
 # Compare the newly downloaded timetable with the previous one
+set +e
 diff ./timetable.json ../data/timetable.json
+set -e
 
 # If new one is different or the old one does not exist, commit new one to GitHub
 if [ $? -ne 0 ]; then

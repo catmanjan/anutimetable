@@ -1,6 +1,6 @@
 name: Scrape Timetable
 
-on: 
+on:
   push:
 
   schedule:
@@ -10,26 +10,36 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-    - name: Install pipenv
-      run: python -m pip install pipenv
-    - name: Install dependencies
-      run: |
-        cd anuscrape
-        python -m pipenv install --system
-    - name: Run scraper
-      id: main
-      run: |
-        cd anuscrape
-        OUTPUT=$(./scrape_prepare.sh | cat) &&
-        echo "::set-output name=OUTPUT::$OUTPUT"
-    - name: Git commit and push
-      if: steps.main.outputs.OUTPUT == 0
-      run: |
-        git config --global user.name 'Obi Symons'
-        git config --global user.email 'BishopOfTurkey@users.noreply.github.com'
-        git commit -am "Automatic Scrape"
-        git push
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+      - name: Install pipenv
+        run: python -m pip install pipenv
+
+      - name: Install dependencies
+        working-directory: anuscrape
+        run: |
+          python -m pipenv install --system
+      - name: Run Scraper
+        working-directory: anuscrape
+        run: python3 ./scraper.py
+
+      - name: Compare new and old timetable
+        id: compare
+        continue-on-error: true
+        working-directory: anuscrape
+        run: diff ./timetable.json ../data/timetable.json
+
+      - name: Git commit and push
+        if: ${{ steps.compare.outcome == 'failure' }}
+        run: |
+          cd anuscrape
+          echo New update found at `date` >> ./updatelog.txt
+          mv -f ./timetable.json ../data/
+          python3 ./update_date.py
+
+          git config --global user.name 'Obi Symons'
+          git config --global user.email 'BishopOfTurkey@users.noreply.github.com'
+          git commit -am "Automatic Scrape"
+          git push
