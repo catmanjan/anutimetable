@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import itertools 
 from typing import List
 
+
 def splitHeaderTable(res):
     soup = BeautifulSoup(res.content, 'html.parser')
     
@@ -29,7 +30,13 @@ class Course:
     def _getClasses(self, table):
         classes = []
         for row in table.find_all("tr"):
-            classes.append(Lesson(row))
+            try:
+                classes.append(Lesson(row))
+            except Exception as e:
+                print("\nEncountered Exception while parsing course page:")
+                print(f"{self}")
+                print(f"Raw table data\n{row.prettify()}")
+                raise e
         return classes
     def __str__(self):
         return f"{self.title} -- {self.dates}"
@@ -38,7 +45,7 @@ class Course:
 class Lesson:
     def __init__(self, row):
         cells = row.find_all("td")
-        self.name = cells[0].a.string.strip()
+        self.name = cells[0].a.next.strip()
         self.description = cells[1].string
         self.day = cells[2].string
         self.start =  cells[3].string
