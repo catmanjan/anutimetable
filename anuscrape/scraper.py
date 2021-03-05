@@ -42,6 +42,7 @@ body = [(k, v) for k, v in body.items()]
 
 courses = []
 printProgressBar(0, courseCount)
+
 for courseCodes in Chunk(coursesPage, CHUNK):
     reqBody = [] + session.asModuleList() + body
     for code in courseCodes:
