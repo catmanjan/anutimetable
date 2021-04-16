@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "date-fns": "^2.21.1",
+    "date-fns-tz": "^1.1.4",
     "moment": "2.24.0",
     "react": "16.13.1",
     "react-big-calendar": "0.24.1",
