@@ -1,14 +1,18 @@
 {
-  "name": "rbc-no-dnd",
+  "name": "anutimetable",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^4.6.0",
     "date-fns": "^2.21.1",
     "date-fns-tz": "^1.1.4",
-    "moment": "2.24.0",
+    "ics": "^2.27.0",
     "react": "16.13.1",
     "react-big-calendar": "0.24.1",
+    "react-bootstrap": "^1.5.2",
+    "react-datepicker": "^3.7.0",
     "react-dom": "16.13.1",
+    "react-icons": "^4.2.0",
     "react-scripts": "3.4.1",
     "react-search-box": "^2.0.2"
   },
