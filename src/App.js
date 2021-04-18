@@ -130,7 +130,12 @@ class App extends Component {
     }
 
     const element = document.createElement("a");
-    const file = new Blob([createEvents(this.state.events)], {type: 'text/calendar'});
+    const { value } = createEvents(this.state.events.map(event => ({
+        ...event,
+        start: format(event.start, 'y,M,d,H,m,s').split(','),
+        end: format(event.end, 'y,M,d,H,m,s').split(',')
+    })))
+    const file = new Blob([value], {type: 'text/calendar'});
     element.href = URL.createObjectURL(file);
     const d = new Date();
     element.download = `ANU Timetable ${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}.ics`;
