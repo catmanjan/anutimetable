@@ -12,7 +12,7 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 import "./App.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-import { Button, ButtonGroup, InputGroup, ListGroup, Tooltip, Col, Row, Container } from "react-bootstrap";
+import { Button, ButtonGroup, InputGroup, Col, Row, Container } from "react-bootstrap";
 
 import { createEvents } from 'ics';
 import DatePicker from 'react-datepicker';
