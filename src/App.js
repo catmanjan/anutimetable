@@ -21,6 +21,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 import { ReactPlugin, withAITracking } from '@microsoft/applicationinsights-react-js';
 
+console.log(process.env)
+
 const reactPlugin = new ReactPlugin();
 const appInsights = new ApplicationInsights({
     config: {
