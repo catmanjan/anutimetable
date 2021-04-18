@@ -1,5 +1,4324 @@
 {
     "courses": [
-        "Medicine 2"
+        {
+            "key": "ACST4031_S1",
+            "value": "ACST4031_S1 - Actuarial Control Cycle 1"
+        },
+        {
+            "key": "ACST8040_S1",
+            "value": "ACST8040_S1 - Actuarial Control Cycle 1"
+        },
+        {
+            "key": "ACST8051_S1",
+            "value": "ACST8051_S1 - Special Topics in Actuarial Studies 1"
+        },
+        {
+            "key": "ANCH2015_S1",
+            "value": "ANCH2015_S1 - Travellers and Geographers in Antiquity"
+        },
+        {
+            "key": "ANCH6501_S1",
+            "value": "ANCH6501_S1 - Travellers and Geographers in Antiquity"
+        },
+        {
+            "key": "ANIP3003_S1",
+            "value": "ANIP3003_S1 - Australian National Internships Program A"
+        },
+        {
+            "key": "ANIP3005_S1",
+            "value": "ANIP3005_S1 - Australian National Internships Program B"
+        },
+        {
+            "key": "ANIP3007_S1",
+            "value": "ANIP3007_S1 - Australian National Internships Program D"
+        },
+        {
+            "key": "ANIP6503_S1",
+            "value": "ANIP6503_S1 - Australian National Internships Program A"
+        },
+        {
+            "key": "ANIP6505_S1",
+            "value": "ANIP6505_S1 - Australian National Internships Program B"
+        },
+        {
+            "key": "ANIP6507_S1",
+            "value": "ANIP6507_S1 - Australian National Internships Program D"
+        },
+        {
+            "key": "ANTH1002_S1",
+            "value": "ANTH1002_S1 - Culture and Human Diversity: Introducing Anthropology"
+        },
+        {
+            "key": "ANTH2009_S1",
+            "value": "ANTH2009_S1 - Culture and Development"
+        },
+        {
+            "key": "ANTH2017_S1",
+            "value": "ANTH2017_S1 - Culture, Social Justice and Aboriginal Society Today"
+        },
+        {
+            "key": "ANTH2129_S1",
+            "value": "ANTH2129_S1 - Crossing Borders: Migration, Identity and Livelihood"
+        },
+        {
+            "key": "ANTH2130_S1",
+            "value": "ANTH2130_S1 - Violence and Terror"
+        },
+        {
+            "key": "ANTH4011_S1",
+            "value": "ANTH4011_S1 - History of Anthropological Theory Extended"
+        },
+        {
+            "key": "ANTH6002_S1",
+            "value": "ANTH6002_S1 - Culture and Human Diversity: Introducing Anthropology"
+        },
+        {
+            "key": "ANTH6009_S1",
+            "value": "ANTH6009_S1 - Culture and Development"
+        },
+        {
+            "key": "ANTH6017_S1",
+            "value": "ANTH6017_S1 - Culture, Social Justice and Aboriginal Society Today"
+        },
+        {
+            "key": "ANTH6515_S1",
+            "value": "ANTH6515_S1 - Crossing Borders: Migration, Identity and Livelihood"
+        },
+        {
+            "key": "ANTH6516_S1",
+            "value": "ANTH6516_S1 - Violence and Terror"
+        },
+        {
+            "key": "ANTH8009_S1",
+            "value": "ANTH8009_S1 - Development in Practice"
+        },
+        {
+            "key": "ANTH8019_S1",
+            "value": "ANTH8019_S1 - Social Analysis & Community Politics"
+        },
+        {
+            "key": "ANTH8035_S1",
+            "value": "ANTH8035_S1 - History of Anthropological Theory Extended"
+        },
+        {
+            "key": "ANTH8044_S1",
+            "value": "ANTH8044_S1 - Land Rights and Resource Development (Advanced)"
+        },
+        {
+            "key": "ANTH8047_S1",
+            "value": "ANTH8047_S1 - Land Rights and Resource Development"
+        },
+        {
+            "key": "ANTH8056_S1",
+            "value": "ANTH8056_S1 - Introduction to Humanitarian Action"
+        },
+        {
+            "key": "ANTH8070_S1",
+            "value": "ANTH8070_S1 - Research Design and Field Methods in Anthropology"
+        },
+        {
+            "key": "ANTH8107_S1",
+            "value": "ANTH8107_S1 - Global governance and the role of Multilateral Development Banks"
+        },
+        {
+            "key": "ANUC1101_S1",
+            "value": "ANUC1101_S1 - Professional Communication"
+        },
+        {
+            "key": "ARAB1002_S1",
+            "value": "ARAB1002_S1 - Introductory Arabic 1"
+        },
+        {
+            "key": "ARAB2011_S1",
+            "value": "ARAB2011_S1 - Intermediate Arabic 1"
+        },
+        {
+            "key": "ARAB3001_S1",
+            "value": "ARAB3001_S1 - Advanced Arabic 1"
+        },
+        {
+            "key": "ARAB3011_S1",
+            "value": "ARAB3011_S1 - Media Arabic 1"
+        },
+        {
+            "key": "ARAB6102_S1",
+            "value": "ARAB6102_S1 - Introductory Arabic 1"
+        },
+        {
+            "key": "ARAB6501_S1",
+            "value": "ARAB6501_S1 - Intermediate Arabic 1"
+        },
+        {
+            "key": "ARAB6503_S1",
+            "value": "ARAB6503_S1 - Advanced Arabic 1"
+        },
+        {
+            "key": "ARAB6512_S1",
+            "value": "ARAB6512_S1 - Media Arabic 1"
+        },
+        {
+            "key": "ARCH1111_S1",
+            "value": "ARCH1111_S1 - Archaeology Uncovered"
+        },
+        {
+            "key": "ARCH2004_S1",
+            "value": "ARCH2004_S1 - Australian Archaeology"
+        },
+        {
+            "key": "ARCH2058_S1",
+            "value": "ARCH2058_S1 - European Prehistory from Cultivation to the Celts"
+        },
+        {
+            "key": "ARCH3023_S1",
+            "value": "ARCH3023_S1 - Thinking Through the Past: Archaeological Theory from 1950"
+        },
+        {
+            "key": "ARCH3043_S1",
+            "value": "ARCH3043_S1 - Analysis of Vertebrate Remains"
+        },
+        {
+            "key": "ARCH4001_S1",
+            "value": "ARCH4001_S1 - An Introduction to Cultural and Environmental Heritage"
+        },
+        {
+            "key": "ARCH6004_S1",
+            "value": "ARCH6004_S1 - Australian Archaeology"
+        },
+        {
+            "key": "ARCH6023_S1",
+            "value": "ARCH6023_S1 - Thinking Through the Past: Archaeological Theory from 1950"
+        },
+        {
+            "key": "ARCH6043_S1",
+            "value": "ARCH6043_S1 - Analysis of Vertebrate Remains"
+        },
+        {
+            "key": "ARCH6058_S1",
+            "value": "ARCH6058_S1 - European Prehistory from Cultivation to the Celts"
+        },
+        {
+            "key": "ARCH8032_S1",
+            "value": "ARCH8032_S1 - Introduction to Archaeological Science"
+        },
+        {
+            "key": "ARCH8040_S1",
+            "value": "ARCH8040_S1 - Microanalysis in Archaeological Science"
+        },
+        {
+            "key": "ARTH1006_S1",
+            "value": "ARTH1006_S1 - Art and Design Histories: Form and Space"
+        },
+        {
+            "key": "ARTH2050_S1",
+            "value": "ARTH2050_S1 - Photography and Art"
+        },
+        {
+            "key": "ARTH2080_S1",
+            "value": "ARTH2080_S1 - Art and Visual Culture of the Long Eighteenth Century, 1660-1815"
+        },
+        {
+            "key": "ARTH2098_S1",
+            "value": "ARTH2098_S1 - Australian First Nations Art and Culture"
+        },
+        {
+            "key": "ARTH2170_S1",
+            "value": "ARTH2170_S1 - Contemporary Asian Art"
+        },
+        {
+            "key": "ARTH4017_S1",
+            "value": "ARTH4017_S1 - Methodologies of Art History"
+        },
+        {
+            "key": "ARTH6050_S1",
+            "value": "ARTH6050_S1 - Photography and Art"
+        },
+        {
+            "key": "ARTH6080_S1",
+            "value": "ARTH6080_S1 - Art and Visual Culture of the Long Eighteenth Century, 1660-1815"
+        },
+        {
+            "key": "ARTH6170_S1",
+            "value": "ARTH6170_S1 - Contemporary Asian Art"
+        },
+        {
+            "key": "ARTH6598_S1",
+            "value": "ARTH6598_S1 - Australian First Nations Art and Culture"
+        },
+        {
+            "key": "ARTH8012_S1",
+            "value": "ARTH8012_S1 - Methodologies of Art History"
+        },
+        {
+            "key": "ARTV1020_S1",
+            "value": "ARTV1020_S1 - Figure & Life"
+        },
+        {
+            "key": "ARTV1033_S1",
+            "value": "ARTV1033_S1 - Hold Everything: Studio Foundation"
+        },
+        {
+            "key": "ARTV1501_S1",
+            "value": "ARTV1501_S1 - Painting: Introducing Painting"
+        },
+        {
+            "key": "ARTV1613_S1",
+            "value": "ARTV1613_S1 - Foundations of Animation"
+        },
+        {
+            "key": "ARTV1614_S1",
+            "value": "ARTV1614_S1 - Post-Digital Photography: bending the image"
+        },
+        {
+            "key": "ARTV1703_S1",
+            "value": "ARTV1703_S1 - Drawing into Print : Etching and Relief"
+        },
+        {
+            "key": "ARTV1803_S1",
+            "value": "ARTV1803_S1 - Supports: conceptual and material"
+        },
+        {
+            "key": "ARTV2038_S1",
+            "value": "ARTV2038_S1 - Workshop Atelier"
+        },
+        {
+            "key": "ARTV2057_S1",
+            "value": "ARTV2057_S1 - Hands On: Material Language"
+        },
+        {
+            "key": "ARTV2061_S1",
+            "value": "ARTV2061_S1 - Contexts of Making: Materiality and Value"
+        },
+        {
+            "key": "ARTV2402_S1",
+            "value": "ARTV2402_S1 - Jewellery & Object: Utility as Context"
+        },
+        {
+            "key": "ARTV2506_S1",
+            "value": "ARTV2506_S1 - Painting: Approaches to Abstraction"
+        },
+        {
+            "key": "ARTV2605_S1",
+            "value": "ARTV2605_S1 - The Photographic Document: Materiality and Form"
+        },
+        {
+            "key": "ARTV2609_S1",
+            "value": "ARTV2609_S1 - Animation and Video: Visual Storytelling"
+        },
+        {
+            "key": "ARTV2610_S1",
+            "value": "ARTV2610_S1 - Animation and Video: Character development"
+        },
+        {
+            "key": "ARTV2706_S1",
+            "value": "ARTV2706_S1 - Printmedia and Drawing: Drawing Beyond the Line"
+        },
+        {
+            "key": "ARTV2723_S1",
+            "value": "ARTV2723_S1 - Printmedia and Drawing: Extended Screen Printing"
+        },
+        {
+            "key": "ARTV2820_S1",
+            "value": "ARTV2820_S1 - Politics of Spaces: Installation, Sculpture and Spatial Practice"
+        },
+        {
+            "key": "ARTV2921_S1",
+            "value": "ARTV2921_S1 - Environment Studio: field based research and studio practice in visual arts"
+        },
+        {
+            "key": "ARTV3028_S1",
+            "value": "ARTV3028_S1 - Developing a Contemporary Craft Practice"
+        },
+        {
+            "key": "ARTV3031_S1",
+            "value": "ARTV3031_S1 - Making Research for a Studio Practice in the Visual Arts"
+        },
+        {
+            "key": "ARTV3033_S1",
+            "value": "ARTV3033_S1 - Creative Research Practice: Developing an Independent Work Proposal"
+        },
+        {
+            "key": "ARTV3507_S1",
+            "value": "ARTV3507_S1 - Painting: Open to Influence Studio Research"
+        },
+        {
+            "key": "ARTV4022_S1",
+            "value": "ARTV4022_S1 - Research Principles and Methods 1"
+        },
+        {
+            "key": "ARTV6020_S1",
+            "value": "ARTV6020_S1 - Figure & Life"
+        },
+        {
+            "key": "ARTV6057_S1",
+            "value": "ARTV6057_S1 - Hands On: Material Language"
+        },
+        {
+            "key": "ARTV6507_S1",
+            "value": "ARTV6507_S1 - Painting: Open to Influence Studio Research"
+        },
+        {
+            "key": "ARTV6605_S1",
+            "value": "ARTV6605_S1 - The Photographic Document: Materiality and Form"
+        },
+        {
+            "key": "ARTV6613_S1",
+            "value": "ARTV6613_S1 - Foundations of Animation"
+        },
+        {
+            "key": "ARTV6614_S1",
+            "value": "ARTV6614_S1 - Post-Digital Photography: Bending the Image"
+        },
+        {
+            "key": "ARTV6703_S1",
+            "value": "ARTV6703_S1 - Drawing into Print: Etching and Relief"
+        },
+        {
+            "key": "ARTV6820_S1",
+            "value": "ARTV6820_S1 - Politics of Spaces: Installation, Sculpture and Spatial Practice"
+        },
+        {
+            "key": "ARTV6921_S1",
+            "value": "ARTV6921_S1 - Environment Studio: field based research and studio practice in visual arts"
+        },
+        {
+            "key": "ASIA1025_S1",
+            "value": "ASIA1025_S1 - Asia and the Pacific: Power, diversity and change"
+        },
+        {
+            "key": "ASIA1035_S1",
+            "value": "ASIA1035_S1 - Introduction to Asian Politics"
+        },
+        {
+            "key": "ASIA2001_S1",
+            "value": "ASIA2001_S1 - Language in Asia and the Pacific"
+        },
+        {
+            "key": "ASIA2003_S1",
+            "value": "ASIA2003_S1 - Chinese Literature"
+        },
+        {
+            "key": "ASIA2009_S1",
+            "value": "ASIA2009_S1 - The Making of Modern Japan: From Samurai to Economic Superpower and Beyond"
+        },
+        {
+            "key": "ASIA2016_S1",
+            "value": "ASIA2016_S1 - The Mongol Empire in World History"
+        },
+        {
+            "key": "ASIA2017_S1",
+            "value": "ASIA2017_S1 - History of International Relations in Northeast Asia"
+        },
+        {
+            "key": "ASIA2037_S1",
+            "value": "ASIA2037_S1 - History of Modern China"
+        },
+        {
+            "key": "ASIA2039_S1",
+            "value": "ASIA2039_S1 - Burma/Myanmar - a Country in Crisis"
+        },
+        {
+            "key": "ASIA2045_S1",
+            "value": "ASIA2045_S1 - Lies, Conspiracy and Propaganda"
+        },
+        {
+            "key": "ASIA2054_S1",
+            "value": "ASIA2054_S1 - Chinese Philosophy: Creation and Development"
+        },
+        {
+            "key": "ASIA2081_S1",
+            "value": "ASIA2081_S1 - Human Rights in Asia"
+        },
+        {
+            "key": "ASIA2099_S1",
+            "value": "ASIA2099_S1 - Foundations of Chinese Society: Friends, Family, Connections"
+        },
+        {
+            "key": "ASIA2103_S1",
+            "value": "ASIA2103_S1 - Language in Asia and the Pacific (L)"
+        },
+        {
+            "key": "ASIA2111_S1",
+            "value": "ASIA2111_S1 - Indonesian Foreign and Security Policy"
+        },
+        {
+            "key": "ASIA2271_S1",
+            "value": "ASIA2271_S1 - The Making of South Asia"
+        },
+        {
+            "key": "ASIA2301_S1",
+            "value": "ASIA2301_S1 - Human Migration and Expansion in the Rise of the Asia-Pacific"
+        },
+        {
+            "key": "ASIA2307_S1",
+            "value": "ASIA2307_S1 - History of Empire in Asia"
+        },
+        {
+            "key": "ASIA3029_S1",
+            "value": "ASIA3029_S1 - Reconciliation and the memory of conflict in Asia"
+        },
+        {
+            "key": "ASIA3030_S1",
+            "value": "ASIA3030_S1 - History of the State System in Southeast Asia"
+        },
+        {
+            "key": "ASIA3031_S1",
+            "value": "ASIA3031_S1 - Creative Industries in Korea"
+        },
+        {
+            "key": "ASIA3032_S1",
+            "value": "ASIA3032_S1 - Digital Asia: Technology and Society"
+        },
+        {
+            "key": "ASIA3035_S1",
+            "value": "ASIA3035_S1 - Indonesia in the Malay World: Culture, Media and Everyday Life"
+        },
+        {
+            "key": "ASIA3272_S1",
+            "value": "ASIA3272_S1 - Truth and Falsity in Indian History and Politics"
+        },
+        {
+            "key": "ASIA4001_S1",
+            "value": "ASIA4001_S1 - Fundamentals of Research Design in Asia-Pacific Culture, History and Languages"
+        },
+        {
+            "key": "ASIA6010_S1",
+            "value": "ASIA6010_S1 - The Making of Modern Japan: From Samurai to Economic Superpower and Beyond"
+        },
+        {
+            "key": "ASIA6030_S1",
+            "value": "ASIA6030_S1 - History of the State System in Southeast Asia"
+        },
+        {
+            "key": "ASIA6037_S1",
+            "value": "ASIA6037_S1 - History of Modern China"
+        },
+        {
+            "key": "ASIA6039_S1",
+            "value": "ASIA6039_S1 - Burma/Myanmar: a Country in Crisis"
+        },
+        {
+            "key": "ASIA6042_S1",
+            "value": "ASIA6042_S1 - Reconciliation and the Memory of Conflict in Asia"
+        },
+        {
+            "key": "ASIA6116_S1",
+            "value": "ASIA6116_S1 - The Mongol Empire in World History"
+        },
+        {
+            "key": "ASIA6145_S1",
+            "value": "ASIA6145_S1 - Lies, Conspiracies and Propaganda"
+        },
+        {
+            "key": "ASIA6271_S1",
+            "value": "ASIA6271_S1 - The Making of South Asia"
+        },
+        {
+            "key": "ASIA6272_S1",
+            "value": "ASIA6272_S1 - Truth and Falsity in Indian History and Politics"
+        },
+        {
+            "key": "ASIA8012_S1",
+            "value": "ASIA8012_S1 - Foundations of Chinese Society: Friends, Family, Connections"
+        },
+        {
+            "key": "ASIA8020_S1",
+            "value": "ASIA8020_S1 - National and Transnational Histories in Asia and the Pacific"
+        },
+        {
+            "key": "ASIA8046_S1",
+            "value": "ASIA8046_S1 - Maps and Mapping for the Social Sciences and Humanities"
+        },
+        {
+            "key": "ASIA8051_S1",
+            "value": "ASIA8051_S1 - Language in Asia and the Pacific"
+        },
+        {
+            "key": "ASTR3007_S1",
+            "value": "ASTR3007_S1 - Stars"
+        },
+        {
+            "key": "ASTR3013_S1",
+            "value": "ASTR3013_S1 - Astrophysical Processes"
+        },
+        {
+            "key": "ASTR4011_S1",
+            "value": "ASTR4011_S1 - Observational Techniques"
+        },
+        {
+            "key": "ASTR4017_S1",
+            "value": "ASTR4017_S1 - Diffuse Matter in the Universe"
+        },
+        {
+            "key": "ASTR6007_S1",
+            "value": "ASTR6007_S1 - Stars"
+        },
+        {
+            "key": "ASTR6013_S1",
+            "value": "ASTR6013_S1 - Astrophysical Processes"
+        },
+        {
+            "key": "ASTR8007_S1",
+            "value": "ASTR8007_S1 - Diffuse Matter in the Universe"
+        },
+        {
+            "key": "ASTR8011_S1",
+            "value": "ASTR8011_S1 - Observational Techniques"
+        },
+        {
+            "key": "BIAN2015_S1",
+            "value": "BIAN2015_S1 - Human Skeletal Analysis"
+        },
+        {
+            "key": "BIAN3113_S1",
+            "value": "BIAN3113_S1 - Human Evolution"
+        },
+        {
+            "key": "BIAN3124_S1",
+            "value": "BIAN3124_S1 - Evolution and Human Behaviour"
+        },
+        {
+            "key": "BIAN4010_S1",
+            "value": "BIAN4010_S1 - Theory Seminar in Biological Anthropology and Archaeology"
+        },
+        {
+            "key": "BIAN4011_S1",
+            "value": "BIAN4011_S1 - Data Analysis and Methods in Biological Anthropology"
+        },
+        {
+            "key": "BIAN6013_S1",
+            "value": "BIAN6013_S1 - Human Evolution"
+        },
+        {
+            "key": "BIAN6124_S1",
+            "value": "BIAN6124_S1 - Evolution and Human Behaviour"
+        },
+        {
+            "key": "BIAN6517_S1",
+            "value": "BIAN6517_S1 - Human Skeletal Analysis"
+        },
+        {
+            "key": "BIAN8005_S1",
+            "value": "BIAN8005_S1 - Theory Seminar in Biological Anthropology"
+        },
+        {
+            "key": "BIOL1003_S1",
+            "value": "BIOL1003_S1 - Biology 1: Evolution, Ecology and Genetics"
+        },
+        {
+            "key": "BIOL1008_S1",
+            "value": "BIOL1008_S1 - Human Biology"
+        },
+        {
+            "key": "BIOL2001_S1",
+            "value": "BIOL2001_S1 - Introduction to Quantitative Biology"
+        },
+        {
+            "key": "BIOL2131_S1",
+            "value": "BIOL2131_S1 - Ecology"
+        },
+        {
+            "key": "BIOL2151_S1",
+            "value": "BIOL2151_S1 - Genetics"
+        },
+        {
+            "key": "BIOL2161_S1",
+            "value": "BIOL2161_S1 - Genes: Replication and Expression"
+        },
+        {
+            "key": "BIOL2171_S1",
+            "value": "BIOL2171_S1 - Biochemistry and Nutrition"
+        },
+        {
+            "key": "BIOL3002_S1",
+            "value": "BIOL3002_S1 - Plants: Genes and the Environment"
+        },
+        {
+            "key": "BIOL3107_S1",
+            "value": "BIOL3107_S1 - Advances in Medical and Plant Biochemistry"
+        },
+        {
+            "key": "BIOL3109_S1",
+            "value": "BIOL3109_S1 - Ecological and Evolutionary Developmental Biology"
+        },
+        {
+            "key": "BIOL3131_S1",
+            "value": "BIOL3131_S1 - Behavioural Ecology"
+        },
+        {
+            "key": "BIOL3141_S1",
+            "value": "BIOL3141_S1 - Infection and Immunity"
+        },
+        {
+            "key": "BIOL3142_S1",
+            "value": "BIOL3142_S1 - Biomedical Parasitology"
+        },
+        {
+            "key": "BIOL3161_S1",
+            "value": "BIOL3161_S1 - Genomics and its Applications"
+        },
+        {
+            "key": "BIOL3178_S1",
+            "value": "BIOL3178_S1 - Recovering Threatened Species and Ecosystems"
+        },
+        {
+            "key": "BIOL3201_S1",
+            "value": "BIOL3201_S1 - Big Questions in Biology"
+        },
+        {
+            "key": "BIOL3204_S1",
+            "value": "BIOL3204_S1 - Genetics of Human Disease 1"
+        },
+        {
+            "key": "BIOL6002_S1",
+            "value": "BIOL6002_S1 - Plants: Genes to Environment"
+        },
+        {
+            "key": "BIOL6004_S1",
+            "value": "BIOL6004_S1 - Ecology"
+        },
+        {
+            "key": "BIOL6006_S1",
+            "value": "BIOL6006_S1 - Genetics"
+        },
+        {
+            "key": "BIOL6035_S1",
+            "value": "BIOL6035_S1 - Biology 1: Evolution, Ecology and Genetics"
+        },
+        {
+            "key": "BIOL6107_S1",
+            "value": "BIOL6107_S1 - Advances in Medical and Plant Biochemistry"
+        },
+        {
+            "key": "BIOL6109_S1",
+            "value": "BIOL6109_S1 - Ecological and Evolutionary Developmental Biology"
+        },
+        {
+            "key": "BIOL6141_S1",
+            "value": "BIOL6141_S1 - Infection and Immunity"
+        },
+        {
+            "key": "BIOL6143_S1",
+            "value": "BIOL6143_S1 - Biomedical Parasitology"
+        },
+        {
+            "key": "BIOL6161_S1",
+            "value": "BIOL6161_S1 - Genes: Replication and Expression"
+        },
+        {
+            "key": "BIOL6163_S1",
+            "value": "BIOL6163_S1 - Genomics and its Applications"
+        },
+        {
+            "key": "BIOL6171_S1",
+            "value": "BIOL6171_S1 - Biochemistry and Nutrition"
+        },
+        {
+            "key": "BIOL6178_S1",
+            "value": "BIOL6178_S1 - Recovering Threatened Species and Ecosystems"
+        },
+        {
+            "key": "BIOL6200_S1",
+            "value": "BIOL6200_S1 - Introduction to Quantitative Biology"
+        },
+        {
+            "key": "BIOL6201_S1",
+            "value": "BIOL6201_S1 - Big Questions in Biology"
+        },
+        {
+            "key": "BIOL6204_S1",
+            "value": "BIOL6204_S1 - Genetics of Human Disease 1"
+        },
+        {
+            "key": "BIOL6631_S1",
+            "value": "BIOL6631_S1 - Behavioural Ecology"
+        },
+        {
+            "key": "BIOL8291_S1",
+            "value": "BIOL8291_S1 - Research Presentation Skills"
+        },
+        {
+            "key": "BIOL8702_S1",
+            "value": "BIOL8702_S1 - Advanced Research Techniques"
+        },
+        {
+            "key": "BURM1002_S1",
+            "value": "BURM1002_S1 - Burmese 1"
+        },
+        {
+            "key": "BURM2001_S1",
+            "value": "BURM2001_S1 - Burmese 3"
+        },
+        {
+            "key": "BURM6002_S1",
+            "value": "BURM6002_S1 - Burmese 1"
+        },
+        {
+            "key": "BURM6101_S1",
+            "value": "BURM6101_S1 - Burmese 3"
+        },
+        {
+            "key": "BUSI2024_S1",
+            "value": "BUSI2024_S1 - Dynamics of Business in the Middle East"
+        },
+        {
+            "key": "BUSI2025_S1",
+            "value": "BUSI2025_S1 - International Business"
+        },
+        {
+            "key": "BUSI2034_S1",
+            "value": "BUSI2034_S1 - Dynamics of European Business"
+        },
+        {
+            "key": "BUSI3020_S1",
+            "value": "BUSI3020_S1 - International Strategic Management"
+        },
+        {
+            "key": "BUSI3030_S1",
+            "value": "BUSI3030_S1 - International Supply Chain Management"
+        },
+        {
+            "key": "BUSI7001_S1",
+            "value": "BUSI7001_S1 - Managing the Global Supply Chain"
+        },
+        {
+            "key": "BUSI7020_S1",
+            "value": "BUSI7020_S1 - The European Business System"
+        },
+        {
+            "key": "BUSI7033_S1",
+            "value": "BUSI7033_S1 - International Business Strategies"
+        },
+        {
+            "key": "BUSI7280_S1",
+            "value": "BUSI7280_S1 - Managing in a Global Context"
+        },
+        {
+            "key": "BUSN1001_S1",
+            "value": "BUSN1001_S1 - Business Reporting and Analysis"
+        },
+        {
+            "key": "BUSN1002_S1",
+            "value": "BUSN1002_S1 - Accounting Processes and Systems"
+        },
+        {
+            "key": "BUSN2011_S1",
+            "value": "BUSN2011_S1 - Management Accounting"
+        },
+        {
+            "key": "BUSN2015_S1",
+            "value": "BUSN2015_S1 - Company Accounting"
+        },
+        {
+            "key": "BUSN2036_S1",
+            "value": "BUSN2036_S1 - Financial Statement Analysis"
+        },
+        {
+            "key": "BUSN2101_S1",
+            "value": "BUSN2101_S1 - Law of Business Entities"
+        },
+        {
+            "key": "BUSN3001_S1",
+            "value": "BUSN3001_S1 - Accounting Theory"
+        },
+        {
+            "key": "BUSN3002_S1",
+            "value": "BUSN3002_S1 - Auditing"
+        },
+        {
+            "key": "BUSN3003_S1",
+            "value": "BUSN3003_S1 - Advanced Management Accounting"
+        },
+        {
+            "key": "BUSN3008_S1",
+            "value": "BUSN3008_S1 - Financial Reporting By Corporations"
+        },
+        {
+            "key": "BUSN3014_S1",
+            "value": "BUSN3014_S1 - Principles of Tax Law"
+        },
+        {
+            "key": "BUSN3051_S1",
+            "value": "BUSN3051_S1 - Accounting Analytics"
+        },
+        {
+            "key": "BUSN4007_S1",
+            "value": "BUSN4007_S1 - Analysis of Financial Reporting"
+        },
+        {
+            "key": "BUSN4013_S1",
+            "value": "BUSN4013_S1 - Seminar in Research Method in Commerce"
+        },
+        {
+            "key": "BUSN7005_S1",
+            "value": "BUSN7005_S1 - Contemporary Issues in Accounting"
+        },
+        {
+            "key": "BUSN7008_S1",
+            "value": "BUSN7008_S1 - Financial Statements and Reporting"
+        },
+        {
+            "key": "BUSN7021_S1",
+            "value": "BUSN7021_S1 - Taxation Law"
+        },
+        {
+            "key": "BUSN7031_S1",
+            "value": "BUSN7031_S1 - Management Accounting and Cost Analysis"
+        },
+        {
+            "key": "BUSN7036_S1",
+            "value": "BUSN7036_S1 - Financial Statement Analysis"
+        },
+        {
+            "key": "BUSN7049_S1",
+            "value": "BUSN7049_S1 - Corporate Financial Reporting"
+        },
+        {
+            "key": "BUSN7050_S1",
+            "value": "BUSN7050_S1 - Corporate Accounting"
+        },
+        {
+            "key": "BUSN7051_S1",
+            "value": "BUSN7051_S1 - Accounting Analytics"
+        },
+        {
+            "key": "BUSN7052_S1",
+            "value": "BUSN7052_S1 - Commercial Law"
+        },
+        {
+            "key": "BUSN7054_S1",
+            "value": "BUSN7054_S1 - Auditing and Assurance Services"
+        },
+        {
+            "key": "BUSN7057_S1",
+            "value": "BUSN7057_S1 - Business Association Law"
+        },
+        {
+            "key": "BUSN8003_S1",
+            "value": "BUSN8003_S1 - Advanced Managerial Decision Making"
+        },
+        {
+            "key": "BUSN8007_S1",
+            "value": "BUSN8007_S1 - Analysis of Financial Reporting"
+        },
+        {
+            "key": "BUSN8013_S1",
+            "value": "BUSN8013_S1 - Seminar in Research Method in Commerce"
+        },
+        {
+            "key": "BUSN8181_S1",
+            "value": "BUSN8181_S1 - Financial Reporting and Analysis"
+        },
+        {
+            "key": "BUSN8200_S1",
+            "value": "BUSN8200_S1 - Judgement and Decision Making Research in Accounting"
+        },
+        {
+            "key": "CBEA3001_S1",
+            "value": "CBEA3001_S1 - College of Business and Economics Special Industry Project"
+        },
+        {
+            "key": "CBEA3070_S1",
+            "value": "CBEA3070_S1 - ANU College of Business and Economics Internship Program (UG)"
+        },
+        {
+            "key": "CBEA6070_S1",
+            "value": "CBEA6070_S1 - ANU College of Business and Economics Internship Program (PG)"
+        },
+        {
+            "key": "CHEM1101_S1",
+            "value": "CHEM1101_S1 - Chemistry 1"
+        },
+        {
+            "key": "CHEM2202_S1",
+            "value": "CHEM2202_S1 - Chemical Structure and Reactivity 1"
+        },
+        {
+            "key": "CHEM2210_S1",
+            "value": "CHEM2210_S1 - Structure Elucidation in Chemistry"
+        },
+        {
+            "key": "CHEM2211_S1",
+            "value": "CHEM2211_S1 - Chemical Biology 1"
+        },
+        {
+            "key": "CHEM3013_S1",
+            "value": "CHEM3013_S1 - NMR spectroscopy and mass spectrometry of small and large molecules"
+        },
+        {
+            "key": "CHEM3201_S1",
+            "value": "CHEM3201_S1 - Synthetic Aspects of Medicinal Chemistry"
+        },
+        {
+            "key": "CHEM3202_S1",
+            "value": "CHEM3202_S1 - Advanced Materials"
+        },
+        {
+            "key": "CHEM3203_S1",
+            "value": "CHEM3203_S1 - Organometallic Chemistry"
+        },
+        {
+            "key": "CHIN1012_S1",
+            "value": "CHIN1012_S1 - Modern Chinese 1: Spoken"
+        },
+        {
+            "key": "CHIN1013_S1",
+            "value": "CHIN1013_S1 - Modern Chinese 1: Written"
+        },
+        {
+            "key": "CHIN2014_S1",
+            "value": "CHIN2014_S1 - Modern Chinese 3"
+        },
+        {
+            "key": "CHIN2019_S1",
+            "value": "CHIN2019_S1 - Literary Chinese 1"
+        },
+        {
+            "key": "CHIN2024_S1",
+            "value": "CHIN2024_S1 - Cantonese 1"
+        },
+        {
+            "key": "CHIN3015_S1",
+            "value": "CHIN3015_S1 - Advanced Literary Chinese"
+        },
+        {
+            "key": "CHIN3022_S1",
+            "value": "CHIN3022_S1 - Modern Chinese 5"
+        },
+        {
+            "key": "CHIN3024_S1",
+            "value": "CHIN3024_S1 - Advanced Modern Chinese A"
+        },
+        {
+            "key": "CHIN3216_S1",
+            "value": "CHIN3216_S1 - Chinese-English Interpreting"
+        },
+        {
+            "key": "CHIN6012_S1",
+            "value": "CHIN6012_S1 - Modern Chinese 1: Spoken"
+        },
+        {
+            "key": "CHIN6013_S1",
+            "value": "CHIN6013_S1 - Modern Chinese 1: Written"
+        },
+        {
+            "key": "CHIN6015_S1",
+            "value": "CHIN6015_S1 - Advanced Literary Chinese"
+        },
+        {
+            "key": "CHIN6201_S1",
+            "value": "CHIN6201_S1 - Cantonese 1"
+        },
+        {
+            "key": "CHIN6216_S1",
+            "value": "CHIN6216_S1 - Chinese-English Interpreting: Methodology and Practice"
+        },
+        {
+            "key": "CHIN6520_S1",
+            "value": "CHIN6520_S1 - Modern Chinese 3"
+        },
+        {
+            "key": "CHIN6522_S1",
+            "value": "CHIN6522_S1 - Modern Chinese 5"
+        },
+        {
+            "key": "CHIN6524_S1",
+            "value": "CHIN6524_S1 - Advanced Modern Chinese A"
+        },
+        {
+            "key": "CHIN6530_S1",
+            "value": "CHIN6530_S1 - Literary Chinese 1"
+        },
+        {
+            "key": "CHMD8001_S1",
+            "value": "CHMD8001_S1 - Directed Readings in Culture, Health and Medicine"
+        },
+        {
+            "key": "CHMD8004_S1",
+            "value": "CHMD8004_S1 - Qualitative Methodologies for Health Research"
+        },
+        {
+            "key": "CHMD8006_S1",
+            "value": "CHMD8006_S1 - Global Health and Development"
+        },
+        {
+            "key": "CHMD8011_S1",
+            "value": "CHMD8011_S1 - Refugee Health: From Displacement to Resettlement"
+        },
+        {
+            "key": "CHST3211_S1",
+            "value": "CHST3211_S1 - Reading China: Past and Present"
+        },
+        {
+            "key": "CHST6211_S1",
+            "value": "CHST6211_S1 - Reading China: Past and Present"
+        },
+        {
+            "key": "CLAS1001_S1",
+            "value": "CLAS1001_S1 - Traditional Grammar"
+        },
+        {
+            "key": "CLAS1003_S1",
+            "value": "CLAS1003_S1 - The Myths of Greece and Rome: Mortals, Immortals, and Monsters"
+        },
+        {
+            "key": "CLAS2011_S1",
+            "value": "CLAS2011_S1 - Traditional Grammar (L)"
+        },
+        {
+            "key": "CLAS4006_S1",
+            "value": "CLAS4006_S1 - Classics Methods and Evidence"
+        },
+        {
+            "key": "CLAS6001_S1",
+            "value": "CLAS6001_S1 - Traditional Grammar"
+        },
+        {
+            "key": "CLAS6002_S1",
+            "value": "CLAS6002_S1 - The Myths of Greece and Rome: Mortals, Immortals, and Monsters"
+        },
+        {
+            "key": "CLAS8019_S1",
+            "value": "CLAS8019_S1 - Classics Methods and Evidence"
+        },
+        {
+            "key": "COMP1100_S1",
+            "value": "COMP1100_S1 - Programming as Problem Solving"
+        },
+        {
+            "key": "COMP1110_S1",
+            "value": "COMP1110_S1 - Structured Programming"
+        },
+        {
+            "key": "COMP1130_S1",
+            "value": "COMP1130_S1 - Programming as Problem Solving (Advanced)"
+        },
+        {
+            "key": "COMP1710_S1",
+            "value": "COMP1710_S1 - Web Development and Design"
+        },
+        {
+            "key": "COMP1730_S1",
+            "value": "COMP1730_S1 - Programming for Scientists"
+        },
+        {
+            "key": "COMP2100_S1",
+            "value": "COMP2100_S1 - Software Design Methodologies"
+        },
+        {
+            "key": "COMP2300_S1",
+            "value": "COMP2300_S1 - Computer Organisation and Program Execution"
+        },
+        {
+            "key": "COMP2410_S1",
+            "value": "COMP2410_S1 - Networked Information Systems"
+        },
+        {
+            "key": "COMP2420_S1",
+            "value": "COMP2420_S1 - Introduction to Data Management, Analysis and Security"
+        },
+        {
+            "key": "COMP2550_S1",
+            "value": "COMP2550_S1 - Advanced Computing R&D Methods"
+        },
+        {
+            "key": "COMP2620_S1",
+            "value": "COMP2620_S1 - Logic"
+        },
+        {
+            "key": "COMP2710_S1",
+            "value": "COMP2710_S1 - Special Topics in Computer Science"
+        },
+        {
+            "key": "COMP3120_S1",
+            "value": "COMP3120_S1 - Managing Software Development"
+        },
+        {
+            "key": "COMP3310_S1",
+            "value": "COMP3310_S1 - Computer Networks"
+        },
+        {
+            "key": "COMP3425_S1",
+            "value": "COMP3425_S1 - Data Mining"
+        },
+        {
+            "key": "COMP3500_S1",
+            "value": "COMP3500_S1 - Software Engineering Project"
+        },
+        {
+            "key": "COMP3550_S1",
+            "value": "COMP3550_S1 - Advanced Computing R&D Project"
+        },
+        {
+            "key": "COMP3620_S1",
+            "value": "COMP3620_S1 - Artificial Intelligence"
+        },
+        {
+            "key": "COMP3703_S1",
+            "value": "COMP3703_S1 - Software Security"
+        },
+        {
+            "key": "COMP4130_S1",
+            "value": "COMP4130_S1 - Managing Software Quality and Process"
+        },
+        {
+            "key": "COMP4300_S1",
+            "value": "COMP4300_S1 - Parallel Systems"
+        },
+        {
+            "key": "COMP4450_S1",
+            "value": "COMP4450_S1 - Advanced Computing Research Methods"
+        },
+        {
+            "key": "COMP4500_S1",
+            "value": "COMP4500_S1 - Software Engineering Practice"
+        },
+        {
+            "key": "COMP4540_S1",
+            "value": "COMP4540_S1 - Software Engineering Research Project"
+        },
+        {
+            "key": "COMP4550_S1",
+            "value": "COMP4550_S1 - Advanced Computing Research Project"
+        },
+        {
+            "key": "COMP4660_S1",
+            "value": "COMP4660_S1 - Neural Networks, Deep Learning and Bio-inspired Computing"
+        },
+        {
+            "key": "COMP4670_S1",
+            "value": "COMP4670_S1 - Statistical Machine Learning"
+        },
+        {
+            "key": "COMP4880_S1",
+            "value": "COMP4880_S1 - Computational Methods for Network Science"
+        },
+        {
+            "key": "COMP6250_S1",
+            "value": "COMP6250_S1 - Professional Practice 1"
+        },
+        {
+            "key": "COMP6262_S1",
+            "value": "COMP6262_S1 - Logic"
+        },
+        {
+            "key": "COMP6300_S1",
+            "value": "COMP6300_S1 - Computer Organisation and Program Execution"
+        },
+        {
+            "key": "COMP6320_S1",
+            "value": "COMP6320_S1 - Artificial Intelligence"
+        },
+        {
+            "key": "COMP6331_S1",
+            "value": "COMP6331_S1 - Computer Networks"
+        },
+        {
+            "key": "COMP6340_S1",
+            "value": "COMP6340_S1 - Networked Information Systems"
+        },
+        {
+            "key": "COMP6420_S1",
+            "value": "COMP6420_S1 - Introduction to Data Management, Analysis and Security"
+        },
+        {
+            "key": "COMP6442_S1",
+            "value": "COMP6442_S1 - Software Construction"
+        },
+        {
+            "key": "COMP6445_S1",
+            "value": "COMP6445_S1 - Advanced Computing Research Methods"
+        },
+        {
+            "key": "COMP6470_S1",
+            "value": "COMP6470_S1 - Special Topics in Computing"
+        },
+        {
+            "key": "COMP6710_S1",
+            "value": "COMP6710_S1 - Structured Programming"
+        },
+        {
+            "key": "COMP6719_S1",
+            "value": "COMP6719_S1 - Computer Architecture and Simulation"
+        },
+        {
+            "key": "COMP6730_S1",
+            "value": "COMP6730_S1 - Programming for Scientists"
+        },
+        {
+            "key": "COMP6780_S1",
+            "value": "COMP6780_S1 - Web Development and Design"
+        },
+        {
+            "key": "COMP8110_S1",
+            "value": "COMP8110_S1 - Managing Software Projects in a System Context"
+        },
+        {
+            "key": "COMP8260_S1",
+            "value": "COMP8260_S1 - Professional Practice 2"
+        },
+        {
+            "key": "COMP8300_S1",
+            "value": "COMP8300_S1 - Parallel Systems"
+        },
+        {
+            "key": "COMP8410_S1",
+            "value": "COMP8410_S1 - Data Mining"
+        },
+        {
+            "key": "COMP8420_S1",
+            "value": "COMP8420_S1 - Neural Networks, Deep Learning and Bio-inspired Computing"
+        },
+        {
+            "key": "COMP8600_S1",
+            "value": "COMP8600_S1 - Statistical Machine Learning"
+        },
+        {
+            "key": "COMP8715_S1",
+            "value": "COMP8715_S1 - Computing Project"
+        },
+        {
+            "key": "COMP8800_S1",
+            "value": "COMP8800_S1 - Computing Research Project"
+        },
+        {
+            "key": "COMP8880_S1",
+            "value": "COMP8880_S1 - Computational Methods for Network Science"
+        },
+        {
+            "key": "CRIM1001_S1",
+            "value": "CRIM1001_S1 - Criminological Imaginations: Understanding Criminality"
+        },
+        {
+            "key": "CRIM2005_S1",
+            "value": "CRIM2005_S1 - Alcohol, Drugs and Crime: Promoting Health and Preventing Consequences"
+        },
+        {
+            "key": "CRIM2007_S1",
+            "value": "CRIM2007_S1 - Order in the Courts: An Introduction to the Australian Judicial System"
+        },
+        {
+            "key": "CRIM3005_S1",
+            "value": "CRIM3005_S1 - Diversity and Crime: Equality in the Criminal Justice System"
+        },
+        {
+            "key": "CRIM4001_S1",
+            "value": "CRIM4001_S1 - Theories of Crime and Justice"
+        },
+        {
+            "key": "CRIM6005_S1",
+            "value": "CRIM6005_S1 - Alcohol, Drugs and Crime: Promoting Health and Preventing Consequences"
+        },
+        {
+            "key": "CRIM6008_S1",
+            "value": "CRIM6008_S1 - Order in the Courts: An Introduction to the Australian Judicial System"
+        },
+        {
+            "key": "CRWF8000_S1",
+            "value": "CRWF8000_S1 - Government, Markets and Global Change"
+        },
+        {
+            "key": "DEMO1001_S1",
+            "value": "DEMO1001_S1 - Global population challenges"
+        },
+        {
+            "key": "DEMO2002_S1",
+            "value": "DEMO2002_S1 - Population Analysis"
+        },
+        {
+            "key": "DEMO8008_S1",
+            "value": "DEMO8008_S1 - Principles of Population Analysis"
+        },
+        {
+            "key": "DEMO8024_S1",
+            "value": "DEMO8024_S1 - Population and Society: Theory and Empirical Perspectives"
+        },
+        {
+            "key": "DEMO8092_S1",
+            "value": "DEMO8092_S1 - Life Course Analytics"
+        },
+        {
+            "key": "DESA1021_S1",
+            "value": "DESA1021_S1 - Precise Drawing and Model Making"
+        },
+        {
+            "key": "DESN1002_S1",
+            "value": "DESN1002_S1 - Visual Communication: Design and Production"
+        },
+        {
+            "key": "DESN1004_S1",
+            "value": "DESN1004_S1 - The Past as Prototype: History, Ethics and Concepts for Design in the Twenty-First Century"
+        },
+        {
+            "key": "DESN2002_S1",
+            "value": "DESN2002_S1 - Foundations of Creative Code"
+        },
+        {
+            "key": "DESN2007_S1",
+            "value": "DESN2007_S1 - Design Fiction: Speculative and Critical Design"
+        },
+        {
+            "key": "DESN2010_S1",
+            "value": "DESN2010_S1 - Making Creative and Critical Technologies: physical computing for art and design"
+        },
+        {
+            "key": "DESN3010_S1",
+            "value": "DESN3010_S1 - Design Practice: Engagement, Internship and Entrepreneurship"
+        },
+        {
+            "key": "DESN4011_S1",
+            "value": "DESN4011_S1 - Design and Research: Theory and Methods"
+        },
+        {
+            "key": "DESN4013_S1",
+            "value": "DESN4013_S1 - Studio Inquiry: Application of Research"
+        },
+        {
+            "key": "DESN6002_S1",
+            "value": "DESN6002_S1 - Foundations of Creative Code"
+        },
+        {
+            "key": "DESN6010_S1",
+            "value": "DESN6010_S1 - Design Practice: Engagement, Internship and Entrepreneurship"
+        },
+        {
+            "key": "DIPL2000_S1",
+            "value": "DIPL2000_S1 - Leadership and Diplomacy"
+        },
+        {
+            "key": "DIPL8001_S1",
+            "value": "DIPL8001_S1 - Transnational Diplomacy"
+        },
+        {
+            "key": "DIPL8003_S1",
+            "value": "DIPL8003_S1 - Case Studies in Diplomacy"
+        },
+        {
+            "key": "DIPL8013_S1",
+            "value": "DIPL8013_S1 - Pacific Diplomacy"
+        },
+        {
+            "key": "DIPL8044_S1",
+            "value": "DIPL8044_S1 - Negotiation and Conflict Resolution"
+        },
+        {
+            "key": "ECHI1006_S1",
+            "value": "ECHI1006_S1 - The Australian Economy: Past and Present"
+        },
+        {
+            "key": "ECON1101_S1",
+            "value": "ECON1101_S1 - Microeconomics 1"
+        },
+        {
+            "key": "ECON1102_S1",
+            "value": "ECON1102_S1 - Macroeconomics 1"
+        },
+        {
+            "key": "ECON2009_S1",
+            "value": "ECON2009_S1 - Labour Economics and Industrial Relations(P)"
+        },
+        {
+            "key": "ECON2014_S1",
+            "value": "ECON2014_S1 - Managerial Economics"
+        },
+        {
+            "key": "ECON2026_S1",
+            "value": "ECON2026_S1 - Money and Banking"
+        },
+        {
+            "key": "ECON2080_S1",
+            "value": "ECON2080_S1 - Economic Analysis of the Digital Economy"
+        },
+        {
+            "key": "ECON2101_S1",
+            "value": "ECON2101_S1 - Microeconomics 2"
+        },
+        {
+            "key": "ECON2102_S1",
+            "value": "ECON2102_S1 - Macroeconomics 2(P)"
+        },
+        {
+            "key": "ECON2125_S1",
+            "value": "ECON2125_S1 - Optimisation for Economics and Financial Economics"
+        },
+        {
+            "key": "ECON2131_S1",
+            "value": "ECON2131_S1 - Public Sector Economics (P)"
+        },
+        {
+            "key": "ECON2141_S1",
+            "value": "ECON2141_S1 - Strategic Thinking: An introduction to Game Theory"
+        },
+        {
+            "key": "ECON3057_S1",
+            "value": "ECON3057_S1 - Industrial Organisation(P)"
+        },
+        {
+            "key": "ECON3101_S1",
+            "value": "ECON3101_S1 - Microeconomics 3"
+        },
+        {
+            "key": "ECON3103_S1",
+            "value": "ECON3103_S1 - International Economics"
+        },
+        {
+            "key": "ECON4411_S1",
+            "value": "ECON4411_S1 - Microeconomic Theory"
+        },
+        {
+            "key": "ECON4415_S1",
+            "value": "ECON4415_S1 - International Economics"
+        },
+        {
+            "key": "ECON4422_S1",
+            "value": "ECON4422_S1 - Macroeconomic Theory"
+        },
+        {
+            "key": "ECON4434_S1",
+            "value": "ECON4434_S1 - Public Sector Economics"
+        },
+        {
+            "key": "ECON4438_S1",
+            "value": "ECON4438_S1 - Industrial Organisation"
+        },
+        {
+            "key": "ECON4441_S1",
+            "value": "ECON4441_S1 - Labour Economics & Industrial Relations"
+        },
+        {
+            "key": "ECON6014_S1",
+            "value": "ECON6014_S1 - Managerial Economics"
+        },
+        {
+            "key": "ECON7073_S1",
+            "value": "ECON7073_S1 - Microeconomic Analysis"
+        },
+        {
+            "key": "ECON7074_S1",
+            "value": "ECON7074_S1 - Macroeconomic Analysis"
+        },
+        {
+            "key": "ECON8011_S1",
+            "value": "ECON8011_S1 - Microeconomic Theory"
+        },
+        {
+            "key": "ECON8013_S1",
+            "value": "ECON8013_S1 - Optimisation for Economics and Financial Economics"
+        },
+        {
+            "key": "ECON8015_S1",
+            "value": "ECON8015_S1 - International Economics"
+        },
+        {
+            "key": "ECON8022_S1",
+            "value": "ECON8022_S1 - Macroeconomic Theory (Master)"
+        },
+        {
+            "key": "ECON8025_S1",
+            "value": "ECON8025_S1 - Advanced Microeconomic Analysis"
+        },
+        {
+            "key": "ECON8026_S1",
+            "value": "ECON8026_S1 - Advanced Macroeconomic Analysis"
+        },
+        {
+            "key": "ECON8034_S1",
+            "value": "ECON8034_S1 - Public Sector Economics"
+        },
+        {
+            "key": "ECON8038_S1",
+            "value": "ECON8038_S1 - Industrial Organisation"
+        },
+        {
+            "key": "ECON8041_S1",
+            "value": "ECON8041_S1 - Labour Economics and Industrial Relations"
+        },
+        {
+            "key": "ECON8050_S1",
+            "value": "ECON8050_S1 - Economic Growth"
+        },
+        {
+            "key": "ECON8069_S1",
+            "value": "ECON8069_S1 - Business Economics"
+        },
+        {
+            "key": "ECON8077_S1",
+            "value": "ECON8077_S1 - Economics for Leaders"
+        },
+        {
+            "key": "ECON8078_S1",
+            "value": "ECON8078_S1 - Organisational Economics"
+        },
+        {
+            "key": "ECON8180_S1",
+            "value": "ECON8180_S1 - Economic Analysis of the Digital Economy"
+        },
+        {
+            "key": "EMDV8008_S1",
+            "value": "EMDV8008_S1 - Research Proposal"
+        },
+        {
+            "key": "EMDV8013_S1",
+            "value": "EMDV8013_S1 - Development and Environment in the Anthropocene"
+        },
+        {
+            "key": "EMDV8014_S1",
+            "value": "EMDV8014_S1 - Research in Climate Change Policy and Economics"
+        },
+        {
+            "key": "EMDV8017_S1",
+            "value": "EMDV8017_S1 - Toxic: Environmental Pollution and Waste"
+        },
+        {
+            "key": "EMDV8078_S1",
+            "value": "EMDV8078_S1 - Introduction to Environmental and Resource Economics"
+        },
+        {
+            "key": "EMDV8081_S1",
+            "value": "EMDV8081_S1 - Domestic Climate Change Policy and Economics"
+        },
+        {
+            "key": "EMDV8102_S1",
+            "value": "EMDV8102_S1 - Research Methods for Environmental Management"
+        },
+        {
+            "key": "EMDV8103_S1",
+            "value": "EMDV8103_S1 - Environmental Assessment"
+        },
+        {
+            "key": "EMDV8104_S1",
+            "value": "EMDV8104_S1 - Environmental Governance"
+        },
+        {
+            "key": "EMET1001_S1",
+            "value": "EMET1001_S1 - Foundations of Economic and Financial Models"
+        },
+        {
+            "key": "EMET2007_S1",
+            "value": "EMET2007_S1 - Econometrics I: Econometric Methods"
+        },
+        {
+            "key": "EMET3006_S1",
+            "value": "EMET3006_S1 - Applied Micro-econometrics"
+        },
+        {
+            "key": "EMET4007_S1",
+            "value": "EMET4007_S1 - Econometrics I: Econometric Methods"
+        },
+        {
+            "key": "EMET4301_S1",
+            "value": "EMET4301_S1 - Applied Micro-econometrics"
+        },
+        {
+            "key": "EMET4314_S1",
+            "value": "EMET4314_S1 - Advanced Econometrics I"
+        },
+        {
+            "key": "EMET6007_S1",
+            "value": "EMET6007_S1 - Econometrics I: Econometric Methods"
+        },
+        {
+            "key": "EMET7001_S1",
+            "value": "EMET7001_S1 - Mathematical Techniques for Economic Analysis"
+        },
+        {
+            "key": "EMET8001_S1",
+            "value": "EMET8001_S1 - Applied micro-econometrics"
+        },
+        {
+            "key": "EMET8002_S1",
+            "value": "EMET8002_S1 - Case Studies in Applied Economic Analysis and Econometrics"
+        },
+        {
+            "key": "EMET8005_S1",
+            "value": "EMET8005_S1 - Econometric Methods and Modelling"
+        },
+        {
+            "key": "EMET8014_S1",
+            "value": "EMET8014_S1 - Advanced Econometrics I"
+        },
+        {
+            "key": "EMET8020_S1",
+            "value": "EMET8020_S1 - Advanced Case Studies in Applied Econometrics and Applied Economics"
+        },
+        {
+            "key": "EMSC1006_S1",
+            "value": "EMSC1006_S1 - The Blue Planet: An Introduction to Earth System Science"
+        },
+        {
+            "key": "EMSC2022_S1",
+            "value": "EMSC2022_S1 - Introduction to Global Geophysics"
+        },
+        {
+            "key": "EMSC2023_S1",
+            "value": "EMSC2023_S1 - Fundamentals of Geology"
+        },
+        {
+            "key": "EMSC3020_S1",
+            "value": "EMSC3020_S1 - Geobiology and Evolution of Life on Earth"
+        },
+        {
+            "key": "EMSC3023_S1",
+            "value": "EMSC3023_S1 - Marine Biogeochemistry"
+        },
+        {
+            "key": "EMSC3024_S1",
+            "value": "EMSC3024_S1 - Magmatism and Metamorphism"
+        },
+        {
+            "key": "EMSC3032_S1",
+            "value": "EMSC3032_S1 - Melting Polar Ice Sheets, Sea Level Variations and Climate Change"
+        },
+        {
+            "key": "EMSC3033_S1",
+            "value": "EMSC3033_S1 - Applied Geophysics"
+        },
+        {
+            "key": "EMSC4017_S1",
+            "value": "EMSC4017_S1 - Research Methods for Earth Sciences"
+        },
+        {
+            "key": "EMSC4033_S1",
+            "value": "EMSC4033_S1 - Computational Geosciences: Problem-solving, Logical Thinking and Programming."
+        },
+        {
+            "key": "EMSC4122_S1",
+            "value": "EMSC4122_S1 - Analytical Techniques"
+        },
+        {
+            "key": "EMSC4706_S1",
+            "value": "EMSC4706_S1 - Introduction to Natural Hazards"
+        },
+        {
+            "key": "EMSC6019_S1",
+            "value": "EMSC6019_S1 - Geobiology and Evolution of Life on Earth"
+        },
+        {
+            "key": "EMSC6023_S1",
+            "value": "EMSC6023_S1 - Marine Biogeochemistry"
+        },
+        {
+            "key": "EMSC6024_S1",
+            "value": "EMSC6024_S1 - Magmatism and Metamorphism"
+        },
+        {
+            "key": "EMSC6032_S1",
+            "value": "EMSC6032_S1 - Melting Polar Ice Sheets, Sea Level Variations and Climate Change"
+        },
+        {
+            "key": "EMSC6107_S1",
+            "value": "EMSC6107_S1 - The Blue Planet: an introduction to Earth system science"
+        },
+        {
+            "key": "EMSC6122_S1",
+            "value": "EMSC6122_S1 - Introduction to Global Geophysics"
+        },
+        {
+            "key": "EMSC6123_S1",
+            "value": "EMSC6123_S1 - Fundamentals of Geology"
+        },
+        {
+            "key": "EMSC8017_S1",
+            "value": "EMSC8017_S1 - Research Methods for Earth Sciences"
+        },
+        {
+            "key": "EMSC8022_S1",
+            "value": "EMSC8022_S1 - Analytical Techniques"
+        },
+        {
+            "key": "EMSC8033_S1",
+            "value": "EMSC8033_S1 - Computational Geosciences: Problem-solving, Logical Thinking and Programming."
+        },
+        {
+            "key": "EMSC8034_S1",
+            "value": "EMSC8034_S1 - Research Orientation: Big Questions in the Earth Sciences"
+        },
+        {
+            "key": "EMSC8706_S1",
+            "value": "EMSC8706_S1 - Introduction to Natural Hazards"
+        },
+        {
+            "key": "ENGL1014_S1",
+            "value": "ENGL1014_S1 - Close Encounters: How to Read Literature"
+        },
+        {
+            "key": "ENGL2083_S1",
+            "value": "ENGL2083_S1 - Foundations of Drama"
+        },
+        {
+            "key": "ENGL2084_S1",
+            "value": "ENGL2084_S1 - Poetry in English from Shakespeare to Postmodernism"
+        },
+        {
+            "key": "ENGL3021_S1",
+            "value": "ENGL3021_S1 - American Literature: Nature, Retreat, Experiment"
+        },
+        {
+            "key": "ENGL3037_S1",
+            "value": "ENGL3037_S1 - Literature, Law and Human Rights"
+        },
+        {
+            "key": "ENGL4020_S1",
+            "value": "ENGL4020_S1 - Researching and Writing the Thesis: A Workshop"
+        },
+        {
+            "key": "ENGL4021_S1",
+            "value": "ENGL4021_S1 - Creative Reading: Topics in Theory, Methodology and Interpretation"
+        },
+        {
+            "key": "ENGL6021_S1",
+            "value": "ENGL6021_S1 - American Literature: Nature, Retreat, Experiment"
+        },
+        {
+            "key": "ENGL6032_S1",
+            "value": "ENGL6032_S1 - Poetry in English from Shakespeare to Postmodernism"
+        },
+        {
+            "key": "ENGL8020_S1",
+            "value": "ENGL8020_S1 - Researching and Writing the Thesis: A Workshop"
+        },
+        {
+            "key": "ENGL8021_S1",
+            "value": "ENGL8021_S1 - Creative Reading: Topics in Theory, Methodology and Interpretation"
+        },
+        {
+            "key": "ENGL9002_S1",
+            "value": "ENGL9002_S1 - Writing for Publication: Developing an Academic Paper"
+        },
+        {
+            "key": "ENGN1211_S1",
+            "value": "ENGN1211_S1 - Discovering Engineering"
+        },
+        {
+            "key": "ENGN2217_S1",
+            "value": "ENGN2217_S1 - Mechanical Systems and Design"
+        },
+        {
+            "key": "ENGN2218_S1",
+            "value": "ENGN2218_S1 - Electronic Systems and Design"
+        },
+        {
+            "key": "ENGN2219_S1",
+            "value": "ENGN2219_S1 - Computer Architecture and Simulation"
+        },
+        {
+            "key": "ENGN2300_S1",
+            "value": "ENGN2300_S1 - Engineering Design 2: Systems Approaches for Design"
+        },
+        {
+            "key": "ENGN2706_S1",
+            "value": "ENGN2706_S1 - Engineering Research and Development Project (Methods)"
+        },
+        {
+            "key": "ENGN3213_S1",
+            "value": "ENGN3213_S1 - Digital Systems and Microprocessors"
+        },
+        {
+            "key": "ENGN3224_S1",
+            "value": "ENGN3224_S1 - Fluid Mechanics and Heat Transfer"
+        },
+        {
+            "key": "ENGN3226_S1",
+            "value": "ENGN3226_S1 - Digital Communications"
+        },
+        {
+            "key": "ENGN3300_S1",
+            "value": "ENGN3300_S1 - Engineering Design 4A: Systems Approaches for Management"
+        },
+        {
+            "key": "ENGN3331_S1",
+            "value": "ENGN3331_S1 - System Dynamics"
+        },
+        {
+            "key": "ENGN3512_S1",
+            "value": "ENGN3512_S1 - Optical Physics"
+        },
+        {
+            "key": "ENGN3539_S1",
+            "value": "ENGN3539_S1 - Computer Networks"
+        },
+        {
+            "key": "ENGN3601_S1",
+            "value": "ENGN3601_S1 - Engineering Materials"
+        },
+        {
+            "key": "ENGN4200_S1",
+            "value": "ENGN4200_S1 - Individual Project"
+        },
+        {
+            "key": "ENGN4221_S1",
+            "value": "ENGN4221_S1 - Systems Engineering Project"
+        },
+        {
+            "key": "ENGN4513_S1",
+            "value": "ENGN4513_S1 - Fibre Optics Communications Systems"
+        },
+        {
+            "key": "ENGN4524_S1",
+            "value": "ENGN4524_S1 - Photovoltaic Technologies"
+        },
+        {
+            "key": "ENGN4528_S1",
+            "value": "ENGN4528_S1 - Computer Vision"
+        },
+        {
+            "key": "ENGN4537_S1",
+            "value": "ENGN4537_S1 - Digital Signal Processing"
+        },
+        {
+            "key": "ENGN6213_S1",
+            "value": "ENGN6213_S1 - Digital Systems and Microprocessors"
+        },
+        {
+            "key": "ENGN6224_S1",
+            "value": "ENGN6224_S1 - Fluid Mechanics and Heat Transfer"
+        },
+        {
+            "key": "ENGN6250_S1",
+            "value": "ENGN6250_S1 - Professional Practice 1"
+        },
+        {
+            "key": "ENGN6331_S1",
+            "value": "ENGN6331_S1 - Systems Dynamics"
+        },
+        {
+            "key": "ENGN6512_S1",
+            "value": "ENGN6512_S1 - Optical Physics"
+        },
+        {
+            "key": "ENGN6513_S1",
+            "value": "ENGN6513_S1 - Fibre Optics Communication Systems"
+        },
+        {
+            "key": "ENGN6524_S1",
+            "value": "ENGN6524_S1 - Photovoltaic Technologies"
+        },
+        {
+            "key": "ENGN6528_S1",
+            "value": "ENGN6528_S1 - Computer Vision"
+        },
+        {
+            "key": "ENGN6537_S1",
+            "value": "ENGN6537_S1 - Digital Signal Processing"
+        },
+        {
+            "key": "ENGN6539_S1",
+            "value": "ENGN6539_S1 - Data Communication Networks"
+        },
+        {
+            "key": "ENGN6601_S1",
+            "value": "ENGN6601_S1 - Engineering Materials"
+        },
+        {
+            "key": "ENGN6626_S1",
+            "value": "ENGN6626_S1 - Digital Communications"
+        },
+        {
+            "key": "ENGN8100_S1",
+            "value": "ENGN8100_S1 - Introduction to Systems Engineering"
+        },
+        {
+            "key": "ENGN8170_S1",
+            "value": "ENGN8170_S1 - Group Project"
+        },
+        {
+            "key": "ENGN8260_S1",
+            "value": "ENGN8260_S1 - Professional Practice 2"
+        },
+        {
+            "key": "ENGN8535_S1",
+            "value": "ENGN8535_S1 - Engineering Data Analytics"
+        },
+        {
+            "key": "ENGN8538_S1",
+            "value": "ENGN8538_S1 - Probability and Stochastic Processes in Engineering"
+        },
+        {
+            "key": "ENGN8831_S1",
+            "value": "ENGN8831_S1 - Integration of Renewable Energy into Power Systems and Microgrids"
+        },
+        {
+            "key": "ENGN8833_S1",
+            "value": "ENGN8833_S1 - Industrial Energy Efficiency and Decarbonisation"
+        },
+        {
+            "key": "ENVS1001_S1",
+            "value": "ENVS1001_S1 - Environment and Society: Geography of Sustainability"
+        },
+        {
+            "key": "ENVS1003_S1",
+            "value": "ENVS1003_S1 - Introduction to Environmental and Social Research"
+        },
+        {
+            "key": "ENVS2004_S1",
+            "value": "ENVS2004_S1 - Fire, Flood and Drought"
+        },
+        {
+            "key": "ENVS2007_S1",
+            "value": "ENVS2007_S1 - Economics for the Environment"
+        },
+        {
+            "key": "ENVS2011_S1",
+            "value": "ENVS2011_S1 - Human Ecology"
+        },
+        {
+            "key": "ENVS2025_S1",
+            "value": "ENVS2025_S1 - Indigenous Cultural and Natural Resource Management"
+        },
+        {
+            "key": "ENVS3005_S1",
+            "value": "ENVS3005_S1 - Water Management"
+        },
+        {
+            "key": "ENVS3013_S1",
+            "value": "ENVS3013_S1 - Climate Change: past, present and future"
+        },
+        {
+            "key": "ENVS3028_S1",
+            "value": "ENVS3028_S1 - Environmental Policy"
+        },
+        {
+            "key": "ENVS3029_S1",
+            "value": "ENVS3029_S1 - Palaeo-Environmental Reconstruction"
+        },
+        {
+            "key": "ENVS3041_S1",
+            "value": "ENVS3041_S1 - Managing Forested Landscapes"
+        },
+        {
+            "key": "ENVS6020_S1",
+            "value": "ENVS6020_S1 - Human Ecology"
+        },
+        {
+            "key": "ENVS6026_S1",
+            "value": "ENVS6026_S1 - Managing Forested Landscapes"
+        },
+        {
+            "key": "ENVS6101_S1",
+            "value": "ENVS6101_S1 - Environment and Society: Geography of Sustainability"
+        },
+        {
+            "key": "ENVS6103_S1",
+            "value": "ENVS6103_S1 - Introduction to Environmental and Social Research"
+        },
+        {
+            "key": "ENVS6204_S1",
+            "value": "ENVS6204_S1 - Fire, Flood and Drought"
+        },
+        {
+            "key": "ENVS6303_S1",
+            "value": "ENVS6303_S1 - Climate Change: past, present and future"
+        },
+        {
+            "key": "ENVS6528_S1",
+            "value": "ENVS6528_S1 - Environmental Policy"
+        },
+        {
+            "key": "ENVS6529_S1",
+            "value": "ENVS6529_S1 - Palaeo-Environmental Reconstruction"
+        },
+        {
+            "key": "ENVS6555_S1",
+            "value": "ENVS6555_S1 - Water Management"
+        },
+        {
+            "key": "ENVS8015_S1",
+            "value": "ENVS8015_S1 - Contemporary Perspectives in Environmental Science"
+        },
+        {
+            "key": "EURO1004_S1",
+            "value": "EURO1004_S1 - Europe in the Modern Era"
+        },
+        {
+            "key": "EURO2012_S1",
+            "value": "EURO2012_S1 - Uniting Europe: history, politics, theory"
+        },
+        {
+            "key": "FINM1001_S1",
+            "value": "FINM1001_S1 - Foundations of Finance"
+        },
+        {
+            "key": "FINM2001_S1",
+            "value": "FINM2001_S1 - Corporate Finance"
+        },
+        {
+            "key": "FINM2002_S1",
+            "value": "FINM2002_S1 - Derivatives"
+        },
+        {
+            "key": "FINM2003_S1",
+            "value": "FINM2003_S1 - Investments"
+        },
+        {
+            "key": "FINM3003_S1",
+            "value": "FINM3003_S1 - Continuous Time Finance"
+        },
+        {
+            "key": "FINM3005_S1",
+            "value": "FINM3005_S1 - Corporate Valuation"
+        },
+        {
+            "key": "FINM3006_S1",
+            "value": "FINM3006_S1 - Financial Intermediation and Debt Markets"
+        },
+        {
+            "key": "FINM3008_S1",
+            "value": "FINM3008_S1 - Portfolio Construction"
+        },
+        {
+            "key": "FINM3009_S1",
+            "value": "FINM3009_S1 - Student Managed Fund"
+        },
+        {
+            "key": "FINM3010_S1",
+            "value": "FINM3010_S1 - Student Managed Fund Extension"
+        },
+        {
+            "key": "FINM3045_S1",
+            "value": "FINM3045_S1 - Asian Capital Markets"
+        },
+        {
+            "key": "FINM4015_S1",
+            "value": "FINM4015_S1 - Advanced Corporate Finance"
+        },
+        {
+            "key": "FINM4106_S1",
+            "value": "FINM4106_S1 - Advanced Investments"
+        },
+        {
+            "key": "FINM6009_S1",
+            "value": "FINM6009_S1 - Student Managed Fund"
+        },
+        {
+            "key": "FINM6010_S1",
+            "value": "FINM6010_S1 - Student Managed Fund Extension"
+        },
+        {
+            "key": "FINM7003_S1",
+            "value": "FINM7003_S1 - Continuous Time Finance"
+        },
+        {
+            "key": "FINM7006_S1",
+            "value": "FINM7006_S1 - Applied Foundations of Finance"
+        },
+        {
+            "key": "FINM7007_S1",
+            "value": "FINM7007_S1 - Applied Corporate Finance"
+        },
+        {
+            "key": "FINM7008_S1",
+            "value": "FINM7008_S1 - Applied Investments"
+        },
+        {
+            "key": "FINM7041_S1",
+            "value": "FINM7041_S1 - Applied Derivatives"
+        },
+        {
+            "key": "FINM7044_S1",
+            "value": "FINM7044_S1 - Applied Valuation"
+        },
+        {
+            "key": "FINM7045_S1",
+            "value": "FINM7045_S1 - Asian Capital Markets"
+        },
+        {
+            "key": "FINM7046_S1",
+            "value": "FINM7046_S1 - Finance for Business"
+        },
+        {
+            "key": "FINM8004_S1",
+            "value": "FINM8004_S1 - Advanced Corporate Finance"
+        },
+        {
+            "key": "FINM8006_S1",
+            "value": "FINM8006_S1 - Advanced Investments"
+        },
+        {
+            "key": "FINM8007_S1",
+            "value": "FINM8007_S1 - Topics in International Finance"
+        },
+        {
+            "key": "FINM8014_S1",
+            "value": "FINM8014_S1 - Applied Financial Intermediation and Debt Markets"
+        },
+        {
+            "key": "FINM8016_S1",
+            "value": "FINM8016_S1 - Applied Portfolio Construction"
+        },
+        {
+            "key": "FINM8020_S1",
+            "value": "FINM8020_S1 - Doctoral Studies in Asset Pricing 2"
+        },
+        {
+            "key": "FINM8021_S1",
+            "value": "FINM8021_S1 - Doctoral Studies in Corporate Finance Empirical"
+        },
+        {
+            "key": "FINM8100_S1",
+            "value": "FINM8100_S1 - Applied Project in Finance"
+        },
+        {
+            "key": "FREN1003_S1",
+            "value": "FREN1003_S1 - Introductory French I"
+        },
+        {
+            "key": "FREN2021_S1",
+            "value": "FREN2021_S1 - Selected Topics in French Studies"
+        },
+        {
+            "key": "FREN2024_S1",
+            "value": "FREN2024_S1 - Continuing French I"
+        },
+        {
+            "key": "FREN3006_S1",
+            "value": "FREN3006_S1 - Intermediate French I"
+        },
+        {
+            "key": "FREN3010_S1",
+            "value": "FREN3010_S1 - Advanced French I"
+        },
+        {
+            "key": "FREN6010_S1",
+            "value": "FREN6010_S1 - Advanced French I"
+        },
+        {
+            "key": "FREN6501_S1",
+            "value": "FREN6501_S1 - Introductory French I"
+        },
+        {
+            "key": "FREN6503_S1",
+            "value": "FREN6503_S1 - Continuing French I"
+        },
+        {
+            "key": "FREN6505_S1",
+            "value": "FREN6505_S1 - Intermediate French I"
+        },
+        {
+            "key": "FREN6510_S1",
+            "value": "FREN6510_S1 - Selected Topics in French Studies"
+        },
+        {
+            "key": "GEND1001_S1",
+            "value": "GEND1001_S1 - Sex, Gender and Identity: An Introduction to Gender Studies"
+        },
+        {
+            "key": "GEND3001_S1",
+            "value": "GEND3001_S1 - Posthuman Bodies"
+        },
+        {
+            "key": "GEND6501_S1",
+            "value": "GEND6501_S1 - Posthuman bodies"
+        },
+        {
+            "key": "GERM1021_S1",
+            "value": "GERM1021_S1 - German Studies: Introduction to German 1"
+        },
+        {
+            "key": "GERM2103_S1",
+            "value": "GERM2103_S1 - German Studies: Continuing German 1"
+        },
+        {
+            "key": "GERM2105_S1",
+            "value": "GERM2105_S1 - German Studies: Intermediate German 1"
+        },
+        {
+            "key": "GERM3007_S1",
+            "value": "GERM3007_S1 - German Studies: Advanced German 1"
+        },
+        {
+            "key": "GERM3051_S1",
+            "value": "GERM3051_S1 - German Literature and Culture"
+        },
+        {
+            "key": "GERM6051_S1",
+            "value": "GERM6051_S1 - German Literature and Culture"
+        },
+        {
+            "key": "GERM6501_S1",
+            "value": "GERM6501_S1 - German Studies Introduction I"
+        },
+        {
+            "key": "GERM6503_S1",
+            "value": "GERM6503_S1 - German Studies Continuing I"
+        },
+        {
+            "key": "GERM6505_S1",
+            "value": "GERM6505_S1 - German Studies Intermediate I"
+        },
+        {
+            "key": "GERM6507_S1",
+            "value": "GERM6507_S1 - German Studies - Advanced 1"
+        },
+        {
+            "key": "GREK2121_S1",
+            "value": "GREK2121_S1 - Intermediate Ancient Greek I"
+        },
+        {
+            "key": "GREK3125_S1",
+            "value": "GREK3125_S1 - Advanced Ancient Greek"
+        },
+        {
+            "key": "GREK6121_S1",
+            "value": "GREK6121_S1 - Intermediate Ancient Greek I"
+        },
+        {
+            "key": "GREK6125_S1",
+            "value": "GREK6125_S1 - Advanced Ancient Greek"
+        },
+        {
+            "key": "HIND1100_S1",
+            "value": "HIND1100_S1 - Hindi 1"
+        },
+        {
+            "key": "HIND2300_S1",
+            "value": "HIND2300_S1 - Hindi 3"
+        },
+        {
+            "key": "HIND3500_S1",
+            "value": "HIND3500_S1 - Hindi 5"
+        },
+        {
+            "key": "HIND6100_S1",
+            "value": "HIND6100_S1 - Hindi 1"
+        },
+        {
+            "key": "HIND6300_S1",
+            "value": "HIND6300_S1 - Hindi 3"
+        },
+        {
+            "key": "HIND6500_S1",
+            "value": "HIND6500_S1 - Hindi 5"
+        },
+        {
+            "key": "HIST1214_S1",
+            "value": "HIST1214_S1 - Empires in Global History: 1200 to the Present"
+        },
+        {
+            "key": "HIST2022_S1",
+            "value": "HIST2022_S1 - Aboriginal and Torres Strait Islander History"
+        },
+        {
+            "key": "HIST2110_S1",
+            "value": "HIST2110_S1 - Approaches to History"
+        },
+        {
+            "key": "HIST2112_S1",
+            "value": "HIST2112_S1 - Plagues, Pandemics and Public Health in History"
+        },
+        {
+            "key": "HIST2205_S1",
+            "value": "HIST2205_S1 - Europe and the Atlantic World, c.1492â€“1776."
+        },
+        {
+            "key": "HIST2226_S1",
+            "value": "HIST2226_S1 - Nazi Germany"
+        },
+        {
+            "key": "HIST2227_S1",
+            "value": "HIST2227_S1 - Australian Political History"
+        },
+        {
+            "key": "HIST4011_S1",
+            "value": "HIST4011_S1 - Seminar in Advanced Historiography"
+        },
+        {
+            "key": "HIST6022_S1",
+            "value": "HIST6022_S1 - Aboriginal and Torres Strait Islander History"
+        },
+        {
+            "key": "HIST6110_S1",
+            "value": "HIST6110_S1 - Approaches to History"
+        },
+        {
+            "key": "HIST6205_S1",
+            "value": "HIST6205_S1 - Europe and the Atlantic World, c.1492â€”1776."
+        },
+        {
+            "key": "HIST6227_S1",
+            "value": "HIST6227_S1 - Australian Political History"
+        },
+        {
+            "key": "HIST8023_S1",
+            "value": "HIST8023_S1 - History Incorporated: Early Modern Bodies, 1550-1750"
+        },
+        {
+            "key": "HIST8024_S1",
+            "value": "HIST8024_S1 - Seminar in Advanced Historiography"
+        },
+        {
+            "key": "HIST8026_S1",
+            "value": "HIST8026_S1 - Nazism: The Politics and Practices of Memory"
+        },
+        {
+            "key": "HLTH1001_S1",
+            "value": "HLTH1001_S1 - Health in the 21st Century"
+        },
+        {
+            "key": "HLTH2001_S1",
+            "value": "HLTH2001_S1 - Health Systems and Policy: An Introduction"
+        },
+        {
+            "key": "HLTH3001_S1",
+            "value": "HLTH3001_S1 - Aboriginal and Torres Strait Islander Health"
+        },
+        {
+            "key": "HLTH3002_S1",
+            "value": "HLTH3002_S1 - Professional Practice in Health Science"
+        },
+        {
+            "key": "HLTH3003_S1",
+            "value": "HLTH3003_S1 - Bioethics and Beyond"
+        },
+        {
+            "key": "HUMN1001_S1",
+            "value": "HUMN1001_S1 - Digital Culture: Being Human in the Information Age"
+        },
+        {
+            "key": "HUMN2051_S1",
+            "value": "HUMN2051_S1 - Introduction to Cultural Heritage Management"
+        },
+        {
+            "key": "HUMN3001_S1",
+            "value": "HUMN3001_S1 - Digital Humanities and Public Culture: Projects and Engagement"
+        },
+        {
+            "key": "HUMN6003_S1",
+            "value": "HUMN6003_S1 - Digital Humanities and Public Culture: Projects and Engagement"
+        },
+        {
+            "key": "HUMN6051_S1",
+            "value": "HUMN6051_S1 - Introduction to Cultural Heritage Management"
+        },
+        {
+            "key": "HUMN8026_S1",
+            "value": "HUMN8026_S1 - Writing in the Public Sphere"
+        },
+        {
+            "key": "HUMN8029_S1",
+            "value": "HUMN8029_S1 - Digital Humanities and Public Culture - Issues and Debates"
+        },
+        {
+            "key": "HUMN8030_S1",
+            "value": "HUMN8030_S1 - Digital Humanities and Public Culture Research Project"
+        },
+        {
+            "key": "HUMN8031_S1",
+            "value": "HUMN8031_S1 - Digital Humanities and Public Culture Research Project (Advanced)"
+        },
+        {
+            "key": "HUMN8034_S1",
+            "value": "HUMN8034_S1 - Collaborative Curating and Storytelling"
+        },
+        {
+            "key": "IDEC8003_S1",
+            "value": "IDEC8003_S1 - Issues in Development Policy"
+        },
+        {
+            "key": "IDEC8007_S1",
+            "value": "IDEC8007_S1 - Aid and Development Policy"
+        },
+        {
+            "key": "IDEC8011_S1",
+            "value": "IDEC8011_S1 - Masters Research Essay"
+        },
+        {
+            "key": "IDEC8015_S1",
+            "value": "IDEC8015_S1 - Mathematical Methods in Applied Economics"
+        },
+        {
+            "key": "IDEC8016_S1",
+            "value": "IDEC8016_S1 - Microeconomic Analysis and Policy"
+        },
+        {
+            "key": "IDEC8020_S1",
+            "value": "IDEC8020_S1 - Applied Economic Dynamics"
+        },
+        {
+            "key": "IDEC8023_S1",
+            "value": "IDEC8023_S1 - Case Studies in Applied Econometrics"
+        },
+        {
+            "key": "IDEC8029_S1",
+            "value": "IDEC8029_S1 - Issues in Applied Microeconomics"
+        },
+        {
+            "key": "IDEC8033_S1",
+            "value": "IDEC8033_S1 - Research Project"
+        },
+        {
+            "key": "IDEC8053_S1",
+            "value": "IDEC8053_S1 - Environmental Economics"
+        },
+        {
+            "key": "IDEC8064_S1",
+            "value": "IDEC8064_S1 - Masters Microeconomics"
+        },
+        {
+            "key": "INDG1001_S1",
+            "value": "INDG1001_S1 - Indigenous Peoples, Populations and Communities"
+        },
+        {
+            "key": "INDG2001_S1",
+            "value": "INDG2001_S1 - Indigenous Cultural and Natural Resource Management"
+        },
+        {
+            "key": "INDG2003_S1",
+            "value": "INDG2003_S1 - Gamilaraay - introduction to an Australian Indigenous Language"
+        },
+        {
+            "key": "INDG6003_S1",
+            "value": "INDG6003_S1 - Gamilaraay - introduction to an Australian Indigenous Language"
+        },
+        {
+            "key": "INDN1002_S1",
+            "value": "INDN1002_S1 - Indonesian 1"
+        },
+        {
+            "key": "INDN2002_S1",
+            "value": "INDN2002_S1 - Indonesian 3"
+        },
+        {
+            "key": "INDN3002_S1",
+            "value": "INDN3002_S1 - Indonesian 5"
+        },
+        {
+            "key": "INDN6002_S1",
+            "value": "INDN6002_S1 - Indonesian 3"
+        },
+        {
+            "key": "INDN6102_S1",
+            "value": "INDN6102_S1 - Indonesian 1"
+        },
+        {
+            "key": "INDN6502_S1",
+            "value": "INDN6502_S1 - Indonesian 5"
+        },
+        {
+            "key": "INFS1001_S1",
+            "value": "INFS1001_S1 - Business Information Systems"
+        },
+        {
+            "key": "INFS2005_S1",
+            "value": "INFS2005_S1 - Accounting Information Systems"
+        },
+        {
+            "key": "INFS2024_S1",
+            "value": "INFS2024_S1 - Information Systems Analysis"
+        },
+        {
+            "key": "INFS3024_S1",
+            "value": "INFS3024_S1 - Information Systems Management"
+        },
+        {
+            "key": "INFS7004_S1",
+            "value": "INFS7004_S1 - Accounting Information Systems"
+        },
+        {
+            "key": "INFS7040_S1",
+            "value": "INFS7040_S1 - Digital Transformation"
+        },
+        {
+            "key": "INFS8004_S1",
+            "value": "INFS8004_S1 - Enterprise Systems and Strategy"
+        },
+        {
+            "key": "INFS8205_S1",
+            "value": "INFS8205_S1 - Digital Strategy, Executive and Operations"
+        },
+        {
+            "key": "INFS8210_S1",
+            "value": "INFS8210_S1 - Business Analytics for Managers"
+        },
+        {
+            "key": "INTR1021_S1",
+            "value": "INTR1021_S1 - Understanding Peace and Conflict"
+        },
+        {
+            "key": "INTR2010_S1",
+            "value": "INTR2010_S1 - International Relations in the Asia-Pacific"
+        },
+        {
+            "key": "INTR2016_S1",
+            "value": "INTR2016_S1 - US Foreign and Security Policy in Asia"
+        },
+        {
+            "key": "INTR2018_S1",
+            "value": "INTR2018_S1 - Japanese Foreign and Security Policy"
+        },
+        {
+            "key": "INTR8011_S1",
+            "value": "INTR8011_S1 - International Relations Theory"
+        },
+        {
+            "key": "INTR8013_S1",
+            "value": "INTR8013_S1 - International Political Economy"
+        },
+        {
+            "key": "INTR8018_S1",
+            "value": "INTR8018_S1 - Special Topics in International Relations"
+        },
+        {
+            "key": "INTR8043_S1",
+            "value": "INTR8043_S1 - The Post-Colonial Pacific and Global Change"
+        },
+        {
+            "key": "INTR8045_S1",
+            "value": "INTR8045_S1 - Global Governance"
+        },
+        {
+            "key": "INTR8052_S1",
+            "value": "INTR8052_S1 - Peace and Conflict Studies"
+        },
+        {
+            "key": "INTR8064_S1",
+            "value": "INTR8064_S1 - Gender, War, and Justice in South and Southeast Asia"
+        },
+        {
+            "key": "INTR8067_S1",
+            "value": "INTR8067_S1 - US Foreign and Security Policy in the Asia-Pacific"
+        },
+        {
+            "key": "INTR8069_S1",
+            "value": "INTR8069_S1 - Studying International Relations"
+        },
+        {
+            "key": "INTR8071_S1",
+            "value": "INTR8071_S1 - Issues and Concepts in International Relations"
+        },
+        {
+            "key": "INTR8080_S1",
+            "value": "INTR8080_S1 - Global Ethics"
+        },
+        {
+            "key": "ITAL1002_S1",
+            "value": "ITAL1002_S1 - Italian Studies - Introductory I"
+        },
+        {
+            "key": "ITAL2005_S1",
+            "value": "ITAL2005_S1 - Italian Studies Continuing 1"
+        },
+        {
+            "key": "ITAL3015_S1",
+            "value": "ITAL3015_S1 - Advanced Italian Topics in Language, Culture and Society"
+        },
+        {
+            "key": "ITAL3505_S1",
+            "value": "ITAL3505_S1 - Italian Studies - Intermediate I"
+        },
+        {
+            "key": "ITAL6501_S1",
+            "value": "ITAL6501_S1 - Italian Studies - Introductory I"
+        },
+        {
+            "key": "ITAL6503_S1",
+            "value": "ITAL6503_S1 - Italian Studies Continuing 1"
+        },
+        {
+            "key": "ITAL6505_S1",
+            "value": "ITAL6505_S1 - Italian Studies - Intermediate 1"
+        },
+        {
+            "key": "ITAL6509_S1",
+            "value": "ITAL6509_S1 - Advanced Italian Topics in Language, Culture and Society"
+        },
+        {
+            "key": "JPNS1012_S1",
+            "value": "JPNS1012_S1 - Japanese 1: Spoken"
+        },
+        {
+            "key": "JPNS1014_S1",
+            "value": "JPNS1014_S1 - Japanese 1: Written"
+        },
+        {
+            "key": "JPNS2012_S1",
+            "value": "JPNS2012_S1 - Japanese 3"
+        },
+        {
+            "key": "JPNS2024_S1",
+            "value": "JPNS2024_S1 - Japanese Grammar and Expressions"
+        },
+        {
+            "key": "JPNS3001_S1",
+            "value": "JPNS3001_S1 - Japanese 5"
+        },
+        {
+            "key": "JPNS3007_S1",
+            "value": "JPNS3007_S1 - Advanced Japanese: Readings in Culture and Society"
+        },
+        {
+            "key": "JPNS3024_S1",
+            "value": "JPNS3024_S1 - Research Topics in Japanese: International Relations & Politics"
+        },
+        {
+            "key": "JPNS6012_S1",
+            "value": "JPNS6012_S1 - Japanese 3"
+        },
+        {
+            "key": "JPNS6014_S1",
+            "value": "JPNS6014_S1 - Japanese 5"
+        },
+        {
+            "key": "JPNS6024_S1",
+            "value": "JPNS6024_S1 - Japanese Grammar and Expressions"
+        },
+        {
+            "key": "JPNS6025_S1",
+            "value": "JPNS6025_S1 - Research Topics in Japanese: International Relations & Politics"
+        },
+        {
+            "key": "JPNS6112_S1",
+            "value": "JPNS6112_S1 - Japanese 1: Spoken"
+        },
+        {
+            "key": "JPNS6114_S1",
+            "value": "JPNS6114_S1 - Japanese 1: Written"
+        },
+        {
+            "key": "JPNS6507_S1",
+            "value": "JPNS6507_S1 - Advanced Japanese: Readings in Culture and Society"
+        },
+        {
+            "key": "KORE1020_S1",
+            "value": "KORE1020_S1 - Korean 1"
+        },
+        {
+            "key": "KORE1201_S1",
+            "value": "KORE1201_S1 - Korean Beginning Secondary - Extension"
+        },
+        {
+            "key": "KORE2521_S1",
+            "value": "KORE2521_S1 - Korean 3"
+        },
+        {
+            "key": "KORE3012_S1",
+            "value": "KORE3012_S1 - Korean 5"
+        },
+        {
+            "key": "KORE3015_S1",
+            "value": "KORE3015_S1 - Advanced Korean: Film and Society"
+        },
+        {
+            "key": "KORE6017_S1",
+            "value": "KORE6017_S1 - Advanced Korean: Film and Society"
+        },
+        {
+            "key": "KORE6120_S1",
+            "value": "KORE6120_S1 - Korean 1"
+        },
+        {
+            "key": "KORE6512_S1",
+            "value": "KORE6512_S1 - Korean 5"
+        },
+        {
+            "key": "KORE6521_S1",
+            "value": "KORE6521_S1 - Korean 3"
+        },
+        {
+            "key": "LANG3002_S1",
+            "value": "LANG3002_S1 - Translation across Languages: specialised material"
+        },
+        {
+            "key": "LANG6002_S1",
+            "value": "LANG6002_S1 - Translation across Languages: Specialised Materials"
+        },
+        {
+            "key": "LATN2121_S1",
+            "value": "LATN2121_S1 - Intermediate Latin I"
+        },
+        {
+            "key": "LATN3125_S1",
+            "value": "LATN3125_S1 - Advanced Latin"
+        },
+        {
+            "key": "LATN6121_S1",
+            "value": "LATN6121_S1 - Intermediate Latin I"
+        },
+        {
+            "key": "LATN6125_S1",
+            "value": "LATN6125_S1 - Advanced Latin"
+        },
+        {
+            "key": "LAWS1201_S1",
+            "value": "LAWS1201_S1 - Foundations of Australian Law"
+        },
+        {
+            "key": "LAWS1203_S1",
+            "value": "LAWS1203_S1 - Torts"
+        },
+        {
+            "key": "LAWS1205_S1",
+            "value": "LAWS1205_S1 - Australian Public Law"
+        },
+        {
+            "key": "LAWS1206_S1",
+            "value": "LAWS1206_S1 - Criminal Law and Procedure"
+        },
+        {
+            "key": "LAWS2201_S1",
+            "value": "LAWS2201_S1 - Administrative Law"
+        },
+        {
+            "key": "LAWS2203_S1",
+            "value": "LAWS2203_S1 - Corporations Law"
+        },
+        {
+            "key": "LAWS2204_S1",
+            "value": "LAWS2204_S1 - Property"
+        },
+        {
+            "key": "LAWS2244_S1",
+            "value": "LAWS2244_S1 - Litigation and Dispute Management"
+        },
+        {
+            "key": "LAWS4212_S1",
+            "value": "LAWS4212_S1 - Conflict of Laws"
+        },
+        {
+            "key": "LAWS4218_S1",
+            "value": "LAWS4218_S1 - Feminist and Critical Legal Theory"
+        },
+        {
+            "key": "LAWS4226_S1",
+            "value": "LAWS4226_S1 - International Trade Law"
+        },
+        {
+            "key": "LAWS4229_S1",
+            "value": "LAWS4229_S1 - Law and Society in South East Asia"
+        },
+        {
+            "key": "LAWS4245_S1",
+            "value": "LAWS4245_S1 - Information Technology Law"
+        },
+        {
+            "key": "LAWS4254_S1",
+            "value": "LAWS4254_S1 - Restitution"
+        },
+        {
+            "key": "LAWS4267_S1",
+            "value": "LAWS4267_S1 - Youth Law Clinic"
+        },
+        {
+            "key": "LAWS4271_S1",
+            "value": "LAWS4271_S1 - Refugee Law"
+        },
+        {
+            "key": "LAWS4274_S1",
+            "value": "LAWS4274_S1 - Climate Law"
+        },
+        {
+            "key": "LAWS4275_S1",
+            "value": "LAWS4275_S1 - Federal Judicial System"
+        },
+        {
+            "key": "LAWS4281_S1",
+            "value": "LAWS4281_S1 - Environmental Law Clinic"
+        },
+        {
+            "key": "LAWS4286_S1",
+            "value": "LAWS4286_S1 - Literature, Law and Human Rights"
+        },
+        {
+            "key": "LAWS4302_S1",
+            "value": "LAWS4302_S1 - International Law Clinic"
+        },
+        {
+            "key": "LAWS4304_S1",
+            "value": "LAWS4304_S1 - Prison Legal Literacy Clinic"
+        },
+        {
+            "key": "LAWS4307_S1",
+            "value": "LAWS4307_S1 - Legal Education for True Justice: Indigenous Perspectives and Deep Listening on Country"
+        },
+        {
+            "key": "LAWS4314_S1",
+            "value": "LAWS4314_S1 - Sentencing"
+        },
+        {
+            "key": "LAWS6101_S1",
+            "value": "LAWS6101_S1 - Foundations of Australian Law"
+        },
+        {
+            "key": "LAWS6103_S1",
+            "value": "LAWS6103_S1 - Torts"
+        },
+        {
+            "key": "LAWS6104_S1",
+            "value": "LAWS6104_S1 - Contracts"
+        },
+        {
+            "key": "LAWS6105_S1",
+            "value": "LAWS6105_S1 - Australian Public Law"
+        },
+        {
+            "key": "LAWS6106_S1",
+            "value": "LAWS6106_S1 - Criminal Law and Procedure"
+        },
+        {
+            "key": "LAWS6201_S1",
+            "value": "LAWS6201_S1 - Administrative Law"
+        },
+        {
+            "key": "LAWS6203_S1",
+            "value": "LAWS6203_S1 - Corporations Law"
+        },
+        {
+            "key": "LAWS6204_S1",
+            "value": "LAWS6204_S1 - Property"
+        },
+        {
+            "key": "LAWS6244_S1",
+            "value": "LAWS6244_S1 - Litigation and Dispute Management"
+        },
+        {
+            "key": "LAWS6267_S1",
+            "value": "LAWS6267_S1 - Youth Law Clinic"
+        },
+        {
+            "key": "LAWS6281_S1",
+            "value": "LAWS6281_S1 - Environmental Law Clinic"
+        },
+        {
+            "key": "LAWS6302_S1",
+            "value": "LAWS6302_S1 - International Law Clinic"
+        },
+        {
+            "key": "LAWS6304_S1",
+            "value": "LAWS6304_S1 - Prison Legal Literacy Clinic"
+        },
+        {
+            "key": "LAWS6307_S1",
+            "value": "LAWS6307_S1 - Legal Education for True Justice: Indigenous Perspectives and Deep Listening on Country"
+        },
+        {
+            "key": "LAWS8144_S1",
+            "value": "LAWS8144_S1 - Conflict of Laws"
+        },
+        {
+            "key": "LAWS8445_S1",
+            "value": "LAWS8445_S1 - Information Technology Law"
+        },
+        {
+            "key": "LAWS8454_S1",
+            "value": "LAWS8454_S1 - Restitution"
+        },
+        {
+            "key": "LAWS8471_S1",
+            "value": "LAWS8471_S1 - Refugee Law"
+        },
+        {
+            "key": "LAWS8594_S1",
+            "value": "LAWS8594_S1 - Law and Society in South East Asia"
+        },
+        {
+            "key": "LING1001_S1",
+            "value": "LING1001_S1 - Introduction to the Study of Language"
+        },
+        {
+            "key": "LING2008_S1",
+            "value": "LING2008_S1 - Semantics"
+        },
+        {
+            "key": "LING2020_S1",
+            "value": "LING2020_S1 - Structure of English"
+        },
+        {
+            "key": "LING2021_S1",
+            "value": "LING2021_S1 - Cross Cultural Communication"
+        },
+        {
+            "key": "LING2101_S1",
+            "value": "LING2101_S1 - Second Language Acquisition"
+        },
+        {
+            "key": "LING3012_S1",
+            "value": "LING3012_S1 - Field Methods in Linguistics"
+        },
+        {
+            "key": "LING3032_S1",
+            "value": "LING3032_S1 - Forensic Linguistics: Forensic Voice and Text Comparison"
+        },
+        {
+            "key": "LING6001_S1",
+            "value": "LING6001_S1 - Introduction to the Study of Language"
+        },
+        {
+            "key": "LING6008_S1",
+            "value": "LING6008_S1 - Semantics"
+        },
+        {
+            "key": "LING6009_S1",
+            "value": "LING6009_S1 - Field Methods in Linguistics"
+        },
+        {
+            "key": "LING6020_S1",
+            "value": "LING6020_S1 - The Structure of English"
+        },
+        {
+            "key": "LING6021_S1",
+            "value": "LING6021_S1 - Cross Cultural Communication"
+        },
+        {
+            "key": "LING6032_S1",
+            "value": "LING6032_S1 - Forensic Linguistics: Forensic Voice and Text Comparison"
+        },
+        {
+            "key": "LING6101_S1",
+            "value": "LING6101_S1 - Second Language Acquisition"
+        },
+        {
+            "key": "LING8026_S1",
+            "value": "LING8026_S1 - Qualitative Research Methods in Language Studies"
+        },
+        {
+            "key": "MATH1003_S1",
+            "value": "MATH1003_S1 - Algebra and Calculus Methods"
+        },
+        {
+            "key": "MATH1005_S1",
+            "value": "MATH1005_S1 - Discrete Mathematical Models"
+        },
+        {
+            "key": "MATH1013_S1",
+            "value": "MATH1013_S1 - Mathematics and Applications 1"
+        },
+        {
+            "key": "MATH1014_S1",
+            "value": "MATH1014_S1 - Mathematics and Applications 2"
+        },
+        {
+            "key": "MATH1042_S1",
+            "value": "MATH1042_S1 - Philosophy of the Cosmos"
+        },
+        {
+            "key": "MATH1115_S1",
+            "value": "MATH1115_S1 - Advanced Mathematics and Applications 1"
+        },
+        {
+            "key": "MATH2222_S1",
+            "value": "MATH2222_S1 - Introduction to Mathematical Thinking: Problem-Solving and Proofs"
+        },
+        {
+            "key": "MATH2305_S1",
+            "value": "MATH2305_S1 - Applied Mathematics I"
+        },
+        {
+            "key": "MATH2320_S1",
+            "value": "MATH2320_S1 - Advanced Analysis 1: Metric Spaces and Applications"
+        },
+        {
+            "key": "MATH3029_S1",
+            "value": "MATH3029_S1 - Probability Theory with Applications"
+        },
+        {
+            "key": "MATH3062_S1",
+            "value": "MATH3062_S1 - Fractal Geometry and Chaotic Dynamics"
+        },
+        {
+            "key": "MATH3116_S1",
+            "value": "MATH3116_S1 - Advanced Analysis 1: Metric Spaces and Applications"
+        },
+        {
+            "key": "MATH3320_S1",
+            "value": "MATH3320_S1 - Advanced Analysis 2: Lebesgue Integration and Hilbert Spaces"
+        },
+        {
+            "key": "MATH3342_S1",
+            "value": "MATH3342_S1 - Advanced Differential Geometry"
+        },
+        {
+            "key": "MATH3343_S1",
+            "value": "MATH3343_S1 - Advanced Foundations of Mathematics"
+        },
+        {
+            "key": "MATH3345_S1",
+            "value": "MATH3345_S1 - Advanced Algebra 2: Field extensions and Galois Theory"
+        },
+        {
+            "key": "MATH3351_S1",
+            "value": "MATH3351_S1 - Advanced Topics in Mathematical Physics"
+        },
+        {
+            "key": "MATH3353_S1",
+            "value": "MATH3353_S1 - Advanced Mathematical Bioinformatics"
+        },
+        {
+            "key": "MATH3511_S1",
+            "value": "MATH3511_S1 - Scientific Computing"
+        },
+        {
+            "key": "MATH6005_S1",
+            "value": "MATH6005_S1 - Discrete Mathematical Models"
+        },
+        {
+            "key": "MATH6109_S1",
+            "value": "MATH6109_S1 - Probability Theory with Applications"
+        },
+        {
+            "key": "MATH6110_S1",
+            "value": "MATH6110_S1 - Analysis 1: Metric spaces and Applications"
+        },
+        {
+            "key": "MATH6111_S1",
+            "value": "MATH6111_S1 - Scientific Computing"
+        },
+        {
+            "key": "MATH6116_S1",
+            "value": "MATH6116_S1 - Fractal Geometry and Chaotic Dynamics"
+        },
+        {
+            "key": "MATH6203_S1",
+            "value": "MATH6203_S1 - Foundations of Mathematics"
+        },
+        {
+            "key": "MATH6205_S1",
+            "value": "MATH6205_S1 - Differential Geometry"
+        },
+        {
+            "key": "MATH6208_S1",
+            "value": "MATH6208_S1 - Advanced Mathematical Bioinformatics"
+        },
+        {
+            "key": "MATH6211_S1",
+            "value": "MATH6211_S1 - Topics in Mathematical Physics"
+        },
+        {
+            "key": "MATH6212_S1",
+            "value": "MATH6212_S1 - Analysis 2: Lebesgue Integration and Hilbert Spaces"
+        },
+        {
+            "key": "MATH6215_S1",
+            "value": "MATH6215_S1 - Algebra 2: Field extensions and Galois Theory"
+        },
+        {
+            "key": "MATH6222_S1",
+            "value": "MATH6222_S1 - Introduction to Mathematical Thinking: Problem-Solving and Proofs"
+        },
+        {
+            "key": "MATH6405_S1",
+            "value": "MATH6405_S1 - Ordinary Differential Equations and Advanced Vector Calculus"
+        },
+        {
+            "key": "MEAS1001_S1",
+            "value": "MEAS1001_S1 - Introduction to the Modern Middle East"
+        },
+        {
+            "key": "MEAS2000_S1",
+            "value": "MEAS2000_S1 - Iranian History and Culture"
+        },
+        {
+            "key": "MEAS2006_S1",
+            "value": "MEAS2006_S1 - Gallipoli: A transnational history"
+        },
+        {
+            "key": "MEAS2105_S1",
+            "value": "MEAS2105_S1 - The Political Economy of the Middle East"
+        },
+        {
+            "key": "MEAS4111_S1",
+            "value": "MEAS4111_S1 - Islam, The West and International Terrorism"
+        },
+        {
+            "key": "MEAS4113_S1",
+            "value": "MEAS4113_S1 - The Gulf Strategic Environment"
+        },
+        {
+            "key": "MEAS6003_S1",
+            "value": "MEAS6003_S1 - Critical Perspectives on Arabic Culture"
+        },
+        {
+            "key": "MEAS8001_S1",
+            "value": "MEAS8001_S1 - Critical Approaches and Methods in the Study of the Middle East and Central Asia"
+        },
+        {
+            "key": "MEAS8111_S1",
+            "value": "MEAS8111_S1 - Islam, the West and International Terrorism"
+        },
+        {
+            "key": "MEAS8113_S1",
+            "value": "MEAS8113_S1 - The Gulf Strategic Environment"
+        },
+        {
+            "key": "MEAS8127_S1",
+            "value": "MEAS8127_S1 - Islam and Sectarianism in the Middle East"
+        },
+        {
+            "key": "MEAS9001_S1",
+            "value": "MEAS9001_S1 - Critical Approaches and Methods in the Study of the Middle East and Central Asia"
+        },
+        {
+            "key": "MEDN2001_S1",
+            "value": "MEDN2001_S1 - Medical Physiology and Pharmacology"
+        },
+        {
+            "key": "MEDN3186_S1",
+            "value": "MEDN3186_S1 - Human Anatomy"
+        },
+        {
+            "key": "MEDN6001_S1",
+            "value": "MEDN6001_S1 - Medical Physiology and Pharmacology"
+        },
+        {
+            "key": "MGMT1003_S1",
+            "value": "MGMT1003_S1 - Management, People and Organisations"
+        },
+        {
+            "key": "MGMT2001_S1",
+            "value": "MGMT2001_S1 - Corporate Sustainability"
+        },
+        {
+            "key": "MGMT2005_S1",
+            "value": "MGMT2005_S1 - Career Planning and Management"
+        },
+        {
+            "key": "MGMT2006_S1",
+            "value": "MGMT2006_S1 - Personal Leadership"
+        },
+        {
+            "key": "MGMT2030_S1",
+            "value": "MGMT2030_S1 - Human Resource Management and Strategy"
+        },
+        {
+            "key": "MGMT2100_S1",
+            "value": "MGMT2100_S1 - Communication for Business"
+        },
+        {
+            "key": "MGMT3015_S1",
+            "value": "MGMT3015_S1 - Corporate Strategy"
+        },
+        {
+            "key": "MGMT3025_S1",
+            "value": "MGMT3025_S1 - International Human Resource Management"
+        },
+        {
+            "key": "MGMT3102_S1",
+            "value": "MGMT3102_S1 - Business and its Social Stakeholders"
+        },
+        {
+            "key": "MGMT4006_S1",
+            "value": "MGMT4006_S1 - Management Research Methods"
+        },
+        {
+            "key": "MGMT4018_S1",
+            "value": "MGMT4018_S1 - Qualitative Research Methods"
+        },
+        {
+            "key": "MGMT4019_S1",
+            "value": "MGMT4019_S1 - Quantitative Research Methods in Management"
+        },
+        {
+            "key": "MGMT7007_S1",
+            "value": "MGMT7007_S1 - Managing for Sustainability"
+        },
+        {
+            "key": "MGMT7020_S1",
+            "value": "MGMT7020_S1 - Technology and Project Management"
+        },
+        {
+            "key": "MGMT7024_S1",
+            "value": "MGMT7024_S1 - Project Monitoring and Control"
+        },
+        {
+            "key": "MGMT7061_S1",
+            "value": "MGMT7061_S1 - Delivering Team Results"
+        },
+        {
+            "key": "MGMT7153_S1",
+            "value": "MGMT7153_S1 - Building Individual Leadership Capacity"
+        },
+        {
+            "key": "MGMT7165_S1",
+            "value": "MGMT7165_S1 - Innovation"
+        },
+        {
+            "key": "MGMT7170_S1",
+            "value": "MGMT7170_S1 - Tools and Techniques for Business Project Management"
+        },
+        {
+            "key": "MGMT7250_S1",
+            "value": "MGMT7250_S1 - Evidence-Based Management"
+        },
+        {
+            "key": "MGMT8003_S1",
+            "value": "MGMT8003_S1 - Organisational Behaviour"
+        },
+        {
+            "key": "MGMT8006_S1",
+            "value": "MGMT8006_S1 - Management Research Methods"
+        },
+        {
+            "key": "MGMT8007_S1",
+            "value": "MGMT8007_S1 - Evidence-Based Decision-Making and Practice in Organisations Capstone"
+        },
+        {
+            "key": "MGMT8015_S1",
+            "value": "MGMT8015_S1 - Entrepreneurship and Innovation"
+        },
+        {
+            "key": "MGMT8018_S1",
+            "value": "MGMT8018_S1 - Qualitative Research Methods"
+        },
+        {
+            "key": "MGMT8019_S1",
+            "value": "MGMT8019_S1 - Quantitative Research Methods in Management"
+        },
+        {
+            "key": "MGMT8022_S1",
+            "value": "MGMT8022_S1 - Strategic Management"
+        },
+        {
+            "key": "MGMT8062_S1",
+            "value": "MGMT8062_S1 - Managing Major Projects"
+        },
+        {
+            "key": "MGMT8242_S1",
+            "value": "MGMT8242_S1 - Business Growth Strategies"
+        },
+        {
+            "key": "MGMT8270_S1",
+            "value": "MGMT8270_S1 - Leading People and Change"
+        },
+        {
+            "key": "MKTG2002_S1",
+            "value": "MKTG2002_S1 - Sustainable Marketing"
+        },
+        {
+            "key": "MKTG2004_S1",
+            "value": "MKTG2004_S1 - Marketing"
+        },
+        {
+            "key": "MKTG2031_S1",
+            "value": "MKTG2031_S1 - Consumer Behaviour"
+        },
+        {
+            "key": "MKTG2033_S1",
+            "value": "MKTG2033_S1 - Advertising"
+        },
+        {
+            "key": "MKTG3023_S1",
+            "value": "MKTG3023_S1 - Strategic Marketing"
+        },
+        {
+            "key": "MKTG7001_S1",
+            "value": "MKTG7001_S1 - Marketing for Leaders"
+        },
+        {
+            "key": "MKTG7027_S1",
+            "value": "MKTG7027_S1 - Brand Strategy"
+        },
+        {
+            "key": "MKTG7050_S1",
+            "value": "MKTG7050_S1 - Consumer Behaviour & Analysis"
+        },
+        {
+            "key": "MKTG7260_S1",
+            "value": "MKTG7260_S1 - Marketing and Stakeholder Communications"
+        },
+        {
+            "key": "MNGL1002_S1",
+            "value": "MNGL1002_S1 - Mongolian 1"
+        },
+        {
+            "key": "MNGL6002_S1",
+            "value": "MNGL6002_S1 - Mongolian 1"
+        },
+        {
+            "key": "MUSC8012_S1",
+            "value": "MUSC8012_S1 - Understanding Learning in Museums and Heritage"
+        },
+        {
+            "key": "MUSC8017_S1",
+            "value": "MUSC8017_S1 - Museums and Collections: Key Concepts and Practices"
+        },
+        {
+            "key": "MUSI1101_S1",
+            "value": "MUSI1101_S1 - Music Performance 1"
+        },
+        {
+            "key": "MUSI1102_S1",
+            "value": "MUSI1102_S1 - Music Performance 2"
+        },
+        {
+            "key": "MUSI1110_S1",
+            "value": "MUSI1110_S1 - Introduction to Music Technology"
+        },
+        {
+            "key": "MUSI1111_S1",
+            "value": "MUSI1111_S1 - Composition, Arranging, and Sound Design 1"
+        },
+        {
+            "key": "MUSI1113_S1",
+            "value": "MUSI1113_S1 - Introduction to Ethnomusicology"
+        },
+        {
+            "key": "MUSI1501_S1",
+            "value": "MUSI1501_S1 - Aural Skills and Music Theory 1"
+        },
+        {
+            "key": "MUSI2201_S1",
+            "value": "MUSI2201_S1 - Music Performance 3"
+        },
+        {
+            "key": "MUSI2202_S1",
+            "value": "MUSI2202_S1 - Music Performance 4"
+        },
+        {
+            "key": "MUSI2205_S1",
+            "value": "MUSI2205_S1 - Music Project"
+        },
+        {
+            "key": "MUSI2211_S1",
+            "value": "MUSI2211_S1 - Writing about Music 1: Styles and Theories"
+        },
+        {
+            "key": "MUSI2220_S1",
+            "value": "MUSI2220_S1 - Music Ensemble"
+        },
+        {
+            "key": "MUSI2223_S1",
+            "value": "MUSI2223_S1 - Composition, Arranging, and Sound Design 3"
+        },
+        {
+            "key": "MUSI2227_S1",
+            "value": "MUSI2227_S1 - Music, Sound and the Moving Image"
+        },
+        {
+            "key": "MUSI2503_S1",
+            "value": "MUSI2503_S1 - Aural Skills and Music Theory 3"
+        },
+        {
+            "key": "MUSI2507_S1",
+            "value": "MUSI2507_S1 - Advanced Jazz Studies 1"
+        },
+        {
+            "key": "MUSI3301_S1",
+            "value": "MUSI3301_S1 - Music Performance 5"
+        },
+        {
+            "key": "MUSI3302_S1",
+            "value": "MUSI3302_S1 - Music Performance 6"
+        },
+        {
+            "key": "MUSI3309_S1",
+            "value": "MUSI3309_S1 - Music and Digital Media"
+        },
+        {
+            "key": "MUSI3314_S1",
+            "value": "MUSI3314_S1 - Composition, Arranging, and Sound Design 5"
+        },
+        {
+            "key": "MUSI3317_S1",
+            "value": "MUSI3317_S1 - Popular Music: In Culture and in Context"
+        },
+        {
+            "key": "MUSI4401_S1",
+            "value": "MUSI4401_S1 - The Scholar Musician 1"
+        },
+        {
+            "key": "MUSI4404_S1",
+            "value": "MUSI4404_S1 - Creative Practice as Research"
+        },
+        {
+            "key": "MUSI4412_S1",
+            "value": "MUSI4412_S1 - Music Honours Ensemble"
+        },
+        {
+            "key": "MUSI6006_S1",
+            "value": "MUSI6006_S1 - Popular Music: In Culture and in Context"
+        },
+        {
+            "key": "MUSI6009_S1",
+            "value": "MUSI6009_S1 - Music and Digital Media"
+        },
+        {
+            "key": "MUSI6110_S1",
+            "value": "MUSI6110_S1 - Introduction to Music Technology"
+        },
+        {
+            "key": "MUSI6211_S1",
+            "value": "MUSI6211_S1 - Writing about Music 1: Styles and Theories"
+        },
+        {
+            "key": "MUSI7003_S1",
+            "value": "MUSI7003_S1 - The Scholar Musician 1"
+        },
+        {
+            "key": "MUSI8005_S1",
+            "value": "MUSI8005_S1 - Graduate Composition, Arranging, and Sound Design 2"
+        },
+        {
+            "key": "MUSI8006_S1",
+            "value": "MUSI8006_S1 - Graduate Composition, Arranging, and Sound Design 3"
+        },
+        {
+            "key": "MUSI8011_S1",
+            "value": "MUSI8011_S1 - Creative Practice as Research"
+        },
+        {
+            "key": "NEUR3101_S1",
+            "value": "NEUR3101_S1 - Cellular Neuroscience"
+        },
+        {
+            "key": "NEUR6101_S1",
+            "value": "NEUR6101_S1 - Cellular Neuroscience"
+        },
+        {
+            "key": "NSPO8007_S1",
+            "value": "NSPO8007_S1 - National Security: Concepts and Methods"
+        },
+        {
+            "key": "NSPO8008_S1",
+            "value": "NSPO8008_S1 - Ethical Challenges for National Security"
+        },
+        {
+            "key": "NSPO8012_S1",
+            "value": "NSPO8012_S1 - Leadership, Risk and National Security Crisis Management"
+        },
+        {
+            "key": "NSPO8028_S1",
+            "value": "NSPO8028_S1 - History for Policymakers"
+        },
+        {
+            "key": "NSPO8032_S1",
+            "value": "NSPO8032_S1 - Geoeconomics and national security"
+        },
+        {
+            "key": "NSPO8036_S1",
+            "value": "NSPO8036_S1 - Australian National Security Law: An introduction for policymakers"
+        },
+        {
+            "key": "PASI1011_S1",
+            "value": "PASI1011_S1 - Pacific Encounters: An introduction to Pacific Studies"
+        },
+        {
+            "key": "PASI2001_S1",
+            "value": "PASI2001_S1 - Pacific Studies in a Globalizing World"
+        },
+        {
+            "key": "PASI3001_S1",
+            "value": "PASI3001_S1 - Politics and Development in the Contemporary Pacific"
+        },
+        {
+            "key": "PASI6001_S1",
+            "value": "PASI6001_S1 - Pacific Studies in a Globalizing World"
+        },
+        {
+            "key": "PASI8002_S1",
+            "value": "PASI8002_S1 - Pacific Foundations: From Maritime Societies to Global Cultures"
+        },
+        {
+            "key": "PERS1001_S1",
+            "value": "PERS1001_S1 - Introductory Persian A"
+        },
+        {
+            "key": "PERS2003_S1",
+            "value": "PERS2003_S1 - Intermediate Persian A"
+        },
+        {
+            "key": "PERS3005_S1",
+            "value": "PERS3005_S1 - Advanced Persian A"
+        },
+        {
+            "key": "PERS6001_S1",
+            "value": "PERS6001_S1 - Introductory Persian A"
+        },
+        {
+            "key": "PERS6003_S1",
+            "value": "PERS6003_S1 - Intermediate Persian A"
+        },
+        {
+            "key": "PERS6005_S1",
+            "value": "PERS6005_S1 - Advanced Persian A"
+        },
+        {
+            "key": "PHIL1004_S1",
+            "value": "PHIL1004_S1 - Fundamental Ideas in Philosophy: An Introduction"
+        },
+        {
+            "key": "PHIL1008_S1",
+            "value": "PHIL1008_S1 - Introduction to Ethics"
+        },
+        {
+            "key": "PHIL2042_S1",
+            "value": "PHIL2042_S1 - Philosophy of the Cosmos"
+        },
+        {
+            "key": "PHIL2080_S1",
+            "value": "PHIL2080_S1 - Logic"
+        },
+        {
+            "key": "PHIL2125_S1",
+            "value": "PHIL2125_S1 - Rationality and Social Cooperation"
+        },
+        {
+            "key": "PHIL3075_S1",
+            "value": "PHIL3075_S1 - The Philosophy of Gender: Knowledge, Power, Bodies"
+        },
+        {
+            "key": "PHIL3077_S1",
+            "value": "PHIL3077_S1 - The Metaphysics of David Lewis"
+        },
+        {
+            "key": "PHYS1001_S1",
+            "value": "PHYS1001_S1 - Foundations of Physics"
+        },
+        {
+            "key": "PHYS1101_S1",
+            "value": "PHYS1101_S1 - Physics I"
+        },
+        {
+            "key": "PHYS2013_S1",
+            "value": "PHYS2013_S1 - Quantum Mechanics"
+        },
+        {
+            "key": "PHYS2020_S1",
+            "value": "PHYS2020_S1 - Thermal and Statistical Physics"
+        },
+        {
+            "key": "PHYS3057_S1",
+            "value": "PHYS3057_S1 - Optical Physics"
+        },
+        {
+            "key": "PHYS3060_S1",
+            "value": "PHYS3060_S1 - Fibre Optic Communication Systems"
+        },
+        {
+            "key": "PHYS3101_S1",
+            "value": "PHYS3101_S1 - Advanced Quantum Mechanics"
+        },
+        {
+            "key": "PHYS3102_S1",
+            "value": "PHYS3102_S1 - Advanced Electromagnetism"
+        },
+        {
+            "key": "PHYS3103_S1",
+            "value": "PHYS3103_S1 - Advanced Statistical Mechanics"
+        },
+        {
+            "key": "PHYS3104_S1",
+            "value": "PHYS3104_S1 - Physics Advanced Laboratory"
+        },
+        {
+            "key": "PHYS3105_S1",
+            "value": "PHYS3105_S1 - Physics of Matter"
+        },
+        {
+            "key": "PHYS3701_S1",
+            "value": "PHYS3701_S1 - Rapid Prototyping and Systems Integration"
+        },
+        {
+            "key": "PHYS3711_S1",
+            "value": "PHYS3711_S1 - Fundamentals of Noise and Measurement"
+        },
+        {
+            "key": "PHYS4301_S1",
+            "value": "PHYS4301_S1 - Applied Mathematical Methods in Physics"
+        },
+        {
+            "key": "PHYS4303_S1",
+            "value": "PHYS4303_S1 - Nonlinear Dynamics in Physics"
+        },
+        {
+            "key": "PHYS4304_S1",
+            "value": "PHYS4304_S1 - Quantum Scattering"
+        },
+        {
+            "key": "PHYS6013_S1",
+            "value": "PHYS6013_S1 - Quantum Mechanics"
+        },
+        {
+            "key": "PHYS6020_S1",
+            "value": "PHYS6020_S1 - Thermal and Statistical Physics"
+        },
+        {
+            "key": "PHYS6101_S1",
+            "value": "PHYS6101_S1 - Advanced Quantum Mechanics"
+        },
+        {
+            "key": "PHYS6102_S1",
+            "value": "PHYS6102_S1 - Advanced Electromagnetism"
+        },
+        {
+            "key": "PHYS6103_S1",
+            "value": "PHYS6103_S1 - Advanced Statistical Mechanics"
+        },
+        {
+            "key": "PHYS6105_S1",
+            "value": "PHYS6105_S1 - Physics of Matter"
+        },
+        {
+            "key": "PHYS6500_S1",
+            "value": "PHYS6500_S1 - Optical Physics"
+        },
+        {
+            "key": "PHYS6501_S1",
+            "value": "PHYS6501_S1 - Fibre Optic Communication Systems"
+        },
+        {
+            "key": "PHYS6701_S1",
+            "value": "PHYS6701_S1 - Rapid Prototyping and Systems Integration"
+        },
+        {
+            "key": "PHYS6711_S1",
+            "value": "PHYS6711_S1 - Fundamentals of Noise and Measurement"
+        },
+        {
+            "key": "PHYS8013_S1",
+            "value": "PHYS8013_S1 - Principles of Energy Generation and Transformation"
+        },
+        {
+            "key": "PHYS8014_S1",
+            "value": "PHYS8014_S1 - Photonics in Biotechnology and Nanotechnology"
+        },
+        {
+            "key": "PHYS8015_S1",
+            "value": "PHYS8015_S1 - Photonics Laboratory"
+        },
+        {
+            "key": "PHYS8301_S1",
+            "value": "PHYS8301_S1 - Applied Mathematical Methods in Physics"
+        },
+        {
+            "key": "PHYS8302_S1",
+            "value": "PHYS8302_S1 - Quantum Field Theory II"
+        },
+        {
+            "key": "PHYS8303_S1",
+            "value": "PHYS8303_S1 - Nonlinear Dynamics in Physics"
+        },
+        {
+            "key": "PHYS8304_S1",
+            "value": "PHYS8304_S1 - Quantum Scattering"
+        },
+        {
+            "key": "POGO8016_S1",
+            "value": "POGO8016_S1 - The Economic Way of Thinking"
+        },
+        {
+            "key": "POGO8062_S1",
+            "value": "POGO8062_S1 - Public Sector Management"
+        },
+        {
+            "key": "POGO8401_S1",
+            "value": "POGO8401_S1 - Foundations in Public Policy"
+        },
+        {
+            "key": "POGO8500_S1",
+            "value": "POGO8500_S1 - Evidence and Analysis in Public Policy"
+        },
+        {
+            "key": "POLS1002_S1",
+            "value": "POLS1002_S1 - Introduction to Politics"
+        },
+        {
+            "key": "POLS1006_S1",
+            "value": "POLS1006_S1 - Introduction to International Relations:  Contemporary Global Issues"
+        },
+        {
+            "key": "POLS2009_S1",
+            "value": "POLS2009_S1 - Bureaucracy, Politics and Power"
+        },
+        {
+            "key": "POLS2043_S1",
+            "value": "POLS2043_S1 - Pressure Groups and Political Lobbying"
+        },
+        {
+            "key": "POLS2069_S1",
+            "value": "POLS2069_S1 - Politics in Russia"
+        },
+        {
+            "key": "POLS2095_S1",
+            "value": "POLS2095_S1 - Politics in Latin America"
+        },
+        {
+            "key": "POLS2119_S1",
+            "value": "POLS2119_S1 - Ideas in Politics"
+        },
+        {
+            "key": "POLS2130_S1",
+            "value": "POLS2130_S1 - Public Choice and Politics"
+        },
+        {
+            "key": "POLS2133_S1",
+            "value": "POLS2133_S1 - International Organisations in World Politics"
+        },
+        {
+            "key": "POLS2137_S1",
+            "value": "POLS2137_S1 - Meaning in Politics: Interpretation, Method and Critique"
+        },
+        {
+            "key": "POLS3001_S1",
+            "value": "POLS3001_S1 - Foreign Policy Analysis"
+        },
+        {
+            "key": "POLS3038_S1",
+            "value": "POLS3038_S1 - Media and Politics"
+        },
+        {
+            "key": "POLS3070_S1",
+            "value": "POLS3070_S1 - Politics in Central Asia"
+        },
+        {
+            "key": "POLS4011_S1",
+            "value": "POLS4011_S1 - Research Training: Scope and Methods"
+        },
+        {
+            "key": "POLS4013_S1",
+            "value": "POLS4013_S1 - International Relations Theory"
+        },
+        {
+            "key": "POLS4021_S1",
+            "value": "POLS4021_S1 - Civilian Protection in Conflict and Post-Conflict Zones"
+        },
+        {
+            "key": "POLS4027_S1",
+            "value": "POLS4027_S1 - Terrorism & Counter Terrorism"
+        },
+        {
+            "key": "POLS4039_S1",
+            "value": "POLS4039_S1 - Comparative Political Behavior"
+        },
+        {
+            "key": "POLS4041_S1",
+            "value": "POLS4041_S1 - Special Topics in Comparative Politics"
+        },
+        {
+            "key": "POLS4047_S1",
+            "value": "POLS4047_S1 - Interpretation, Method, Critique: Interpretivist Methods in the Social Sciences"
+        },
+        {
+            "key": "POLS8019_S1",
+            "value": "POLS8019_S1 - Democracy and its Discontents"
+        },
+        {
+            "key": "POLS8027_S1",
+            "value": "POLS8027_S1 - Terrorism and Counter Terrorism"
+        },
+        {
+            "key": "POLS8039_S1",
+            "value": "POLS8039_S1 - Comparative Political Behaviour"
+        },
+        {
+            "key": "POLS8041_S1",
+            "value": "POLS8041_S1 - Special Topics In Comparative Politics"
+        },
+        {
+            "key": "POLS8042_S1",
+            "value": "POLS8042_S1 - Quantitative Research for Political Science"
+        },
+        {
+            "key": "POLS8047_S1",
+            "value": "POLS8047_S1 - Interpretation, Method, Critique: Interpretivist Methods in the Social Sciences"
+        },
+        {
+            "key": "POPH4101_S1",
+            "value": "POPH4101_S1 - Biostatistics in Population Health"
+        },
+        {
+            "key": "POPH8101_S1",
+            "value": "POPH8101_S1 - Biostatistics in Population Health"
+        },
+        {
+            "key": "POPH8102_S1",
+            "value": "POPH8102_S1 - Global Population Health"
+        },
+        {
+            "key": "POPH8103_S1",
+            "value": "POPH8103_S1 - Introduction to Health Services Research and Policy"
+        },
+        {
+            "key": "PORT1001_S1",
+            "value": "PORT1001_S1 - Introductory Portuguese I"
+        },
+        {
+            "key": "PORT6501_S1",
+            "value": "PORT6501_S1 - Introductory Portuguese I"
+        },
+        {
+            "key": "PPEI4000_S1",
+            "value": "PPEI4000_S1 - PPE Honours Research Methods"
+        },
+        {
+            "key": "PSYC1003_S1",
+            "value": "PSYC1003_S1 - Psychology 1: Understanding Mind, Brain and Behaviour"
+        },
+        {
+            "key": "PSYC2002_S1",
+            "value": "PSYC2002_S1 - Developmental Psychology"
+        },
+        {
+            "key": "PSYC2009_S1",
+            "value": "PSYC2009_S1 - Quantitative Methods in Psychology"
+        },
+        {
+            "key": "PSYC3002_S1",
+            "value": "PSYC3002_S1 - The Social Psychology of Group Processes and Social Change"
+        },
+        {
+            "key": "PSYC3016_S1",
+            "value": "PSYC3016_S1 - Neuropsychology and Cognitive Neuroscience"
+        },
+        {
+            "key": "PSYC3018_S1",
+            "value": "PSYC3018_S1 - Advanced Research Methods"
+        },
+        {
+            "key": "PSYC3025_S1",
+            "value": "PSYC3025_S1 - Psychopathology across the Lifespan"
+        },
+        {
+            "key": "PSYC4011_S1",
+            "value": "PSYC4011_S1 - Psychology Honours"
+        },
+        {
+            "key": "PSYC6016_S1",
+            "value": "PSYC6016_S1 - Neuropsychology and Cognitive Neuroscience"
+        },
+        {
+            "key": "PSYC8411_S1",
+            "value": "PSYC8411_S1 - Research Methods and Statistics in Professional Psychology"
+        },
+        {
+            "key": "REGN8013_S1",
+            "value": "REGN8013_S1 - Criminology"
+        },
+        {
+            "key": "RUSS1003_S1",
+            "value": "RUSS1003_S1 - Reading Russian for Academic Purposes I"
+        },
+        {
+            "key": "RUSS6002_S1",
+            "value": "RUSS6002_S1 - Reading Russian for Academic Purposes I"
+        },
+        {
+            "key": "SCOM1001_S1",
+            "value": "SCOM1001_S1 - Science Communication 1: Science and Public Awareness"
+        },
+        {
+            "key": "SCOM2016_S1",
+            "value": "SCOM2016_S1 - Science in the Media"
+        },
+        {
+            "key": "SCOM2031_S1",
+            "value": "SCOM2031_S1 - Science, Risk and Ethics"
+        },
+        {
+            "key": "SCOM3003_S1",
+            "value": "SCOM3003_S1 - Science Communication Research Project"
+        },
+        {
+            "key": "SCOM4014_S1",
+            "value": "SCOM4014_S1 - Communicating Science with the Public"
+        },
+        {
+            "key": "SCOM4019_S1",
+            "value": "SCOM4019_S1 - Research Methods for Science Communication"
+        },
+        {
+            "key": "SCOM6031_S1",
+            "value": "SCOM6031_S1 - Science, Risk and Ethics"
+        },
+        {
+            "key": "SCOM7000_S1",
+            "value": "SCOM7000_S1 - Master of Science Communication Research Project"
+        },
+        {
+            "key": "SCOM8000_S1",
+            "value": "SCOM8000_S1 - Master of Science Communication Research Project"
+        },
+        {
+            "key": "SCOM8014_S1",
+            "value": "SCOM8014_S1 - Communicating Science with the Public"
+        },
+        {
+            "key": "SCOM8019_S1",
+            "value": "SCOM8019_S1 - Research Methods in Science Communication"
+        },
+        {
+            "key": "SCRN2002_S1",
+            "value": "SCRN2002_S1 - Australian Cinema"
+        },
+        {
+            "key": "SCRN3002_S1",
+            "value": "SCRN3002_S1 - Screening the Real"
+        },
+        {
+            "key": "SCRN3003_S1",
+            "value": "SCRN3003_S1 - Screen Studies Capstone Project"
+        },
+        {
+            "key": "SKRT2103_S1",
+            "value": "SKRT2103_S1 - Sanskrit 3"
+        },
+        {
+            "key": "SKRT3002_S1",
+            "value": "SKRT3002_S1 - Advanced Sanskrit Literature A"
+        },
+        {
+            "key": "SKRT6002_S1",
+            "value": "SKRT6002_S1 - Advanced Sanskrit Literature A"
+        },
+        {
+            "key": "SKRT6160_S1",
+            "value": "SKRT6160_S1 - Sanskrit 3"
+        },
+        {
+            "key": "SOCR4001_S1",
+            "value": "SOCR4001_S1 - Statistics for Social Scientists"
+        },
+        {
+            "key": "SOCR4008_S1",
+            "value": "SOCR4008_S1 - Qualitative Social Research"
+        },
+        {
+            "key": "SOCR8001_S1",
+            "value": "SOCR8001_S1 - Statistics for Social Scientists"
+        },
+        {
+            "key": "SOCR8008_S1",
+            "value": "SOCR8008_S1 - Qualitative data collection"
+        },
+        {
+            "key": "SOCR8202_S1",
+            "value": "SOCR8202_S1 - Using Data to Answer Policy Questions and Evaluate Policy"
+        },
+        {
+            "key": "SOCY1002_S1",
+            "value": "SOCY1002_S1 - Self and Society"
+        },
+        {
+            "key": "SOCY1006_S1",
+            "value": "SOCY1006_S1 - Society & Technological Change"
+        },
+        {
+            "key": "SOCY2038_S1",
+            "value": "SOCY2038_S1 - Introduction to Quantitative Research Methods"
+        },
+        {
+            "key": "SOCY2161_S1",
+            "value": "SOCY2161_S1 - Contemporary Social Theory"
+        },
+        {
+            "key": "SOCY2166_S1",
+            "value": "SOCY2166_S1 - Social Science of the Internet"
+        },
+        {
+            "key": "SOCY3010_S1",
+            "value": "SOCY3010_S1 - Posthuman Bodies"
+        },
+        {
+            "key": "SOCY4009_S1",
+            "value": "SOCY4009_S1 - Sociology Honours Theory Seminar"
+        },
+        {
+            "key": "SOCY4010_S1",
+            "value": "SOCY4010_S1 - Sociology Honours Methods Seminar"
+        },
+        {
+            "key": "SOCY6066_S1",
+            "value": "SOCY6066_S1 - Social Science of the Internet"
+        },
+        {
+            "key": "SPAN1001_S1",
+            "value": "SPAN1001_S1 - Introduction to Spanish I"
+        },
+        {
+            "key": "SPAN2001_S1",
+            "value": "SPAN2001_S1 - Continuing Spanish I"
+        },
+        {
+            "key": "SPAN3001_S1",
+            "value": "SPAN3001_S1 - Intermediate Spanish I"
+        },
+        {
+            "key": "SPAN3030_S1",
+            "value": "SPAN3030_S1 - Advanced Spanish topics in Language and Culture"
+        },
+        {
+            "key": "SPAN6501_S1",
+            "value": "SPAN6501_S1 - Introduction to Spanish I"
+        },
+        {
+            "key": "SPAN6503_S1",
+            "value": "SPAN6503_S1 - Continuing Spanish I"
+        },
+        {
+            "key": "SPAN6507_S1",
+            "value": "SPAN6507_S1 - Intermediate Spanish I"
+        },
+        {
+            "key": "SPAN6510_S1",
+            "value": "SPAN6510_S1 - Advanced Spanish Topics in Language and Culture"
+        },
+        {
+            "key": "STAT1003_S1",
+            "value": "STAT1003_S1 - Statistical Techniques"
+        },
+        {
+            "key": "STAT1008_S1",
+            "value": "STAT1008_S1 - Quantitative Research Methods"
+        },
+        {
+            "key": "STAT2001_S1",
+            "value": "STAT2001_S1 - Introductory Mathematical Statistics"
+        },
+        {
+            "key": "STAT2008_S1",
+            "value": "STAT2008_S1 - Regression Modelling"
+        },
+        {
+            "key": "STAT2013_S1",
+            "value": "STAT2013_S1 - Introductory Mathematical Statistics for Actuarial Studies"
+        },
+        {
+            "key": "STAT2014_S1",
+            "value": "STAT2014_S1 - Regression Modelling for Actuarial Studies"
+        },
+        {
+            "key": "STAT2032_S1",
+            "value": "STAT2032_S1 - Financial Mathematics"
+        },
+        {
+            "key": "STAT3004_S1",
+            "value": "STAT3004_S1 - Stochastic Modelling"
+        },
+        {
+            "key": "STAT3012_S1",
+            "value": "STAT3012_S1 - Design of Experiments and Surveys"
+        },
+        {
+            "key": "STAT3013_S1",
+            "value": "STAT3013_S1 - Statistical Inference"
+        },
+        {
+            "key": "STAT3032_S1",
+            "value": "STAT3032_S1 - Survival Models"
+        },
+        {
+            "key": "STAT3040_S1",
+            "value": "STAT3040_S1 - Statistical Learning"
+        },
+        {
+            "key": "STAT3057_S1",
+            "value": "STAT3057_S1 - Risk Modelling 1"
+        },
+        {
+            "key": "STAT4018_S1",
+            "value": "STAT4018_S1 - Stochastic Modelling"
+        },
+        {
+            "key": "STAT4027_S1",
+            "value": "STAT4027_S1 - Statistical Inference"
+        },
+        {
+            "key": "STAT4029_S1",
+            "value": "STAT4029_S1 - Design of Experiments and Surveys"
+        },
+        {
+            "key": "STAT4038_S1",
+            "value": "STAT4038_S1 - Regression Modelling"
+        },
+        {
+            "key": "STAT4040_S1",
+            "value": "STAT4040_S1 - Statistical Learning"
+        },
+        {
+            "key": "STAT4072_S1",
+            "value": "STAT4072_S1 - Survival Models"
+        },
+        {
+            "key": "STAT4102_S1",
+            "value": "STAT4102_S1 - Applied Time Series Analysis"
+        },
+        {
+            "key": "STAT6013_S1",
+            "value": "STAT6013_S1 - Principles of Mathematical Statistics for Actuarial Studies"
+        },
+        {
+            "key": "STAT6014_S1",
+            "value": "STAT6014_S1 - Regression Modelling for Actuarial Studies"
+        },
+        {
+            "key": "STAT6038_S1",
+            "value": "STAT6038_S1 - Regression Modelling"
+        },
+        {
+            "key": "STAT6039_S1",
+            "value": "STAT6039_S1 - Principles of Mathematical Statistics"
+        },
+        {
+            "key": "STAT6046_S1",
+            "value": "STAT6046_S1 - Financial Mathematics"
+        },
+        {
+            "key": "STAT7018_S1",
+            "value": "STAT7018_S1 - Stochastic Modelling"
+        },
+        {
+            "key": "STAT7029_S1",
+            "value": "STAT7029_S1 - Design of Experiments and Surveys"
+        },
+        {
+            "key": "STAT7040_S1",
+            "value": "STAT7040_S1 - Statistical Learning"
+        },
+        {
+            "key": "STAT7042_S1",
+            "value": "STAT7042_S1 - Survival Models"
+        },
+        {
+            "key": "STAT7055_S1",
+            "value": "STAT7055_S1 - Introductory Statistics for Business and Finance"
+        },
+        {
+            "key": "STAT8002_S1",
+            "value": "STAT8002_S1 - Applied Time Series Analysis"
+        },
+        {
+            "key": "STAT8003_S1",
+            "value": "STAT8003_S1 - Biostatistics"
+        },
+        {
+            "key": "STAT8027_S1",
+            "value": "STAT8027_S1 - Statistical Inference"
+        },
+        {
+            "key": "STAT8057_S1",
+            "value": "STAT8057_S1 - Risk Modelling 1"
+        },
+        {
+            "key": "STST1001_S1",
+            "value": "STST1001_S1 - Introduction to International Security Studies"
+        },
+        {
+            "key": "STST1003_S1",
+            "value": "STST1003_S1 - Coping with Crisis: The Practice of International Security"
+        },
+        {
+            "key": "STST2003_S1",
+            "value": "STST2003_S1 - Australia and Security in the Pacific Islands"
+        },
+        {
+            "key": "STST3003_S1",
+            "value": "STST3003_S1 - Honeypots and Overcoats: Australian Intelligence in the World"
+        },
+        {
+            "key": "STST4001_S1",
+            "value": "STST4001_S1 - Fundamentals of Research Design in Security Studies"
+        },
+        {
+            "key": "STST8001_S1",
+            "value": "STST8001_S1 - Strategic Studies"
+        },
+        {
+            "key": "STST8013_S1",
+            "value": "STST8013_S1 - China's Defence and Strategic Challenges"
+        },
+        {
+            "key": "STST8026_S1",
+            "value": "STST8026_S1 - Nuclear Strategy in the Asian Century"
+        },
+        {
+            "key": "STST8068_S1",
+            "value": "STST8068_S1 - Asian Strategy and Security: History, Theory and Practice"
+        },
+        {
+            "key": "TETM1002_S1",
+            "value": "TETM1002_S1 - Tetum 1"
+        },
+        {
+            "key": "TETM2004_S1",
+            "value": "TETM2004_S1 - Tetum 3"
+        },
+        {
+            "key": "TETM6002_S1",
+            "value": "TETM6002_S1 - Tetum 1"
+        },
+        {
+            "key": "TETM6104_S1",
+            "value": "TETM6104_S1 - Tetum 3"
+        },
+        {
+            "key": "THAI1002_S1",
+            "value": "THAI1002_S1 - Thai 1"
+        },
+        {
+            "key": "THAI2002_S1",
+            "value": "THAI2002_S1 - Thai 3"
+        },
+        {
+            "key": "THAI3002_S1",
+            "value": "THAI3002_S1 - Thai 5"
+        },
+        {
+            "key": "THAI6002_S1",
+            "value": "THAI6002_S1 - Thai 3"
+        },
+        {
+            "key": "THAI6102_S1",
+            "value": "THAI6102_S1 - Thai 1"
+        },
+        {
+            "key": "THAI6502_S1",
+            "value": "THAI6502_S1 - Thai 5"
+        },
+        {
+            "key": "TOKP1002_S1",
+            "value": "TOKP1002_S1 - Tok Pisin 1"
+        },
+        {
+            "key": "TOKP2001_S1",
+            "value": "TOKP2001_S1 - Tok Pisin 3"
+        },
+        {
+            "key": "TOKP6002_S1",
+            "value": "TOKP6002_S1 - Tok Pisin 1"
+        },
+        {
+            "key": "TOKP6101_S1",
+            "value": "TOKP6101_S1 - Tok Pisin 3"
+        },
+        {
+            "key": "TURK1001_S1",
+            "value": "TURK1001_S1 - Elementary Turkish A"
+        },
+        {
+            "key": "TURK6001_S1",
+            "value": "TURK6001_S1 - Elementary Turkish A"
+        },
+        {
+            "key": "VCPG6003_S1",
+            "value": "VCPG6003_S1 - Leadership and Influence in a Complex World"
+        },
+        {
+            "key": "VCUG2002_S1",
+            "value": "VCUG2002_S1 - Leadership and Influence in a Complex World"
+        },
+        {
+            "key": "VIET1002_S1",
+            "value": "VIET1002_S1 - Vietnamese 1"
+        },
+        {
+            "key": "VIET2002_S1",
+            "value": "VIET2002_S1 - Vietnamese 3"
+        },
+        {
+            "key": "VIET3002_S1",
+            "value": "VIET3002_S1 - Vietnamese 5"
+        },
+        {
+            "key": "VIET6002_S1",
+            "value": "VIET6002_S1 - Vietnamese 3"
+        },
+        {
+            "key": "VIET6102_S1",
+            "value": "VIET6102_S1 - Vietnamese 1"
+        },
+        {
+            "key": "VIET6502_S1",
+            "value": "VIET6502_S1 - Vietnamese 5"
+        },
+        {
+            "key": "WARS1001_S1",
+            "value": "WARS1001_S1 - War in the Modern World, 1789 to today"
+        }
     ]
 }

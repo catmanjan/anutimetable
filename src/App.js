@@ -53,12 +53,7 @@ class App extends Component {
     dayEnd: add(startOfDay(anuInitialTime), {hours: 17, minutes: 30}),
     cacheStart: sub(startOfWeek(anuInitialTime), {weeks: 1}),
     cacheEnd: add(endOfWeek(anuInitialTime), {weeks: 1}),
-    modules: [
-      {
-        key: "MEDI8020A_S1",
-        value: "MEDI8020A_S1 - Medicine 2"
-      }
-    ],
+    modules: [],
     enrolled: JSON.parse(localStorage.getItem('enrolled')) || [],
     events: [
       {
@@ -98,7 +93,7 @@ class App extends Component {
         if (!res.ok) {
           throw new Error('Timetable API request failed')
         } else {
-          res.json()
+          return res.json()
         }})
       .then(
         res => {
@@ -163,6 +158,19 @@ class App extends Component {
     appInsights.loadAppInsights();
     appInsights.trackPageView();
 
+    // Generated from master branch with \( "[^\\]+)\\u00a0 '{"key":$1","value":$1 - ' and find/replace
+    // TODO use scheduled function to pull all courses and update json if necessary
+    fetch('./courses.json')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`Couldn't load courses from JSON cache`)
+        } else {
+          return res.json()
+        }})
+      .then(res => this.setState({
+        ...this.state,
+        modules: res.courses
+      }))
     this.addEvents(this.state.cacheStart, this.state.cacheEnd);
   }
 
