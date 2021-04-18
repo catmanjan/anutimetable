@@ -18,6 +18,12 @@ import { createEvents } from 'ics';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
+import { ApplicationInsights } from '@microsoft/applicationinsights-web'
+
+const appInsights = new ApplicationInsights({ config: {
+  instrumentationKey: process.env.REACT_APP_INSIGHTS_KEY
+} });
+
 const locales = {
     'en-US': require('date-fns/locale/en-US'),
 }
@@ -76,8 +82,7 @@ class App extends Component {
       headers: {
         'accept': 'application/json',
         'authorization': `Basic ${process.env.REACT_APP_AUTH_KEY}`,
-        'x-ibm-client-id': process.env.REACT_APP_AUTH_ID,
-        'x-api-key': process.env.REACT_APP_DEV_KEY || ''
+        'x-ibm-client-id': process.env.REACT_APP_AUTH_ID
       }
     })
       .then(res => {
@@ -146,6 +151,9 @@ class App extends Component {
   }
 
   componentDidMount(){
+    appInsights.loadAppInsights();
+    appInsights.trackPageView();
+
     this.addEvents(this.state.cacheStart, this.state.cacheEnd);
   }
 
@@ -158,7 +166,7 @@ class App extends Component {
           <Row>
             <Col md='auto'><i>Courses chosen: {this.state.enrolled.length === 0 ? 'None.' : ''}</i></Col>
             <IconContext.Provider value={{ color: "red", size: "1.5em" }}>
-              {this.state.enrolled.map(module => <Col md='auto'><i>{module}</i> <RiDeleteBinLine onClick={()=>{
+              {this.state.enrolled.map(module => <Col md='auto' key={module}><i>{module}</i> <RiDeleteBinLine onClick={()=>{
                 let temp = this.state.events;
 
                 let firstIndex = null
