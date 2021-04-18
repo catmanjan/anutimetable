@@ -18,11 +18,20 @@ import { createEvents } from 'ics';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-import { ApplicationInsights } from '@microsoft/applicationinsights-web'
+import { ApplicationInsights } from '@microsoft/applicationinsights-web';
+import { ReactPlugin, withAITracking } from '@microsoft/applicationinsights-react-js';
 
-const appInsights = new ApplicationInsights({ config: {
-  instrumentationKey: process.env.REACT_APP_INSIGHTS_KEY
-} });
+const reactPlugin = new ReactPlugin();
+const appInsights = new ApplicationInsights({
+    config: {
+      connectionString: process.env.REACT_APP_INSIGHTS_STRING,
+      disableFetchTracking: false,
+      enableCorsCorrelation: true,
+      enableRequestHeaderTracking: true,
+      enableResponseHeaderTracking: true,
+      extensions: [reactPlugin]
+    }
+});
 
 const locales = {
     'en-US': require('date-fns/locale/en-US'),
@@ -318,4 +327,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withAITracking(reactPlugin, App);
