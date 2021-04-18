@@ -1,8 +1,15 @@
-# anutimetable
+# ANU Unofficial Timetable
+![Website status](https://img.shields.io/website?down_color=red&down_message=offline&up_color=success&up_message=online&url=https%3A%2F%2Fanutimetable.com%2F&logo=microsoft-azure&logoColor=white)
+![Build status](https://img.shields.io/github/workflow/status/pl4nty/anutimetable/Build%20and%20deploy%20to%20Azure?logo=github&logoColor=white)
 
 * Timetable database last update: 2021-07-15
+## Changelog
 
-## Updates
+### 2021-04-18
+Fully rewritten in React with ANU's official API thanks to [@pl4nty](https://github.com/pl4nty)
+
+### 2021-02-13
+Added automatic daily scrapes of the timetable thanks to [@BishopOfTurkey](https://github.com/BishopOfTurkey)
 
 ### 2021-02-13
 - Added automatic daily scrapes of the timetable thanks to [@BishopOfTurkey](https://github.com/BishopOfTurkey)
