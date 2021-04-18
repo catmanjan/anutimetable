@@ -34,9 +34,7 @@ jobs:
           REACT_APP_ENDPOINT: ${{ secrets.REACT_APP_ENDPOINT }}
           REACT_APP_AUTH_ID: ${{ secrets.REACT_APP_AUTH_ID }}
           REACT_APP_AUTH_KEY: ${{ secrets.REACT_APP_AUTH_KEY }}
-          REACT_APP_DEV_KEY: ${{ secrets.REACT_APP_DEV_KEY }}
-          REACT_APP_DAY_START: "09:00:00+10:00"
-          REACT_APP_DAY_END: "15:30:00+10:00"
+          REACT_APP_INSIGHTS_STRING: ${{ secrets.REACT_APP_INSIGHTS_STRING }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
