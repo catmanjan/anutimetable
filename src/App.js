@@ -162,6 +162,93 @@ class App extends Component {
     this.addEvents(this.state.cacheStart, this.state.cacheEnd);
   }
 
+  deleteModule(module) {
+    // Remove a course and all associated events/classes
+    let temp = this.state.events;
+
+    let firstIndex = null
+    temp.some((event, i) => {
+      return event.title.startsWith(module) ? ((firstIndex = i), true) : false;
+    });
+
+    if (firstIndex !== null) {
+      for (let lastIndex = firstIndex + 1; lastIndex <= temp.length; lastIndex++) {
+        if (lastIndex === temp.length || !temp[lastIndex].title.startsWith(module)) {
+          temp.splice(firstIndex, lastIndex - firstIndex)
+          this.setState({
+            enrolled: temp
+          })
+          break
+        }
+      }
+    }
+
+    let index = this.state.enrolled.indexOf(module);
+    if (index !== -1) {
+      let temp = this.state.enrolled
+      temp.splice(index, 1)
+      this.setState({
+        enrolled: temp
+      })
+    }
+
+    localStorage.setItem('enrolled', JSON.stringify(this.state.enrolled))
+  }
+
+  addModule(module) {
+    // Add a course
+    let temp = this.state.enrolled
+    temp.push(record.key)
+
+    this.setState({
+      enrolled: temp
+    })
+    localStorage.setItem('enrolled', JSON.stringify(temp))
+
+    this.addEvent(this.state.cacheStart, this.state.cacheEnd, record.key)
+  }
+
+  rangeChanged(range) {
+    // Calendar view date bounds changed
+    const newEnd = add(range[range.length - 1], { weeks: 1 });
+
+    if (isAfter(newEnd, this.state.cacheEnd)) {
+      this.addEvents(this.state.cacheEnd, newEnd)
+      this.setState({
+        ...this.state,
+        cacheEnd: newEnd
+      })
+    } else {
+      const newStart = sub(range[0], { weeks: 1 });
+
+      if (isBefore(newStart, this.state.cacheStart)) {
+        this.addEvents(newStart, this.state.cacheStart)
+        this.setState({
+          ...this.state,
+          cacheStart: newStart
+        })
+      }
+    }
+  }
+
+  chooseEvent(event) {
+    // Choose a time slot for a class
+    let temp = this.state.events.filter(target => target.title !== event.title)
+    temp.push(event.event)
+
+    this.setState({
+      events: temp
+    })
+  }
+
+  deleteEvent(event) {
+    // Unselect a time slot for a class
+    let index = this.state.events.indexOf(event.event);
+    if (index !== -1) {
+      this.state.events.splice(index, 1)
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -171,37 +258,7 @@ class App extends Component {
           <Row>
             <Col md='auto'><i>Courses chosen: {this.state.enrolled.length === 0 ? 'None.' : ''}</i></Col>
             <IconContext.Provider value={{ color: "red", size: "1.5em" }}>
-              {this.state.enrolled.map(module => <Col md='auto' key={module}><i>{module}</i> <RiDeleteBinLine onClick={()=>{
-                let temp = this.state.events;
-
-                let firstIndex = null
-                temp.some((event, i) => {
-                  return event.title.startsWith(module) ? ((firstIndex = i), true) : false;
-                });
-                
-                if (firstIndex !== null) {
-                  for (let lastIndex=firstIndex+1; lastIndex<=temp.length; lastIndex++) {
-                    if (lastIndex === temp.length || !temp[lastIndex].title.startsWith(module)) {
-                      temp.splice(firstIndex, lastIndex-firstIndex)
-                      this.setState({
-                        enrolled: temp
-                      })
-                      break
-                    }
-                  }
-                }
-
-                let index = this.state.enrolled.indexOf(module);
-                if (index !== -1) {
-                  let temp = this.state.enrolled
-                  temp.splice(index, 1)
-                  this.setState({
-                    enrolled: temp
-                  })
-                }
-
-                localStorage.setItem('enrolled', JSON.stringify(this.state.enrolled))
-              }}/></Col>)}
+              {this.state.enrolled.map(module => <Col md='auto' key={module}><i>{module}</i> <RiDeleteBinLine onClick={() => this.deleteModule(module)}/></Col>)}
             </IconContext.Provider>
           </Row>
           
@@ -211,17 +268,7 @@ class App extends Component {
               placeholder="Enter a course code here (for example LAWS1201)" //TODO localise
               data={this.state.modules}
               value={this.state.searchVal}
-              onSelect={record => {
-                let temp = this.state.enrolled
-                temp.push(record.key)
-
-                this.setState({
-                  enrolled: temp
-                })
-                localStorage.setItem('enrolled', JSON.stringify(temp))
-
-                this.addEvent(this.state.cacheStart, this.state.cacheEnd, record.key)
-              }}
+              onSelect={record => this.addModule(record.key)}
               // style={{height: "5vh"}} TODO UI to select desired export range 
             /></Col>
             <Col>{this.state.enrolled.length !== 0 ? <ButtonGroup>
@@ -256,47 +303,14 @@ class App extends Component {
             // }}
 
             // Get events in new unloaded range - assumes pagination in only one direction
-            onRangeChange={range => {
-              const newEnd = add(range[range.length-1], {weeks: 1});
-
-              if (isAfter(newEnd, this.state.cacheEnd)) {
-                this.addEvents(this.state.cacheEnd, newEnd)
-                this.setState({
-                  ...this.state,
-                  cacheEnd: newEnd
-                })
-              } else {
-                const newStart = sub(range[0], {weeks: 1});
-
-                if (isBefore(newStart, this.state.cacheStart)) {
-                  this.addEvents(newStart, this.state.cacheStart)
-                  this.setState({
-                    ...this.state,
-                    cacheStart: newStart
-                  })
-                } 
-              }
-            }}
+            onRangeChange={this.rangeChanged.bind(this)}
 
             components={{
               // TODO prettier faculty-based colours (_drama_)? Also hash could cause black on black and other problems
               event: event => <div>
                 {event.title}<br></br><br></br><ButtonGroup>
-                  {!event.title.endsWith('Lecture') ? <Button size="sm" onClick={() => {
-                    let temp = this.state.events.filter(target => target.title !== event.title)
-                    temp.push(event.event)
-
-                    this.setState({
-                      ...this.state,
-                      events: temp
-                    })
-                  }}>Choose</Button> : ''}
-                  <Button size="sm" variant="danger" onClick={() => {
-                    let index = this.state.events.indexOf(event.event);
-                    if (index !== -1) {
-                      this.state.events.splice(index, 1)
-                    }
-                  }}>Delete</Button>
+                  {!event.title.endsWith('Lecture') ? <Button size="sm" onClick={() => this.chooseEvent(event)}>Choose</Button> : ''}
+                  <Button size="sm" variant="danger" onClick={() => this.deleteEvent(event)}>Delete</Button>
                 </ButtonGroup>
               </div>
             }}
