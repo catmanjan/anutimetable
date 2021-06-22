@@ -78,7 +78,7 @@ class App extends Component {
         if (!res.ok)
           throw new Error('Timetable API request failed')
         return res.json();
-        })
+      })
       .then(
         res => {
           console.log(res)
@@ -154,7 +154,7 @@ class App extends Component {
         if (!res.ok)
           throw new Error(`Couldn't load courses from JSON cache`)
         return res.json();
-        })
+      })
       .then(res => this.setState({
         modules: res.courses
       }))
