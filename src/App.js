@@ -128,6 +128,10 @@ class App extends Component {
     element.click();
   }
 
+  eventColor(event) {
+    // TODO prettier faculty-based colours (_drama_)? Also hash could cause black on black and other problems
+    return "#" + this.intToRGB(this.hashCode(event.title));
+  }
   // https://stackoverflow.com/a/3426956/
   hashCode(str) { // java String#hashCode
     var hash = 0;
@@ -135,7 +139,7 @@ class App extends Component {
        hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
     return hash;
-  } 
+  }
   intToRGB(i){
       var c = (i & 0x00FFFFFF)
           .toString(16)
@@ -250,63 +254,66 @@ class App extends Component {
   }
 
   render() {
+    const hasCourses = this.state.enrolled.length !== 0;
     return (
       <div className="App">
         <Container fluid>
           <Row><Col><h1>Unofficial ANU Timetable</h1></Col></Row>
 
+          {/* Current course list */}
           <Row>
-            <Col md='auto'><i>Courses chosen: {this.state.enrolled.length === 0 ? 'None.' : ''}</i></Col>
+            <Col md='auto'><i>Courses chosen: {hasCourses ? '' : 'None.'}</i></Col>
             <IconContext.Provider value={{ color: "red", size: "1.5em" }}>
-              {this.state.enrolled.map(module => <Col md='auto' key={module}><i>{module}</i> <RiDeleteBinLine onClick={() => this.deleteModule(module)}/></Col>)}
+              {this.state.enrolled.map(module =>
+                <Col md='auto' key={module}>
+                  <i>{module}</i>
+                  <RiDeleteBinLine onClick={() => this.deleteModule(module)}/>
+                </Col>
+              )}
             </IconContext.Provider>
           </Row>
-          
+
           <Row><InputGroup>
+            {/* Course search */}
             <Col xs md="8" lg="7" xl="5"><ReactSearchBox
               autoFocus
-              placeholder="Enter a course code here (for example LAWS1201)" //TODO localise
+              placeholder="Enter a course code here (for example LAWS1201)"
               data={this.state.modules}
               value={this.state.searchVal}
               onSelect={record => this.addModule(record.key)}
-              // style={{height: "5vh"}} TODO UI to select desired export range 
             /></Col>
-            <Col>{this.state.enrolled.length !== 0 ? <ButtonGroup>
-              <DatePicker selected={this.state.icalEndDate} onChange={icalEndDate => this.setState({...this.state, icalEndDate})} />
-              <Button onClick={() => {this.downloadEvents()}}>Export .ics</Button>
-            </ButtonGroup>: ''}</Col>
+
+            {/* Calendar export */}
+            <Col>{hasCourses && (
+              <ButtonGroup>
+                <DatePicker selected={this.state.icalEndDate}
+                  onChange={icalEndDate => this.setState({ icalEndDate })} />
+                <Button onClick={() => {this.downloadEvents()}}>Export .ics</Button>
+              </ButtonGroup>
+            )}</Col>
           </InputGroup></Row>
 
-          <Row><Col><Calendar
+          {/* Calendar view */}
+          <Row><Col><Calendar popup
             localizer={localizer}
-            popup={true}
             events={this.state.events}
             style={{ height: "85vh" }}
-            defaultView='work_week'
-            views={['work_week']}
-            min={this.state.dayStart}
-            max={this.state.dayEnd}
+            defaultView='work_week' views={['work_week']}
+            min={this.state.dayStart} max={this.state.dayEnd}
             formats={{
               dayFormat: (date, culture) => localizer.format(date, 'EEEE', culture),
               eventTimeRangeFormat: () => ""
             }}
-
             // Display descriptive name as tooltip
             tooltipAccessor={event => event.description}
 
             // Delete on double click
-            // onDoubleClickEvent={event => {
-            //   let index = this.state.events.indexOf(event);
-            //   if (index !== -1) {
-            //     this.state.events.splice(index, 1)
-            //   }
-            // }}
+            // onDoubleClickEvent={event => this.deleteEvent(event)}
 
             // Get events in new unloaded range - assumes pagination in only one direction
             onRangeChange={this.rangeChanged.bind(this)}
 
             components={{
-              // TODO prettier faculty-based colours (_drama_)? Also hash could cause black on black and other problems
               event: event => <div>
                 {event.title}<br></br><br></br><ButtonGroup>
                   {!event.title.endsWith('Lecture') ? <Button size="sm" onClick={() => this.chooseEvent(event)}>Choose</Button> : ''}
@@ -317,16 +324,17 @@ class App extends Component {
 
             eventPropGetter={event => ({
               style: {
-                backgroundColor: `#${this.intToRGB(this.hashCode(event.title))}`,
+                backgroundColor: this.eventColor(event),
                 border: '1px solid black'
               }
             })}
           /></Col></Row>
-          
+
+          {/* Footer */}
           <Row><Col><footer style={{textAlign: "center"}}>
-            Made with <span role="img" aria-label="love">💖</span> by <a href="https://github.com/pl4nty">
-              Tom Plant
-            </a>, report issues <a href="https://github.com/pl4nty/anutimetable/issues">here</a>
+            Made with <span role="img" aria-label="love">💖</span>
+            by <a href="https://github.com/pl4nty">Tom Plant</a>, report issues
+            <a href="https://github.com/pl4nty/anutimetable/issues">here</a>
           </footer></Col></Row>
         </Container>
       </div>
