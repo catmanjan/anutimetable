@@ -43,7 +43,7 @@ class App extends Component {
     cacheStart: sub(startOfWeek(anuInitialTime), {weeks: 1}),
     cacheEnd: add(endOfWeek(anuInitialTime), {weeks: 1}),
     modules: [],
-    enrolled: JSON.parse(localStorage.getItem('enrolled')) ?? [],
+    enrolled: JSON.parse(localStorage.getItem('enrolled')) || [],
     events: [
       {
         title: "MEDI8020A_S1 Workshop",
@@ -168,81 +168,78 @@ class App extends Component {
 
   deleteModule(module) {
     // Remove a course and all associated events/classes
-    let temp = this.state.events;
+    let events = [...this.state.events];
 
-    let firstIndex = null
-    temp.some((event, i) => {
-      return event.title.startsWith(module) ? ((firstIndex = i), true) : false;
-    });
-
-    if (firstIndex !== null) {
-      for (let lastIndex = firstIndex + 1; lastIndex <= temp.length; lastIndex++) {
-        if (lastIndex === temp.length || !temp[lastIndex].title.startsWith(module)) {
-          temp.splice(firstIndex, lastIndex - firstIndex)
-          this.setState({
-            enrolled: temp
-          })
-          break
-        }
+    // Get index of first event for this module
+    let firstIndex = events.length;
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].title.startsWith(module)) {
+        firstIndex = i;
+        break;
       }
     }
 
-    let index = this.state.enrolled.indexOf(module);
-    if (index !== -1) {
-      let temp = this.state.enrolled
-      temp.splice(index, 1)
-      this.setState({
-        enrolled: temp
-      })
+    // Delete all events for this module/course
+    for (let lastIndex = firstIndex + 1; lastIndex <= events.length; lastIndex++) {
+      if (lastIndex === events.length || !events[lastIndex].title.startsWith(module)) {
+        events.splice(firstIndex, lastIndex - firstIndex);
+        this.setState({ events });
+        break;
+      }
     }
 
-    localStorage.setItem('enrolled', JSON.stringify(this.state.enrolled))
+    // Delete this course from the course list
+    let index = this.state.enrolled.indexOf(module);
+    if (index !== -1) {
+      let enrolled = [...this.state.enrolled];
+      enrolled.splice(index, 1);
+      this.setState({ enrolled });
+    }
+
+    this.updateLocalStorage();
   }
 
   addModule(module) {
     // Add a course
-    let temp = this.state.enrolled
-    temp.push(record.key)
+    let enrolled = [...this.state.enrolled];
+    enrolled.push(module);
+    this.setState({ enrolled });
+    this.updateLocalStorage();
+    this.addEvent(this.state.cacheStart, this.state.cacheEnd, module);
+  }
 
-    this.setState({
-      enrolled: temp
-    })
-    localStorage.setItem('enrolled', JSON.stringify(temp))
-
-    this.addEvent(this.state.cacheStart, this.state.cacheEnd, record.key)
+  updateLocalStorage() {
+    localStorage.setItem('enrolled', JSON.stringify(this.state.enrolled));
+    // TODO: do we want to cache events as well?
   }
 
   rangeChanged(range) {
-    // Calendar view date bounds changed
+    // Calendar view date bounds changed, update cache
     const newEnd = add(range[range.length - 1], { weeks: 1 });
 
     if (isAfter(newEnd, this.state.cacheEnd)) {
-      this.addEvents(this.state.cacheEnd, newEnd)
+      this.addEvents(this.state.cacheEnd, newEnd);
       this.setState({
-        ...this.state,
         cacheEnd: newEnd
-      })
+      });
     } else {
       const newStart = sub(range[0], { weeks: 1 });
 
       if (isBefore(newStart, this.state.cacheStart)) {
-        this.addEvents(newStart, this.state.cacheStart)
+        this.addEvents(newStart, this.state.cacheStart);
         this.setState({
-          ...this.state,
           cacheStart: newStart
-        })
+        });
       }
     }
   }
 
   chooseEvent(event) {
     // Choose a time slot for a class
-    let temp = this.state.events.filter(target => target.title !== event.title)
-    temp.push(event.event)
-
-    this.setState({
-      events: temp
-    })
+    // This filters out all other interchangeable events
+    let events = this.state.events.filter(target => target.title !== event.title);
+    events.push(event);
+    this.setState({ events });
   }
 
   deleteEvent(event) {
