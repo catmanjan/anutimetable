@@ -1,47 +1,36 @@
 import React, { Component } from "react";
-
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { format, parse, startOfWeek, endOfWeek, getDay, startOfDay, add, sub, isBefore, isAfter } from "date-fns";
 import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
-
 import ReactSearchBox from "react-search-box";
-
-import { IconContext } from 'react-icons';
-import { RiDeleteBinLine } from 'react-icons/ri';
-
+import { IconContext } from "react-icons";
+import { RiDeleteBinLine } from "react-icons/ri";
 import "./App.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-
 import { Button, ButtonGroup, InputGroup, Col, Row, Container } from "react-bootstrap";
-
-import { createEvents } from 'ics';
-import DatePicker from 'react-datepicker';
+import { createEvents } from "ics";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-import { ApplicationInsights } from '@microsoft/applicationinsights-web';
-import { ReactPlugin, withAITracking } from '@microsoft/applicationinsights-react-js';
+import { ApplicationInsights } from "@microsoft/applicationinsights-web";
+import { ReactPlugin, withAITracking } from "@microsoft/applicationinsights-react-js";
 
 const reactPlugin = new ReactPlugin();
 const appInsights = new ApplicationInsights({
-    config: {
-      connectionString: process.env.REACT_APP_INSIGHTS_STRING,
-      disableFetchTracking: false,
-      enableCorsCorrelation: true,
-      enableRequestHeaderTracking: true,
-      enableResponseHeaderTracking: true,
-      extensions: [reactPlugin]
-    }
+  config: {
+    connectionString: process.env.REACT_APP_INSIGHTS_STRING,
+    disableFetchTracking: false,
+    enableCorsCorrelation: true,
+    enableRequestHeaderTracking: true,
+    enableResponseHeaderTracking: true,
+    extensions: [reactPlugin]
+  }
 });
 
 const locales = {
-    'en-US': require('date-fns/locale/en-US'),
+  'en-US': require('date-fns/locale/en-US'),
 }
 const localizer = dateFnsLocalizer({
-    format,
-    parse,
-    startOfWeek,
-    getDay,
-    locales,
+  format, parse, startOfWeek, getDay, locales
 });
 
 const anuTimeZone = "Australia/Canberra";
@@ -54,22 +43,20 @@ class App extends Component {
     cacheStart: sub(startOfWeek(anuInitialTime), {weeks: 1}),
     cacheEnd: add(endOfWeek(anuInitialTime), {weeks: 1}),
     modules: [],
-    enrolled: JSON.parse(localStorage.getItem('enrolled')) || [],
+    enrolled: JSON.parse(localStorage.getItem('enrolled')) ?? [],
     events: [
       {
-        title: `MEDI8020A_S1 Workshop`,
+        title: "MEDI8020A_S1 Workshop",
         description: "Medicine 2",
         start: zonedTimeToUtc("2021-04-20 09:00:00", anuTimeZone),
         end: zonedTimeToUtc("2021-04-20 10:00:00", anuTimeZone)
-      },
-      {
-        title: `MEDI8020A_S1 Workshop`,
+      }, {
+        title: "MEDI8020A_S1 Workshop",
         description: "Medicine 2",
         start: zonedTimeToUtc("2021-04-21 09:00:00", anuTimeZone),
         end: zonedTimeToUtc("2021-04-21 10:00:00", anuTimeZone)
-      },
-      {
-        title: `MEDI8020A_S1 Lecture`,
+      }, {
+        title: "MEDI8020A_S1 Lecture",
         description: "Medicine 2",
         start: zonedTimeToUtc("2021-04-22 09:00:00", anuTimeZone),
         end: zonedTimeToUtc("2021-04-22 10:00:00", anuTimeZone)
@@ -90,15 +77,13 @@ class App extends Component {
       }
     })
       .then(res => {
-        if (!res.ok) {
+        if (!res.ok)
           throw new Error('Timetable API request failed')
-        } else {
-          return res.json()
-        }})
+        return res.json();
+        })
       .then(
         res => {
           console.log(res)
-          // Map and concat in one iteration for speed
           let acc = this.state.events;
           for (let session of res.TeachingSessions) {
             // TODO add faculty or randomised (hash) colours
@@ -167,13 +152,11 @@ class App extends Component {
     // TODO use scheduled function to pull all courses and update json if necessary
     fetch('./courses.json')
       .then(res => {
-        if (!res.ok) {
+        if (!res.ok)
           throw new Error(`Couldn't load courses from JSON cache`)
-        } else {
-          return res.json()
-        }})
+        return res.json();
+        })
       .then(res => this.setState({
-        ...this.state,
         modules: res.courses
       }))
     this.addEvents(this.state.cacheStart, this.state.cacheEnd);
@@ -201,7 +184,6 @@ class App extends Component {
                     if (lastIndex === temp.length || !temp[lastIndex].title.startsWith(module)) {
                       temp.splice(firstIndex, lastIndex-firstIndex)
                       this.setState({
-                        ...this.state,
                         enrolled: temp
                       })
                       break
@@ -214,7 +196,6 @@ class App extends Component {
                   let temp = this.state.enrolled
                   temp.splice(index, 1)
                   this.setState({
-                    ...this.state,
                     enrolled: temp
                   })
                 }
@@ -235,7 +216,6 @@ class App extends Component {
                 temp.push(record.key)
 
                 this.setState({
-                  ...this.state,
                   enrolled: temp
                 })
                 localStorage.setItem('enrolled', JSON.stringify(temp))
