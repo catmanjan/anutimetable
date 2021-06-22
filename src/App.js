@@ -44,24 +44,22 @@ class App extends Component {
     cacheEnd: add(endOfWeek(anuInitialTime), {weeks: 1}),
     modules: [],
     enrolled: JSON.parse(localStorage.getItem('enrolled')) || [],
-    events: [
-      {
-        title: "MEDI8020A_S1 Workshop",
-        description: "Medicine 2",
-        start: zonedTimeToUtc("2021-04-20 09:00:00", anuTimeZone),
-        end: zonedTimeToUtc("2021-04-20 10:00:00", anuTimeZone)
-      }, {
-        title: "MEDI8020A_S1 Workshop",
-        description: "Medicine 2",
-        start: zonedTimeToUtc("2021-04-21 09:00:00", anuTimeZone),
-        end: zonedTimeToUtc("2021-04-21 10:00:00", anuTimeZone)
-      }, {
-        title: "MEDI8020A_S1 Lecture",
-        description: "Medicine 2",
-        start: zonedTimeToUtc("2021-04-22 09:00:00", anuTimeZone),
-        end: zonedTimeToUtc("2021-04-22 10:00:00", anuTimeZone)
-      }
-    ],
+    events: [{
+      title: "MEDI8020A_S1 Workshop",
+      description: "Medicine 2",
+      start: zonedTimeToUtc("2021-04-20 09:00:00", anuTimeZone),
+      end: zonedTimeToUtc("2021-04-20 10:00:00", anuTimeZone)
+    }, {
+      title: "MEDI8020A_S1 Workshop",
+      description: "Medicine 2",
+      start: zonedTimeToUtc("2021-04-21 09:00:00", anuTimeZone),
+      end: zonedTimeToUtc("2021-04-21 10:00:00", anuTimeZone)
+    }, {
+      title: "MEDI8020A_S1 Lecture",
+      description: "Medicine 2",
+      start: zonedTimeToUtc("2021-04-22 09:00:00", anuTimeZone),
+      end: zonedTimeToUtc("2021-04-22 10:00:00", anuTimeZone)
+    }],
     icalEndDate: add(endOfWeek(anuInitialTime), {weeks: 1})
   };
 
@@ -84,28 +82,25 @@ class App extends Component {
       .then(
         res => {
           console.log(res)
-          let acc = this.state.events;
+          let events = [...this.state.events];
           for (let session of res.TeachingSessions) {
             // TODO add faculty or randomised (hash) colours
-            acc.push({
+            events.push({
               title: `${session.modulename} ${session.activitytype}`,
               description: session.moduledescription,
               start: utcToZonedTime(new Date(session.teachingsessionstartdatetime), anuTimeZone),
               end: utcToZonedTime(new Date(session.teachingsessionenddatetime), anuTimeZone)
             })
           }
-
-          this.setState({
-            events: acc
-          }
-        )},
+          this.setState({ events });
+        },
         err => console.error(err)
       )
   }
 
   addEvents(start, end) {
     for (let module of this.state.enrolled) {
-      this.addEvent(start, end, module)
+      this.addEvent(start, end, module);
     }
   }
 
