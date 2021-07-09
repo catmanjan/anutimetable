@@ -12,7 +12,7 @@ from classes.loadingBar import printProgressBar
 from classes.toJSON import formatCourses
 
 URL = "http://timetabling.anu.edu.au/sws2021/"
-SEMESTER = 1
+SEMESTER = 2
 
 # 1-50: 50 is the maximum allowed request
 CHUNK = 50
