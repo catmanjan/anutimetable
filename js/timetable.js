@@ -399,7 +399,7 @@ var Course = {
     tutorials: {},
     get: function () {
         var courseNameElement = $("#course-name");
-        var courseName        = courseNameElement.val().split('-')[0].toUpperCase().trim();
+        var courseName        = courseNameElement.val().split(" -")[0].toUpperCase().trim();
         if (courseName && Course.courses.indexOf(courseName) === -1) {
             $("#add-course").html("Adding...");
             courseNameElement.val("");
@@ -411,7 +411,7 @@ var Course = {
 
         // fix for the courses with unmatched cases
         // i.e. COMP2710 SOFTWARE SECURITY -> COMP2710 Software Security
-        courseName = courseName.replace(/(\s\w)(\w+)/g, (m, a, b) => a + b.toLowerCase());
+        courseName = courseName.replace(/([\s-]\w)(\w+)/g, (m, a, b) => a + b.toLowerCase());
 
         var data_tmp = timetableData[courseName];
 
