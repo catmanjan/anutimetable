@@ -15,7 +15,7 @@
   height: var(--input-height);
   padding: 10px 12px;
   border-radius: var(--border-radius) 0 0 var(--border-radius);
-  border: 1px solid #666;
+  border: 1px solid var(--border-inactive);
   border-right: none;
 }
 
@@ -23,6 +23,16 @@
   border: 2px solid var(--border-active);
   outline: none;
   padding: 10px 10px 10px 11px;
+}
+
+.date-picker.full {
+  border-radius: var(--border-radius);
+  border-right: 1px solid var(--border-inactive);
+}
+
+.date-picker.full:focus {
+  padding: 10px 11px 10px 11px;
+  border-right: 2px solid var(--border-active);
 }
 
 .search-container input {
@@ -40,4 +50,28 @@
 
 .ics-export {
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.search-container.empty .react-search-box-dropdown {
+  display: none;
+}
+
+.react-search-box-dropdown {
+  max-height: 0px;
+  z-index: 9999;
+  border-color: var(--border-inactive);
+  margin: 0 !important;
+}
+
+.react-search-box-dropdown li {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.react-search-box-dropdown li:nth-child(n+11) {
+  display:none;
+}
+.react-search-box-dropdown li:nth-child(10) {
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
 }

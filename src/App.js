@@ -13,6 +13,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { ReactPlugin, withAITracking } from "@microsoft/applicationinsights-react-js";
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 let reactPlugin, appInsights;
 const hasInsights = process.env.NODE_ENV !== 'development';
@@ -246,6 +247,7 @@ class App extends Component {
 
   render() {
     const hasCourses = this.state.enrolled.length !== 0;
+    const showICS = hasCourses && this.state.events.length > 0;
     return (
       <div className="App">
         <Container fluid>
@@ -266,28 +268,35 @@ class App extends Component {
 
           <Row><InputGroup>
             {/* Course search */}
-            <Col xs md="8" lg="7" xl="5" className='search-container'>
-              <ReactSearchBox
-                autoFocus
-                placeholder="Enter a course code here (for example LAWS1201)"
-                data={this.state.modules}
-                value={this.state.searchVal}
-                onSelect={record => this.addModule(record.key)}
-              />
+            <Col xs md="8" lg="7" xl="5" className={'search-container ' + (!this.state.searchFocused ? 'empty' : '')}>
+              <ClickAwayListener onClickAway={() => this.setState({ searchFocused: false })}>
+                <ReactSearchBox
+                  autoFocus
+                  placeholder="Enter a course code here (for example LAWS1201)"
+                  data={this.state.modules}
+                  value={this.state.searchVal}
+                  onSelect={record => {
+                    this.addModule(record.key);
+                  }}
+                  onFocus={() => this.setState({ searchFocused: true })}
+                />
+              </ClickAwayListener>
             </Col>
 
             {/* Calendar export */}
-            <Col>{hasCourses && (
+            <Col>
               <ButtonGroup>
                 <DatePicker selected={this.state.icalEndDate}
                   onChange={icalEndDate => this.setState({ icalEndDate })}
-                  className='date-picker' />
+                  className={'date-picker ' + (!showICS ? 'full' : '')} />
+                {showICS && (
                 <Button onClick={() => {this.downloadEvents()}}
                   className='ics-export'>
                   Export .ics
                 </Button>
+                )}
               </ButtonGroup>
-            )}</Col>
+            </Col>
           </InputGroup></Row>
 
           {/* Calendar view */}
