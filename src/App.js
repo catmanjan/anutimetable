@@ -197,8 +197,10 @@ class App extends Component {
     console.log(rawData[3][0])
     rawData[3].forEach((course, i) => {
       rawData[3][i].fullName = rawData[0][course.nid];
+      // eslint-disable-next-line
       rawData[3][i].info = rawData[1][course.iid].replace(/(\s|([^\d]))(0+)/g, '$2').replace('/', ' / ');
       rawData[3][i].location = rawData[2][course.lid];
+      // eslint-disable-next-line
       rawData[3][i].name = rawData[3][i].fullName.match(/^([\sa-zA-Z0-9\(\)\/-]+)_.+?\s(.+)/)[1];
       rawData[3][i].dayName = parseInt(course.day) !== course.day ? course.day : weekdays[course.day]; // update transition detection
       delete rawData[3][i].nid;
