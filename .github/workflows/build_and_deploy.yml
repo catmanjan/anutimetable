@@ -8,6 +8,11 @@ on:
     types: [opened, synchronize, reopened, closed]
     branches:
       - master
+  # trigger after successful scrape, as push from scrape action doesn't trigger a push event
+  workflow_run:
+    workflows: ["Scrape official timetable"]
+    types:
+      - completed
 
 jobs:
   build_and_deploy:
