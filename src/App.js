@@ -222,6 +222,7 @@ class App extends Component {
         // session.weeks might look like "31‑36,39‑44"
         let weeks = session.weeks.split(',').flatMap(range => {
           const [lower, upper] = range.split('\u2011').map(x => parseInt(x))
+          if (!upper) return [lower]
           return this.range(lower, upper)
         })
         for (let week of weeks) {
