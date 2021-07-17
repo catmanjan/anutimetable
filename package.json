@@ -1,7 +1,6 @@
 {
   "name": "anutimetable",
   "version": "1.0.0",
-  "private": true,
   "dependencies": {
     "@azure/functions": "^1.2.3",
     "@material-ui/core": "^4.12.1",
