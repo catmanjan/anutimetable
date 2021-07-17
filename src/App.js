@@ -14,6 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { ReactPlugin, withAITracking } from "@microsoft/applicationinsights-react-js";
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import {nextMonday} from 'date-fns';
 
 let reactPlugin, appInsights;
 const hasInsights = process.env.NODE_ENV !== 'development';
@@ -169,6 +170,16 @@ class App extends Component {
         modules: res.courses,
         modulesDict: this.keyValArrayToDict(res.courses)
       }))
+
+    fetch('./timetable.json')
+      .then(res => {
+        return res.json()
+      })
+      .then(res => {
+        const data = this.processScrapedJSON(res)
+        this.setState({ data })
+        console.log(data)
+      })
     this.addEvents(this.state.cacheStart, this.state.cacheEnd);
   }
 
@@ -178,6 +189,59 @@ class App extends Component {
       obj[x.key] = x.value;
     }
     return obj;
+  }
+
+  processScrapedJSON(rawData) {
+    // Source: https://github.com/catmanjan/anutimetable/blob/ea9a68e12ab2993bfaeb9e7fee48d9756d47dab9/js/timetable.js#L563
+    const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    console.log(rawData[3][0])
+    rawData[3].forEach((course, i) => {
+      rawData[3][i].fullName = rawData[0][course.nid];
+      rawData[3][i].info = rawData[1][course.iid].replace(/(\s|([^\d]))(0+)/g, '$2').replace('/', ' / ');
+      rawData[3][i].location = rawData[2][course.lid];
+      rawData[3][i].name = rawData[3][i].fullName.match(/^([\sa-zA-Z0-9\(\)\/-]+)_.+?\s(.+)/)[1];
+      rawData[3][i].dayName = parseInt(course.day) !== course.day ? course.day : weekdays[course.day]; // update transition detection
+      delete rawData[3][i].nid;
+      delete rawData[3][i].iid;
+      delete rawData[3][i].lid;
+    });
+    return rawData[3];
+  }
+
+  range(lower, upper) {
+    // generates a range INCLUDING the upper bound
+    return Array.from(new Array(upper - lower + 1), (x, i) => i + lower);
+  }
+
+  getCurrentEvents() {
+    // gets the events for use by react big calendar
+    // this is a list of { title: string, start: Date, end: Date, description: string }
+    // this.state.data
+    if (!this.state.data) return []
+    const events = []
+    // don't ask. won't work every 7th year on average
+    // also it assumes day 0 is monday in local time
+    let daysToFirstMon = nextMonday(new Date(new Date().getFullYear(), 0)).getDay();
+    for (let session of this.state.data) {
+      let course = session.fullName.split('\xa0')[0]; // eg "ACST4032_S2"
+      if (this.state.enrolled.indexOf(course) !== -1) {
+        // session.weeks might look like "31‑36,39‑44"
+        let weeks = session.weeks.split(',').flatMap(range => {
+          const [lower, upper] = range.split('\u2011').map(x => parseInt(x))
+          return this.range(lower, upper)
+        })
+        for (let week of weeks) {
+          events.push({
+            title: course,
+            description: session.info + ', ' + session.location,
+            start: new Date(new Date().getFullYear(), 0, 7 * week + daysToFirstMon, session.start),
+            end: new Date(new Date().getFullYear(), 0, 7 * week + daysToFirstMon, session.start+session.dur),
+          })
+        }
+      }
+    }
+    console.log(events)
+    return events;
   }
 
   deleteModule(module) {
@@ -329,7 +393,7 @@ class App extends Component {
           {/* Calendar view */}
           <Row><Col><Calendar popup
             localizer={localizer}
-            events={this.state.events}
+            events={this.getCurrentEvents()}
             style={{ height: "85vh" }}
             defaultView='work_week' views={['work_week']}
             min={this.state.dayStart} max={this.state.dayEnd}
