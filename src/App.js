@@ -278,7 +278,8 @@ class App extends Component {
             <Col>{hasCourses && (
               <ButtonGroup>
                 <DatePicker selected={this.state.icalEndDate}
-                  onChange={icalEndDate => this.setState({ icalEndDate })} />
+                  onChange={icalEndDate => this.setState({ icalEndDate })}
+                  className='date-picker' />
                 <Button onClick={() => {this.downloadEvents()}}>Export .ics</Button>
               </ButtonGroup>
             )}</Col>
