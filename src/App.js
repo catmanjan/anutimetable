@@ -280,11 +280,11 @@ class App extends Component {
     return (
       <div className="App">
         <Container fluid>
-          <Row><Col><h1>Unofficial ANU Timetable</h1></Col></Row>
+          <Row><Col><h1 className='title'>Unofficial ANU Timetable</h1></Col></Row>
 
           {/* Current course list */}
-          <Row>
-            <Col md='auto' className='courses-chosen'>Courses chosen: {hasCourses ? '' : 'None.'}</Col>
+          <Row style={{padding: "0 16px"}}>
+            <Col md='auto' className='courses-chosen' style={{padding:0}}>Courses chosen: {hasCourses ? '' : 'None.'}</Col>
             <IconContext.Provider value={{ color: "red", size: "1.5em" }}>
               {this.state.enrolled.map(module =>
                 <ClassTag module={module} deleteModule={() => this.deleteModule(module)}

@@ -17,6 +17,7 @@
   border-radius: var(--border-radius) 0 0 var(--border-radius);
   border: 1px solid var(--border-inactive);
   border-right: none;
+  max-width: 120px;
 }
 
 .date-picker:focus {
@@ -35,6 +36,10 @@
   border-right: 2px solid var(--border-active);
 }
 
+.search-container {
+  margin-bottom: 4px;
+}
+
 .search-container input {
   height: var(--input-height);
   border: 1px solid var(--border-inactive);
@@ -50,6 +55,8 @@
 
 .ics-export {
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  min-width: 100px;
+  white-space: nowrap;
 }
 
 .search-container.empty .react-search-box-dropdown {
@@ -83,6 +90,7 @@
   padding: 2px 4px;
   height: 32px;
   margin-right: 10px;
+  max-width: 135px;
 }
 
 .class-tag span {
@@ -100,4 +108,11 @@
   display: inline-block;
   vertical-align: middle;
   line-height: 32px;
+  padding: 0;
+  margin-right: 10px;
+}
+@media only screen and (max-width: 500px) {
+  .title {
+    font-size: 1.5em;
+  }
 }
