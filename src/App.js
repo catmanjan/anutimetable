@@ -64,17 +64,10 @@ class App extends Component {
   };
 
   addEvent(start, end, event) {
-    fetch(`${process.env.REACT_APP_ENDPOINT
-      }?ModuleName=${event
-      }&StartTime=${format(start, "yyyy-MM-dd")
-      }&EndTime=${format(end, "yyyy-MM-dd")}`, {
-      headers: {
-        'accept': 'application/json',
-        'authorization': `Basic ${process.env.REACT_APP_AUTH_KEY}`,
-        'x-ibm-client-id': process.env.REACT_APP_AUTH_ID
-      }
-    })
-      .then(res => {
+    fetch(`/api/ClassSchedules?name=${event
+        }&start=${format(start, "yyyy-MM-dd")
+        }&end=${format(end, "yyyy-MM-dd")}`
+    ).then(res => {
         if (!res.ok)
           throw new Error('Timetable API request failed')
         return res.json();

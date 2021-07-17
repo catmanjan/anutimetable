@@ -29,6 +29,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "." # App source code path
           app_artifact_location: "build"
+          api_location: "api"
           ###### End of Repository/Build Configurations ######
         env:
           REACT_APP_ENDPOINT: ${{ secrets.REACT_APP_ENDPOINT }}
