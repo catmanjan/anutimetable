@@ -328,6 +328,20 @@ class App extends Component {
     }
   }
 
+  Event({ _event }) {
+    const event = _event.event;
+    return (
+      <div>
+        {event.title}<br/>
+        {event.description}
+        <ButtonGroup>
+          <Button size="sm" onClick={() => this.chooseEvent(_event)}>Choose</Button>
+          <Button size="sm" variant="danger" onClick={() => this.deleteEvent(_event)}>Delete</Button>
+        </ButtonGroup>
+      </div>
+    );
+  }
+
   render() {
     const hasCourses = this.state.enrolled.length !== 0;
     const showICS = hasCourses && this.state.events.length > 0;
@@ -385,7 +399,7 @@ class App extends Component {
             localizer={localizer}
             events={this.getCurrentEvents()}
             style={{ height: "85vh" }}
-            defaultView='work_week' views={['work_week']}
+            defaultView='work_week' views={['work_week', 'month', 'day']}
             min={this.state.dayStart} max={this.state.dayEnd}
             formats={{
               dayFormat: (date, culture) => localizer.format(date, 'EEEE', culture),
@@ -401,12 +415,10 @@ class App extends Component {
             onRangeChange={this.rangeChanged.bind(this)}
 
             components={{
-              event: event => <div>
-                {event.title}<br></br><br></br><ButtonGroup>
-                  {!event.title.endsWith('Lecture') ? <Button size="sm" onClick={() => this.chooseEvent(event)}>Choose</Button> : ''}
-                  <Button size="sm" variant="danger" onClick={() => this.deleteEvent(event)}>Delete</Button>
-                </ButtonGroup>
-              </div>
+              event: event => {
+                const Event = this.Event.bind(this);
+                return <Event _event={event} />
+              }
             }}
 
             eventPropGetter={event => ({
