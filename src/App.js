@@ -158,27 +158,12 @@ class App extends Component {
       appInsights.trackPageView();
     }
 
-    // Generated from master branch with \( "[^\\]+)\\u00a0 '{"key":$1","value":$1 - ' and find/replace
-    // TODO use scheduled function to pull all courses and update json if necessary
-    fetch('./courses.json')
-      .then(res => {
-        if (!res.ok)
-          throw new Error(`Couldn't load courses from JSON cache`)
-        return res.json();
-      })
-      .then(res => this.setState({
-        modules: res.courses,
-        modulesDict: this.keyValArrayToDict(res.courses)
-      }))
-
     fetch('./timetable.json')
       .then(res => {
         return res.json()
       })
       .then(res => {
-        const data = this.processScrapedJSON(res)
-        this.setState({ data })
-        console.log(data)
+        this.setState(this.processScrapedJSON(res))
       })
     this.addEvents(this.state.cacheStart, this.state.cacheEnd);
   }
@@ -192,9 +177,16 @@ class App extends Component {
   }
 
   processScrapedJSON(rawData) {
+    let modules = [];
+    let modulesDict = {};
+    rawData[0].forEach(x => {
+      const key = x.split('\xa0')[0];
+      const value = x.replace('\xa0', ' ')
+      modules.push({ key, value })
+      modulesDict[key] = value
+    })
     // Source: https://github.com/catmanjan/anutimetable/blob/ea9a68e12ab2993bfaeb9e7fee48d9756d47dab9/js/timetable.js#L563
     const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-    console.log(rawData[3][0])
     rawData[3].forEach((course, i) => {
       rawData[3][i].fullName = rawData[0][course.nid];
       // eslint-disable-next-line
@@ -207,7 +199,7 @@ class App extends Component {
       delete rawData[3][i].iid;
       delete rawData[3][i].lid;
     });
-    return rawData[3];
+    return {modules, modulesDict, data: rawData[3] };
   }
 
   range(lower, upper) {
@@ -242,7 +234,6 @@ class App extends Component {
         }
       }
     }
-    console.log(events)
     return events;
   }
 
@@ -332,12 +323,9 @@ class App extends Component {
 
   getModuleName(module) {
     // getModuleName("CHEM3013_S2") gives the full module name
-    if (!this.state.modulesDict) {
-      const modulesDict = this.keyValArrayToDict(this.state.modules);
-      this.setState({ modulesDict });
-      return modulesDict[module]
+    if (this.state.modulesDict) {
+      return this.state.modulesDict[module];
     }
-    return this.state.modulesDict[module];
   }
 
   render() {
@@ -354,7 +342,7 @@ class App extends Component {
             <IconContext.Provider value={{ color: "red", size: "1.5em" }}>
               {this.state.enrolled.map(module =>
                 <ClassTag module={module} deleteModule={() => this.deleteModule(module)}
-                  title={this.getModuleName(module)} />
+                  title={this.getModuleName(module)} key={module} />
               )}
             </IconContext.Provider>
           </Row>
