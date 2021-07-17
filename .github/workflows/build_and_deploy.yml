@@ -27,9 +27,6 @@ jobs:
           app_artifact_location: "build" # Build artifacts
           api_location: "api" # Functions
         env:
-          REACT_APP_ENDPOINT: ${{ secrets.REACT_APP_ENDPOINT }}
-          REACT_APP_AUTH_ID: ${{ secrets.REACT_APP_AUTH_ID }}
-          REACT_APP_AUTH_KEY: ${{ secrets.REACT_APP_AUTH_KEY }}
           REACT_APP_INSIGHTS_STRING: ${{ secrets.REACT_APP_INSIGHTS_STRING }}
 
   cleanup_pr:
