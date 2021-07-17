@@ -14,17 +14,21 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { ReactPlugin, withAITracking } from "@microsoft/applicationinsights-react-js";
 
-const reactPlugin = new ReactPlugin();
-const appInsights = new ApplicationInsights({
-  config: {
-    connectionString: process.env.REACT_APP_INSIGHTS_STRING,
-    disableFetchTracking: false,
-    enableCorsCorrelation: true,
-    enableRequestHeaderTracking: true,
-    enableResponseHeaderTracking: true,
-    extensions: [reactPlugin]
-  }
-});
+let reactPlugin, appInsights;
+const hasInsights = process.env.NODE_ENV !== 'development';
+if (hasInsights) {
+  reactPlugin = new ReactPlugin();
+  appInsights = new ApplicationInsights({
+    config: {
+      connectionString: process.env.REACT_APP_INSIGHTS_STRING,
+      disableFetchTracking: false,
+      enableCorsCorrelation: true,
+      enableRequestHeaderTracking: true,
+      enableResponseHeaderTracking: true,
+      extensions: [reactPlugin]
+    }
+  });
+}
 
 const locales = {
   'en-US': require('date-fns/locale/en-US'),
@@ -137,8 +141,10 @@ class App extends Component {
   }
 
   componentDidMount(){
-    appInsights.loadAppInsights();
-    appInsights.trackPageView();
+    if (hasInsights) {
+      appInsights.loadAppInsights();
+      appInsights.trackPageView();
+    }
 
     // Generated from master branch with \( "[^\\]+)\\u00a0 '{"key":$1","value":$1 - ' and find/replace
     // TODO use scheduled function to pull all courses and update json if necessary
@@ -327,4 +333,4 @@ class App extends Component {
   }
 }
 
-export default withAITracking(reactPlugin, App);
+export default hasInsights ? withAITracking(reactPlugin, App) : App;
