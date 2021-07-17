@@ -1,41 +1,44 @@
-name: Scrape Timetable
+name: Scrape official timetable
 
 on:
   workflow_dispatch: []
   schedule:
-    - cron: "0 0 * * 0"
+    - cron: "0 0 * * *" # daily
 
 jobs:
-  build:
+  scrape:
     runs-on: ubuntu-latest
+    name: Scrape data into JSON file with Python script
     steps:
       - uses: actions/checkout@v2
+
       - uses: actions/setup-python@v2
         with:
           python-version: "3.8"
+
       - name: Install pipenv
         run: python -m pip install pipenv
 
       - name: Install dependencies
         working-directory: scraper
-        run: |
-          python -m pipenv install --system
-      - name: Run Scraper
+        run: python -m pipenv install --system
+
+      - name: Run scraper script
         working-directory: scraper
         run: python3 ./scraper.py
 
-      - name: Compare new and old timetable
+      - name: Compare existing and new data
         id: compare
         continue-on-error: true
         working-directory: scraper
         run: diff ./timetable.json ../public/timetable.json
 
-      - name: Git commit and push
+      - name: Commit to repo if data has changed
         if: ${{ steps.compare.outcome == 'failure' }}
         run: |
           cd scraper
           mv -f ./timetable.json ../public/
-          git config --global user.name 'test user'
-          git config --global user.email 'example@users.noreply.github.com'
-          git commit -am "Automatic Scrape"
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -am "Add new timetable data"
           git push
