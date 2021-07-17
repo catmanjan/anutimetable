@@ -41,6 +41,17 @@ const localizer = dateFnsLocalizer({
 const anuTimeZone = "Australia/Canberra";
 const anuInitialTime = utcToZonedTime(new Date(), anuTimeZone);
 
+function ClassTag({ module, deleteModule, title }) {
+  let under = module.indexOf('_');
+  const displayModule = module.substring(0, under > 0 ? under : module.length);
+  return (
+    <Col md='auto' key={module} className='class-tag'>
+      <span title={title}>{displayModule}</span>
+      <RiDeleteBinLine onClick={deleteModule} />
+    </Col>
+  );
+}
+
 class App extends Component {
   state = {
     dayStart: add(startOfDay(anuInitialTime), {hours: 9}),
@@ -79,7 +90,6 @@ class App extends Component {
       })
       .then(
         res => {
-          console.log(res)
           let events = [...this.state.events];
           for (let session of res.TeachingSessions) {
             // TODO add faculty or randomised (hash) colours
@@ -156,9 +166,18 @@ class App extends Component {
         return res.json();
       })
       .then(res => this.setState({
-        modules: res.courses
+        modules: res.courses,
+        modulesDict: this.keyValArrayToDict(res.courses)
       }))
     this.addEvents(this.state.cacheStart, this.state.cacheEnd);
+  }
+
+  keyValArrayToDict(arr) {
+    let obj = {};
+    for (let x of arr) {
+      obj[x.key] = x.value;
+    }
+    return obj;
   }
 
   deleteModule(module) {
@@ -245,6 +264,16 @@ class App extends Component {
     }
   }
 
+  getModuleName(module) {
+    // getModuleName("CHEM3013_S2") gives the full module name
+    if (!this.state.modulesDict) {
+      const modulesDict = this.keyValArrayToDict(this.state.modules);
+      this.setState({ modulesDict });
+      return modulesDict[module]
+    }
+    return this.state.modulesDict[module];
+  }
+
   render() {
     const hasCourses = this.state.enrolled.length !== 0;
     const showICS = hasCourses && this.state.events.length > 0;
@@ -255,13 +284,11 @@ class App extends Component {
 
           {/* Current course list */}
           <Row>
-            <Col md='auto'><i>Courses chosen: {hasCourses ? '' : 'None.'}</i></Col>
+            <Col md='auto' className='courses-chosen'>Courses chosen: {hasCourses ? '' : 'None.'}</Col>
             <IconContext.Provider value={{ color: "red", size: "1.5em" }}>
               {this.state.enrolled.map(module =>
-                <Col md='auto' key={module}>
-                  <i>{module}</i>
-                  <RiDeleteBinLine onClick={() => this.deleteModule(module)}/>
-                </Col>
+                <ClassTag module={module} deleteModule={() => this.deleteModule(module)}
+                  title={this.getModuleName(module)} />
               )}
             </IconContext.Provider>
           </Row>
