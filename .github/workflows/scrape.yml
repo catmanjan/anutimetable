@@ -1,4 +1,4 @@
-name: Scrape Timetable v2.0
+name: Scrape Timetable
 
 on:
   workflow_dispatch:
