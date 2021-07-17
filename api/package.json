@@ -1,11 +1,11 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
+  "name": "api",
+  "version": "1.0.0",
   "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "echo \"No tests yet...\""
   },
-  "author": "",
   "dependencies": {
     "node-fetch": "^2.6.1"
   }
