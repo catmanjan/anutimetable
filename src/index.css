@@ -4,7 +4,40 @@
   font-family: sans-serif;
 } */
 
+:root {
+  --border-radius: 5px;
+  --border-inactive: #666;
+  --border-active: #3f51b5;
+  --input-height: 38px;
+}
+
 .date-picker {
-  height: 38px;
-  padding: 6px;
+  height: var(--input-height);
+  padding: 10px 12px;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  border: 1px solid #666;
+  border-right: none;
+}
+
+.date-picker:focus {
+  border: 2px solid var(--border-active);
+  outline: none;
+  padding: 10px 10px 10px 11px;
+}
+
+.search-container input {
+  height: var(--input-height);
+  border: 1px solid var(--border-inactive);
+  padding: 10px 16px;
+  border-radius: 6px;
+}
+
+.search-container input:focus {
+  height: var(--input-height);
+  border: 2px solid var(--border-active);
+  padding: 10px 15px;
+}
+
+.ics-export {
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }

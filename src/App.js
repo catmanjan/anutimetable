@@ -266,13 +266,15 @@ class App extends Component {
 
           <Row><InputGroup>
             {/* Course search */}
-            <Col xs md="8" lg="7" xl="5"><ReactSearchBox
-              autoFocus
-              placeholder="Enter a course code here (for example LAWS1201)"
-              data={this.state.modules}
-              value={this.state.searchVal}
-              onSelect={record => this.addModule(record.key)}
-            /></Col>
+            <Col xs md="8" lg="7" xl="5" className='search-container'>
+              <ReactSearchBox
+                autoFocus
+                placeholder="Enter a course code here (for example LAWS1201)"
+                data={this.state.modules}
+                value={this.state.searchVal}
+                onSelect={record => this.addModule(record.key)}
+              />
+            </Col>
 
             {/* Calendar export */}
             <Col>{hasCourses && (
@@ -280,7 +282,10 @@ class App extends Component {
                 <DatePicker selected={this.state.icalEndDate}
                   onChange={icalEndDate => this.setState({ icalEndDate })}
                   className='date-picker' />
-                <Button onClick={() => {this.downloadEvents()}}>Export .ics</Button>
+                <Button onClick={() => {this.downloadEvents()}}
+                  className='ics-export'>
+                  Export .ics
+                </Button>
               </ButtonGroup>
             )}</Col>
           </InputGroup></Row>
@@ -325,7 +330,7 @@ class App extends Component {
           {/* Footer */}
           <Row><Col><footer style={{textAlign: "center"}}>
             Made with <span role="img" aria-label="love">💖</span>
-            by <a href="https://github.com/pl4nty">Tom Plant</a>, report issues
+            by <a href="https://github.com/pl4nty">Tom Plant</a>, report issues&nbsp;
             <a href="https://github.com/pl4nty/anutimetable/issues">here</a>
           </footer></Col></Row>
         </Container>
