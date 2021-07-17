@@ -1,0 +1,118 @@
+/* body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+} */
+
+:root {
+  --border-radius: 5px;
+  --border-inactive: #666;
+  --border-active: #3f51b5;
+  --input-height: 38px;
+}
+
+.date-picker {
+  height: var(--input-height);
+  padding: 10px 12px;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  border: 1px solid var(--border-inactive);
+  border-right: none;
+  max-width: 120px;
+}
+
+.date-picker:focus {
+  border: 2px solid var(--border-active);
+  outline: none;
+  padding: 10px 10px 10px 11px;
+}
+
+.date-picker.full {
+  border-radius: var(--border-radius);
+  border-right: 1px solid var(--border-inactive);
+}
+
+.date-picker.full:focus {
+  padding: 10px 11px 10px 11px;
+  border-right: 2px solid var(--border-active);
+}
+
+.search-container {
+  margin-bottom: 4px;
+}
+
+.search-container input {
+  height: var(--input-height);
+  border: 1px solid var(--border-inactive);
+  padding: 10px 16px;
+  border-radius: 6px;
+}
+
+.search-container input:focus {
+  height: var(--input-height);
+  border: 2px solid var(--border-active);
+  padding: 10px 15px;
+}
+
+.ics-export {
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  min-width: 100px;
+  white-space: nowrap;
+}
+
+.search-container.empty .react-search-box-dropdown {
+  display: none;
+}
+
+.react-search-box-dropdown {
+  max-height: 0px;
+  z-index: 9999;
+  border-color: var(--border-inactive);
+  margin: 0 !important;
+}
+
+.react-search-box-dropdown li {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.react-search-box-dropdown li:nth-child(n+11) {
+  display:none;
+}
+.react-search-box-dropdown li:nth-child(10) {
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.class-tag {
+  border: 2px solid grey;
+  border-radius: 100px;
+  background: #efefef;
+  padding: 2px 4px;
+  height: 32px;
+  margin-right: 10px;
+  max-width: 135px;
+}
+
+.class-tag span {
+  margin: 4px;
+  vertical-align: middle;
+}
+
+.class-tag svg {
+  color: grey !important;
+  cursor: pointer;
+}
+
+.courses-chosen {
+  height: 32px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 32px;
+  padding: 0;
+  margin-right: 10px;
+}
+@media only screen and (max-width: 500px) {
+  .title {
+    font-size: 1.5em;
+  }
+}

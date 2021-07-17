@@ -1,5 +1,26 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
 
-anuscrape/timetable.json
+__pycache__
+*.pyc
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
 .DS_Store
-.vscode/
-__pycache__/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+sample.json

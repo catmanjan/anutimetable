@@ -1,0 +1,41 @@
+name: Scrape Timetable
+
+on:
+  workflow_dispatch: []
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+      - name: Install pipenv
+        run: python -m pip install pipenv
+
+      - name: Install dependencies
+        working-directory: scraper
+        run: |
+          python -m pipenv install --system
+      - name: Run Scraper
+        working-directory: scraper
+        run: python3 ./scraper.py
+
+      - name: Compare new and old timetable
+        id: compare
+        continue-on-error: true
+        working-directory: scraper
+        run: diff ./timetable.json ../public/timetable.json
+
+      - name: Git commit and push
+        if: ${{ steps.compare.outcome == 'failure' }}
+        run: |
+          cd scraper
+          mv -f ./timetable.json ../public/
+          git config --global user.name 'test user'
+          git config --global user.email 'example@users.noreply.github.com'
+          git commit -am "Automatic Scrape"
+          git push
