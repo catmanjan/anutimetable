@@ -5,7 +5,7 @@
 ## Updates
 
 ### 2021-02-13
-- Added automatic daily scrapes of the timetable thanks to [@BishopOfTurkey](https://github.com/BishopOfTurkey)
+- Added automatic weekly scrapes of the timetable thanks to [@BishopOfTurkey](https://github.com/BishopOfTurkey)!
 
 ### 2018-07-20
 
