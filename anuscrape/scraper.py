@@ -31,7 +31,7 @@ cookies = res.cookies
 session =  SessionData(BeautifulSoup(res.content, 'html.parser'))
 coursesPage = CoursesPage(res)
 
-coursesPage.courseList = list(filter(lambda x: x[0].endswith(f"S{SEMESTER}"), coursesPage.courseList))
+coursesPage.courseList = list(filter(lambda x: x[0].strip().endswith(f"S{SEMESTER}"), coursesPage.courseList))
 
 courseCount = len(coursesPage.courseList)
 print(f"Found {courseCount} courses.")
