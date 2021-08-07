@@ -25,12 +25,12 @@ def inplace_change(filename, old_string, new_string):
 
 def detect_semester(data):
     today = date.today()
-    if today > data['Semester 1']['start'] and today < data['Semester 1']['end']:
+    if today <= data['Semester 1']['end']:
         return 1
-    elif today > data['Semester 2']['start'] and today < data['Semester 2']['end']:
+    elif today >= data['Semester 1']['end'] and today <= data['Semester 2']['end']:
         return 2
-    # else:
-
+    else:
+        return -1 # Although semester 2 is ended, the new timetable is not available yet.
 
 def csf(input):  # change_semester_format
     if input == 1:
@@ -64,6 +64,9 @@ with TemporaryDirectory() as temp_dir:
          'scraper_template'), os.path.join(temp_dir, 'scraper.py'))
 
     cur_sem = detect_semester(data)
+    if cur_sem == -1:
+        print('New timetable is not available yet.')
+        exit() 
     # https://www.tutorialspoint.com/How-to-convert-date-to-datetime-in-Python
     max_time = time(23, 59, 59)
     end_timestamp = datetime.combine(data[csf(cur_sem)]['end'], max_time, tzinfo=ZoneInfo(
