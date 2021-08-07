@@ -2,23 +2,32 @@
 
 * Timetable database last update: 2021-07-31
 
+## Modifacation Note
+
+Any changes to [index.html](index.html) [js/timetable.js](js/timetable.js) and [anuscrape/scraper.py](anuscrape/scraper.py) should be synchronized with the template files in [semester_update](/semester_update) folder.
+
 ## Updates
 
+### 2021-08-07
+
+* Add semester auto-detect thanks to [@Lutra-Fs](https://github.com/Lutra-Fs)
+
 ### 2021-02-13
-- Added automatic weekly scrapes of the timetable thanks to [@BishopOfTurkey](https://github.com/BishopOfTurkey)!
+
+* Added automatic weekly scrapes of the timetable thanks to [@BishopOfTurkey](https://github.com/BishopOfTurkey)!
 
 ### 2018-07-20
 
-- Fixed iCal export thanks to [@Alwinius](https://github.com/Alwinius)
+* Fixed iCal export thanks to [@Alwinius](https://github.com/Alwinius)
 
 ### 2018-07-17
 
-- Updated semester 2 database thanks to [@calmelb](https://github.com/calmelb), [@caitelatte](https://github.com/caitelatte), and [@tetris12367](https://github.com/tetris12367)
+* Updated semester 2 database thanks to [@calmelb](https://github.com/calmelb), [@caitelatte](https://github.com/caitelatte), and [@tetris12367](https://github.com/tetris12367)
 
 ### 2018-06-18
 
-- This version now maintained by [@mdchia](https://github.com/mdchia/anutimetable)
-- Patched up for semester 2 by [@jackadamson](https://github.com/jackadamson)
+* This version now maintained by [@mdchia](https://github.com/mdchia/anutimetable)
+* Patched up for semester 2 by [@jackadamson](https://github.com/jackadamson)
 
 ### 2018-03-11
 
@@ -207,7 +216,7 @@
 ### 2015-12-06
 
 * The scraper is planned for deletion.
-* Instead, use the converter on the direct data source http://udsttweb99.anu.edu.au/Timetable2015/Timetable.csv (hopefully this will be updated by ANU for 2016)
+* Instead, use the converter on the direct data source <http://udsttweb99.anu.edu.au/Timetable2015/Timetable.csv> (hopefully this will be updated by ANU for 2016)
 
 ### 2015-12-05
 
