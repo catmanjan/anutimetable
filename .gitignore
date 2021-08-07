@@ -3,7 +3,3 @@ anuscrape/timetable.json
 .DS_Store
 .vscode/
 __pycache__/
-
-semester_update/calendar.ics
-
-semester_update/temp.py
