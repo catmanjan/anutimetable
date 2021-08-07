@@ -21,7 +21,7 @@
     <div class="col-sm-12 col-md-12">
       <div>
 	    <h1 class="title">(Unofficial) ANU Timetable Planner</h1>
-        <h2 class="title"><%= year%>S<%=semester_no%> (offline compatible)</h2>
+        <h2 class="title"><%= year%>S<%= semester_no%> (offline compatible)</h2>
       </div>
       <p class="course-list-date">Course list updated on <span id="jsonUpdatedTime"></span><br />
         <span class="special-note">Not seeing tutorials? Try changing weeks</span></p>
@@ -78,7 +78,7 @@ DESCRIPTION:<%= description %>
 LAST-MODIFIED:20180718T000000Z
 LOCATION:<%= location %>
 SEQUENCE:1
-UID:anu<%= year%>S<%=semester_no%>_<%= course %>
+UID:anu<%= year%>S<%= semester_no%>_<%= course %>
 STATUS:CONFIRMED
 SUMMARY:<%= course %>
 TRANSP:OPAQUE
