@@ -44,12 +44,12 @@ jobs:
       - name: Check database
         working-directory: semester_update
         run:
-          pipenv run py semester_update/get_semester.py 
+          pipenv run py get_semester.py 
           
       - name: Update File
         working-directory: semester_update
         run:
-          pipenv run py semester_update/updater.py 
+          pipenv run py updater.py 
         
           
       
