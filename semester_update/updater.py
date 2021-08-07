@@ -1,6 +1,7 @@
 from shutil import copy
 from tempfile import TemporaryDirectory
-from datetime import date
+from datetime import date, datetime
+from zoneinfo import ZoneInfo
 import os
 import yaml
 
@@ -61,11 +62,15 @@ with TemporaryDirectory() as temp_dir:
     copy(os.path.join(os.path.dirname(__file__),
          'scraper_template'), os.path.join(temp_dir, 'scraper.py'))
 
+    cur_sem = detect_semester(data)
+    # https://www.tutorialspoint.com/How-to-convert-date-to-datetime-in-Python
+    max_time = datetime.time(23, 59, 59)
+    end_timestamp = datetime.combine(data[csf(cur_sem)]['end'], max_time, tzinfo=ZoneInfo('Australia/Sydney').astimezone(ZoneInfo('UTC')) .isoformat()
+
     inplace_change(os.path.join(temp_dir, 'scraper.py'),
                    '<%= year%>', str(today.year))
     inplace_change(os.path.join(temp_dir, 'index.html'),
                    '<%= year%>', str(today.year))
-    cur_sem = detect_semester(data)
     inplace_change(os.path.join(temp_dir, 'timetable.js'),
                    'startday_template', str(data[csf(cur_sem)]['start'].day))
     inplace_change(os.path.join(temp_dir, 'index.html'),
@@ -74,6 +79,10 @@ with TemporaryDirectory() as temp_dir:
                    '<%= semester%>', csf(cur_sem))
     inplace_change(os.path.join(temp_dir, 'scraper.py'),
                    '<%= semester_no%>', str(cur_sem))
+    inplace_change(os.path.join(temp_dir, 'index.html'),
+                   '<%= month%>', "{:02d}".format(data[csf(cur_sem)]['start'].month))
+    inplace_change(os.path.join(temp_dir, 'index.html'),
+                   '<%= end_datestamp%>',)
     copy(os.path.join(temp_dir, 'index.html'), os.path.realpath('..'))
     copy(os.path.join(temp_dir, 'timetable.js'),
          os.path.join(os.path.realpath('..'), 'js'))
