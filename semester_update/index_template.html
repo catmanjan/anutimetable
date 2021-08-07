@@ -69,7 +69,7 @@ X-WR-CALDESC:ANU <%= semester%>.
 BEGIN:VEVENT
 DTSTART;TZID=/Australia/Sydney:<%= year%><%= month%><%= first_day %>T<%= padded_hour %>00
 DTEND;TZID=/Australia/Sydney:<%= year%><%= month%><%= first_day %>T<%= padded_end_hour %>00
-RRULE:FREQ=WEEKLY;UNTIL:<%= end_datestamp%>;BYDAY=<%= day.slice(0,2).toUpperCase() %>
+RRULE:FREQ=WEEKLY;BYDAY=<%= day.slice(0,2).toUpperCase() %>;UNTIL:<%= end_datestamp%>
 EXDATE;TZID=/Australia/Sydney:<%= year%><%= month%><%= holiday2 %>T<%= padded_hour %>00
 EXDATE;TZID=/Australia/Sydney:<%= year%><%= month%><%= holiday1 %>T<%= padded_hour %>00
 DTSTAMP:<%= timestamp%>

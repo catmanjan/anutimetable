@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 icalevents = "*"
 pyyaml = "*"
+tzdata = {version = "*", sys_platform = "== 'win32'"}
 
 [dev-packages]
 

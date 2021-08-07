@@ -1,6 +1,7 @@
+from string import punctuation
 from shutil import copy
 from tempfile import TemporaryDirectory
-from datetime import date, datetime
+from datetime import date, datetime, time
 from zoneinfo import ZoneInfo
 import os
 import yaml
@@ -44,7 +45,7 @@ def csf(input):  # change_semester_format
 
 today = date.today()
 
-with open('data.yml', 'r') as f:
+with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data.yml'), 'r') as f:
     data = yaml.load(f, Loader=yaml.SafeLoader)
     data = data[today.year]
     data['Semester 1']['start'] = date.fromisoformat(
@@ -64,8 +65,9 @@ with TemporaryDirectory() as temp_dir:
 
     cur_sem = detect_semester(data)
     # https://www.tutorialspoint.com/How-to-convert-date-to-datetime-in-Python
-    max_time = datetime.time(23, 59, 59)
-    end_timestamp = datetime.combine(data[csf(cur_sem)]['end'], max_time, tzinfo=ZoneInfo('Australia/Sydney').astimezone(ZoneInfo('UTC')) .isoformat()
+    max_time = time(23, 59, 59)
+    end_timestamp = datetime.combine(data[csf(cur_sem)]['end'], max_time, tzinfo=ZoneInfo(
+        'Australia/Sydney')).astimezone(ZoneInfo('UTC')) .replace(tzinfo=None).isoformat(timespec='seconds').translate(str.maketrans('', '', punctuation))+'Z'
 
     inplace_change(os.path.join(temp_dir, 'scraper.py'),
                    '<%= year%>', str(today.year))
@@ -82,7 +84,7 @@ with TemporaryDirectory() as temp_dir:
     inplace_change(os.path.join(temp_dir, 'index.html'),
                    '<%= month%>', "{:02d}".format(data[csf(cur_sem)]['start'].month))
     inplace_change(os.path.join(temp_dir, 'index.html'),
-                   '<%= end_datestamp%>',)
+                   '<%= end_datestamp%>',end_timestamp)
     copy(os.path.join(temp_dir, 'index.html'), os.path.realpath('..'))
     copy(os.path.join(temp_dir, 'timetable.js'),
          os.path.join(os.path.realpath('..'), 'js'))
