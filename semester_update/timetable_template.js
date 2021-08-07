@@ -716,7 +716,7 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
                     calString += eventTemplate({
                         padded_hour: Tools.hourify(lesson.start),
                         padded_end_hour: Tools.hourify(lesson.start + lesson.dur),
-                        first_day: 26 + day,
+                        first_day: startday_template + day,
                         day: lesson.day,
                         description: lesson.info,
                         location: lesson.location,

@@ -5,3 +5,5 @@ anuscrape/timetable.json
 __pycache__/
 
 semester_update/calendar.ics
+
+semester_update/temp.py
