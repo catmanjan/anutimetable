@@ -42,13 +42,11 @@ jobs:
         
       - name: Check database
         run:
-          pipenv shell
-          py ./semester_update/get_semester.py 
+          pipenv run py ./semester_update/get_semester.py 
           
       - name: Update File
         run:
-          pipenv shell
-          py ./semester_update/updater.py 
+          pipenv run py ./semester_update/updater.py 
         
           
       
