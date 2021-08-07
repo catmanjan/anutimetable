@@ -69,13 +69,13 @@ X-WR-CALDESC:ANU Semester 2.
 BEGIN:VEVENT
 DTSTART;TZID=/Australia/Sydney:202107<%= first_day %>T<%= padded_hour %>00
 DTEND;TZID=/Australia/Sydney:202107<%= first_day %>T<%= padded_end_hour %>00
-RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
+RRULE:FREQ=WEEKLY;BYDAY=<%= day.slice(0,2).toUpperCase() %>;UNTIL:20211029T125959Z
 EXDATE;TZID=/Australia/Sydney:202107<%= holiday2 %>T<%= padded_hour %>00
 EXDATE;TZID=/Australia/Sydney:202107<%= holiday1 %>T<%= padded_hour %>00
-DTSTAMP:20200223T000000Z
-CREATED:20200223T000000Z
+DTSTAMP:<%= timestamp%>
+CREATED:<%= timestamp%>
 DESCRIPTION:<%= description %>
-LAST-MODIFIED:20180718T000000Z
+LAST-MODIFIED:<%= timestamp%>
 LOCATION:<%= location %>
 SEQUENCE:1
 UID:anu2021s2_<%= course %>

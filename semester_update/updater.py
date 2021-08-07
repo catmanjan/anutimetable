@@ -81,6 +81,7 @@ with TemporaryDirectory() as temp_dir:
                    '<%= semester%>', csf(cur_sem))
     inplace_change(os.path.join(temp_dir, 'scraper.py'),
                    '<%= semester_no%>', str(cur_sem))
+    inplace_change(os.path.join(temp_dir, 'timetable.js'),'%semester_no%',str(cur_sem))
     inplace_change(os.path.join(temp_dir, 'index.html'),
                    '<%= month%>', "{:02d}".format(data[csf(cur_sem)]['start'].month))
     inplace_change(os.path.join(temp_dir, 'index.html'),
