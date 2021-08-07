@@ -6,9 +6,9 @@ name: Semester-detect
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ semester-auto-update ]
   pull_request:
-    branches: [ master ]
+    branches: [ semester-auto-update ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -35,16 +35,19 @@ jobs:
           python-version: ${{ matrix.python-version }}
         
       - name: Install dependencies
+        working-directory: semester_update
         run: |
           python -m pip install --upgrade pip 
           pip install pipenv
           pipenv install
         
       - name: Check database
+        working-directory: semester_update
         run:
           pipenv run py semester_update/get_semester.py 
           
       - name: Update File
+        working-directory: semester_update
         run:
           pipenv run py semester_update/updater.py 
         
