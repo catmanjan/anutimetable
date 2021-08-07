@@ -5,13 +5,9 @@ name: Semester Detection
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
   schedule:
-    - cron : "0 0 1 1 *"
-    - cron : "0 0 15 6 *"
+    - cron: "0 0 1 1 *"
+    - cron: "0 0 15 6 *"
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -21,7 +17,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         python-version: [3.9]
@@ -30,28 +26,26 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
+
       - name: Setup Python
         uses: actions/setup-python@v2.2.2
         with:
           python-version: ${{ matrix.python-version }}
-        
+
       - name: Install dependencies
         working-directory: semester_update
         run: |
           python -m pip install --upgrade pip 
           pip install pipenv
           pipenv install
-        
+
       - name: Check database
         working-directory: semester_update
-        run:
-          pipenv run py get_semester.py 
-          
+        run: pipenv run py get_semester.py
+
       - name: Update File
         working-directory: semester_update
-        run:
-          pipenv run py updater.py 
+        run: pipenv run py updater.py
       - name: Deploy to GitHub Pages
         # You may pin to the exact commit or the version.
         # uses: JamesIves/github-pages-deploy-action@5dc1d5a192aeb5ab5b7d5a77b7d36aea4a7f5c92
