@@ -46,6 +46,7 @@ jobs:
           py ./semester_update/get_semester.py 
           
       - name: Update File
+        run:
           pipenv shell
           py ./semester_update/updater.py 
         
