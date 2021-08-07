@@ -4,7 +4,7 @@
 
 ## Modifacation Note
 
-Any changes to [index.html](index.html) [js/timetable.js](js/timetable.js) and [anuscrape/scraper.py](anuscrape/scraper.py) should be synchronized with the template files in [semester_update](/semester_update) folder.
+Any changes to [index.html](index.html), [js/timetable.js](js/timetable.js) and [anuscrape/scraper.py](anuscrape/scraper.py) should be synchronized with the template files in [semester_update](/semester_update) folder.
 
 ## Updates
 
