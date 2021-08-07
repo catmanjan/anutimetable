@@ -721,6 +721,7 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
                         description: lesson.info,
                         location: lesson.location,
                         course: lesson.name + ' ' + lesson.info,
+                        timestamp: new Date().toISOString().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,""),
                         holiday1: (3 + day < 10) ? '0' + (3 + day) : (3 + day),
                         holiday2:(10 + day < 10) ? '0' + (10 + day) : (10 + day)
                     });

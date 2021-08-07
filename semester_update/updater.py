@@ -43,15 +43,15 @@ def csf(input):  # change_semester_format
 
 today = date.today()
 
-with open('data.yaml', 'r') as f:
+with open('data.yml', 'r') as f:
     data = yaml.load(f, Loader=yaml.SafeLoader)
     data = data[today.year]
     data['Semester 1']['start'] = date.fromisoformat(
         data['Semester 1']['start'])
-    data['Semester 1']['end'] = date.fromisoformat(data['Semester 2']['end'])
+    data['Semester 1']['end'] = date.fromisoformat(data['Semester 1']['end'])
     data['Semester 2']['start'] = date.fromisoformat(
-        data['Semester 1']['start'])
-    data['Semester 2']['end'] = date.fromisoformat(data['end']['end'])
+        data['Semester 2']['start'])
+    data['Semester 2']['end'] = date.fromisoformat(data['Semester 2']['end'])
 
 with TemporaryDirectory() as temp_dir:
     copy(os.path.join(os.path.dirname(__file__),

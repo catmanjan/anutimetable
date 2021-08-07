@@ -67,15 +67,15 @@ X-WR-CALDESC:ANU <%= semester%>.
 
 <script type="text/template" id="event-template">
 BEGIN:VEVENT
-DTSTART;TZID=/Australia/Sydney:<%= year%>07<%= first_day %>T<%= padded_hour %>00
-DTEND;TZID=/Australia/Sydney:<%= year%>07<%= first_day %>T<%= padded_end_hour %>00
+DTSTART;TZID=/Australia/Sydney:<%= year%><%= month%><%= first_day %>T<%= padded_hour %>00
+DTEND;TZID=/Australia/Sydney:<%= year%><%= month%><%= first_day %>T<%= padded_end_hour %>00
 RRULE:FREQ=WEEKLY;COUNT=15;BYDAY=<%= day.slice(0,2).toUpperCase() %>
-EXDATE;TZID=/Australia/Sydney:<%= year%>07<%= holiday2 %>T<%= padded_hour %>00
-EXDATE;TZID=/Australia/Sydney:<%= year%>07<%= holiday1 %>T<%= padded_hour %>00
-DTSTAMP:20200223T000000Z
-CREATED:20200223T000000Z
+EXDATE;TZID=/Australia/Sydney:<%= year%><%= month%><%= holiday2 %>T<%= padded_hour %>00
+EXDATE;TZID=/Australia/Sydney:<%= year%><%= month%><%= holiday1 %>T<%= padded_hour %>00
+DTSTAMP:<%= timestamp%>
+CREATED:<%= timestamp%>
 DESCRIPTION:<%= description %>
-LAST-MODIFIED:20180718T000000Z
+LAST-MODIFIED:<%= timestamp%>
 LOCATION:<%= location %>
 SEQUENCE:1
 UID:anu<%= year%>S<%= semester_no%>_<%= course %>
