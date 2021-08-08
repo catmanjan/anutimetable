@@ -51,7 +51,7 @@ timetable_js.writelines(lines)
 timetable_js.close()
 
 # Increment revision number, replace template file with updated one
-timetable_template_js = open(js_directory + "/timetable.js", 'r')
+timetable_template_js = open(template_directory + "/timetable_template.js", 'r')
 lines=timetable_js.readlines()
 timetable_template_js.close()
 
