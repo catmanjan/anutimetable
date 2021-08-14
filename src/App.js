@@ -61,11 +61,11 @@ class App extends Component {
     cacheEnd: add(endOfWeek(anuInitialTime), {weeks: 1}),
     modules: [],
     enrolled: JSON.parse(localStorage.getItem('enrolled')) || [],
-    events: JSON.parse(localStorage.getItem('events')).map(event => ({
+    events: (JSON.parse(localStorage.getItem('events')) || []).map(event => ({
       ...event,
       start: new Date(event.start),
       end: new Date(event.end)
-    })) || [],
+    })),
     icalEndDate: add(endOfWeek(anuInitialTime), {weeks: 1})
   };
 
@@ -260,10 +260,8 @@ class App extends Component {
     if (index !== -1) {
       let enrolled = [...this.state.enrolled];
       enrolled.splice(index, 1);
-      this.setState({ enrolled });
+      this.setState({ enrolled }, () => this.updateLocalStorage());
     }
-
-    this.updateLocalStorage();
   }
 
   addModule(module) {
