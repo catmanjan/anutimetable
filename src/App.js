@@ -61,7 +61,11 @@ class App extends Component {
     cacheEnd: add(endOfWeek(anuInitialTime), {weeks: 1}),
     modules: [],
     enrolled: JSON.parse(localStorage.getItem('enrolled')) || [],
-    events: [],
+    events: JSON.parse(localStorage.getItem('events')).map(event => ({
+      ...event,
+      start: new Date(event.start),
+      end: new Date(event.end)
+    })) || [],
     icalEndDate: add(endOfWeek(anuInitialTime), {weeks: 1})
   };
 
@@ -83,13 +87,13 @@ class App extends Component {
           if (res.TeachingSessions) {
             let events = [...this.state.events];
             for (let session of res.TeachingSessions) {
-                    // TODO add faculty or randomised (hash) colours
-                    events.push({
-                    title: `${session.modulename} ${session.activitytype}`,
-                    description: session.moduledescription,
-                    start: utcToZonedTime(new Date(session.teachingsessionstartdatetime), anuTimeZone),
-                    end: utcToZonedTime(new Date(session.teachingsessionenddatetime), anuTimeZone)
-                })
+              // TODO add faculty or randomised (hash) colours
+              events.push({
+                title: `${session.modulename} ${session.activitytype}`,
+                description: session.moduledescription,
+                start: utcToZonedTime(new Date(session.teachingsessionstartdatetime), anuTimeZone),
+                end: utcToZonedTime(new Date(session.teachingsessionenddatetime), anuTimeZone)
+              })
             }
             this.setState({ events });
           }
@@ -152,7 +156,7 @@ class App extends Component {
     fetch('./timetable.json')
       .then(res => res.json())
       .then(res => {
-        this.setState(this.processScrapedJSON(res), () => this.getCurrentEvents())
+        this.setState(this.processScrapedJSON(res))
       })
 
     this.addEvents(this.state.cacheStart, this.state.cacheEnd);
@@ -226,6 +230,7 @@ class App extends Component {
       }
     }
     this.setState({ events })
+    this.updateLocalStorage();
   }
 
   deleteModule(module) {
@@ -264,15 +269,15 @@ class App extends Component {
   addModule(module) {
     // Add a course
     this.setState({ enrolled: [...this.state.enrolled, module] }, () => {
-        this.updateLocalStorage();
-        this.addEvent(this.state.cacheStart, this.state.cacheEnd, module);
-        this.getCurrentEvents();
+      this.updateLocalStorage();
+      this.addEvent(this.state.cacheStart, this.state.cacheEnd, module);
+      this.getCurrentEvents();
     });
   }
 
   updateLocalStorage() {
     localStorage.setItem('enrolled', JSON.stringify(this.state.enrolled));
-    // TODO: do we want to cache events as well?
+    localStorage.setItem('events', JSON.stringify(this.state.events));
   }
 
   rangeChanged(range) {
@@ -301,7 +306,7 @@ class App extends Component {
     // This filters out all other interchangeable events
     const id = event.event.description.split(' ')[0];
     let events = this.state.events.filter(target => target.title !== event.title || target.description === event.event.description || target.description.split(' ')[0] !== id)
-    this.setState({ events });
+    this.setState({ events }, () => this.updateLocalStorage());
   }
 
   deleteEvent(event) {
@@ -310,6 +315,7 @@ class App extends Component {
     if (index !== -1) {
       this.state.events.splice(index, 1)
     }
+    this.updateLocalStorage();
   }
 
   getModuleName(module) {
