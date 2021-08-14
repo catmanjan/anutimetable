@@ -80,17 +80,19 @@ class App extends Component {
       })
       .then(
         res => {
-          let events = [...this.state.events];
-          for (let session of res.TeachingSessions) {
-            // TODO add faculty or randomised (hash) colours
-            events.push({
-              title: `${session.modulename} ${session.activitytype}`,
-              description: session.moduledescription,
-              start: utcToZonedTime(new Date(session.teachingsessionstartdatetime), anuTimeZone),
-              end: utcToZonedTime(new Date(session.teachingsessionenddatetime), anuTimeZone)
-            })
+          if (res.TeachingSessions) {
+            let events = [...this.state.events];
+            for (let session of res.TeachingSessions) {
+                    // TODO add faculty or randomised (hash) colours
+                    events.push({
+                    title: `${session.modulename} ${session.activitytype}`,
+                    description: session.moduledescription,
+                    start: utcToZonedTime(new Date(session.teachingsessionstartdatetime), anuTimeZone),
+                    end: utcToZonedTime(new Date(session.teachingsessionenddatetime), anuTimeZone)
+                })
+            }
+            this.setState({ events });
           }
-          this.setState({ events });
         },
         err => console.error(err)
       )
