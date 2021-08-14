@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { format, parse, startOfWeek, endOfWeek, getDay, startOfDay, add, sub, isBefore, isAfter } from "date-fns";
-import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
+import { utcToZonedTime } from "date-fns-tz";
 import ReactSearchBox from "react-search-box";
 import { IconContext } from "react-icons";
 import { RiDeleteBinLine } from "react-icons/ri";
