@@ -8,7 +8,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import "./App.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Button, ButtonGroup, InputGroup, Col, Row, Container } from "react-bootstrap";
-import { createEvents } from "ics";
+import * as ics from "ics";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
@@ -61,22 +61,24 @@ class App extends Component {
     cacheEnd: add(endOfWeek(anuInitialTime), {weeks: 1}),
     modules: [],
     enrolled: JSON.parse(localStorage.getItem('enrolled')) || [],
-    events: [{
-      title: "MEDI8020A_S1 Workshop",
-      description: "Medicine 2",
-      start: zonedTimeToUtc("2021-04-20 09:00:00", anuTimeZone),
-      end: zonedTimeToUtc("2021-04-20 10:00:00", anuTimeZone)
-    }, {
-      title: "MEDI8020A_S1 Workshop",
-      description: "Medicine 2",
-      start: zonedTimeToUtc("2021-04-21 09:00:00", anuTimeZone),
-      end: zonedTimeToUtc("2021-04-21 10:00:00", anuTimeZone)
-    }, {
-      title: "MEDI8020A_S1 Lecture",
-      description: "Medicine 2",
-      start: zonedTimeToUtc("2021-04-22 09:00:00", anuTimeZone),
-      end: zonedTimeToUtc("2021-04-22 10:00:00", anuTimeZone)
-    }],
+    events: [
+      {
+        title: "MEDI8020A_S1 Workshop",
+        description: "Medicine 2",
+        start: zonedTimeToUtc("2021-04-20 09:00:00", anuTimeZone),
+        end: zonedTimeToUtc("2021-04-20 10:00:00", anuTimeZone)
+      }, {
+        title: "MEDI8020A_S1 Workshop",
+        description: "Medicine 2",
+        start: zonedTimeToUtc("2021-04-21 09:00:00", anuTimeZone),
+        end: zonedTimeToUtc("2021-04-21 10:00:00", anuTimeZone)
+      }, {
+        title: "MEDI8020A_S1 Lecture",
+        description: "Medicine 2",
+        start: zonedTimeToUtc("2021-04-22 09:00:00", anuTimeZone),
+        end: zonedTimeToUtc("2021-04-22 10:00:00", anuTimeZone)
+      }
+    ],
     icalEndDate: add(endOfWeek(anuInitialTime), {weeks: 1})
   };
 
@@ -85,9 +87,11 @@ class App extends Component {
         }&start=${format(start, "yyyy-MM-dd")
         }&end=${format(end, "yyyy-MM-dd")}`
     ).then(res => {
-        if (!res.ok)
+        if (!res.ok) {
           throw new Error('Timetable API request failed')
-        return res.json();
+        } else {
+          return res.json();
+        }
       })
       .then(
         res => {
@@ -119,10 +123,10 @@ class App extends Component {
     }
 
     const element = document.createElement("a");
-    const { value } = createEvents(this.state.events.map(event => ({
-        ...event,
-        start: format(event.start, 'y,M,d,H,m,s').split(','),
-        end: format(event.end, 'y,M,d,H,m,s').split(',')
+    const { value } = ics.createEvents(this.state.events.map(event => ({
+      ...event,
+      start: format(event.start, 'y,M,d,H,m,s').split(',').map(Number),
+      end: format(event.end, 'y,M,d,H,m,s').split(',').map(Number)
     })))
     const file = new Blob([value], {type: 'text/calendar'});
     element.href = URL.createObjectURL(file);
@@ -145,11 +149,11 @@ class App extends Component {
     return hash;
   }
   intToRGB(i){
-      var c = (i & 0x00FFFFFF)
-          .toString(16)
-          .toUpperCase();
+    var c = (i & 0x00FFFFFF)
+      .toString(16)
+      .toUpperCase();
 
-      return "00000".substring(0, 6 - c.length) + c;
+    return "00000".substring(0, 6 - c.length) + c;
   }
 
   componentDidMount(){
