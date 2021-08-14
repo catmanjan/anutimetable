@@ -61,24 +61,7 @@ class App extends Component {
     cacheEnd: add(endOfWeek(anuInitialTime), {weeks: 1}),
     modules: [],
     enrolled: JSON.parse(localStorage.getItem('enrolled')) || [],
-    events: [
-      {
-        title: "MEDI8020A_S1 Workshop",
-        description: "Medicine 2",
-        start: zonedTimeToUtc("2021-04-20 09:00:00", anuTimeZone),
-        end: zonedTimeToUtc("2021-04-20 10:00:00", anuTimeZone)
-      }, {
-        title: "MEDI8020A_S1 Workshop",
-        description: "Medicine 2",
-        start: zonedTimeToUtc("2021-04-21 09:00:00", anuTimeZone),
-        end: zonedTimeToUtc("2021-04-21 10:00:00", anuTimeZone)
-      }, {
-        title: "MEDI8020A_S1 Lecture",
-        description: "Medicine 2",
-        start: zonedTimeToUtc("2021-04-22 09:00:00", anuTimeZone),
-        end: zonedTimeToUtc("2021-04-22 10:00:00", anuTimeZone)
-      }
-    ],
+    events: [],
     icalEndDate: add(endOfWeek(anuInitialTime), {weeks: 1})
   };
 
@@ -88,10 +71,12 @@ class App extends Component {
         }&end=${format(end, "yyyy-MM-dd")}`
     ).then(res => {
         if (!res.ok) {
-          throw new Error('Timetable API request failed')
-        } else {
-          return res.json();
-        }
+          try {
+            return res.json();
+          } catch (e) {
+            throw new Error('Timetable API invalid response. Try starting the function emulator with func start.')
+          }
+        } else throw new Error('Timetable API request failed.')
       })
       .then(
         res => {
@@ -163,12 +148,11 @@ class App extends Component {
     }
 
     fetch('./timetable.json')
+      .then(res => res.json())
       .then(res => {
-        return res.json()
+        this.setState(this.processScrapedJSON(res), () => this.getCurrentEvents())
       })
-      .then(res => {
-        this.setState(this.processScrapedJSON(res))
-      })
+
     this.addEvents(this.state.cacheStart, this.state.cacheEnd);
   }
 
@@ -216,7 +200,7 @@ class App extends Component {
     // this is a list of { title: string, start: Date, end: Date, description: string }
     // this.state.data
     if (!this.state.data) return []
-    const events = []
+    const events = this.state.events;
     // don't ask. won't work every 7th year on average
     // also it assumes day 0 is monday in local time
     let daysToFirstMon = nextMonday(new Date(new Date().getFullYear(), 0)).getDay();
@@ -239,7 +223,7 @@ class App extends Component {
         }
       }
     }
-    return events;
+    this.setState({ events })
   }
 
   deleteModule(module) {
@@ -277,11 +261,11 @@ class App extends Component {
 
   addModule(module) {
     // Add a course
-    let enrolled = [...this.state.enrolled];
-    enrolled.push(module);
-    this.setState({ enrolled });
-    this.updateLocalStorage();
-    this.addEvent(this.state.cacheStart, this.state.cacheEnd, module);
+    this.setState({ enrolled: [...this.state.enrolled, module] }, () => {
+        this.updateLocalStorage();
+        this.addEvent(this.state.cacheStart, this.state.cacheEnd, module);
+        this.getCurrentEvents();
+    });
   }
 
   updateLocalStorage() {
@@ -313,8 +297,8 @@ class App extends Component {
   chooseEvent(event) {
     // Choose a time slot for a class
     // This filters out all other interchangeable events
-    let events = this.state.events.filter(target => target.title !== event.title);
-    events.push(event);
+    const id = event.event.description.split(' ')[0];
+    let events = this.state.events.filter(target => target.title !== event.title || target.description === event.event.description || target.description.split(' ')[0] !== id)
     this.setState({ events });
   }
 
@@ -402,7 +386,7 @@ class App extends Component {
           {/* Calendar view */}
           <Row><Col><Calendar popup
             localizer={localizer}
-            events={this.getCurrentEvents()}
+            events={this.state.events}
             style={{ height: "85vh" }}
             defaultView='work_week' views={['work_week', 'month', 'day']}
             min={this.state.dayStart} max={this.state.dayEnd}
@@ -436,8 +420,8 @@ class App extends Component {
 
           {/* Footer */}
           <Row><Col><footer style={{textAlign: "center"}}>
-            Made with <span role="img" aria-label="love">💖</span>
-            by <a href="https://github.com/pl4nty">Tom Plant</a>, report issues&nbsp;
+            Made with <span role="img" aria-label="love">💖</span> by the&nbsp;
+            <a href="https://cssa.club/">ANU CSSA</a>, report issues&nbsp;
             <a href="https://github.com/pl4nty/anutimetable/issues">here</a>
           </footer></Col></Row>
         </Container>
