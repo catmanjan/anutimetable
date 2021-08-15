@@ -1,15 +1,18 @@
 # ANU Unofficial Timetable
-![Website status](https://img.shields.io/website?down_color=red&down_message=offline&up_color=success&up_message=online&url=https%3A%2F%2Fanutimetable.com%2F&logo=microsoft-azure&logoColor=white)
-![Build status](https://img.shields.io/github/workflow/status/pl4nty/anutimetable/Build%20and%20deploy%20to%20Azure?logo=github&logoColor=white)
+[![Website status](https://img.shields.io/website?down_color=red&down_message=offline&up_color=success&up_message=online&url=https%3A%2F%2Ftimetable.cssa.club&logo=microsoft-azure&logoColor=white)](https://timetable.cssa.club)
+[![Build status](https://img.shields.io/github/workflow/status/pl4nty/anutimetable/Build%20and%20deploy?logo=github&logoColor=white)](https://github.com/pl4nty/anutimetable/actions/workflows/build_and_deploy.yml)
+[![Scraper status](https://img.shields.io/github/workflow/status/pl4nty/anutimetable/Scrape%20official%20timetable?logo=github&logoColor=white&label=scraper)](https://github.com/pl4nty/anutimetable/actions/workflows/scrape.yml)
 
-* Timetable database last update: 2021-07-15
 ## Changelog
 
+### 2021-07-17
+- Integration with existing scraper and frontend fixes thanks to [@OliverBalfour](https://github.com/OliverBalfour)
+
 ### 2021-04-18
-Fully rewritten in React with ANU's official API thanks to [@pl4nty](https://github.com/pl4nty)
+- Frontend rewritten in React with ANU's official API and GitHub Actions thanks to [@pl4nty](https://github.com/pl4nty)
 
 ### 2021-02-13
-Added automatic daily scrapes of the timetable thanks to [@BishopOfTurkey](https://github.com/BishopOfTurkey)
+- Added automatic daily scrapes of the timetable thanks to [@BishopOfTurkey](https://github.com/BishopOfTurkey)
 
 ### 2021-02-13
 - Added automatic daily scrapes of the timetable thanks to [@BishopOfTurkey](https://github.com/BishopOfTurkey)
