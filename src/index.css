@@ -11,6 +11,10 @@
   --input-height: 38px;
 }
 
+.container-fluid {
+    padding:0px;
+}
+
 .date-picker {
   height: var(--input-height);
   padding: 10px 12px;

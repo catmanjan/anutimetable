@@ -55,82 +55,36 @@ function ClassTag({ module, deleteModule, title }) {
 
 class App extends Component {
   state = {
-    dayStart: add(startOfDay(anuInitialTime), {hours: 9}),
-    dayEnd: add(startOfDay(anuInitialTime), {hours: 17, minutes: 30}),
-    cacheStart: sub(startOfWeek(anuInitialTime), {weeks: 1}),
-    cacheEnd: add(endOfWeek(anuInitialTime), {weeks: 1}),
-    modules: [],
+    sourceData: JSON.parse(localStorage.getItem('sourceData')) || [],
+    modules: JSON.parse(localStorage.getItem('modules')) || [],
     enrolled: JSON.parse(localStorage.getItem('enrolled')) || [],
     events: (JSON.parse(localStorage.getItem('events')) || []).map(event => ({
       ...event,
       start: new Date(event.start),
       end: new Date(event.end)
-    })),
-    icalEndDate: add(endOfWeek(anuInitialTime), {weeks: 1})
+    }))
   };
 
-  addEvent(start, end, event) {
-    fetch(`/api/ClassSchedules?name=${event
-        }&start=${format(start, "yyyy-MM-dd")
-        }&end=${format(end, "yyyy-MM-dd")}`
-    ).then(res => {
-        if (!res.ok) {
-          try {
-            return res.json();
-          } catch (e) {
-            throw new Error('Timetable API invalid response. Try starting the function emulator with func start.')
-          }
-        } else throw new Error('Timetable API request failed.')
-      })
-      .then(
-        res => {
-          if (res.TeachingSessions) {
-            let events = [...this.state.events];
-            for (let session of res.TeachingSessions) {
-              // TODO add faculty or randomised (hash) colours
-              events.push({
-                title: `${session.modulename} ${session.activitytype}`,
-                description: session.moduledescription,
-                start: utcToZonedTime(new Date(session.teachingsessionstartdatetime), anuTimeZone),
-                end: utcToZonedTime(new Date(session.teachingsessionenddatetime), anuTimeZone)
-              })
-            }
-            this.setState({ events });
-          }
-        },
-        err => console.error(err)
-      )
-  }
-
-  addEvents(start, end) {
-    for (let module of this.state.enrolled) {
-      this.addEvent(start, end, module);
-    }
-  }
-
   downloadEvents() {
-    if (this.state.icalEndDate) {
-      this.addEvents(this.state.cacheEnd, this.state.icalEndDate)
-    }
-
-    const element = document.createElement("a");
-    const { value } = ics.createEvents(this.state.events.map(event => ({
+    // Format events for ICS generator
+    const { events } = ics.createEvents(this.state.events.map(event => ({
       ...event,
       start: format(event.start, 'y,M,d,H,m,s').split(',').map(Number),
       end: format(event.end, 'y,M,d,H,m,s').split(',').map(Number)
     })))
-    const file = new Blob([value], {type: 'text/calendar'});
+    
+    // Create download link
+    const element = document.createElement("a");
+    const file = new Blob([events], {type: 'text/calendar'});
     element.href = URL.createObjectURL(file);
     const d = new Date();
     element.download = `ANU Timetable ${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}.ics`;
+
+    // Download file
     document.body.appendChild(element); // Required for this to work in FireFox
     element.click();
   }
 
-  eventColor(event) {
-    // TODO prettier faculty-based colours (_drama_)? Also hash could cause black on black and other problems
-    return "#" + this.intToRGB(this.hashCode(event.title));
-  }
   // https://stackoverflow.com/a/3426956/
   hashCode(str) { // java String#hashCode
     var hash = 0;
@@ -153,84 +107,64 @@ class App extends Component {
       appInsights.trackPageView();
     }
 
+    /*
+    timetable.json
+    {
+      COMP1140_S2: {
+        some: data,
+        classes: [{
+          some: data,
+          weeks: "31\u201136,39\u201144"
+        }]
+      }
+    }
+    */
     fetch('./timetable.json')
       .then(res => res.json())
       .then(res => {
-        this.setState(this.processScrapedJSON(res))
+        this.setState({ 
+          sourceData: res, 
+          modules: Object.values(res).map(module => ({
+            key: module.id,
+            value: module.id.split('_')[0] + ' ' + module.title.split('\u00a0')[1]
+          }))
+        });
       })
-
-    this.addEvents(this.state.cacheStart, this.state.cacheEnd);
   }
 
-  keyValArrayToDict(arr) {
-    let obj = {};
-    for (let x of arr) {
-      obj[x.key] = x.value;
-    }
-    return obj;
-  }
+  updateEvents(sourceData, moduleIds) {
+    const events = [];
 
-  processScrapedJSON(rawData) {
-    let modules = [];
-    let modulesDict = {};
-    rawData[0].forEach(x => {
-      const key = x.split('\xa0')[0];
-      const value = x.replace('\xa0', ' ')
-      modules.push({ key, value })
-      modulesDict[key] = value
-    })
-    // Source: https://github.com/catmanjan/anutimetable/blob/ea9a68e12ab2993bfaeb9e7fee48d9756d47dab9/js/timetable.js#L563
-    const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-    rawData[3].forEach((course, i) => {
-      rawData[3][i].fullName = rawData[0][course.nid];
-      // eslint-disable-next-line
-      rawData[3][i].info = rawData[1][course.iid].replace(/(\s|([^\d]))(0+)/g, '$2').replace('/', ' / ');
-      rawData[3][i].location = rawData[2][course.lid];
-      // eslint-disable-next-line
-      rawData[3][i].name = rawData[3][i].fullName.match(/^([\sa-zA-Z0-9\(\)\/-]+)_.+?\s(.+)/)[1];
-      rawData[3][i].dayName = parseInt(course.day) !== course.day ? course.day : weekdays[course.day]; // update transition detection
-      delete rawData[3][i].nid;
-      delete rawData[3][i].iid;
-      delete rawData[3][i].lid;
-    });
-    return {modules, modulesDict, data: rawData[3] };
-  }
+    for (let moduleId of moduleIds) {
+      const module = sourceData[moduleId];
+      if (module) {
+        for (let session of module.classes) {
+          // repeated weeks are stored as "31\u201136,39\u201144"
+          for (let period of session.weeks.split(',')) {
+            const weeks = period.split('\u2011');
+            // Weeks are 1-indexed, so convert to 0-indexed
+            for (let week = weeks[0]-1; week <= weeks[weeks.length-1]-1; week++) {
+              const currentYear = new Date().getFullYear();
 
-  range(lower, upper) {
-    // generates a range INCLUDING the upper bound
-    return Array.from(new Array(upper - lower + 1), (x, i) => i + lower);
-  }
+              // Days from start of year until first Monday - aka Week 0
+              // modulo 7 in case start of year is a Monday
+              const daysUntilFirstMonday = nextMonday(new Date(currentYear, 0)).getDay() % 7;
+              const day = daysUntilFirstMonday + 7*week + parseInt(session.day) - 4
 
-  getCurrentEvents() {
-    // gets the events for use by react big calendar
-    // this is a list of { title: string, start: Date, end: Date, description: string }
-    // this.state.data
-    if (!this.state.data) return []
-    const events = this.state.events;
-    // don't ask. won't work every 7th year on average
-    // also it assumes day 0 is monday in local time
-    let daysToFirstMon = nextMonday(new Date(new Date().getFullYear(), 0)).getDay();
-    for (let session of this.state.data) {
-      let course = session.fullName.split('\xa0')[0]; // eg "ACST4032_S2"
-      if (this.state.enrolled.indexOf(course) !== -1) {
-        // session.weeks might look like "31‑36,39‑44"
-        let weeks = session.weeks.split(',').flatMap(range => {
-          const [lower, upper] = range.split('\u2011').map(x => parseInt(x))
-          if (!upper) return [lower]
-          return this.range(lower, upper)
-        })
-        for (let week of weeks) {
-          events.push({
-            title: course,
-            description: session.info + ', ' + session.location,
-            start: new Date(new Date().getFullYear(), 0, 7 * week + daysToFirstMon, session.start),
-            end: new Date(new Date().getFullYear(), 0, 7 * week + daysToFirstMon, session.start+session.dur),
-          })
+              events.push({
+                ...session,
+                title: session.module,
+                description: `${session.activity} ${parseInt(session.occurrence)}, ${session.location}`,
+                start: new Date(currentYear, 0,  day, ...session.start.split(':')),
+                end: new Date(currentYear, 0, day, ...session.finish.split(':'))
+              })
+            }
+          }
         }
       }
     }
-    this.setState({ events })
-    this.updateLocalStorage();
+
+    this.setState({ events }, () => this.updateLocalStorage());
   }
 
   deleteModule(module) {
@@ -240,7 +174,7 @@ class App extends Component {
     // Get index of first event for this module
     let firstIndex = events.length;
     for (let i = 0; i < events.length; i++) {
-      if (events[i].title.startsWith(module)) {
+      if (module.startsWith(events[i].title)) {
         firstIndex = i;
         break;
       }
@@ -248,7 +182,7 @@ class App extends Component {
 
     // Delete all events for this module/course
     for (let lastIndex = firstIndex + 1; lastIndex <= events.length; lastIndex++) {
-      if (lastIndex === events.length || !events[lastIndex].title.startsWith(module)) {
+      if (lastIndex === events.length || !module.startsWith(events[lastIndex].title)) {
         events.splice(firstIndex, lastIndex - firstIndex);
         this.setState({ events });
         break;
@@ -264,39 +198,15 @@ class App extends Component {
     }
   }
 
+  // Add a course
   addModule(module) {
-    // Add a course
-    this.setState({ enrolled: [...this.state.enrolled, module] }, () => {
-      this.updateLocalStorage();
-      this.addEvent(this.state.cacheStart, this.state.cacheEnd, module);
-      this.getCurrentEvents();
-    });
+    this.setState({ enrolled: [...this.state.enrolled, module] }, this.updateEvents(this.state.sourceData, [module]))
   }
 
   updateLocalStorage() {
+    localStorage.setItem('modules', JSON.stringify(this.state.modules));
     localStorage.setItem('enrolled', JSON.stringify(this.state.enrolled));
     localStorage.setItem('events', JSON.stringify(this.state.events));
-  }
-
-  rangeChanged(range) {
-    // Calendar view date bounds changed, update cache
-    const newEnd = add(range[range.length - 1], { weeks: 1 });
-
-    if (isAfter(newEnd, this.state.cacheEnd)) {
-      this.addEvents(this.state.cacheEnd, newEnd);
-      this.setState({
-        cacheEnd: newEnd
-      });
-    } else {
-      const newStart = sub(range[0], { weeks: 1 });
-
-      if (isBefore(newStart, this.state.cacheStart)) {
-        this.addEvents(newStart, this.state.cacheStart);
-        this.setState({
-          cacheStart: newStart
-        });
-      }
-    }
   }
 
   chooseEvent(event) {
@@ -304,7 +214,7 @@ class App extends Component {
     // This filters out all other interchangeable events
     const id = event.event.description.split(' ')[0];
     let events = this.state.events.filter(target => target.title !== event.title || target.description === event.event.description || target.description.split(' ')[0] !== id)
-    this.setState({ events }, () => this.updateLocalStorage());
+    this.setState({ events });
   }
 
   deleteEvent(event) {
@@ -313,7 +223,6 @@ class App extends Component {
     if (index !== -1) {
       this.state.events.splice(index, 1)
     }
-    this.updateLocalStorage();
   }
 
   getModuleName(module) {
@@ -330,7 +239,13 @@ class App extends Component {
         {event.title}<br/>
         {event.description}
         <ButtonGroup>
-          <Button size="sm" onClick={() => this.chooseEvent(_event)}>Choose</Button>
+          <Button 
+            size="sm" 
+            onClick={() => this.chooseEvent(_event)}
+            style={{
+              backgroundColor: this.intToRGB(this.hashCode(event.activity)),
+            }}
+          >Choose</Button>
           <Button size="sm" variant="danger" onClick={() => this.deleteEvent(_event)}>Delete</Button>
         </ButtonGroup>
       </div>
@@ -364,10 +279,7 @@ class App extends Component {
                   autoFocus
                   placeholder="Enter a course code here (for example LAWS1201)"
                   data={this.state.modules}
-                  value={this.state.searchVal}
-                  onSelect={record => {
-                    this.addModule(record.key);
-                  }}
+                  onSelect={record => this.addModule(record.key)}
                   onFocus={() => this.setState({ searchFocused: true })}
                 />
               </ClickAwayListener>
@@ -375,17 +287,12 @@ class App extends Component {
 
             {/* Calendar export */}
             <Col>
-              <ButtonGroup>
-                <DatePicker selected={this.state.icalEndDate}
-                  onChange={icalEndDate => this.setState({ icalEndDate })}
-                  className={'date-picker ' + (!showICS ? 'full' : '')} />
                 {showICS && (
-                <Button onClick={() => {this.downloadEvents()}}
-                  className='ics-export'>
-                  Export .ics
-                </Button>
+                    <Button onClick={() => {this.downloadEvents()}}
+                    className='ics-export'>
+                    Export .ics
+                    </Button>
                 )}
-              </ButtonGroup>
             </Col>
           </InputGroup></Row>
 
@@ -394,10 +301,13 @@ class App extends Component {
             localizer={localizer}
             events={this.state.events}
             style={{ height: "85vh" }}
-            defaultView='work_week' views={['work_week', 'month', 'day']}
-            min={this.state.dayStart} max={this.state.dayEnd}
+            defaultView={navigator.userAgentData.mobile ? 'agenda' : 'work_week'}
+            views={['day', 'work_week', 'month', 'agenda']}
+            min={add(startOfDay(anuInitialTime), {hours: 9})} max={add(startOfDay(anuInitialTime), {hours: 17, minutes: 30})}
             formats={{
-              dayFormat: (date, culture) => localizer.format(date, 'EEEE', culture),
+              dayFormat: (date, culture) => localizer.format(date, 'EEEE', culture), // days in week/month
+              dayHeaderFormat: (date, culture) => localizer.format(date, 'EEEE MMMM dd', culture), // Day view
+              agendaDateFormat: (date, culture) => localizer.format(date, 'EEE', culture), // Agenda view
               eventTimeRangeFormat: () => ""
             }}
             // Display descriptive name as tooltip
@@ -405,9 +315,6 @@ class App extends Component {
 
             // Delete on double click
             // onDoubleClickEvent={event => this.deleteEvent(event)}
-
-            // Get events in new unloaded range - assumes pagination in only one direction
-            onRangeChange={this.rangeChanged.bind(this)}
 
             components={{
               event: event => {
@@ -418,7 +325,7 @@ class App extends Component {
 
             eventPropGetter={event => ({
               style: {
-                backgroundColor: this.eventColor(event),
+                backgroundColor: this.intToRGB(this.hashCode(event.title)),
                 border: '1px solid black'
               }
             })}
