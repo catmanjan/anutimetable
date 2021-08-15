@@ -5,6 +5,7 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "ics": "^2.29.0"
   }
 }
