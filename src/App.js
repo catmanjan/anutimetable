@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import { format, parse, startOfWeek, endOfWeek, getDay, startOfDay, add, sub, isBefore, isAfter } from "date-fns";
+import { format, parse, startOfWeek, getDay, startOfDay, add } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 import ReactSearchBox from "react-search-box";
 import { IconContext } from "react-icons";
@@ -9,7 +9,6 @@ import "./App.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Button, ButtonGroup, InputGroup, Col, Row, Container } from "react-bootstrap";
 import * as ics from "ics";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { ReactPlugin, withAITracking } from "@microsoft/applicationinsights-react-js";
