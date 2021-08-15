@@ -155,7 +155,7 @@ class App extends Component {
                 ...session,
                 title: session.module,
                 description: `${session.activity} ${parseInt(session.occurrence)}, ${session.location}`,
-                start: new Date(currentYear, 0,  day, ...session.start.split(':')),
+                start: new Date(currentYear, 0, day, ...session.start.split(':')),
                 end: new Date(currentYear, 0, day, ...session.finish.split(':'))
               })
             }
