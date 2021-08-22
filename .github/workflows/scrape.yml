@@ -2,6 +2,11 @@ name: Scrape Timetable
 
 on:
   push:
+  
+  workflow_run:
+    workflows: ["Semester Detection"]
+    types:
+      - completed
 
   schedule:
     - cron: "0 0 * * 0"
