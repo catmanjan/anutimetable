@@ -26,14 +26,12 @@ landingSoup = BeautifulSoup(res.content, 'html.parser')
 
 session = SessionData(landingSoup)
 print("Got landing page! Getting list of courses...")
-res = requests.post(URL, data=session.withTargetLinkType(
-    "LinkBtn_modules", "information"), cookies=cookies)
+res = requests.post(URL, data=session.withTargetLinkType("LinkBtn_modules","information"), cookies=cookies)
 cookies = res.cookies
-session = SessionData(BeautifulSoup(res.content, 'html.parser'))
+session =  SessionData(BeautifulSoup(res.content, 'html.parser'))
 coursesPage = CoursesPage(res)
 
-coursesPage.courseList = list(
-    filter(lambda x: x[0].strip().endswith(f"S{SEMESTER}"), coursesPage.courseList))
+coursesPage.courseList = list(filter(lambda x: x[0].strip().endswith(f"S{SEMESTER}"), coursesPage.courseList))
 
 courseCount = len(coursesPage.courseList)
 print(f"Found {courseCount} courses.")
@@ -59,5 +57,4 @@ for courseCodes in Chunk(coursesPage, CHUNK):
     printProgressBar(len(courses), courseCount)
 
 formatCourses(courses)
-print(
-    f"Scraping complete, scraped {len(courses)} courses in total, time elapsed: { time.time() - start_time}s")
+print(f"Scraping complete, scraped {len(courses)} courses in total, time elapsed: { time.time() - start_time}s")

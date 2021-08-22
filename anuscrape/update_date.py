@@ -32,7 +32,6 @@ def custom_strftime(format, t):
 home = str(os.path.dirname(os.path.abspath(__file__))) + "/.."
 scrape_directory = home + "/anuscrape"
 js_directory = home + "/js"
-template_directory = home + "/semester_update"
 current_date_string = custom_strftime('{S} of %B, %Y', dt.now())
 
 # Open timetable.js and read revision number
@@ -44,18 +43,6 @@ timetable_js.close()
 
 # Increment revision number, replace file with updated one
 timetable_js = open(js_directory + "/timetable.js", 'w')
-new_revision_id = int(revision_id) + 1
-lines[4] = "var jsonUpdatedTime = '" + current_date_string + "';" +"\n"
-lines[5] = "var revisionNum     = " + str(new_revision_id) + ";" + "\n"
-timetable_js.writelines(lines)
-timetable_js.close()
-
-# Increment revision number, replace template file with updated one
-timetable_template_js = open(template_directory + "/timetable_template.js", 'r')
-lines=timetable_js.readlines()
-timetable_template_js.close()
-
-timetable_template_js = open(template_directory + "/timetable_template.js", 'w')
 new_revision_id = int(revision_id) + 1
 lines[4] = "var jsonUpdatedTime = '" + current_date_string + "';" +"\n"
 lines[5] = "var revisionNum     = " + str(new_revision_id) + ";" + "\n"
