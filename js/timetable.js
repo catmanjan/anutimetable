@@ -1,4 +1,4 @@
-var rawLessons      = [];
+var rawLesson      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
@@ -797,3 +797,4 @@ if (typeof global === 'undefined' || typeof global.it !== 'function') {
         Tools: Tools
     };
 }
+
