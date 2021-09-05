@@ -52,15 +52,14 @@ timetable_js.close()
 
 # Increment revision number, replace template file with updated one
 timetable_template_js = open(template_directory + "/timetable_template.js", 'r')
-lines=timetable_js.readlines()
+lines=timetable_template_js.readlines()
 timetable_template_js.close()
-
 timetable_template_js = open(template_directory + "/timetable_template.js", 'w')
 new_revision_id = int(revision_id) + 1
 lines[4] = "var jsonUpdatedTime = '" + current_date_string + "';" +"\n"
 lines[5] = "var revisionNum     = " + str(new_revision_id) + ";" + "\n"
-timetable_js.writelines(lines)
-timetable_js.close()
+timetable_template_js.writelines(lines)
+timetable_template_js.close()
 
 # Read readme.md contents
 readme_md = open(home + "/README.md", 'r')
