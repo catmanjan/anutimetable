@@ -2,8 +2,8 @@ var rawLessons      = [];
 var timetableData   = {};
 var hasLocalStorage = typeof(Storage) !== 'undefined';
 var recover         = false;
-var jsonUpdatedTime = '19th of September, 2021';
-var revisionNum     = 194;
+var jsonUpdatedTime = '26th of September, 2021';
+var revisionNum     = 195;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (value) {
