@@ -4,5 +4,18 @@
     "azureFunctions.projectLanguage": "TypeScript",
     "azureFunctions.projectRuntime": "~3",
     "debug.internalConsoleOptions": "neverOpen",
-    "azureFunctions.preDeployTask": "npm prune"
+    "azureFunctions.preDeployTask": "npm prune",
+    "cSpell.words": [
+        "anucssa",
+        "BYDAY",
+        "DTEND",
+        "DTSTART",
+        "RRULE",
+        "TZID",
+        "TZNAME",
+        "TZOFFSETFROM",
+        "TZOFFSETTO",
+        "VEVENT",
+        "VTIMEZONE"
+    ]
 }

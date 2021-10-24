@@ -1,43 +1,62 @@
 {
 	"version": "2.0.0",
 	"tasks": [
-        {
-            "type": "func",
-            "command": "host start",
-            "problemMatcher": "$func-node-watch",
-            "isBackground": true,
-            "dependsOn": "npm build",
-            "options": {
-                "cwd": "${workspaceFolder}/api"
-            }
-        },
-        {
-            "type": "shell",
-            "label": "npm build",
-            "command": "npm run build",
-            "dependsOn": "npm install",
-            "problemMatcher": "$tsc",
-            "options": {
-                "cwd": "${workspaceFolder}/api"
-            }
-        },
-        {
-            "type": "shell",
-            "label": "npm install",
-            "command": "npm install",
-            "options": {
-                "cwd": "${workspaceFolder}/api"
-            }
-        },
-        {
-            "type": "shell",
-            "label": "npm prune",
-            "command": "npm prune --production",
-            "dependsOn": "npm build",
-            "problemMatcher": [],
-            "options": {
-                "cwd": "${workspaceFolder}/api"
-            }
-        }
-    ]
+		{
+			"type": "func",
+			"command": "host start",
+			"problemMatcher": "$func-node-watch",
+			"isBackground": true,
+			"dependsOn": "npm install (functions)",
+			"options": {
+				"cwd": "${workspaceFolder}/api",
+				"env": {
+					"languageWorkers__node__arguments": "--inspect=9229"
+				}
+			}
+		},
+		{
+			"type": "shell",
+			"label": "npm install (functions)",
+			"command": "npm install",
+			"options": {
+				"cwd": "${workspaceFolder}/api"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "npm prune (functions)",
+			"command": "npm prune --production",
+			"problemMatcher": [],
+			"options": {
+				"cwd": "${workspaceFolder}/api"
+			}
+		},
+		{
+			"type": "shell",
+			"label": "swa start",
+			"command": "swa start build --api http://localhost:7071",
+			"isBackground": true,
+			"problemMatcher": [
+				{
+					"pattern": [
+						{
+							"regexp": ".",
+							"file": 1,
+							"location": 2,
+							"message": 3
+						}
+					],
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": ".",
+						"endsPattern": "Waiting for .+7071 to be ready",
+					}
+				}
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"dependsOn": []
+		}
+	]
 }

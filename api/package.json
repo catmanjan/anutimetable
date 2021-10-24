@@ -1,11 +1,17 @@
 {
   "name": "api",
   "version": "1.0.0",
+  "description": "Function API",
+  "repository": "https://github.com/pl4nty/anutimetable/",
+  "license": "MIT",
   "scripts": {
+    "start": "func start",
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "node-fetch": "^2.6.1",
-    "ics": "^2.29.0"
+    "date-fns": "^2.25.0",
+    "date-fns-tz": "^1.1.6",
+    "ics": "^2.31.0",
+    "node-fetch": "^2.6.5"
   }
 }

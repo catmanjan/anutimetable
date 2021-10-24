@@ -5,6 +5,9 @@
 
 ## Changelog
 
+### 2021-10-24
+- Calendar file generator (ICS/webcal) thanks to [@pl4nty](https://github.com/pl4nty), available at `/api/GetICS` eg `/api/GetICS?COMP2310` or `/api/GetICS?COMP2310=ComA 01,COMP2310=ComB 01`
+
 ### 2021-07-17
 - Integration with existing scraper and frontend fixes thanks to [@OliverBalfour](https://github.com/OliverBalfour)
 
