@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "config:base",
+    "group:all",
+    "schedule:monthly"
+  ],
+  "assigneesFromCodeOwners": true,
+  "separateMinorPatch": true,
+  "packageRules": [
+    {
+      "updateTypes": ["patch"],
+      "enabled": false
+    }
+  ]
+}
