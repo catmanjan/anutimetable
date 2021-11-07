@@ -29,12 +29,13 @@ jobs:
 
       - name: Compare existing and new data
         id: compare
-        continue-on-error: true
         working-directory: scraper
-        run: diff ./timetable.json ../public/timetable.json
+        run: |
+          cmp timetable.json ../public/timetable.json
+          echo "::set-output name=cmp::$?"
 
       - name: Commit to repo if data has changed
-        if: ${{ steps.compare.outcome == 'failure' }}
+        if: ${{ steps.compare.outputs.cmp == '1' }}
         env:
           GH_USER: pl4nty
           GH_PAT: ${{ secrets.GH_PAT }}
@@ -46,4 +47,4 @@ jobs:
           git remote set-url origin https://pl4nty:$GH_PAT@github.com/$GITHUB_REPOSITORY.git
           git add --all
           git commit -m "Add new timetable data"
-          git push
+          git push origin
