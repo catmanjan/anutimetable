@@ -118,7 +118,7 @@ class App extends Component {
       }
     }
     */
-    fetch('./timetable.json')
+    fetch('timetable.json')
       .then(res => res.json())
       .then(res => {
         this.setState({ 
@@ -127,12 +127,12 @@ class App extends Component {
             key: module.id,
             value: module.id.split('_')[0] + ' ' + module.title.split('\u00a0')[1]
           }))
-        });
+        })
       })
   }
 
   updateEvents(sourceData, moduleIds) {
-    const events = [];
+    const events = this.state.events;
 
     for (let moduleId of moduleIds) {
       const module = sourceData[moduleId];
@@ -199,7 +199,8 @@ class App extends Component {
 
   // Add a course
   addModule(module) {
-    this.setState({ enrolled: [...this.state.enrolled, module] }, this.updateEvents(this.state.sourceData, [module]))
+    const enrolled = [...this.state.enrolled, module];
+    this.setState({ enrolled }, this.updateEvents(this.state.sourceData, [module]))
   }
 
   updateLocalStorage() {
@@ -212,8 +213,12 @@ class App extends Component {
     // Choose a time slot for a class
     // This filters out all other interchangeable events
     const id = event.event.description.split(' ')[0];
-    let events = this.state.events.filter(target => target.title !== event.title || target.description === event.event.description || target.description.split(' ')[0] !== id)
-    this.setState({ events });
+    let events = this.state.events.filter(target => 
+      target.title !== event.title ||
+      target.description === event.event.description ||
+      target.description.split(' ')[0] !== id
+    )
+    this.setState({ events }, () => this.updateLocalStorage());
   }
 
   deleteEvent(event) {
@@ -222,6 +227,7 @@ class App extends Component {
     if (index !== -1) {
       this.state.events.splice(index, 1)
     }
+    this.updateLocalStorage()
   }
 
   getModuleName(module) {
@@ -274,24 +280,24 @@ class App extends Component {
             {/* Course search */}
             <Col xs md="8" lg="7" xl="5" className={'search-container ' + (!this.state.searchFocused ? 'empty' : '')}>
               <ClickAwayListener onClickAway={() => this.setState({ searchFocused: false })}>
-                <ReactSearchBox
+                <div><ReactSearchBox
                   autoFocus
                   placeholder="Enter a course code here (for example LAWS1201)"
                   data={this.state.modules}
-                  onSelect={record => this.addModule(record.key)}
+                  onSelect={record => this.addModule(record.item.key)}
                   onFocus={() => this.setState({ searchFocused: true })}
-                />
+                /></div>
               </ClickAwayListener>
             </Col>
 
             {/* Calendar export */}
             <Col>
-                {showICS && (
-                    <Button onClick={() => {this.downloadEvents()}}
-                    className='ics-export'>
-                    Export .ics
-                    </Button>
-                )}
+              {showICS && (
+                <Button onClick={() => {this.downloadEvents()}}
+                className='ics-export'>
+                Export .ics
+                </Button>
+              )}
             </Col>
           </InputGroup></Row>
 
