@@ -47,12 +47,12 @@ class Lesson:
     def __init__(self, row):
         cells = row.find_all("td")
         self.name = cells[0].a.next.strip()
-        self.description = cells[1].string
-        self.day = dayToNum(cells[2].string)
-        self.start =  cells[3].string
-        self.finish = cells[4].string
-        self.duration = cells[5].string
-        self.weeks = cells[6].a.string.strip()
+        self.description = None
+        self.day = dayToNum(cells[1].string)
+        self.start =  cells[2].string
+        self.finish = cells[3].string
+        self.duration = cells[4].string
+        self.weeks = cells[5].a.string.strip()
 
         # Use regex as ANU's data cannot be matched by position/symbol - it often adds random spaces and symbols
         self.module = re.search('[A-Z]{4}[0-9]{4}', self.name).group(0)

@@ -29,13 +29,12 @@ jobs:
 
       - name: Compare existing and new data
         id: compare
+        continue-on-error: true
         working-directory: scraper
-        run: |
-          cmp timetable.json ../public/timetable.json
-          echo "::set-output name=cmp::$?"
+        run: cmp timetable.json ../public/timetable.json
 
       - name: Commit to repo if data has changed
-        if: ${{ steps.compare.outputs.cmp == '1' }}
+        if: ${{ steps.compare.outcome == 'failure' }}
         env:
           GH_USER: pl4nty
           GH_PAT: ${{ secrets.GH_PAT }}
