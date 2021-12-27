@@ -65,8 +65,10 @@ module.exports = async function (context, req) {
                     // Days from start of year until first Monday - aka Week 0
                     let yearStart = fns.utcToZonedTime(new Date(), tz)
                     yearStart.setMonth(0,1)
+                    if (yearStart.getMonth() !== 11) yearStart.setFullYear(yearStart.getFullYear()+1);
 
-                    const year = yearStart.getFullYear()
+                    const year = yearStart.getFullYear();
+                    
                     const dayOffset = (8 - yearStart.getDay()) % 7
 
                     // repeated weeks are stored as "31\u201136,39\u201144"

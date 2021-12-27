@@ -8,7 +8,6 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import "./App.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Button, ButtonGroup, InputGroup, Col, Row, Container } from "react-bootstrap";
-import * as ics from "ics";
 import "react-datepicker/dist/react-datepicker.css";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { ReactPlugin, withAITracking } from "@microsoft/applicationinsights-react-js";
@@ -65,20 +64,20 @@ class App extends Component {
   };
 
   downloadEvents() {
-    // Format events for ICS generator
-    const { events, err } = ics.createEvents(this.state.events.map(event => ({
-      ...event,
-      start: format(event.start, 'y,M,d,H,m,s').split(',').map(Number),
-      end: format(event.end, 'y,M,d,H,m,s').split(',').map(Number)
-    })))
+    let unique = this.state.events.filter((ids => ({ name }) => !ids.has(name) && ids.add(name))(new Set())); // https://stackoverflow.com/a/61016477
+    unique = unique.reduce((prev, curr) => {
+        const key = `${curr.module}_${curr.session}`
+        prev[key] = (prev[key] || []).concat([`${curr.activity} ${curr.occurrence}`])
+        return prev
+    }, {})
+    const qs = Object.keys(unique).map(key => `${key}=${unique[key].join(',')}`).join('&')
 
-    console.log(this.state.events, events, err)
-    
     // Create download link
     const element = document.createElement("a");
-    const file = new Blob([events], {type: 'text/calendar'});
-    element.href = URL.createObjectURL(file);
+    element.href = `${process.env.REACT_APP_FUNCTION_API || ''}/api/GetICS?${qs}`;
     const d = new Date();
+    // download only works for same-origin URLs, so this doesn't work in debug
+    // Function is on a different port to the app
     element.download = `ANU Timetable ${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}.ics`;
 
     // Download file
