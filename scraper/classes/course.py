@@ -57,7 +57,7 @@ class Lesson:
         # Use regex as ANU's data cannot be matched by position/symbol - it often adds random spaces and symbols
         self.module = re.search('[A-Z]{4}[0-9]{4}', self.name).group(0)
         self.session = re.search('_\w{2}', self.name).group(0)[1:] # remove leading underscore
-        self.activity = re.search('[A-Za-z]+/', self.name).group(0)[:-1] # remove trailing slash
+        self.activity = re.search('[A-Za-z<>0-9\s-]+/', self.name).group(0)[:-1] # remove trailing slash
         self.occurrence = re.search('/[0-9]+', self.name).group(0)[1:] # remove leading slash
         
         if cells[7].a == None:

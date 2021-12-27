@@ -66,11 +66,13 @@ class App extends Component {
 
   downloadEvents() {
     // Format events for ICS generator
-    const { events } = ics.createEvents(this.state.events.map(event => ({
+    const { events, err } = ics.createEvents(this.state.events.map(event => ({
       ...event,
       start: format(event.start, 'y,M,d,H,m,s').split(',').map(Number),
       end: format(event.end, 'y,M,d,H,m,s').split(',').map(Number)
     })))
+
+    console.log(this.state.events, events, err)
     
     // Create download link
     const element = document.createElement("a");
@@ -143,7 +145,9 @@ class App extends Component {
             const weeks = period.split('\u2011');
             // Weeks are 1-indexed, so convert to 0-indexed
             for (let week = weeks[0]-1; week <= weeks[weeks.length-1]-1; week++) {
-              const currentYear = new Date().getFullYear();
+              const d = new Date();
+              // If December, assume events are next year
+              const currentYear = d.getMonth() !== 11 ? d.getFullYear() : d.getFullYear() + 1;
 
               // Days from start of year until first Monday - aka Week 0
               // modulo 7 in case start of year is a Monday
