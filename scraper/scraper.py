@@ -11,8 +11,8 @@ from classes.sessionData import SessionData
 from classes.loadingBar import printProgressBar
 from classes.toJSON import formatCourses
 
-URL = "http://timetabling.anu.edu.au/sws2021/"
-SEMESTER = 2
+URL = "http://timetabling.anu.edu.au/sws2022/"
+SEMESTER = 1
 
 # 1-50: 50 is the maximum allowed request
 CHUNK = 50
