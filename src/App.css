@@ -29,5 +29,10 @@
 
 /* Change from px to relative for mobile responsiveness */
 .rbc-time-content .rbc-day-slot .rbc-events-container {
-    margin-right: 5%;
+    margin-right: 3%;
+}
+
+/* Wrap event times to avoid horizontal overflow */
+.rbc-agenda-date-cell, .rbc-agenda-time-cell {
+    white-space: normal !important;
 }

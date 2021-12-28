@@ -58,8 +58,7 @@
 }
 
 .ics-export {
-  border-radius: 0 var(--border-radius) var(--border-radius) 0;
-  min-width: 100px;
+  -wimindth: 100px;
   white-space: nowrap;
 }
 
@@ -99,12 +98,12 @@
 
 .class-tag span {
   margin: 4px;
-  vertical-align: middle;
 }
 
 .class-tag svg {
   color: grey !important;
   cursor: pointer;
+  vertical-align: top;
 }
 
 .courses-chosen {

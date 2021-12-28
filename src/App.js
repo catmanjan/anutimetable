@@ -98,7 +98,7 @@ class App extends Component {
       .toString(16)
       .toUpperCase();
 
-    return "00000".substring(0, 6 - c.length) + c;
+    return '#' + "00000".substring(0, 6 - c.length) + c;
   }
 
   componentDidMount(){
@@ -202,8 +202,10 @@ class App extends Component {
 
   // Add a course
   addModule(module) {
-    const enrolled = [...this.state.enrolled, module];
-    this.setState({ enrolled }, this.updateEvents(this.state.sourceData, [module]))
+    if (!this.state.enrolled.includes(module)) {
+      const enrolled = [...this.state.enrolled, module];
+      this.setState({ enrolled }, this.updateEvents(this.state.sourceData, [module]))
+    }
   }
 
   updateLocalStorage() {
@@ -228,7 +230,11 @@ class App extends Component {
     // Unselect a time slot for a class
     let index = this.state.events.indexOf(event.event);
     if (index !== -1) {
-      this.state.events.splice(index, 1)
+      let start = index;
+      for (; this.state.events[start].name === event.event.name; start--) {}
+      let end = index;
+      for (; this.state.events[end].name === event.event.name; end++) {}
+      this.state.events.splice(start+1, end-start-1);
     }
     this.updateLocalStorage()
   }
@@ -243,20 +249,17 @@ class App extends Component {
   Event({ _event }) {
     const event = _event.event;
     return (
-      <div>
-        {event.title}<br/>
-        {event.description}
-        <ButtonGroup>
+       <Container fluid>
+        <Row>{event.title}</Row>
+        <Row>{event.description}</Row>
+        <Row><ButtonGroup>
           <Button 
             size="sm" 
             onClick={() => this.chooseEvent(_event)}
-            style={{
-              backgroundColor: this.intToRGB(this.hashCode(event.activity)),
-            }}
           >Choose</Button>
           <Button size="sm" variant="danger" onClick={() => this.deleteEvent(_event)}>Delete</Button>
-        </ButtonGroup>
-      </div>
+        </ButtonGroup></Row>
+       </Container>
     );
   }
 
@@ -285,6 +288,7 @@ class App extends Component {
               <ClickAwayListener onClickAway={() => this.setState({ searchFocused: false })}>
                 <div><ReactSearchBox
                   autoFocus
+                  clearOnSelect
                   placeholder="Enter a course code here (for example LAWS1201)"
                   data={this.state.modules}
                   onSelect={record => this.addModule(record.item.key)}
@@ -308,10 +312,10 @@ class App extends Component {
           <Row><Col><Calendar popup
             localizer={localizer}
             events={this.state.events}
-            style={{ height: "85vh" }}
+            style={{ height: "81vh" }}
             defaultView={navigator.userAgentData.mobile ? 'agenda' : 'work_week'}
             views={['day', 'work_week', 'month', 'agenda']}
-            min={add(startOfDay(anuInitialTime), {hours: 9})} max={add(startOfDay(anuInitialTime), {hours: 17, minutes: 30})}
+            min={add(startOfDay(anuInitialTime), {hours: 8})} max={add(startOfDay(anuInitialTime), {hours: 21})}
             formats={{
               dayFormat: (date, culture) => localizer.format(date, 'EEEE', culture), // days in week/month
               dayHeaderFormat: (date, culture) => localizer.format(date, 'EEEE MMMM dd', culture), // Day view
