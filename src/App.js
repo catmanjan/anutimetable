@@ -313,7 +313,7 @@ class App extends Component {
             localizer={localizer}
             events={this.state.events}
             style={{ height: "81vh" }}
-            defaultView={window.navigator.userAgent.includes('mobi') ? 'agenda' : 'work_week'}
+            defaultView={window.navigator.userAgent.includes('Mobi') ? 'agenda' : 'work_week'}
             views={['day', 'work_week', 'month', 'agenda']}
             min={add(startOfDay(anuInitialTime), {hours: 8})} max={add(startOfDay(anuInitialTime), {hours: 21})}
             formats={{
