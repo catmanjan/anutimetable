@@ -231,9 +231,9 @@ class App extends Component {
     let index = this.state.events.indexOf(event.event);
     if (index !== -1) {
       let start = index;
-      for (; this.state.events[start].name === event.event.name; start--) {}
+      for (; this.state.events[start]?.name === event.event.name; start--) {}
       let end = index;
-      for (; this.state.events[end].name === event.event.name; end++) {}
+      for (; this.state.events[end]?.name === event.event.name; end++) {}
       this.state.events.splice(start+1, end-start-1);
     }
     this.updateLocalStorage()
