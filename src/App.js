@@ -151,7 +151,7 @@ class App extends Component {
               // Days from start of year until first Monday - aka Week 0
               // modulo 7 in case start of year is a Monday
               const daysUntilFirstMonday = nextMonday(new Date(currentYear, 0)).getDay() % 7;
-              const day = daysUntilFirstMonday + 7*week + parseInt(session.day) - 4
+              const day = daysUntilFirstMonday + 7*week + parseInt(session.day) + 2;
 
               events.push({
                 ...session,
@@ -246,6 +246,14 @@ class App extends Component {
     }
   }
 
+  rangeFormat({start, end}, culture) {
+    return `${localizer.format(start, 'MMMM d', culture)} - ${localizer.format(
+      end,
+      start.getMonth() === end.getMonth() ? 'd' : 'MMMM d',
+      culture
+    )}`
+  }
+
   Event({ _event }) {
     const event = _event.event;
     return (
@@ -312,15 +320,19 @@ class App extends Component {
           <Row><Col><Calendar popup
             localizer={localizer}
             events={this.state.events}
-            style={{ height: "81vh" }}
+            style={{ height: "80vh" }}
             defaultView={window.navigator.userAgent.includes('Mobi') ? 'agenda' : 'work_week'}
             views={['day', 'work_week', 'month', 'agenda']}
-            min={add(startOfDay(anuInitialTime), {hours: 8})} max={add(startOfDay(anuInitialTime), {hours: 21})}
+            length={1}
+            min={add(startOfDay(anuInitialTime), {hours: 8})}
+            max={add(startOfDay(anuInitialTime), {hours: 21})}
             formats={{
               dayFormat: (date, culture) => localizer.format(date, 'EEEE', culture), // days in week/month
-              dayHeaderFormat: (date, culture) => localizer.format(date, 'EEEE MMMM dd', culture), // Day view
+              dayHeaderFormat: (date, culture) => localizer.format(date, 'EEEE MMMM d', culture), // Day view
+              dayRangeHeaderFormat: this.rangeFormat, // Week view
+              agendaHeaderFormat: this.rangeFormat, // Agenda view
               agendaDateFormat: (date, culture) => localizer.format(date, 'EEE', culture), // Agenda view
-              eventTimeRangeFormat: () => ""
+              eventTimeRangeFormat: () => "",
             }}
             // Display descriptive name as tooltip
             tooltipAccessor={event => event.description}

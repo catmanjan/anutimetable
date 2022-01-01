@@ -36,3 +36,7 @@
 .rbc-agenda-date-cell, .rbc-agenda-time-cell {
     white-space: normal !important;
 }
+
+.rbc-allday-cell {
+    height: 0 !important;
+}
