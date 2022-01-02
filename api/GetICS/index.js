@@ -2,7 +2,8 @@ const fetch = require('node-fetch')
 const fns = require('date-fns-tz')
 const ics = require('ics')
 
-const TIMETABLE_JSON = 'https://raw.githubusercontent.com/pl4nty/anutimetable/master/public/timetable.json'
+// https://docs.microsoft.com/en-us/azure/azure-functions/functions-app-settings#azure_functions_environment
+const TIMETABLE_JSON = process.env.AZURE_FUNCTIONS_ENVIRONMENT === 'Development' ? 'http://localhost:3000/timetable.json' : 'https://raw.githubusercontent.com/pl4nty/anutimetable/master/public/timetable.json'
 const tz = 'Australia/Canberra'
 const days = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
 
@@ -65,7 +66,9 @@ module.exports = async function (context, req) {
                     // Days from start of year until first Monday - aka Week 0
                     let yearStart = fns.utcToZonedTime(new Date(), tz)
                     yearStart.setMonth(0,1)
-                    if (yearStart.getMonth() !== 11) yearStart.setFullYear(yearStart.getFullYear()+1);
+                    // Target next year if November or later (ie classes ended)
+                    // TODO accept year and session as query params
+                    if (yearStart.getMonth() >= 10) yearStart.setFullYear(yearStart.getFullYear()+1);
 
                     const year = yearStart.getFullYear();
                     
@@ -76,11 +79,13 @@ module.exports = async function (context, req) {
                         const interval = weeks.split('\u2011')
                         const repetitions = interval[interval.length-1]-interval[0]+1
                         
-                        const day = dayOffset + 7*(interval[0]-2) + parseInt(session.day) + 1
+                        const day = dayOffset + 7*(interval[0]-1) + parseInt(session.day) + 1
                         
                         let startDay = fns.utcToZonedTime(new Date(yearStart.getTime()), tz)
                         startDay.setDate(day)
                         const weekday = days[startDay.getDay()] // assumes no multi-day events
+
+                        const {lat, lon} = session
 
                         events.push({
                             start: timesToArray(startDay, session.start, context),
@@ -89,7 +94,8 @@ module.exports = async function (context, req) {
                             title: `${session.module} ${session.activity} ${parseInt(session.occurrence)}`,
                             description: `${session.activity} ${parseInt(session.occurrence)}`,
                             location: session.location,
-                            url: session.locationID,
+                            geo: lat ? { lat, lon } : undefined,
+                            url: lat ? `http://programsandcourses.anu.edu.au/course/${session.module}` : session.locationID,
                             productId: 'anucssa/timetable',
                             uid: session.name+weeks.replace('\u2011','-'),
                             recurrenceRule: `FREQ=WEEKLY;BYDAY=${weekday};INTERVAL=1;COUNT=${repetitions}`,
@@ -113,26 +119,26 @@ module.exports = async function (context, req) {
             }
         } else {
             // Cursed timezone magic, breaks if Canberra TZ changes
-            value = value.replace(/DTSTART/g, 'DTSTART;TZID="Australia/Canberra"')
-            value = value.replace(/DTEND/g, 'DTEND;TZID="Australia/Canberra"')
-            value = value.replace(/BEGIN:VEVENT/,`BEGIN:VTIMEZONE
-TZID:Australia/Canberra
-X-LIC-LOCATION:Australia/Canberra
-BEGIN:DAYLIGHT
-TZOFFSETFROM:+1000
-TZOFFSETTO:+1100
-TZNAME:EST
-DTSTART:19701025T020000
-RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
-END:DAYLIGHT
-BEGIN:STANDARD
-TZOFFSETFROM:+1000
-TZOFFSETTO:+1000
-TZNAME:EST
-DTSTART:19700329T020000
-RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
-END:STANDARD
-END:VTIMEZONE
+            value = value.replace(/DTSTART/g, 'DTSTART;TZID=Australia/Canberra')
+            value = value.replace(/DTEND/g, 'DTEND;TZID=Australia/Canberra')
+            value = value.replace(/BEGIN:VEVENT/,`BEGIN:VTIMEZONE\r
+TZID:Australia/Canberra\r
+X-LIC-LOCATION:Australia/Canberra\r
+BEGIN:STANDARD\r
+DTSTART:19700329T020000\r
+TZOFFSETFROM:+1100\r
+TZOFFSETTO:+1000\r
+TZNAME:AEST\r
+RRULE:FREQ=YEARLY;BYMONTH=4;BYDAY=1SU\r
+END:STANDARD\r
+BEGIN:DAYLIGHT\r
+DTSTART:19701025T020000\r
+TZOFFSETFROM:+1000\r
+TZOFFSETTO:+1100\r
+TZNAME:AEDT\r
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=1SU\r
+END:DAYLIGHT\r
+END:VTIMEZONE\r
 BEGIN:VEVENT`)
 
             context.res = {
