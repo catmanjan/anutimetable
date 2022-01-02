@@ -257,17 +257,27 @@ class App extends Component {
   Event({ _event }) {
     const event = _event.event;
     return (
-       <Container fluid>
-        <Row>{event.title}</Row>
-        <Row>{event.description}</Row>
-        <Row><ButtonGroup>
-          <Button 
-            size="sm" 
-            onClick={() => this.chooseEvent(_event)}
-          >Choose</Button>
-          <Button size="sm" variant="danger" onClick={() => this.deleteEvent(_event)}>Delete</Button>
-        </ButtonGroup></Row>
-       </Container>
+      <Container fluid>
+        {/* Can also use .au/year/course/module (eg /2022/course/COMP1110) to reference a specific year */}
+        <Row>
+          <a href={`http://programsandcourses.anu.edu.au/course/${event.module}`} target="_blank" rel="noreferrer">{event.title}</a>
+        </Row>
+        
+        {/* https://developers.google.com/maps/documentation/urls/get-started#search-action */}
+        <Row>
+          <a href={event.lat ? `https://www.google.com/maps/search/?api=1&query=${event.lat},${event.lon}` : event.locationID}
+          target="_blank" rel="noreferrer">{event.description}</a>
+        </Row>
+        <Row>
+          <ButtonGroup>
+            <Button 
+              size="sm" 
+              onClick={() => this.chooseEvent(_event)}
+            >Choose</Button>
+            <Button size="sm" variant="danger" onClick={() => this.deleteEvent(_event)}>Delete</Button>
+          </ButtonGroup>
+        </Row>
+      </Container>
     );
   }
 

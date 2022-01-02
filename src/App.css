@@ -40,3 +40,7 @@
 .rbc-allday-cell {
     height: 0 !important;
 }
+
+.rbc-event-content a, .rbc-agenda-event-cell a {
+    color: #fff !important;
+}

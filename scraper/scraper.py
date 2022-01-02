@@ -43,13 +43,19 @@ body = [(k, v) for k, v in body.items()]
 courses = []
 printProgressBar(0, courseCount)
 
+# API to convert locationID (eg http://www.anu.edu.au/maps#show=11414) to coordinates
+# Category ID can be extracted from the UI's checkbox labels
+# Loads standard categories as basic cache
+# Uncategorised locationIDs are loaded individually (/anu-campus-map/show/ID) and added to cache
+geodata = requests.get('https://www.anu.edu.au/anu-campus-map/list?categories[]=302&categories[]=640').json()
+
 for courseCodes in Chunk(coursesPage, CHUNK):
     reqBody = [] + session.asModuleList() + body
     for code in courseCodes:
         reqBody.append(('dlObject', code[1]))
     res = requests.post(URL, data=reqBody, cookies=cookies)
     try:
-        new = splitHeaderTable(res)
+        new = splitHeaderTable(res, geodata)
     except PermissionError:
         print("Request error!")
         exit(1)

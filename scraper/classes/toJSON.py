@@ -6,9 +6,9 @@ from calendar import timegm
 
 import re
 
-def removeEmptyCourses(course):
+def removeEmptyCourses(course, acc):
     if len(course.classes) == 0:
-        print(course.id, "has no data!")
+        acc.append(course.id)
         return False
     return True
 
@@ -18,13 +18,14 @@ def courseToDicts(course):
     return course.__dict__
 
 def formatCourses(courses: List[Course]):
-    dicts = [courseToDicts(x) for x in list(filter(removeEmptyCourses, courses))]
+    acc = []
+    dicts = [courseToDicts(x) for x in list(filter(lambda x: removeEmptyCourses(x, acc), courses))]
+    print(f"{len(acc)} courses had no events: {acc}")
     
     obj = {}
     for x in dicts:
         obj[x['id']] = x
-    print(obj)
-    data = json.JSONEncoder().encode(obj)
+    data = json.JSONEncoder(separators=(',', ':')).encode(obj)
     f = open("timetable.json", "w+")
     f.write(data)
     f.close()
