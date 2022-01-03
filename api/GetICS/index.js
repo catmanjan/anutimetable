@@ -85,17 +85,21 @@ module.exports = async function (context, req) {
                         startDay.setDate(day)
                         const weekday = days[startDay.getDay()] // assumes no multi-day events
 
-                        const {lat, lon} = session
+                        let { lat, lon } = session
+
+                        const description = `${lat ? `https://www.google.com/maps/search/?api=1&query=${lat},${lon}` : session.locationID}
+https://wattlecourses.anu.edu.au/course/search.php?q=${session.module}+${year}
+https://programsandcourses.anu.edu.au/${year}/course/${session.module}`
 
                         events.push({
                             start: timesToArray(startDay, session.start, context),
                             startOutputType: 'local',
                             end: timesToArray(startDay, session.finish, context),
                             title: `${session.module} ${session.activity} ${parseInt(session.occurrence)}`,
-                            description: `${session.activity} ${parseInt(session.occurrence)}`,
+                            description,
                             location: session.location,
-                            geo: lat ? { lat, lon } : undefined,
-                            url: lat ? `http://programsandcourses.anu.edu.au/course/${session.module}` : session.locationID,
+                            geo: lat && { lat: parseFloat(lat), lon: parseFloat(lon) }, // could mapReduce, but it's only 2 elements
+                            url: `https://programsandcourses.anu.edu.au/${year}/course/${session.module}`,
                             productId: 'anucssa/timetable',
                             uid: session.name+weeks.replace('\u2011','-'),
                             recurrenceRule: `FREQ=WEEKLY;BYDAY=${weekday};INTERVAL=1;COUNT=${repetitions}`,
@@ -108,16 +112,16 @@ module.exports = async function (context, req) {
     }
 
     if (events.length !== 0) {
-        let { value, err } = ics.createEvents(events)
+        const createICS = events => new Promise((resolve, reject) => {
+            ics.createEvents(events, (err, val) => {
+                if (err) reject(err)
+                else resolve (val);
+            })
+        })
 
-        if (err) {
-            const err = "ICS creation failed"
-            context.log.error(err+`${err}`)
-            context.res = {
-                status: 500,
-                body: err
-            }
-        } else {
+        try {
+            let value = await createICS(events)
+
             // Cursed timezone magic, breaks if Canberra TZ changes
             value = value.replace(/DTSTART/g, 'DTSTART;TZID=Australia/Canberra')
             value = value.replace(/DTEND/g, 'DTEND;TZID=Australia/Canberra')
@@ -146,7 +150,14 @@ BEGIN:VEVENT`)
                 headers: {'Content-Type': 'text/calendar'},
                 body: value
             }
-        }
+        } catch(err) {
+            const msg = "ICS creation failed"
+            context.log.error(`${msg}: ${err}`)
+            context.res = {
+                status: 500,
+                body: msg
+            }
+        }        
     } else {
         context.res = {
             status: 404,
