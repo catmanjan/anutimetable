@@ -4,7 +4,7 @@
   font-family: sans-serif;
 } */
 
-:root {
+/* :root {
   --border-radius: 5px;
   --border-inactive: #666;
   --border-active: #3f51b5;
@@ -118,4 +118,22 @@
   .title {
     font-size: 1.5em;
   }
+} */
+
+@media (max-width: 600px) {
+    .fc .fc-toolbar.fc-header-toolbar {
+        display: block;
+        text-align: center;
+    }
+
+    .fc-header-toolbar .fc-toolbar-chunk {
+        display: block;
+        margin: 0.2vh;
+    }
+}
+
+@media (max-height: 750px) {
+    /* .navbar.fixed-bottom {
+        visibility: hidden;
+    } */
 }
