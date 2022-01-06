@@ -17,10 +17,10 @@ module.exports = async function (context, req) {
         context.done()
     }
 
-    const dropClasses = ({classes, ...module}) => module
+    const dropClasses = ({classes, id, title, ...module}) => ({ title: title.replace(/_[A-Z][1-9]/, ''), ...module })
 
     context.res = {
-        body: Object.entries(modules).reduce((acc, [key, module]) => ({...acc, [key]: dropClasses(module)}),{})
+        body: Object.entries(modules).reduce((acc, [key, module]) => ({...acc, [key.split('_')[0]]: dropClasses(module)}),{})
     }
     
     context.done()
