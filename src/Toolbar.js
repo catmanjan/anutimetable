@@ -1,7 +1,9 @@
 import { useState, useEffect, forwardRef } from 'react'
 
-import { Button, Dropdown, DropdownButton, FormControl, InputGroup } from 'react-bootstrap'
+import { Button, Dropdown, DropdownButton, InputGroup } from 'react-bootstrap'
 import { Token, Typeahead } from 'react-bootstrap-typeahead'
+
+import { DateTime } from 'luxon'
 
 import stringToColor from 'string-to-color'
 
@@ -42,12 +44,22 @@ export default forwardRef(({ API }, calendar) => {
     } catch (err) {
       console.error(err)
     }
-  })(), [API, session, year])
+  })(), [API, year, session])
+
+  const [JSON, setJSON] = useState({})
+  useEffect(() => (async () => {
+    try {
+      let res = await fetch(`/timetable_${year}_${session}.json`)
+      if (!res.ok) return
+      let json = await res.json()
+      setJSON(json)
+    } catch (err) {
+      console.error(err)
+    }
+  })(), [API, year, session])
     
   const [selectedModules, setSelectedModules] = useState([])
   const selectModules = list => {
-    const [ year, semester ] = [ '2022', 'S1' ]
-
     const cached = selectedModules.length
     const next = list.length
     
@@ -57,15 +69,41 @@ export default forwardRef(({ API }, calendar) => {
       calendar.current.getApi().addEventSource({
         // url: `${API}/events/${id}`,
         id,
-        format: 'ics',
-        url: `${API}/GetICS?${id}_${semester}`,
-        extraParams: {
-          year,
-          semester
-        },
+        // format: 'ics',
+        // url: `${API}/GetICS?${id}_${session}`,
+        // extraParams: {
+          // year,
+          // session
+        // },
         color: stringToColor(id),
-        // TODO get API to return id
-        eventDataTransform: ({ url, ...event }) => ({ id: event.title, ...event })
+        // TODO convert to complex rrule to combine periods - fixes deleting one period at a time
+        events: JSON[`${id}_${session}`].classes.reduce((arr, c) => {
+          for (let period of c.weeks.split(',')) {
+            let [ start, end ] = period.split('\u2011')
+              .concat([
+                c.start,
+                c.finish
+              ].map(x => x.split(':').map(x => parseInt(x))))
+              .map((w,i,arr) => i < 2 ? DateTime.fromObject({
+                year,
+                ordinal: w*7-4,
+                hour: arr[i+2]?.[0],
+                minute: arr[i+2]?.[1]
+              }, { zone: 'Australia/Canberra' }).toLocal() : undefined)
+
+            arr.push({
+              id: `${c.name}`,
+              title: `${c.module} ${c.activity} ${c.occurrence}`,
+              daysOfWeek: [c.day+1], // convert ANU 0-offset to FC 1-offset
+              startTime: start.toISOTime(),
+              endTime: end.toISOTime(),
+              startRecur: start.toISODate(),
+              endRecur: end.toISODate()
+            })
+            continue;
+          }
+          return arr
+        }, [])
       })
     } else if (next < cached) {
       const { id } = selectedModules.find(m => !list.includes(m))
@@ -76,6 +114,14 @@ export default forwardRef(({ API }, calendar) => {
     setSelectedModules(list)
   }
 
+  const selectYear = e => {
+    setYear(e)
+    // Assume ascending session order
+    setSession(sessions[e]?.[sessions[e].length-1] || '')
+  }
+
+  // TODO dropdown with ICS export via NPM module
+  // TODO display current timezone
   return <InputGroup className="mb-2">
     <DropdownButton
       as={InputGroup.Prepend}
@@ -83,7 +129,7 @@ export default forwardRef(({ API }, calendar) => {
       title={year}
     >
       {/* reverse() - years (numerical keys) are in ascending order per ES2015 spec */}
-      {Object.keys(sessions).reverse().map(e => <Dropdown.Item key={e} onClick={() => setYear(e)}>{e}</Dropdown.Item>)}
+      {Object.keys(sessions).reverse().map(e => <Dropdown.Item key={e} onClick={() => selectYear(e)}>{e}</Dropdown.Item>)}
     </DropdownButton>
 
     <DropdownButton

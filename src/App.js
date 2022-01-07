@@ -1,7 +1,5 @@
-import { useState, useRef } from 'react'
-
-import { Container, Navbar, Button, ButtonGroup, ButtonToolbar, InputGroup, Form } from 'react-bootstrap'
-import { RiDeleteBinLine } from 'react-icons/ri'
+import { useRef } from 'react'
+import { Container, Navbar } from 'react-bootstrap'
 
 import Toolbar from './Toolbar'
 import Calendar from './Calendar'
@@ -11,19 +9,10 @@ import { ReactPlugin, withAITracking } from '@microsoft/applicationinsights-reac
 
 const API = `${process.env.REACT_APP_FUNCTION_API || ''}/api`
 
-const modules = {
-  COMP1100: {
-    title: 'COMP1100 Programming as Problem Solving',
-  },
-  COMP1130: {
-    title: 'COMP1130 Programming as Problem Solving (Advanced)',
-  }
-}
-
 let App = () => {
   const calendar = useRef()
   
-  // Bootstrap 5: fluid="xxl" is supported
+  // fluid="xxl" is only supported in Bootstrap 5
   return <Container fluid>
     <h2 className="mt-2">ANU Timetable</h2>
 
@@ -41,8 +30,7 @@ let App = () => {
   </Container>
 }
 
-const hasInsights = process.env.NODE_ENV !== 'development'
-if (hasInsights) {
+if (process.env.NODE_ENV !== 'development') {
   const reactPlugin = new ReactPlugin();
   const appInsights = new ApplicationInsights({
     config: {

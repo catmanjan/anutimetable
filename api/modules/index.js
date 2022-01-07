@@ -1,9 +1,12 @@
 const fetch = require('node-fetch')
 
-const TIMETABLE_JSON = process.env.AZURE_FUNCTIONS_ENVIRONMENT === 'Development' ? 'http://localhost:3000/timetable.json' : 'https://raw.githubusercontent.com/pl4nty/anutimetable/master/public/timetable.json'
+const isDev = process.env.AZURE_FUNCTIONS_ENVIRONMENT === 'Development'
+const prod = 'https://raw.githubusercontent.com/pl4nty/anutimetable/master/public/timetable.json'
 
 // /modules?year=${year}&session=${session}
 module.exports = async function (context, req) {
+    const TIMETABLE_JSON = isDev ? `http://localhost:3000/timetable_${req.query.year}_${req.query.session}.json` : prod
+
     let modules
     try {
         modules = await fetch(TIMETABLE_JSON).then(res => res.json())
