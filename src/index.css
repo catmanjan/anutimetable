@@ -4,7 +4,7 @@
   font-family: sans-serif;
 } */
 
-:root {
+/* :root {
   --border-radius: 5px;
   --border-inactive: #666;
   --border-active: #3f51b5;
@@ -118,4 +118,47 @@
   .title {
     font-size: 1.5em;
   }
+} */
+
+@media (max-width: 600px) {
+    .fc .fc-toolbar.fc-header-toolbar {
+        display: block;
+        text-align: center;
+    }
+
+    .fc-header-toolbar .fc-toolbar-chunk {
+        display: block;
+        margin: 0.2vh;
+    }
+
+    .fc .fc-header-toolbar .fc-toolbar-title {
+        margin: 1vh;
+    }
+
+    /* override static width for week number */
+    .fc .fc-timegrid-axis-cushion {
+      min-width: 0px !important;
+      max-width:
+    }
+}
+
+.fc .fc-timegrid-slots .fc-timegrid-slot {
+    height: 5vh;
+    border-bottom: 0 !important;
+    vertical-align: top;
+}
+
+/* override static width for week number */
+.fc .fc-timegrid-axis-cushion {
+  min-width: 73px;
+}
+
+/* apply default event colour to links */
+.fc .fc-event-main a {
+  color: var(--fc-event-text-color, #fff) !important;
+}
+
+/* apply underline on hover to Agenda event links */
+.fc .fc-list-event-title a:hover {
+  text-decoration: underline;
 }

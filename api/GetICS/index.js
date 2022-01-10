@@ -3,7 +3,6 @@ const fns = require('date-fns-tz')
 const ics = require('ics')
 
 // https://docs.microsoft.com/en-us/azure/azure-functions/functions-app-settings#azure_functions_environment
-const TIMETABLE_JSON = process.env.AZURE_FUNCTIONS_ENVIRONMENT === 'Development' ? 'http://localhost:3000/timetable.json' : 'https://raw.githubusercontent.com/pl4nty/anutimetable/master/public/timetable.json'
 const tz = 'Australia/Canberra'
 const days = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
 
@@ -18,6 +17,9 @@ function timesToArray(date, timeString) {
 
 // eg ?COMP2310_S2=LecA 01,LecB 01
 module.exports = async function (context, req) {
+    const TIMETABLE_JSON = process.env.AZURE_FUNCTIONS_ENVIRONMENT === 'Development' ? `http://localhost:3000/timetable${'_'+req.query.y || ''}${'_'+req.query.s || ''}.json` : 'https://raw.githubusercontent.com/pl4nty/anutimetable/master/public/timetable.json'
+
+
     context.log.info(`Running in node ${process.version}`)
 
     const courseCodes = Object.keys(req.query)
@@ -47,7 +49,7 @@ module.exports = async function (context, req) {
 
     const events = []
     for (let courseCode of courseCodes) {
-        const course = timetable[courseCode]
+        const course = timetable[courseCode] || timetable[courseCode+'_'+req.query.s]
         
         if (course) {
             // LecA 01,LecA 02,LecB 01 => { LecA: [01, 02], LecB: [01] }

@@ -13,10 +13,10 @@ class CoursesPage:
         self.soup = BeautifulSoup(response.content, 'html.parser')
         self.courseList = self._courseList()
         self.semList = self._getSems()
-    def getBody(self, semseter):
+    def getBody(self, semester):
         body = {}
         body.update(self.CONSTANT_PARAMS)
-        body['lbWeeks'] = self.semList[semseter-1]
+        body['lbWeeks'] = self.semList[semester-1]
         return body
     def _courseList(self):
         list = []
@@ -29,7 +29,7 @@ class CoursesPage:
         list = []
         select = self.soup.find(id="lbWeeks")
         for c in select.find_all('option'):
-            if c.string == "Semester 1" or c.string == "Semester 2":
+            if c.string == "Semester 1" or c.string == "Semester 2" or ("X" in c.string):
                 list.append(c["value"])
         return list
 

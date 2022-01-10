@@ -4,21 +4,25 @@
   "private": true,
   "dependencies": {
     "@azure/functions": "2.0.0",
-    "@material-ui/core": "4.12.1",
+    "@fullcalendar/bootstrap": "^5.10.1",
+    "@fullcalendar/core": "^5.10.1",
+    "@fullcalendar/daygrid": "^5.10.1",
+    "@fullcalendar/list": "^5.10.1",
+    "@fullcalendar/luxon": "^5.10.1",
+    "@fullcalendar/react": "^5.10.1",
+    "@fullcalendar/rrule": "^5.10.1",
+    "@fullcalendar/timegrid": "^5.10.1",
     "@microsoft/applicationinsights-react-js": "3.2.1",
     "@microsoft/applicationinsights-web": "2.7.1",
-    "bootstrap": "5.1.3",
-    "date-fns": "2.25.0",
-    "date-fns-tz": "1.1.4",
-    "ics": "2.31.0",
+    "luxon": "^2.3.0",
+    "randomcolor": "^0.6.2",
     "react": "17.0.2",
-    "react-big-calendar": "0.38.0",
-    "react-bootstrap": "2.0.2",
-    "react-datepicker": "4.3.0",
+    "react-bootstrap": "^1.6.4",
+    "react-bootstrap-typeahead": "^6.0.0-alpha.4",
     "react-dom": "17.0.2",
     "react-icons": "4.3.1",
     "react-scripts": "4.0.3",
-    "react-search-box": "2.2.0"
+    "rrule": "^2.6.8"
   },
   "scripts": {
     "start": "cross-env BROWSER=none react-scripts start",
@@ -45,7 +49,7 @@
     ]
   },
   "devDependencies": {
-    "@azure/static-web-apps-cli": "^0.8.0",
+    "@azure/static-web-apps-cli": "^0.8.2",
     "azure-functions-core-tools": "^3.0.3904",
     "cross-env": "^7.0.3"
   }
