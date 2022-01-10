@@ -1,12 +1,14 @@
+import { useState } from 'react'
 import { Dropdown, DropdownButton, InputGroup } from 'react-bootstrap'
 
 const Export = ({ API }) => {
-  const webcal = `${API}/GetICS${window.location.search}`
+  const [webcal, setWebcal] = useState(`${API}/GetICS${window.location.search}`)
 
   return <DropdownButton
     as={InputGroup.Append}
     variant='outline-primary'
     title='Export'
+    onClick={() => setWebcal(`${API}/GetICS${window.location.search}`)}
   >
     <Dropdown.Item eventKey="web" target={"_blank"} rel={"noreferrer"}
       href={webcal.replace(/(http|https)/,'webcal')}>WebCal (eg iOS)</Dropdown.Item>
