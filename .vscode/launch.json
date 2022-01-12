@@ -3,8 +3,8 @@
     "configurations": [
         {
             "name": "Launch Edge",
-            "request": "launch",
             "type": "pwa-msedge",
+            "request": "launch",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}",
             "preLaunchTask": "swa start",
@@ -19,7 +19,7 @@
             "type": "node",
             "request": "attach",
             "port": 9229,
-            "preLaunchTask": "func: host start",
+            "preLaunchTask": "func host start",
             "presentation": {
                 "hidden": true,
                 "group": "",

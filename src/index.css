@@ -162,3 +162,8 @@
 .fc .fc-list-event-title a:hover {
   text-decoration: underline;
 }
+
+/* vertically center icons with text */
+.dropdown svg {
+  margin-bottom: 3%;
+}
