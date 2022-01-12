@@ -74,11 +74,12 @@ export default forwardRef(({ API }, calendar) => {
   const [sessions, setSessions] = useState([])
   useEffect(() => getApi(`${API}/sessions`, setSessions), [API])
   
-  const [modules, setModules] = useState({})
-  useEffect(() => getApi(`${API}/modules?year=${year}&session=${session}`, setModules),  [API, year, session])
-
   const [JSON, setJSON] = useState({})
   useEffect(() => getApi(`/timetable_${year}_${session}.json`, setJSON), [year, session])
+
+  const dropClasses = ({classes, id, title, ...module}) => ({ title: title.replace(/_[A-Z][1-9]/, ''), ...module })
+  const [modules, setModules] = useState({})
+  useEffect(() => setModules(Object.entries(JSON).reduce((acc, [key, module]) => ({...acc, [key.split('_')[0]]: dropClasses(module)}),{})),  [JSON])
     
   // inefficient - O(nm)? but simpler
   // checks every module rather than caching old list to calculate diff
