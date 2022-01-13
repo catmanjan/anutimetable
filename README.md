@@ -19,10 +19,10 @@ This is an unofficial alternative timetable viewer for the Australian National U
     * Install `node`
     * Navigate to the root of the repo and run `npm ci`
     * Navigate to the `api` subfolder and run `npm ci` again
+    * Run `sudo npm i -g @azure/static-web-apps-cli azure-functions-core-tools`
 * Running it
-    * In one terminal navigate to the `api` subfolder and run `npm start`
-    * In another terminal navigate to the root and run `npm start`
-    * Once it stops showing new information open http://localhost:3000 in your browser
+    * In VSCode, open the repo and press the run button (F5)
+    * In other editors, run the commands in the `.vscode` config in a terminal
 
 **Future directions:**
 * Move away from Azure functions (to client side logic and GitHub Actions where possible)

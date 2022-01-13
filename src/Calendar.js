@@ -13,6 +13,18 @@ import { DateTime } from 'luxon'
 
 import { getStartOfSession } from './Toolbar'
 
+// Monkey patch rrulePlugin for FullCalendar to fix https://github.com/fullcalendar/fullcalendar/issues/5273
+// (Recurring events don't respect timezones in FullCalendar)
+// We simply replace the expand function here: https://github.com/fullcalendar/fullcalendar/blob/ede23c4b2bf0ee0bb2cbe4694b3e899a09d14da6/packages/rrule/src/main.ts#L36-L56
+// With a custom version below
+rrulePlugin.recurringTypes[0].expand = function (errd, fr, de) {
+  return errd.rruleSet.between(
+    fr.start,
+    fr.end,
+    true, // inclusive (will give extra events at start, see https://github.com/jakubroztocil/rrule/issues/84)
+  ).map(date => new Date(de.createMarker(date).getTime() + date.getTimezoneOffset() * 60 * 1000))
+}
+
 export const parseEvents = (source, year, session, id, timeZone) => source[`${id}_${session}`].classes.reduce((arr, c) => {
   const location = c.location
   const occurrence = parseInt(c.occurrence)
@@ -41,8 +53,8 @@ export const parseEvents = (source, year, session, id, timeZone) => source[`${id
     dtstart: start.toJSDate(),
     until: end.toJSDate(),
     byweekday: start.weekday-1, // Luxon 1-offset => rrule 0-offset
-    byweekno: weeks, // rrule allows RFC violation (compliant byweekno requires freq=YEARLY) 
-    tzid: timeZone || 'Australia/Canberra'
+    byweekno: weeks, // rrule allows RFC violation (compliant byweekno requires freq=YEARLY)
+    tzid: 'Australia/Canberra'
   }
   
   arr.push({
@@ -205,6 +217,8 @@ export default forwardRef((props, ref) => {
     weekText='Week'
 
     fixedWeekCount={false}
+
+    timeZone={props.timeZone}
 
     eventSourceFailure={err => console.error(err.message)}
   />

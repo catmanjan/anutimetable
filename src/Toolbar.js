@@ -62,11 +62,9 @@ const setQueryParam = (param, value) => {
 
 export const getStartOfSession = () => {
   const [year, session] = getInitialState()
-  const map = {
+  return {
     '2022S1': new Date('2022-02-19Z21:00:00'), // 8AM 21 Feb in GMT
-  }
-  if (map.hasOwnProperty([year + session]))
-    return map[year + session]
+  }?.[year + session]
 }
 
 const getApi = (path, callback) => {
