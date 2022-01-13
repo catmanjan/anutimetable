@@ -11,6 +11,8 @@ import luxonPlugin from '@fullcalendar/luxon'
 
 import { DateTime } from 'luxon'
 
+import { getStartOfSession } from './Toolbar'
+
 export const parseEvents = (source, year, session, id, timeZone) => source[`${id}_${session}`].classes.reduce((arr, c) => {
   const location = c.location
   const occurrence = parseInt(c.occurrence)
@@ -107,16 +109,6 @@ const handleEventClick = (ref, info) => {
     info.jsEvent?.preventDefault()
     selectOccurrence(ref, info.event.source.id, info.event.groupId, info.event.extendedProps.occurrence)
   }
-}
-
-const getStartOfSession = () => {
-  const qs = new URLSearchParams(window.location.search)
-  const year = qs.get('y'), session = qs.get('s')
-  const map = {
-    '2022S1': new Date('2022-02-20Z21:00:00'), // 8AM 22 Feb in GMT
-  }
-  if (map.hasOwnProperty([year + session]))
-    return map[year + session]
 }
 
 const weekNumberCalculation = date => {
