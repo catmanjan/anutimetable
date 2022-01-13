@@ -88,14 +88,16 @@ export const selectOccurrence = (ref, module, groupId, occurrence) => {
 }
 
 const formatEventContent = ({ event }) => {
-  const { location, locationID, lat, lon } = event.extendedProps
-  const url = lat ? `https://www.google.com/maps/search/?api=1&query=${lat},${lon}` : locationID
   // causes a nested <a> in the event
   // fix PR is unmerged since Apr 2021: fullcalendar/fullcalendar#5710
+  const { location, locationID, lat, lon } = event.extendedProps
+  const url = lat ? `https://www.google.com/maps/search/?api=1&query=${lat},${lon}` : locationID
+  const locationLine = url
+    ? <a href={url} target="_blank" rel="noreferrer">{location}</a>
+    : location;
   return <>
-    {event.title}<><br />{
-      (url && <a href={url} target="_blank" rel="noreferrer">{location}</a>)
-          || location}</>
+    {event.title}<br />
+    {locationLine}
   </>
 }
 

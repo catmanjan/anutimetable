@@ -153,8 +153,15 @@
   min-width: 73px;
 }
 
-/* apply default event colour to links */
-.fc .fc-event-main a {
+/* apply default colour to things which shouldn't be links */
+.fc a.fc-event {
+  color: var(--fc-event-text-color, #fff) !important;
+}
+
+/* apply override to actual links in events */
+.fc .fc-event a {
+  text-decoration: underline;
+  font-style: italic;
   color: var(--fc-event-text-color, #fff) !important;
 }
 
