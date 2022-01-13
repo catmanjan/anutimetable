@@ -153,8 +153,15 @@
   min-width: 73px;
 }
 
-/* apply default event colour to links */
+/* apply default colour to things which shouldn't be links */
 .fc .fc-event-main a {
+  color: var(--fc-event-text-color, #fff) !important;
+}
+
+/* apply override to actual links in events */
+.fc .fc-event a {
+  text-decoration: underline;
+  font-style: italic;
   color: var(--fc-event-text-color, #fff) !important;
 }
 
@@ -166,4 +173,23 @@
 /* vertically center icons with text */
 .dropdown svg {
   margin-bottom: 3%;
+}
+
+/* hide react error overlay */
+iframe {
+  display: none;
+}
+
+/* make it consistent with bootstrap styling */
+.timezone-select {
+  width: 100%;
+  margin-bottom: 1em;
+  cursor: text;
+}
+div[id^=react-select] {
+  z-index: 100000;
+  cursor: text;
+}
+div[id^=react-select] div {
+  cursor: pointer;
 }

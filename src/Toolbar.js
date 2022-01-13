@@ -2,19 +2,30 @@ import { useState, useEffect, forwardRef } from 'react'
 
 import { InputGroup, Dropdown, DropdownButton } from 'react-bootstrap'
 import { Token, Typeahead } from 'react-bootstrap-typeahead'
+import TimezoneSelect from 'react-timezone-select'
 
 import Export from './Export'
 import { parseEvents, selectOccurrence } from './Calendar'
 
-// https://stackoverflow.com/a/3426956/
+// Generates an HSL colour with enough contrast to display white text
+// https://stackoverflow.com/a/21682946
+// The colour text contrast has been tested here: https://codepen.io/OliverBalfour/pen/YzrRoXJ
 const stringToColor = str => {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  // Like Java's String#hashCode. Generates a signed hash number
+  function getHashCode(str) {
+    var hash = 0;
+    if (str.length === 0) return hash;
+    for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
   }
-
-  const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
-  return "#00000".substring(0, 7 - c.length) + c;
+  function intToHSL(int) {
+    var shortened = int % 360;
+    return "hsl(" + shortened + ",100%,30%)";
+  }
+  return intToHSL(getHashCode(str))
 }
 
 // hardcode to semester 1 or 2 as users usually want them
@@ -60,7 +71,7 @@ const getApi = (path, callback) => {
   }
 }
 
-export default forwardRef(({ API }, calendar) => {
+export default forwardRef(({ API, timeZone, setTimeZone }, calendar) => {
   let [y, s, m] = getInitialState()
 
   const [year, setYear] = useState(y)
@@ -91,27 +102,25 @@ export default forwardRef(({ API }, calendar) => {
     const selected = selectedModules.map(({ id }) => id)
     sources.forEach(s => {
       if (!selected.includes(s.id)) {
-        s.remove()
         const qs = new URLSearchParams(window.location.search)
         qs.delete(s.id) // if no value, just ensure param exists
         window.history.replaceState(null, '', '?'+qs.toString())
       }
+      s.remove()
     })
 
-    
-    const sourceIds = sources.map(s => s.id)
     selectedModules.forEach(({ id }) => {
       setQueryParam(id)
 
-      if (Object.keys(JSON).length !== 0 && !sourceIds.includes(id)) {
+      if (Object.keys(JSON).length !== 0) {
         api.addEventSource({
           id,
           color: stringToColor(id),
-          events: parseEvents(JSON, year, session, id)
+          events: parseEvents(JSON, year, session, id, timeZone)
         })
       }
     })
-  }, [JSON, year, session, selectedModules, calendar])
+  }, [JSON, year, session, selectedModules, calendar, timeZone])
 
   useEffect(() => {
     m.forEach(([module, occurrences]) => occurrences.split(',').forEach(o => {
@@ -127,7 +136,8 @@ export default forwardRef(({ API }, calendar) => {
     setSession(sessions[e]?.[sessions[e].length-1] || '')
   }
 
-  return <InputGroup className="mb-2">
+  return <>
+  <InputGroup className="mb-2">
     <DropdownButton
       as={InputGroup.Prepend}
       variant="outline-primary"
@@ -180,4 +190,10 @@ export default forwardRef(({ API }, calendar) => {
     {/* somehow there's no NPM module for this. maybe I should write one? */}
     {selectedModules.length !== 0 && <Export API={API} />}
   </InputGroup>
+  <TimezoneSelect
+    className='timezone-select mb-2'
+    value={timeZone}
+    onChange={tz => setTimeZone(tz.value)}
+  />
+  </>
 })

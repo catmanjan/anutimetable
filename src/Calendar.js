@@ -11,7 +11,7 @@ import luxonPlugin from '@fullcalendar/luxon'
 
 import { DateTime } from 'luxon'
 
-export const parseEvents = (source, year, session, id) => source[`${id}_${session}`].classes.reduce((arr, c) => {
+export const parseEvents = (source, year, session, id, timeZone) => source[`${id}_${session}`].classes.reduce((arr, c) => {
   const location = c.location
   const occurrence = parseInt(c.occurrence)
 
@@ -40,7 +40,7 @@ export const parseEvents = (source, year, session, id) => source[`${id}_${sessio
     until: end.toJSDate(),
     byweekday: start.weekday-1, // Luxon 1-offset => rrule 0-offset
     byweekno: weeks, // rrule allows RFC violation (compliant byweekno requires freq=YEARLY) 
-    tzid: 'Australia/Canberra'
+    tzid: timeZone || 'Australia/Canberra'
   }
   
   arr.push({
@@ -88,14 +88,16 @@ export const selectOccurrence = (ref, module, groupId, occurrence) => {
 }
 
 const formatEventContent = ({ event }) => {
-  const { location, locationID, lat, lon } = event.extendedProps
-  const url = lat ? `https://www.google.com/maps/search/?api=1&query=${lat},${lon}` : locationID
   // causes a nested <a> in the event
   // fix PR is unmerged since Apr 2021: fullcalendar/fullcalendar#5710
+  const { location, locationID, lat, lon } = event.extendedProps
+  const url = lat ? `https://www.google.com/maps/search/?api=1&query=${lat},${lon}` : locationID
+  const locationLine = url
+    ? <a href={url} target="_blank" rel="noreferrer">{location}</a>
+    : location;
   return <>
-    {event.title}<><br />{
-      (url && <a href={url} target="_blank" rel="noreferrer">{location}</a>)
-          || location}</>
+    {event.title}<br />
+    {locationLine}
   </>
 }
 
@@ -107,11 +109,35 @@ const handleEventClick = (ref, info) => {
   }
 }
 
+const getStartOfSession = () => {
+  const qs = new URLSearchParams(window.location.search)
+  const year = qs.get('y'), session = qs.get('s')
+  const map = {
+    '2022S1': new Date('2022-02-20Z21:00:00'), // 8AM 22 Feb in GMT
+  }
+  if (map.hasOwnProperty([year + session]))
+    return map[year + session]
+}
+
+const weekNumberCalculation = date => {
+  const startDate = getStartOfSession()
+  const start = startDate ? DateTime.fromJSDate(startDate).weekNumber : 0
+  const end = DateTime.fromJSDate(date).weekNumber
+  return end - start + 1 // 0 weeks after start is week 1
+}
+
 export default forwardRef((props, ref) => {
   const customEvents = {
     eventContent: formatEventContent,
     eventClick: info => handleEventClick(ref, info)
   }
+
+  // Set the initial date to max(start of sem, today)
+  const startOfSemester = getStartOfSession()
+  const initialDate =
+    startOfSemester && startOfSemester.getTime() > new Date().getTime()
+      ? startOfSemester
+      : new Date();
 
   return <FullCalendar
     ref={ref}
@@ -159,6 +185,7 @@ export default forwardRef((props, ref) => {
       }
     }}
     initialView={window.navigator.userAgent.includes('Mobi') ? 'listTwoDay' : 'timeGridWeek'}
+    initialDate={initialDate}
 
     // timeGrid options
     allDaySlot={false}
@@ -179,8 +206,10 @@ export default forwardRef((props, ref) => {
     // }}
     displayEventTime={false}
     defaultAllDay={false} // allDay=false required for non-string rrule inputs (eg Dates) https://github.com/fullcalendar/fullcalendar/issues/6689
+
+    // Week 1 = start of semester
     weekNumbers
-    weekNumberCalculation={'ISO'}
+    weekNumberCalculation={weekNumberCalculation}
     weekText='Week'
 
     fixedWeekCount={false}
