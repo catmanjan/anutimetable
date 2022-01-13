@@ -167,7 +167,7 @@ export default forwardRef((props, ref) => {
         ...customEvents
       },
       timeGridWeek:{
-        weekends: false, // support timezones, and ANU moving prerecorded events to Sunday
+        weekends: true,
         dayHeaderFormat: { weekday: 'short' },
         ...customEvents
       },
@@ -177,7 +177,7 @@ export default forwardRef((props, ref) => {
         buttonText: 'Agenda',
         listDayFormat: { weekday: 'long', month: 'short', day: 'numeric' },
         displayEventTime: true,
-        weekends: false,
+        weekends: true,
         eventContent: formatEventContent
       },
       dayGridMonth: {
