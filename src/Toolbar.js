@@ -6,15 +6,25 @@ import { Token, Typeahead } from 'react-bootstrap-typeahead'
 import Export from './Export'
 import { parseEvents, selectOccurrence } from './Calendar'
 
-// https://stackoverflow.com/a/3426956/
+// Generates an HSL colour with enough contrast to display white text
+// https://stackoverflow.com/a/21682946
+// The colour text contrast has been tested here: https://codepen.io/OliverBalfour/pen/YzrRoXJ
 const stringToColor = str => {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  // Like Java's String#hashCode. Generates a signed hash number
+  function getHashCode(str) {
+    var hash = 0;
+    if (str.length == 0) return hash;
+    for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
   }
-
-  const c = (hash & 0x00FFFFFF).toString(16).toUpperCase();
-  return "#00000".substring(0, 7 - c.length) + c;
+  function intToHSL(int) {
+    var shortened = int % 360;
+    return "hsl(" + shortened + ",100%,30%)";
+  }
+  return intToHSL(getHashCode(str))
 }
 
 // hardcode to semester 1 or 2 as users usually want them

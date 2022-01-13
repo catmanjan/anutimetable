@@ -154,7 +154,7 @@
 }
 
 /* apply default colour to things which shouldn't be links */
-.fc a.fc-event {
+.fc .fc-event-main a {
   color: var(--fc-event-text-color, #fff) !important;
 }
 
