@@ -11,7 +11,7 @@ import luxonPlugin from '@fullcalendar/luxon'
 
 import { DateTime } from 'luxon'
 
-export const parseEvents = (source, year, session, id) => source[`${id}_${session}`].classes.reduce((arr, c) => {
+export const parseEvents = (source, year, session, id, timeZone) => source[`${id}_${session}`].classes.reduce((arr, c) => {
   const location = c.location
   const occurrence = parseInt(c.occurrence)
 
@@ -40,7 +40,7 @@ export const parseEvents = (source, year, session, id) => source[`${id}_${sessio
     until: end.toJSDate(),
     byweekday: start.weekday-1, // Luxon 1-offset => rrule 0-offset
     byweekno: weeks, // rrule allows RFC violation (compliant byweekno requires freq=YEARLY) 
-    tzid: 'Australia/Canberra'
+    tzid: timeZone || 'Australia/Canberra'
   }
   
   arr.push({
@@ -111,7 +111,7 @@ const handleEventClick = (ref, info) => {
 
 const getStartOfSession = (year, session) => {
   const map = {
-    '2022S1': new Date('2022-02-20T21:00:00'), // 8AM 22 Feb in GMT
+    '2022S1': new Date('2022-02-20Z21:00:00'), // 8AM 22 Feb in GMT
   }
   if (map.hasOwnProperty([year + session]))
     return map[year + session]

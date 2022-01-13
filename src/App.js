@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Container, Navbar } from 'react-bootstrap'
 
 import Toolbar from './Toolbar'
@@ -12,14 +12,18 @@ const API = `${isDevelopment ? 'http://localhost:7071' : window.location.origin}
 
 let App = () => {
   const calendar = useRef()
-  
+
+  // Timezone string, like "Australia/Sydney"
+  const [timeZone, setTimeZone] = useState(localStorage.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone)
+  useEffect(() => localStorage.timeZone = timeZone, [timeZone])
+
   // fluid="xxl" is only supported in Bootstrap 5
   return <Container fluid>
     <h2 className="mt-2">ANU Timetable</h2>
 
-    <Toolbar API={API} ref={calendar} />
+    <Toolbar API={API} ref={calendar} timeZone={timeZone} setTimeZone={setTimeZone} />
 
-    <Calendar API={API} ref={calendar} />
+    <Calendar API={API} ref={calendar} timeZone={timeZone} />
 
     <Navbar>
       <Navbar.Text>

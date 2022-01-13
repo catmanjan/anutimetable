@@ -179,3 +179,17 @@
 iframe {
   display: none;
 }
+
+/* make it consistent with bootstrap styling */
+.timezone-select {
+  width: 100%;
+  margin-bottom: 1em;
+  cursor: text;
+}
+div[id^=react-select] {
+  z-index: 100000;
+  cursor: text;
+}
+div[id^=react-select] div {
+  cursor: pointer;
+}
