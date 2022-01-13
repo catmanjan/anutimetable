@@ -12,7 +12,7 @@ This is an unofficial alternative timetable viewer for the Australian National U
 **Components:**
 * A React.js front-end in `/src` and `/public`. It's hosted as an Azure Static Web App by @pl4nty (free tier). Commits to master are deployed to timetable.cssa.club minutes later via a GitHub Action. Commits to open PR's are pushed to staging URL's for testing.
 * A Python scraping script in `scraper` inherited from anutimetable.com that scrapes the official ANU timetable website. It is run once a day by a GitHub Action and the results are saved to `public/timetable*.json`.
-* Several Azure functions in `/api` hosted by @pl4nty (free tier plan). These generate useful data on the fly like the ICS exports.
+* Several Azure functions in `/api` hosted by @pl4nty (free tier plan). These generate useful data on the fly like the calendar exports (`GetICS`) which can be linked to your calendar software (so they automatically update) or downloaded (as an ICS file).
 
 **Future directions:**
 * Move away from Azure functions (to client side logic and GitHub Actions where possible)

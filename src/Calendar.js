@@ -179,9 +179,11 @@ export default forwardRef((props, ref) => {
     // }}
     displayEventTime={false}
     defaultAllDay={false} // allDay=false required for non-string rrule inputs (eg Dates) https://github.com/fullcalendar/fullcalendar/issues/6689
-    weekNumbers
-    weekNumberCalculation={'ISO'}
-    weekText='Week'
+
+    // Don't display the week of the year
+    // weekNumbers
+    // weekNumberCalculation={'ISO'}
+    // weekText='Week'
 
     fixedWeekCount={false}
 
