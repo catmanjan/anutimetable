@@ -17,7 +17,7 @@ const Export = ({ API }) => {
       <SiApple /> WebCal (eg iOS)
     </Dropdown.Item>
     <Dropdown.Item eventKey="gcal" target={"_blank"} rel={"noreferrer"} 
-      href={`https://www.google.com/calendar/render?cid=${webcal}`}>
+      href={`https://www.google.com/calendar/render?cid=${encodeURIComponent(webcal.replace('https', 'http'))}`}>
       <SiGooglecalendar /> Google Calendar
     </Dropdown.Item>
     <Dropdown.Item eventKey="msol" target={"_blank"} rel={"noreferrer"}
