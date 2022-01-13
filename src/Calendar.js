@@ -109,12 +109,21 @@ const handleEventClick = (ref, info) => {
   }
 }
 
-const getStartOfSession = (year, session) => {
+const getStartOfSession = () => {
+  const qs = new URLSearchParams(window.location.search)
+  const year = qs.get('y'), session = qs.get('s')
   const map = {
     '2022S1': new Date('2022-02-20Z21:00:00'), // 8AM 22 Feb in GMT
   }
   if (map.hasOwnProperty([year + session]))
     return map[year + session]
+}
+
+const weekNumberCalculation = date => {
+  const startDate = getStartOfSession()
+  const start = startDate ? DateTime.fromJSDate(startDate).weekNumber : 0
+  const end = DateTime.fromJSDate(date).weekNumber
+  return end - start + 1 // 0 weeks after start is week 1
 }
 
 export default forwardRef((props, ref) => {
@@ -124,8 +133,7 @@ export default forwardRef((props, ref) => {
   }
 
   // Set the initial date to max(start of sem, today)
-  const qs = new URLSearchParams(window.location.search)
-  const startOfSemester = getStartOfSession(qs.get('y'), qs.get('s'))
+  const startOfSemester = getStartOfSession()
   const initialDate =
     startOfSemester && startOfSemester.getTime() > new Date().getTime()
       ? startOfSemester
@@ -199,10 +207,10 @@ export default forwardRef((props, ref) => {
     displayEventTime={false}
     defaultAllDay={false} // allDay=false required for non-string rrule inputs (eg Dates) https://github.com/fullcalendar/fullcalendar/issues/6689
 
-    // Don't display the week of the year
-    // weekNumbers
-    // weekNumberCalculation={'ISO'}
-    // weekText='Week'
+    // Week 1 = start of semester
+    weekNumbers
+    weekNumberCalculation={weekNumberCalculation}
+    weekText='Week'
 
     fixedWeekCount={false}
 
