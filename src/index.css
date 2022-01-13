@@ -174,3 +174,8 @@
 .dropdown svg {
   margin-bottom: 3%;
 }
+
+/* hide react error overlay */
+iframe {
+  display: none;
+}
