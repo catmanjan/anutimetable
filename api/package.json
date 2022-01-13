@@ -9,9 +9,9 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "date-fns": "2.25.0",
-    "date-fns-tz": "1.1.6",
-    "ics": "2.31.0",
-    "node-fetch": "^2.6.6"
+    "date-fns": "2.28.0",
+    "date-fns-tz": "1.2.2",
+    "ics": "2.35.0",
+    "node-fetch": "2.6.6"
   }
 }
