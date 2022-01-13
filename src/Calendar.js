@@ -109,11 +109,27 @@ const handleEventClick = (ref, info) => {
   }
 }
 
+const getStartOfSession = (year, session) => {
+  const map = {
+    '2022S1': new Date('2022-02-20T21:00:00'), // 8AM 22 Feb in GMT
+  }
+  if (map.hasOwnProperty([year + session]))
+    return map[year + session]
+}
+
 export default forwardRef((props, ref) => {
   const customEvents = {
     eventContent: formatEventContent,
     eventClick: info => handleEventClick(ref, info)
   }
+
+  // Set the initial date to max(start of sem, today)
+  const qs = new URLSearchParams(window.location.search)
+  const startOfSemester = getStartOfSession(qs.get('y'), qs.get('s'))
+  const initialDate =
+    startOfSemester && startOfSemester.getTime() > new Date().getTime()
+      ? startOfSemester
+      : new Date();
 
   return <FullCalendar
     ref={ref}
@@ -161,6 +177,7 @@ export default forwardRef((props, ref) => {
       }
     }}
     initialView={window.navigator.userAgent.includes('Mobi') ? 'listTwoDay' : 'timeGridWeek'}
+    initialDate={initialDate}
 
     // timeGrid options
     allDaySlot={false}
