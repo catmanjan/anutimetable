@@ -39,9 +39,9 @@ const formatEventContent = ({ selectOccurrence, resetOccurrence }) => ({ event }
       ? <button className='choose-button' onClick={() => dispatch(selectOccurrence)}>Choose</button>
       : <button className='choose-button' onClick={() => dispatch(resetOccurrence)}>Reset</button>
   return <>
-    {event.title}<br />
-    {locationLine}<br />
-    {button}
+    <p>{event.title}</p>
+    <p>{locationLine}</p>
+    <p>{button}</p>
   </>
 }
 

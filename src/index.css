@@ -205,3 +205,17 @@ div[id^=react-select] div {
   cursor: pointer;
   text-decoration: underline;
 }
+
+.fc-event-main {
+  word-break: break-word;
+  line-height: normal;
+}
+
+.fc-event-main p {
+  margin: 0 0 4px 0;
+  padding: 0;
+}
+
+.fc-timegrid-event-harness:hover {
+  z-index: 100 !important;
+}
