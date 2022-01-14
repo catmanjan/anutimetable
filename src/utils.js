@@ -76,7 +76,7 @@ export const getTimetableApi = (path, callback) => {
 // One for each lecture/lab time/etc. for a given course and session
 // These events have a recurrence rule (rrule) so one event object in the returned
 // list may represent 20 lectures at the same time each week
-export const parseEvents = (modules, year, session, id /* course code */) => modules[`${id}_${session}`].classes.map(c => {
+export const parseEvents = (classes, year, session, id /* course code */) => classes.map(c => {
   const location = c.location
   const occurrence = parseInt(c.occurrence)
 

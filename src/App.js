@@ -43,6 +43,8 @@ let App = () => {
   // Selected modules are stored as an *array* of module objects as above, with
   // an additional `id` field that has the key in `modules`
   const [selectedModules, setSelectedModules] = useState(m.map(([id]) => ({ id })))
+
+  // Update query string parameters
   useEffect(() => {
     const api = calendar.current.getApi()
     const sources = api.getEventSources()
@@ -58,19 +60,42 @@ let App = () => {
       s.remove()
     })
 
+    // List of events chosen from a list of alternatives globally
+    // List of lists like ['COMP1130', 'ComA', 1]
+    const specifiedOccurrences = m.flatMap(([module, occurrences]) => occurrences.split(',').flatMap(o => {
+      // We're flatMapping so that we can return [] to do nothing and [result] to return a result
+      if (!o || !selectedModules.map(({ id }) => id).includes(module)) return []
+      const r = o.match(/([^0-9]*)([0-9]+)$/)
+      return [[module, r[1], parseInt(r[2])]]
+    }))
+
     // Add newly selected modules to the query string
     selectedModules.forEach(({ id }) => {
       setQueryParam(id)
 
-      if (Object.keys(JSON).length !== 0) {
-        api.addEventSource({
-          id,
-          color: stringToColor(id),
-          events: parseEvents(JSON, year, session, id)
-        })
+      if (Object.keys(JSON).length === 0) return
+
+      // What events are currently visible?
+      // Basically the module's full list of classes, minus alternatives to chosen options (from the query string)
+      const eventsForModule = JSON[`${id}_${session}`].classes
+      for (const [module, groupId, occurrence] of specifiedOccurrences) {
+        if (module !== id) continue
+        // Delete alternatives to an explicitly chosen event
+        for (let i = eventsForModule.length - 1; i >= 0; i--) {
+          const event = eventsForModule[i]
+          if (event.activity === groupId && parseInt(event.occurrence) !== occurrence) {
+            eventsForModule.splice(i, 1)
+          }
+        }
       }
+
+      api.addEventSource({
+        id,
+        color: stringToColor(id),
+        events: parseEvents(eventsForModule, year, session, id)
+      })
     })
-  }, [JSON, year, session, selectedModules, calendar, timeZone])
+  }, [JSON, year, session, selectedModules, calendar, timeZone, m, modules])
 
   // Updates selected occurrences (eg lab times) when a course is added/removed
   useEffect(() => {
