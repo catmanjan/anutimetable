@@ -43,7 +43,7 @@ const handleEventClick = (ref, info, selectOccurrence) => {
   // allow links inside event content
   if (info.jsEvent.target.childElementCount !== 0) {
     info.jsEvent?.preventDefault()
-    selectOccurrence(ref, info.event.source.id, info.event.groupId, info.event.extendedProps.occurrence)
+    selectOccurrence(info.event.source.id, info.event.groupId, info.event.extendedProps.occurrence)
   }
 }
 

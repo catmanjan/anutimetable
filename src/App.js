@@ -45,7 +45,7 @@ let App = () => {
   const [selectedModules, setSelectedModules] = useState(m.map(([id]) => ({ id })))
 
   // List of events chosen from a list of alternatives globally
-  // List of lists like ['COMP1130', 'ComA', 1]
+  // List of lists like ['COMP1130', 'ComA', 1] (called module, groupId, occurrence)
   const getSpecOccurrences = () => m.flatMap(([module, occurrences]) => occurrences.split(',').flatMap(o => {
     // We're flatMapping so that we can return [] to do nothing and [result] to return a result
     if (!o || !selectedModules.map(({ id }) => id).includes(module)) return []
@@ -55,7 +55,7 @@ let App = () => {
   const [specifiedOccurrences, setSpecifiedOccurrences] = useState(getSpecOccurrences())
   const updateSpecifiedOccurrences = () => setSpecifiedOccurrences(getSpecOccurrences())
 
-  // Update query string parameters
+  // Update query string parameters and calendar events whenever anything changes
   useEffect(() => {
     const api = calendar.current.getApi()
     const sources = api.getEventSources()
@@ -72,8 +72,10 @@ let App = () => {
     })
 
     // Add newly selected modules to the query string
+    // Update the events the calendar receives
     selectedModules.forEach(({ id }) => {
-      setQueryParam(id)
+      // Update query string
+      setQueryParam(id, specifiedOccurrences.filter(([m]) => m === id).map(([m,groupId,occurrence]) => groupId+occurrence).join(','))
 
       if (Object.keys(JSON).length === 0) return
 
@@ -91,6 +93,7 @@ let App = () => {
         }
       }
 
+      // Add currently visible events to the calendar
       api.addEventSource({
         id,
         color: stringToColor(id),
@@ -102,38 +105,25 @@ let App = () => {
   // Remove specified events for modules that have been removed
   useEffect(() => {
     updateSpecifiedOccurrences()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedModules])
 
-  // We select occurrences by editing the query string
-  const selectOccurrence = (ref, module, groupId, occurrence) => {
-    const api = ref.current.getApi()
-    let event
-    let flag = false
-    for (let i=occurrence-1; (event=api.getEventById([module,groupId,i].join('_'))); i--) {
-      flag = true
-    }
-    for (let i=occurrence+1; (event=api.getEventById([module,groupId,i].join('_'))); i++) {
-      flag = true
-    }
-    // if it's selectable, add to the query string
-    if (flag) {
-      let qs = new URLSearchParams(window.location.search)
-      const current = qs.get(module)
-
-      const val = groupId+occurrence
-      if (!current || !current.includes(val)) {
-        qs.set(module, current ? `${current},${val}` : val)
-        window.history.replaceState(null, '', '?'+qs.toString())
-      }
-    }
-
+  // We select occurrences by adding them to specifiedOccurrences, which
+  // edits the query string in an effect
+  const selectOccurrence = (module, groupId, occurrence) => {
+    // Eg adding ['COMP1130', 'ComA', 1]
     setSpecifiedOccurrences([...specifiedOccurrences, [module, groupId, occurrence]])
+  }
+  const resetOccurrence = (module, groupId, occurrence) => {
+    setSpecifiedOccurrences(specifiedOccurrences.filter(
+      ([m, g, o]) => !(m === module && g === groupId && o === occurrence)
+    ))
   }
 
   const state = {
     timeZone, year, session, sessions, JSON, modules, selectedModules,
     setTimeZone, setYear, setSession, setSessions, setJSON, setModules, setSelectedModules,
-    selectOccurrence
+    selectOccurrence, resetOccurrence,
   }
 
   // fluid="xxl" is only supported in Bootstrap 5
