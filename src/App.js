@@ -61,6 +61,7 @@ let App = () => {
     const sources = api.getEventSources()
 
     // Remove no longer selected modules from the query string
+    // Remove all calendar events (we re-add them after)
     const selected = selectedModules.map(({ id }) => id)
     sources.forEach(s => {
       if (!selected.includes(s.id)) {
@@ -71,8 +72,7 @@ let App = () => {
       s.remove()
     })
 
-    // Add newly selected modules to the query string
-    // Update the events the calendar receives
+    // Update the query string and the events the calendar receives
     selectedModules.forEach(({ id }) => {
       // Update query string
       setQueryParam(id, specifiedOccurrences.filter(([m]) => m === id).map(([m,groupId,occurrence]) => groupId+occurrence).join(','))

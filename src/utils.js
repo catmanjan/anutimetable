@@ -50,7 +50,7 @@ export const getInitialState = () => {
 
 export const setQueryParam = (param, value) => {
   const qs = new URLSearchParams(window.location.search)
-  qs.set(param, value || qs.get(param) || '') // if no value, just ensure param exists
+  qs.set(param, value ?? qs.get(param) ?? '') // if no value, just ensure param exists
   window.history.replaceState(null, '', '?'+qs.toString())
 }
 
@@ -76,7 +76,9 @@ export const getTimetableApi = (path, callback) => {
 // One for each lecture/lab time/etc. for a given course and session
 // These events have a recurrence rule (rrule) so one event object in the returned
 // list may represent 20 lectures at the same time each week
-export const parseEvents = (classes, year, session, id /* course code */) => classes.map(c => {
+export const parseEvents = (classes, year, session, id /* course code */) => {
+  const activitiesWithMultipleOccurrences = classes.map(c => c.activity).filter((e, i, a) => a.indexOf(e) !== i && a.lastIndexOf(e) === i)
+return classes.map(c => {
   const location = c.location
   const occurrence = parseInt(c.occurrence)
 
@@ -112,6 +114,7 @@ export const parseEvents = (classes, year, session, id /* course code */) => cla
     // extendedProps
     ...c,
     occurrence,
+    hasMultipleOccurrences: activitiesWithMultipleOccurrences.indexOf(c.activity) !== -1,
 
     // custom ID allows removal of events that aren't in memory (ie only available by getEventById())
     id: [c.module, c.activity, occurrence].join('_'),
@@ -122,3 +125,4 @@ export const parseEvents = (classes, year, session, id /* course code */) => cla
     rrule
   }
 })
+}

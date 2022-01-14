@@ -39,11 +39,14 @@ const formatEventContent = ({ event }) => {
   </>
 }
 
-const handleEventClick = (ref, info, selectOccurrence) => {
+const handleEventClick = (ref, info, selectOccurrence, resetOccurrence) => {
   // allow links inside event content
   if (info.jsEvent.target.childElementCount !== 0) {
     info.jsEvent?.preventDefault()
-    selectOccurrence(info.event.source.id, info.event.groupId, info.event.extendedProps.occurrence)
+    if (info.event.extendedProps.hasMultipleOccurrences)
+      selectOccurrence(info.event.source.id, info.event.groupId, info.event.extendedProps.occurrence)
+    else
+      resetOccurrence(info.event.source.id, info.event.groupId, info.event.extendedProps.occurrence)
   }
 }
 
@@ -57,7 +60,7 @@ const weekNumberCalculation = date => {
 export default forwardRef(({ state }, ref) => {
   const customEvents = {
     eventContent: formatEventContent,
-    eventClick: info => handleEventClick(ref, info, state.selectOccurrence)
+    eventClick: info => handleEventClick(ref, info, state.selectOccurrence, state.resetOccurrence)
   }
 
   // Set the initial date to max(start of sem, today)
