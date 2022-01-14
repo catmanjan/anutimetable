@@ -25,29 +25,24 @@ rrulePlugin.recurringTypes[0].expand = function (errd, fr, de) {
   ).map(date => new Date(de.createMarker(date).getTime() + date.getTimezoneOffset() * 60 * 1000))
 }
 
-const formatEventContent = ({ event }) => {
+const formatEventContent = ({ selectOccurrence, resetOccurrence }) => ({ event }) => {
+  const { location, locationID, lat, lon, activity, hasMultipleOccurrences } = event.extendedProps
+  const url = lat ? `https://www.google.com/maps/search/?api=1&query=${lat},${lon}` : locationID
   // causes a nested <a> in the event
   // fix PR is unmerged since Apr 2021: fullcalendar/fullcalendar#5710
-  const { location, locationID, lat, lon } = event.extendedProps
-  const url = lat ? `https://www.google.com/maps/search/?api=1&query=${lat},${lon}` : locationID
   const locationLine = url
     ? <a href={url} target="_blank" rel="noreferrer">{location}</a>
     : location;
+  const dispatch = f => f(event.source.id, event.groupId, event.extendedProps.occurrence)
+  const button = activity.startsWith('Lec') ? null :
+    hasMultipleOccurrences
+      ? <button className='choose-button' onClick={() => dispatch(selectOccurrence)}>Choose</button>
+      : <button className='choose-button' onClick={() => dispatch(resetOccurrence)}>Reset</button>
   return <>
     {event.title}<br />
-    {locationLine}
+    {locationLine}<br />
+    {button}
   </>
-}
-
-const handleEventClick = (ref, info, selectOccurrence, resetOccurrence) => {
-  // allow links inside event content
-  if (info.jsEvent.target.childElementCount !== 0) {
-    info.jsEvent?.preventDefault()
-    if (info.event.extendedProps.hasMultipleOccurrences)
-      selectOccurrence(info.event.source.id, info.event.groupId, info.event.extendedProps.occurrence)
-    else
-      resetOccurrence(info.event.source.id, info.event.groupId, info.event.extendedProps.occurrence)
-  }
 }
 
 const weekNumberCalculation = date => {
@@ -59,8 +54,7 @@ const weekNumberCalculation = date => {
 
 export default forwardRef(({ state }, ref) => {
   const customEvents = {
-    eventContent: formatEventContent,
-    eventClick: info => handleEventClick(ref, info, state.selectOccurrence, state.resetOccurrence)
+    eventContent: e => formatEventContent(state)(e),
   }
 
   // Set the initial date to max(start of sem, today)
