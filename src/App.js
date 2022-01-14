@@ -29,7 +29,7 @@ let App = () => {
 
   // List of all supported sessions
   const [sessions, setSessions] = useState([])
-  getTimetableApi(`${API}/sessions`, setSessions)
+  useEffect(() => getTimetableApi(`${API}/sessions`, setSessions), [])
 
   // Timetable JSON as a JS object
   const [JSON, setJSON] = useState({})
