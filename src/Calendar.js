@@ -54,7 +54,7 @@ const weekNumberCalculation = date => {
   return end - start + 1 // 0 weeks after start is week 1
 }
 
-export default forwardRef((props, ref) => {
+export default forwardRef(({ state }, ref) => {
   const customEvents = {
     eventContent: formatEventContent,
     eventClick: info => handleEventClick(ref, info)
@@ -142,7 +142,7 @@ export default forwardRef((props, ref) => {
 
     fixedWeekCount={false}
 
-    timeZone={props.timeZone}
+    timeZone={state.timeZone}
 
     eventSourceFailure={err => console.error(err.message)}
   />
