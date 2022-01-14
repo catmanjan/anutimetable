@@ -61,7 +61,7 @@ export const getStartOfSession = () => {
   }?.[year + session]
 }
 
-export const getApi = (path, callback) => {
+export const getTimetableApi = (path, callback) => {
   try {
     fetch(path).then(res => {
       if (!res.ok) return
@@ -72,7 +72,11 @@ export const getApi = (path, callback) => {
   }
 }
 
-export const parseEvents = (source, year, session, id) => source[`${id}_${session}`].classes.map(c => {
+// Creates a list of event objects the calendar can consume
+// One for each lecture/lab time/etc. for a given course and session
+// These events have a recurrence rule (rrule) so one event object in the returned
+// list may represent 20 lectures at the same time each week
+export const parseEvents = (modules, year, session, id /* course code */) => modules[`${id}_${session}`].classes.map(c => {
   const location = c.location
   const occurrence = parseInt(c.occurrence)
 

@@ -1,11 +1,10 @@
-import { useState, useEffect, forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 import { InputGroup, Dropdown, DropdownButton } from 'react-bootstrap'
 import { Token, Typeahead } from 'react-bootstrap-typeahead'
 import TimezoneSelect from 'react-timezone-select'
 
 import Export from './Export'
-import { getInitialState, setQueryParam, getApi, stringToColor, selectOccurrence, parseEvents } from './utils'
 
 export default forwardRef(({ API, state: {
   timeZone, year, session, sessions, JSON, modules, selectedModules,

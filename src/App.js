@@ -3,7 +3,7 @@ import { Container, Navbar } from 'react-bootstrap'
 
 import Toolbar from './Toolbar'
 import Calendar from './Calendar'
-import { getInitialState, setQueryParam, getApi, stringToColor, parseEvents, selectOccurrence } from './utils'
+import { getInitialState, setQueryParam, getTimetableApi, stringToColor, parseEvents, selectOccurrence } from './utils'
 
 import { ApplicationInsights } from '@microsoft/applicationinsights-web'
 import { ReactPlugin, withAITracking } from '@microsoft/applicationinsights-react-js'
@@ -29,24 +29,25 @@ let App = () => {
 
   // List of all supported sessions
   const [sessions, setSessions] = useState([])
-  getApi(`${API}/sessions`, setSessions)
+  getTimetableApi(`${API}/sessions`, setSessions)
 
   // Timetable JSON as a JS object
   const [JSON, setJSON] = useState({})
-  useEffect(() => getApi(`/timetable_${year}_${session}.json`, setJSON), [year, session])
+  useEffect(() => getTimetableApi(`/timetable_${year}_${session}.json`, setJSON), [year, session])
 
-  // Modules are TODO
+  // Modules (courses) are in an object like { COMP1130: { title: 'COMP1130 Pro...', dates: 'Displaying Dates: ...', link: "" }, ... }
   const processModule = ({classes, id, title, ...module}) => ({ title: title.replace(/_[A-Z][1-9]/, ''), ...module })
   const [modules, setModules] = useState({})
   useEffect(() => setModules(Object.entries(JSON).reduce((acc, [key, module]) => ({...acc, [key.split('_')[0]]: processModule(module)}),{})),  [JSON])
 
-    // inefficient - O(nm)? but simpler
-  // checks every module rather than caching old list to calculate diff
+  // Selected modules are stored as an *array* of module objects as above, with
+  // an additional `id` field that has the key in `modules`
   const [selectedModules, setSelectedModules] = useState(m.map(([id]) => ({ id })))
   useEffect(() => {
     const api = calendar.current.getApi()
     const sources = api.getEventSources()
 
+    // Remove no longer selected modules from the query string
     const selected = selectedModules.map(({ id }) => id)
     sources.forEach(s => {
       if (!selected.includes(s.id)) {
@@ -57,6 +58,7 @@ let App = () => {
       s.remove()
     })
 
+    // Add newly selected modules to the query string
     selectedModules.forEach(({ id }) => {
       setQueryParam(id)
 
@@ -70,10 +72,12 @@ let App = () => {
     })
   }, [JSON, year, session, selectedModules, calendar, timeZone])
 
+  // Updates selected occurrences (eg lab times) when a course is added/removed
   useEffect(() => {
     m.forEach(([module, occurrences]) => occurrences.split(',').forEach(o => {
       if (!o || !selectedModules.map(({ id }) => id).includes(module)) return
       const r = o.match(/([^0-9]*)([0-9]+)$/)
+      // Example: selectOccurrence(calendar, 'COMP1130', 'ComA', 1)
       selectOccurrence(calendar, module, r[1], parseInt(r[2]))
     }))
   }, [m, selectedModules, calendar])
@@ -101,6 +105,7 @@ let App = () => {
   </Container>
 }
 
+// Analytics
 if (!isDevelopment) {
   const reactPlugin = new ReactPlugin();
   const appInsights = new ApplicationInsights({
