@@ -122,31 +122,3 @@ export const parseEvents = (classes, year, session, id /* course code */) => cla
     rrule
   }
 })
-
-export const selectOccurrence = (ref, module, groupId, occurrence) => {
-  const api = ref.current.getApi()
-
-  let event
-  let flag = false
-  for (let i=occurrence-1; (event=api.getEventById([module,groupId,i].join('_'))); i--) {
-    event.remove()
-    flag = true
-  }
-
-  for (let i=occurrence+1; (event=api.getEventById([module,groupId,i].join('_'))); i++) {
-    event.remove()
-    flag = true
-  }
-
-  // if it's selectable, add to the query string
-  if (flag) {
-    let qs = new URLSearchParams(window.location.search)
-    const current = qs.get(module)
-
-    const val = groupId+occurrence
-    if (!current || !current.includes(val)) {
-      qs.set(module, current ? `${current},${val}` : val)
-      window.history.replaceState(null, '', '?'+qs.toString())
-    }
-  }
-}

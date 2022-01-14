@@ -11,7 +11,7 @@ import luxonPlugin from '@fullcalendar/luxon'
 
 import { DateTime } from 'luxon'
 
-import { getStartOfSession, selectOccurrence } from './utils'
+import { getStartOfSession } from './utils'
 
 // Monkey patch rrulePlugin for FullCalendar to fix https://github.com/fullcalendar/fullcalendar/issues/5273
 // (Recurring events don't respect timezones in FullCalendar)
@@ -39,7 +39,7 @@ const formatEventContent = ({ event }) => {
   </>
 }
 
-const handleEventClick = (ref, info) => {
+const handleEventClick = (ref, info, selectOccurrence) => {
   // allow links inside event content
   if (info.jsEvent.target.childElementCount !== 0) {
     info.jsEvent?.preventDefault()
@@ -57,7 +57,7 @@ const weekNumberCalculation = date => {
 export default forwardRef(({ state }, ref) => {
   const customEvents = {
     eventContent: formatEventContent,
-    eventClick: info => handleEventClick(ref, info)
+    eventClick: info => handleEventClick(ref, info, state.selectOccurrence)
   }
 
   // Set the initial date to max(start of sem, today)
