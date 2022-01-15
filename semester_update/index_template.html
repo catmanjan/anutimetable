@@ -159,5 +159,60 @@ ga('create', 'UA-64755004-1', 'auto');
 ga('send', 'pageview');
 }
 </script>
+
+<style>
+#deprecation-dialog-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 100000;
+}
+#deprecation-dialog {
+  background: white;
+  padding: 26px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 600px;
+  width: 80%;
+}
+#deprecation-dialog h1 {
+  margin-top: 0;
+}
+
+#deprecation-dialog p {
+  font-size: 16px;
+  color: black;
+  margin: 10px 0 0 0;
+}
+
+#deprecation-dialog a {
+  margin: 10px 0 0 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+}
+#deprecation-dialog button {
+  color: black;
+  margin: 10px 0 0 0;
+}
+</style>
+<div id="deprecation-dialog-container">
+  <div id="deprecation-dialog">
+    <h1>New unofficial timetable available!</h1>
+    <p>
+      The ANU Computer Science Students' Association is pleased to announce a new unofficial timetable planner. It is available here:
+    </p>
+    <a href="https://timetable.cssa.club/">https://timetable.cssa.club/</a>
+    <p>It's updated for 2022 semester 1 and has lots of new features including a timezone dropdown and the ability to link to external calendars.</p>
+    <button onclick="document.getElementById('deprecation-dialog-container').style.display='none'">Close</button>
+  </div>
+</div>
+
 </body>
 </html>

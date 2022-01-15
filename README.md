@@ -2,7 +2,9 @@
 
 * Timetable database last update: 2021-10-31
 
-## Modifacation Note
+## :warning: This project is no longer maintained. It has been replaced by [anucssa/anutimetable](https://github.com/anucssa/anutimetable), available at https://timetable.cssa.club/ :warning:
+
+## Modification Notes
 
 Any changes to [index.html](index.html), [js/timetable.js](js/timetable.js) and [anuscrape/scraper.py](anuscrape/scraper.py) should be synchronized with the template files in [semester_update](/semester_update) folder.
 
