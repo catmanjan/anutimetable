@@ -58,7 +58,7 @@ module.exports = async function (context, req) {
                 // TutA1 => ['TutA1', 'TutA', '1']
                 const r = val.match(/([^0-9]*)([0-9]+)$/)
                 if (r) {
-                    acc[r[1]] ??= []
+                    acc[r[1]] = acc[r[1]] || []
                     acc[r[1]].push(r[2].padStart(2,'0'))
                 }
                 return acc
