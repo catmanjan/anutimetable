@@ -11,7 +11,7 @@ import luxonPlugin from '@fullcalendar/luxon'
 
 import { DateTime } from 'luxon'
 
-import { getStartOfSession } from './Toolbar'
+import { getStartOfSession } from './utils'
 
 // Monkey patch rrulePlugin for FullCalendar to fix https://github.com/fullcalendar/fullcalendar/issues/5273
 // (Recurring events don't respect timezones in FullCalendar)
@@ -25,102 +25,24 @@ rrulePlugin.recurringTypes[0].expand = function (errd, fr, de) {
   ).map(date => new Date(de.createMarker(date).getTime() + date.getTimezoneOffset() * 60 * 1000))
 }
 
-export const parseEvents = (source, year, session, id, timeZone) => source[`${id}_${session}`].classes.reduce((arr, c) => {
-  const location = c.location
-  const occurrence = parseInt(c.occurrence)
-
-  const title = [
-    c.module,
-    c.activity,
-    ...(c.activity.startsWith('Lec') ? [] : [occurrence])
-  ].join(' ')
-
-  const inclusiveRange = ([start, end]) => Array.from({ length: end-start+1 }, (_, i) => start+i)
-  // '1\u20113,5\u20117' (1-3,6-8) => [1,2,3,6,7,8]
-  const weeks = c.weeks.split(',').flatMap(w => inclusiveRange(w.split('\u2011').map(x => parseInt(x))))
-
-  const [start, end] = [
-    [weeks[0], c.start],
-    [weeks[weeks.length-1], c.finish]
-  ].map(([week, time]) => DateTime
-    .fromFormat(time, 'HH:mm', { zone: 'UTC' })
-    .set({ weekYear: year, weekNumber: week, weekday: c.day+1 }) // ANU 0-offset => Luxon 1-offset
-  )
-  
-  // handles timezone across days/weeks, not verified across years
-  const rrule = {
-    freq: 'weekly',
-    dtstart: start.toJSDate(),
-    until: end.toJSDate(),
-    byweekday: start.weekday-1, // Luxon 1-offset => rrule 0-offset
-    byweekno: weeks, // rrule allows RFC violation (compliant byweekno requires freq=YEARLY)
-    tzid: 'Australia/Canberra'
-  }
-  
-  arr.push({
-    // extendedProps
-    ...c,
-    occurrence,
-
-    // custom ID allows removal of events that aren't in memory (ie only available by getEventById())
-    id: [c.module, c.activity, occurrence].join('_'),
-    title,
-    groupId: c.activity, // identifies selection groups eg TutA
-    location,
-    duration: c.duration,
-    rrule
-  })
-  return arr
-}, [])
-
-export const selectOccurrence = (ref, module, groupId, occurrence) => {
-  const api = ref.current.getApi()
-
-  let event
-  let flag = false
-  for (let i=occurrence-1; (event=api.getEventById([module,groupId,i].join('_'))); i--) {
-    event.remove()
-    flag = true
-  }
-
-  for (let i=occurrence+1; (event=api.getEventById([module,groupId,i].join('_'))); i++) {
-    event.remove()
-    flag = true
-  }
-
-  // if it's selectable, add to the query string
-  if (flag) {
-    let qs = new URLSearchParams(window.location.search)
-    const current = qs.get(module)
-
-    const val = groupId+occurrence
-    if (!current || !current.includes(val)) {
-      qs.set(module, current ? `${current},${val}` : val)
-      window.history.replaceState(null, '', '?'+qs.toString())
-    }
-  }
-}
-
-const formatEventContent = ({ event }) => {
+const formatEventContent = ({ selectOccurrence, resetOccurrence }) => ({ event }) => {
+  const { location, locationID, lat, lon, activity, hasMultipleOccurrences } = event.extendedProps
+  const url = lat ? `https://www.google.com/maps/search/?api=1&query=${lat},${lon}` : locationID
   // causes a nested <a> in the event
   // fix PR is unmerged since Apr 2021: fullcalendar/fullcalendar#5710
-  const { location, locationID, lat, lon } = event.extendedProps
-  const url = lat ? `https://www.google.com/maps/search/?api=1&query=${lat},${lon}` : locationID
   const locationLine = url
     ? <a href={url} target="_blank" rel="noreferrer">{location}</a>
     : location;
+  const dispatch = f => f(event.source.id, event.groupId, event.extendedProps.occurrence)
+  const button = activity.startsWith('Lec') ? null :
+    hasMultipleOccurrences
+      ? <button className='choose-button' onClick={() => dispatch(selectOccurrence)}>Choose</button>
+      : <button className='choose-button' onClick={() => dispatch(resetOccurrence)}>Reset</button>
   return <>
-    {event.title}<br />
-    {locationLine}
+    <p>{event.title}</p>
+    <p>{locationLine}</p>
+    <p>{button}</p>
   </>
-}
-
-const handleEventClick = (ref, info) => {
-  // allow links inside event content
-  if (info.jsEvent.target.childElementCount !== 0) {
-    info.jsEvent?.preventDefault()
-    selectOccurrence(ref, info.event.source.id, info.event.groupId, info.event.extendedProps.occurrence)
-  }
 }
 
 const weekNumberCalculation = date => {
@@ -130,10 +52,9 @@ const weekNumberCalculation = date => {
   return end - start + 1 // 0 weeks after start is week 1
 }
 
-export default forwardRef((props, ref) => {
+export default forwardRef(({ state }, ref) => {
   const customEvents = {
-    eventContent: formatEventContent,
-    eventClick: info => handleEventClick(ref, info)
+    eventContent: e => formatEventContent(state)(e),
   }
 
   // Set the initial date to max(start of sem, today)
@@ -182,7 +103,7 @@ export default forwardRef((props, ref) => {
         listDayFormat: { weekday: 'long', month: 'short', day: 'numeric' },
         displayEventTime: true,
         weekends: true,
-        eventContent: formatEventContent
+        ...customEvents
       },
       dayGridMonth: {
         weekNumberFormat: { week: 'short' }
@@ -218,7 +139,7 @@ export default forwardRef((props, ref) => {
 
     fixedWeekCount={false}
 
-    timeZone={props.timeZone}
+    timeZone={state.timeZone}
 
     eventSourceFailure={err => console.error(err.message)}
   />

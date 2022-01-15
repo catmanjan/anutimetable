@@ -155,14 +155,14 @@
 
 /* apply default colour to things which shouldn't be links */
 .fc .fc-event-main a {
-  color: var(--fc-event-text-color, #fff) !important;
+  color: var(--fc-event-text-color, inherit) !important;
 }
 
 /* apply override to actual links in events */
 .fc .fc-event a {
   text-decoration: underline;
   font-style: italic;
-  color: var(--fc-event-text-color, #fff) !important;
+  color: var(--fc-event-text-color, inherit) !important;
 }
 
 /* apply underline on hover to Agenda event links */
@@ -192,4 +192,31 @@ div[id^=react-select] {
 }
 div[id^=react-select] div {
   cursor: pointer;
+}
+
+/* choose/reset */
+.choose-button {
+  border: 0;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.fc-event-main {
+  word-break: break-word;
+  line-height: normal;
+  overflow-y: hidden;
+}
+
+.fc-event-main p {
+  margin: 0 0 4px 0;
+  padding: 0;
+}
+
+.fc-timegrid-event-harness:hover {
+  z-index: 100 !important;
 }
