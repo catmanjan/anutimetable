@@ -24,3 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 sample.json
+
+
+# JetBrains IDEs / WebStorm configuration
+.idea

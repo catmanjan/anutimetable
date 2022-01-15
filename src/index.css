@@ -138,7 +138,7 @@
     /* override static width for week number */
     .fc .fc-timegrid-axis-cushion {
       min-width: 0px !important;
-      max-width:
+      /*max-width:*/
     }
 }
 
@@ -219,4 +219,113 @@ div[id^=react-select] div {
 
 .fc-timegrid-event-harness:hover {
   z-index: 100 !important;
+}
+
+.fab {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    z-index: 100;
+}
+
+.fab-button {
+    /* Imagine if I followed the bootstrap design pattern */
+    /* I know right? That's ridiculous. */
+    border-radius: 50%;
+    width: 4em;
+    height: 4em;
+    padding: 12px;
+    box-shadow: 0 2px 5px 0 #000000;
+    z-index: 200;
+
+
+    /* I know we already set this in the fab class, but z-index requires explicit positioning */
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+}
+
+.fab--open .fab-button {
+    background-color: #2d2d2d !important;
+}
+
+.fab-actions {
+    position: fixed;
+    bottom: 5em;
+    /*right: -5em;*/
+    right: 1em;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: stretch;
+}
+
+.fab-actions .fab-action {
+    width: 3em;
+    height: 3em;
+    margin: 0.5em 0.5em -3.5em;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px 0 #000000;
+    padding-left: 0;
+    padding-right: 0;
+    transition: margin 0.3s;
+
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+}
+
+.fab--open .fab-actions .fab-action {
+    margin: 0 0.5em 0.5em;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.dialog-container {
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.5s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.hidden.dialog-container {
+    display: block !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 0;
+    transition: margin-top 0.5s, filter 0.5s;
+}
+
+.hidden .dialog {
+    margin-top: 2em;
+}
+
+.daySelect {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fafafa;
+    font-weight: bold;
 }

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { Container, Navbar } from 'react-bootstrap'
+import {Button, Card, Container, Navbar, OverlayTrigger, Tooltip} from 'react-bootstrap'
 
 import Toolbar from './Toolbar'
 import Calendar from './Calendar'
@@ -120,11 +120,42 @@ let App = () => {
     ))
   }
 
+  // Starting day of the week
+  const [startingDay, setStartingDay] = useState(0);
+  const handleStartDayChange = (e) => {
+    setStartingDay(+e.target.value);
+    localStorage.setItem('startingDay', e.target.value);
+  };
+
+  useEffect(()=>{
+    const cachedStartingDay = localStorage.getItem('startingDay');
+    if(cachedStartingDay && parseInt(cachedStartingDay) >= 0 && parseInt(cachedStartingDay) <= 6){
+      setStartingDay(parseInt(cachedStartingDay));
+    }
+  },[]);
+
   const state = {
-    timeZone, year, session, sessions, timetableData, modules, selectedModules,
+    timeZone, year, session, sessions, timetableData, modules, selectedModules, startingDay,
     setTimeZone, setYear, setSession, setSessions, setTimetableData, setModules, setSelectedModules,
     selectOccurrence, resetOccurrence,
   }
+
+  // Settings FAB
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const toggleSettings = () => setSettingsOpen(!settingsOpen)
+
+  // Start day of week dialog
+  const [startDayDialogOpen, setStartDayDialogOpen] = useState(false)
+  const toggleStartDayDialog = () => setStartDayDialogOpen(!startDayDialogOpen);
+  const closeStartDayDialog = () => {
+    setStartDayDialogOpen(false);
+    setSettingsOpen(false);
+  }
+
+  useEffect(()=>{
+    document.body.style.overflow = startDayDialogOpen ? 'hidden' : 'visible';
+  }, [startDayDialogOpen]);
+
 
   // fluid="xxl" is only supported in Bootstrap 5
   return <Container fluid>
@@ -141,6 +172,74 @@ let App = () => {
           <a href="https://github.com/anucssa/anutimetable/issues">here</a>
       </Navbar.Text>
     </Navbar>
+
+    <div className={`fab ${settingsOpen ? 'fab--open' : ''}`} >
+      <Button
+        className={'fab-button'}
+        variant="secondary"
+        onClick={toggleSettings}
+      >
+        <svg className={settingsOpen ? 'hidden' : ''} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path fill="none" d="M0 0h24v24H0z"/><path d="M5.334 4.545a9.99 9.99 0 0 1 3.542-2.048A3.993 3.993 0 0 0 12 3.999a3.993 3.993 0 0 0 3.124-1.502 9.99 9.99 0 0 1 3.542 2.048 3.993 3.993 0 0 0 .262 3.454 3.993 3.993 0 0 0 2.863 1.955 10.043 10.043 0 0 1 0 4.09c-1.16.178-2.23.86-2.863 1.955a3.993 3.993 0 0 0-.262 3.455 9.99 9.99 0 0 1-3.542 2.047A3.993 3.993 0 0 0 12 20a3.993 3.993 0 0 0-3.124 1.502 9.99 9.99 0 0 1-3.542-2.047 3.993 3.993 0 0 0-.262-3.455 3.993 3.993 0 0 0-2.863-1.954 10.043 10.043 0 0 1 0-4.091 3.993 3.993 0 0 0 2.863-1.955 3.993 3.993 0 0 0 .262-3.454zM13.5 14.597a3 3 0 1 0-3-5.196 3 3 0 0 0 3 5.196z" fill="rgba(255,255,255,1)"/></svg>
+        <svg className={settingsOpen ? '' : 'hidden'} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" fill="rgba(255,255,255,1)"/></svg>
+      </Button>
+      <div className={'fab-actions'}>
+        <OverlayTrigger
+          key={'start-day'}
+          placement="left"
+          overlay={
+            <Tooltip id="tooltip-start-day">
+              Starting day of week
+            </Tooltip>
+          }
+        >
+          <Button
+            className={'fab-action'}
+            variant={"primary"}
+            onClick={toggleStartDayDialog}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="none" d="M0 0h24v24H0z"/>
+              <path
+                d="M17 3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2zM4 9v10h16V9H4zm2 2h2v2H6v-2zm5 0h2v2h-2v-2zm5 0h2v2h-2v-2z"
+                fill="rgba(255,255,255,1)"/>
+            </svg>
+          </Button>
+        </OverlayTrigger>
+      </div>
+    </div>
+
+    <div className={`${startDayDialogOpen ? '' : 'hidden'} dialog-container`}>
+      <div className="dialog">
+        <Card>
+          <Card.Header>Calendar Start of Week</Card.Header>
+          <Card.Body>
+            <p>
+              The weekly calendar starts on&nbsp;
+              <select
+                value={startingDay}
+                className={'daySelect'}
+                onChange={handleStartDayChange}
+              >
+                <option value={"0"}>Sunday</option>
+                <option value={"1"}>Monday</option>
+                <option value={"2"}>Tuesday</option>
+                <option value={"3"}>Wednesday</option>
+                <option value={"4"}>Thursday</option>
+                <option value={"5"}>Friday</option>
+                <option value={"6"}>Saturday</option>
+              </select>
+            </p>
+            <Button
+              variant="outline-primary"
+              onClick={closeStartDayDialog}
+              style={{width: "100%"}}
+            >
+              Close
+            </Button>
+          </Card.Body>
+        </Card>
+      </div>
+    </div>
   </Container>
 }
 

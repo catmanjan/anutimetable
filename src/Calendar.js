@@ -142,5 +142,7 @@ export default forwardRef(({ state }, ref) => {
     timeZone={state.timeZone}
 
     eventSourceFailure={err => console.error(err.message)}
+
+    firstDay={state.startingDay}
   />
 })
