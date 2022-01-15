@@ -103,7 +103,7 @@ export default forwardRef(({ state }, ref) => {
         listDayFormat: { weekday: 'long', month: 'short', day: 'numeric' },
         displayEventTime: true,
         weekends: true,
-        eventContent: e => formatEventContent(state)(e)
+        ...customEvents
       },
       dayGridMonth: {
         weekNumberFormat: { week: 'short' }

@@ -7,8 +7,8 @@ import TimezoneSelect from 'react-timezone-select'
 import Export from './Export'
 
 export default forwardRef(({ API, state: {
-  timeZone, year, session, sessions, JSON, modules, selectedModules,
-  setTimeZone, setYear, setSession, setSessions, setJSON, setModules, setSelectedModules,
+  timeZone, year, session, sessions, timetableData, modules, selectedModules,
+  setTimeZone, setYear, setSession, setSessions, setTimetableData, setModules, setSelectedModules,
 } }, calendar) => {
   const selectYear = e => {
     setYear(e)

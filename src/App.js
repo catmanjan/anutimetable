@@ -3,7 +3,7 @@ import { Container, Navbar } from 'react-bootstrap'
 
 import Toolbar from './Toolbar'
 import Calendar from './Calendar'
-import { getInitialState, setQueryParam, getTimetableApi, stringToColor, parseEvents } from './utils'
+import { getInitialState, setQueryParam, fetchJsObject, stringToColor, parseEvents } from './utils'
 
 import { ApplicationInsights } from '@microsoft/applicationinsights-web'
 import { ReactPlugin, withAITracking } from '@microsoft/applicationinsights-react-js'
@@ -29,16 +29,16 @@ let App = () => {
 
   // List of all supported sessions
   const [sessions, setSessions] = useState([])
-  useEffect(() => getTimetableApi(`${API}/sessions`, setSessions), [])
+  useEffect(() => fetchJsObject(`${API}/sessions`, setSessions), [])
 
-  // Timetable JSON as a JS object
-  const [JSON, setJSON] = useState({})
-  useEffect(() => getTimetableApi(`/timetable_${year}_${session}.json`, setJSON), [year, session])
+  // Timetable data as a JS object
+  const [timetableData, setTimetableData] = useState({})
+  useEffect(() => fetchJsObject(`/timetable_${year}_${session}.json`, setTimetableData), [year, session])
 
   // Modules (courses) are in an object like { COMP1130: { title: 'COMP1130 Pro...', dates: 'Displaying Dates: ...', link: "" }, ... }
   const processModule = ({classes, id, title, ...module}) => ({ title: title.replace(/_[A-Z][1-9]/, ''), ...module })
   const [modules, setModules] = useState({})
-  useEffect(() => setModules(Object.entries(JSON).reduce((acc, [key, module]) => ({...acc, [key.split('_')[0]]: processModule(module)}),{})),  [JSON])
+  useEffect(() => setModules(Object.entries(timetableData).reduce((acc, [key, module]) => ({...acc, [key.split('_')[0]]: processModule(module)}),{})),  [timetableData])
 
   // Selected modules are stored as an *array* of module objects as above, with
   // an additional `id` field that has the key in `modules`
@@ -77,11 +77,11 @@ let App = () => {
       // Update query string
       setQueryParam(id, specifiedOccurrences.filter(([m]) => m === id).map(([m,groupId,occurrence]) => groupId+occurrence).join(','))
 
-      if (Object.keys(JSON).length === 0) return
+      if (Object.keys(timetableData).length === 0) return
 
       // What events are currently visible?
       // Basically the module's full list of classes, minus alternatives to chosen options (from the query string)
-      const eventsForModule = [...JSON[`${id}_${session}`].classes]
+      const eventsForModule = [...timetableData[`${id}_${session}`].classes]
       for (const [module, groupId, occurrence] of specifiedOccurrences) {
         if (module !== id) continue
         // Delete alternatives to an explicitly chosen event
@@ -100,7 +100,7 @@ let App = () => {
         events: parseEvents(eventsForModule, year, session, id)
       })
     })
-  }, [JSON, year, session, selectedModules, calendar, timeZone, m, modules, specifiedOccurrences])
+  }, [timetableData, year, session, selectedModules, calendar, timeZone, m, modules, specifiedOccurrences])
 
   // Remove specified events for modules that have been removed
   useEffect(() => {
@@ -121,8 +121,8 @@ let App = () => {
   }
 
   const state = {
-    timeZone, year, session, sessions, JSON, modules, selectedModules,
-    setTimeZone, setYear, setSession, setSessions, setJSON, setModules, setSelectedModules,
+    timeZone, year, session, sessions, timetableData, modules, selectedModules,
+    setTimeZone, setYear, setSession, setSessions, setTimetableData, setModules, setSelectedModules,
     selectOccurrence, resetOccurrence,
   }
 
@@ -132,7 +132,7 @@ let App = () => {
 
     <Toolbar API={API} ref={calendar} state={state} />
 
-    <Calendar API={API} ref={calendar} state={state} />
+    <Calendar ref={calendar} state={state} />
 
     <Navbar>
       <Navbar.Text>
