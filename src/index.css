@@ -138,7 +138,7 @@
     /* override static width for week number */
     .fc .fc-timegrid-axis-cushion {
       min-width: 0px !important;
-      max-width:
+      /*max-width:*/
     }
 }
 
@@ -219,4 +219,52 @@ div[id^=react-select] div {
 
 .fc-timegrid-event-harness:hover {
   z-index: 100 !important;
+}
+
+.fab {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  z-index: 100;
+}
+
+.fab-button {
+    /* Imagine if I followed the bootstrap design pattern */
+    /* I know right? That's ridiculous. */
+    border-radius: 50%;
+    width: 4em;
+    height: 4em;
+    padding: 12px;
+    box-shadow: 0 2px 5px 0 #000000;
+}
+
+.fab--open .fab-button {
+    background-color: #2d2d2d !important;
+}
+
+.fab-actions {
+    position: fixed;
+    bottom: 5em;
+    right: -5em;
+    z-index: 100;
+    transition: right 0.3s;
+    text-align: center;
+}
+
+.fab-actions .fab-action {
+    width: 3em;
+    height: 3em;
+    margin: 0.5em;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px 0 #000000;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.fab--open .fab-actions {
+    right: 1em;
+}
+
+.hidden {
+    display: none !important;
 }
