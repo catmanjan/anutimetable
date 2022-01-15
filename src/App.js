@@ -168,7 +168,8 @@ let App = () => {
     <Navbar>
       <Navbar.Text>
           Made with <span role="img" aria-label="love">💖</span> by the&nbsp;
-          <a href="https://cssa.club/">ANU CSSA</a>, report issues&nbsp;
+        <a href="https://cssa.club/">ANU CSSA</a>&nbsp;
+        (and a <a href="/contributors.html">lot of people</a>), report issues&nbsp;
           <a href="https://github.com/anucssa/anutimetable/issues">here</a>
       </Navbar.Text>
     </Navbar>

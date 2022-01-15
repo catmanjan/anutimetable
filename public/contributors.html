@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ANU Timetable Contributors</title>
+    <style>
+        html {
+            background-color: #f8f8f8;
+        }
+
+        h1, h2, #contributors {
+            font-family: sans-serif;
+            text-align: center;
+            color: #040404;
+        }
+
+        #contributors{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+            align-content: flex-start;
+        }
+
+        h1 {
+            font-size: 36pt;
+        }
+
+        img {
+            border-radius: 50%;
+            border: 1px solid #040404;
+        }
+
+        .contributor {
+            font-size: 18pt;
+            display: block;
+            flex-grow: 0;
+            flex-shrink: 1;
+            flex-basis: auto;
+            align-self: auto;
+            order: 0;
+            border: 1px solid #040404;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        a {
+            color: #080808;
+        }
+    </style>
+</head>
+<body>
+    <h1>ANU Timetable Contributors</h1>
+    <h2><a href="/">(back to the timetable)</a></h2>
+    <div id="contributors"></div>
+  <script>
+    fetch('https://api.github.com/repos/anucssa/anutimetable/contributors')
+      .then(response => response.json())
+      .then(data => {
+        let contributors = data.map(contributor => {
+          return `
+            <div class="contributor">
+              <img
+                alt="Profile picture"
+                width="128"
+                height="128"
+                src="${contributor.avatar_url || contributor.gravatar_url}"
+              />
+              <div class="contributor-info">
+                <a href="${contributor.html_url}">${contributor.login}</a>
+                <p>${contributor.contributions} contributions</p>
+              </div>
+            </div>`
+        });
+        document.getElementById('contributors').innerHTML = contributors.join('');
+      })
+    .catch((error)=>{
+      console.error(error);
+      document.getElementById('contributors').innerHTML = '<p>Error loading contributors. Try refreshing or checking your internet connection.</p>';
+    })
+  </script>
+</body>
+</html>
