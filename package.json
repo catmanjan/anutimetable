@@ -14,6 +14,7 @@
     "@fullcalendar/timegrid": "5.10.1",
     "@microsoft/applicationinsights-react-js": "3.2.1",
     "@microsoft/applicationinsights-web": "2.7.1",
+    "bootstrap-darkmode": "^0.9.1",
     "luxon": "^1.28.0",
     "randomcolor": "0.6.2",
     "react": "17.0.2",

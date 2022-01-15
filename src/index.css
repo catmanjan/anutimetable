@@ -329,3 +329,19 @@ div[id^=react-select] div {
     background-color: #fafafa;
     font-weight: bold;
 }
+
+body[data-theme="dark"] nav.navbar .navbar-text a {
+    color: white;
+}
+
+body[data-theme="dark"] nav.navbar .navbar-text {
+    color: #bbbbbb;
+}
+
+/*body[data-theme="dark"] .timezone-select > div {*/
+/*    background-color: #101214 !important;*/
+/*}*/
+
+/*body[data-theme="dark"] .timezone-select > div > div {*/
+/*    color: white !important;*/
+/*}*/
