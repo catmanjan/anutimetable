@@ -68,7 +68,7 @@ export default forwardRef(({ API, state: {
     />
     
     {/* somehow there's no NPM module for this. maybe I should write one? */}
-    {selectedModules.length !== 0 && <Export API={API} />}
+    {selectedModules.length !== 0 && <Export API={API} year={year} session={session} />}
   </InputGroup>
   <TimezoneSelect
     className='timezone-select mb-2'

@@ -9,7 +9,7 @@ import { ApplicationInsights } from '@microsoft/applicationinsights-web'
 import { ReactPlugin, withAITracking } from '@microsoft/applicationinsights-react-js'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
-const API = `${isDevelopment ? 'http://localhost:7071' : window.location.origin}/api`
+const API = `${isDevelopment ? 'localhost:7071' : window.location.host}/api`
 
 let App = () => {
   const calendar = useRef()
@@ -29,7 +29,7 @@ let App = () => {
 
   // List of all supported sessions
   const [sessions, setSessions] = useState([])
-  useEffect(() => fetchJsObject(`${API}/sessions`, setSessions), [])
+  useEffect(() => fetchJsObject(`${window.location.protocol}//${API}/sessions`, setSessions), [])
 
   // Timetable data as a JS object
   const [timetableData, setTimetableData] = useState({})
