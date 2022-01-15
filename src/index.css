@@ -222,10 +222,10 @@ div[id^=react-select] div {
 }
 
 .fab {
-  position: fixed;
-  bottom: 1em;
-  right: 1em;
-  z-index: 100;
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    z-index: 100;
 }
 
 .fab-button {
@@ -236,6 +236,13 @@ div[id^=react-select] div {
     height: 4em;
     padding: 12px;
     box-shadow: 0 2px 5px 0 #000000;
+    z-index: 200;
+
+
+    /* I know we already set this in the fab class, but z-index requires explicit positioning */
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
 }
 
 .fab--open .fab-button {
@@ -245,24 +252,43 @@ div[id^=react-select] div {
 .fab-actions {
     position: fixed;
     bottom: 5em;
-    right: -5em;
-    z-index: 100;
-    transition: right 0.3s;
+    /*right: -5em;*/
+    right: 1em;
     text-align: center;
+
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: stretch;
+}
+
+.fab--open .fab-actions {
+    /*right: 1em;*/
+
 }
 
 .fab-actions .fab-action {
     width: 3em;
     height: 3em;
-    margin: 0.5em;
+    margin: 0.5em 0.5em -3.5em;
     border-radius: 50%;
     box-shadow: 0 1px 3px 0 #000000;
     padding-left: 0;
     padding-right: 0;
+    transition: margin 0.3s;
+
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
 }
 
-.fab--open .fab-actions {
-    right: 1em;
+.fab--open .fab-actions .fab-action {
+    margin: 0 0.5em 0.5em;
 }
 
 .hidden {
