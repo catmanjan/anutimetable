@@ -52,11 +52,14 @@ module.exports = async function (context, req) {
         const course = timetable[courseCode] || timetable[courseCode+'_'+req.query.s]
         
         if (course) {
-            // LecA 01,LecA 02,LecB 01 => { LecA: [01, 02], LecB: [01] }
+            // Convert client qs format to ANU database lookup
+            // LecA1,LecA2,LecB1 => { LecA: [01, 02], LecB: [01] }
             const selected = req.query[courseCode].split(',').reduce((acc,val) => {
-                const parts = val.split(' ')
-                const activity = acc[parts[0]]
-                acc[parts[0]] = activity === undefined ? [parts[1]] : activity.concat(parts[1])
+                // TutA1 => ['TutA1', 'TutA', '1']
+                const r = val.match(/([^0-9]*)([0-9]+)$/)
+                if (r) {
+                    acc[r[1]] = [...(acc[r[1]] || []), r[2].padStart(2,'0')]
+                }
                 return acc
             }, {})
 

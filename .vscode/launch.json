@@ -15,25 +15,26 @@
             }
         },
         {
-            "name": "Attach to Node Functions",
+            "name": "Azure Functions (Node)",
             "type": "node",
             "request": "attach",
             "port": 9229,
             "preLaunchTask": "func host start",
             "presentation": {
-                "hidden": true,
-                "group": "",
-                "order": 1
+                "order": 2
             }
         }
     ],
     "compounds": [
         {
-            "name": "Launch Static Web App",
+            "name": "Full Stack",
             "configurations": [
                 "Launch Edge",
-                "Attach to Node Functions"
+                "Azure Functions (Node)"
             ],
+            "presentation": {
+                "order": 1
+            },
             "stopAll": true
         }
     ]
