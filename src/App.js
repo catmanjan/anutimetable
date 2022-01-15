@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import {Button, Card, Container, Navbar} from 'react-bootstrap'
+import {Button, Card, Container, Navbar, OverlayTrigger, Tooltip} from 'react-bootstrap'
 
 import Toolbar from './Toolbar'
 import Calendar from './Calendar'
@@ -146,7 +146,11 @@ let App = () => {
 
   // Start day of week dialog
   const [startDayDialogOpen, setStartDayDialogOpen] = useState(false)
-  const toggleStartDayDialog = () => setStartDayDialogOpen(!startDayDialogOpen)
+  const toggleStartDayDialog = () => setStartDayDialogOpen(!startDayDialogOpen);
+  const closeStartDayDialog = () => {
+    setStartDayDialogOpen(false);
+    setSettingsOpen(false);
+  }
 
   useEffect(()=>{
     document.body.style.overflow = startDayDialogOpen ? 'hidden' : 'visible';
@@ -179,13 +183,28 @@ let App = () => {
         <svg className={settingsOpen ? '' : 'hidden'} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" fill="rgba(255,255,255,1)"/></svg>
       </Button>
       <div className={'fab-actions'}>
-        <Button
-          className={'fab-action'}
-          variant={"primary"}
-          onClick={toggleStartDayDialog}
+        <OverlayTrigger
+          key={'start-day'}
+          placement="left"
+          overlay={
+            <Tooltip id="tooltip-start-day">
+              Starting day of week
+            </Tooltip>
+          }
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M17 3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2zM4 9v10h16V9H4zm2 2h2v2H6v-2zm5 0h2v2h-2v-2zm5 0h2v2h-2v-2z" fill="rgba(255,255,255,1)"/></svg>
-        </Button>
+          <Button
+            className={'fab-action'}
+            variant={"primary"}
+            onClick={toggleStartDayDialog}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="none" d="M0 0h24v24H0z"/>
+              <path
+                d="M17 3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2zM4 9v10h16V9H4zm2 2h2v2H6v-2zm5 0h2v2h-2v-2zm5 0h2v2h-2v-2z"
+                fill="rgba(255,255,255,1)"/>
+            </svg>
+          </Button>
+        </OverlayTrigger>
       </div>
     </div>
 
@@ -212,7 +231,7 @@ let App = () => {
             </p>
             <Button
               variant="outline-primary"
-              onClick={toggleStartDayDialog}
+              onClick={closeStartDayDialog}
               style={{width: "100%"}}
             >
               Close
