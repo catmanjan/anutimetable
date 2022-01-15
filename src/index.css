@@ -209,6 +209,7 @@ div[id^=react-select] div {
 .fc-event-main {
   word-break: break-word;
   line-height: normal;
+  overflow-y: hidden;
 }
 
 .fc-event-main p {
