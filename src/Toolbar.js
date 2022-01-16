@@ -11,9 +11,16 @@ export default forwardRef(({ API, state: {
   setTimeZone, setYear, setSession, setSessions, setTimetableData, setModules, setSelectedModules,
 } }, calendar) => {
   const selectYear = e => {
+    if (e === year) return
+    setSelectedModules([])
     setYear(e)
     // Assume ascending session order
     setSession(sessions[e]?.[sessions[e].length-1] || '')
+  }
+  const selectSession = e => {
+    if (e === session) return
+    setSelectedModules([])
+    setSession(e)
   }
 
   return <>
@@ -32,7 +39,7 @@ export default forwardRef(({ API, state: {
       variant="outline-primary"
       title={session}
     >
-      {sessions[year]?.map(e => <Dropdown.Item key={e} onClick={() => setSession(e)}>{e}</Dropdown.Item>)}
+      {sessions[year]?.map(e => <Dropdown.Item key={e} onClick={() => selectSession(e)}>{e}</Dropdown.Item>)}
     </DropdownButton>
 
     <Typeahead
