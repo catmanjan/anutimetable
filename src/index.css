@@ -231,6 +231,19 @@ div[id^=react-select] div {
   cursor: pointer;
 }
 
+.navbar-light .navbar-text, .navbar-light .navbar-collapse {
+  color: rgba(0,0,0,.5);
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-flow: row wrap;
+  }
+  .justify-content-end {
+    justify-content: flex-start !important;
+  }
+}
+
 .fc-timegrid-event-harness:hover .hide-button {
   display: block;
 }

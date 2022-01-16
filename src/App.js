@@ -201,6 +201,12 @@ let App = () => {
         (and a <a href="/contributors.html">lot of people</a>), report issues&nbsp;
           <a href="https://github.com/anucssa/anutimetable/issues">here</a>
       </Navbar.Text>
+      {hiddenOccurrences.length ? (
+        <Navbar.Collapse className="justify-content-end">
+          Hiding {hiddenOccurrences.length} event{hiddenOccurrences.length > 1 && 's'}.&nbsp;
+          <button className='choose-button' onClick={() => setHiddenOccurrences([])}>Show</button>
+        </Navbar.Collapse>
+      ) : <></> /* need a fragment, not null, because react-bootstrap is funky */}
     </Navbar>
 
     <div className={`fab ${settingsOpen ? 'fab--open' : ''}`} >
