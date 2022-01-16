@@ -3,7 +3,7 @@ import {Button, Card, Container, Navbar, OverlayTrigger, Tooltip} from 'react-bo
 
 import Toolbar from './Toolbar'
 import Calendar from './Calendar'
-import { getInitialState, setQueryParam, fetchJsObject, stringToColor, parseEvents } from './utils'
+import { getInitialState, setQueryParam, unsetQueryParam, fetchJsObject, stringToColor, parseEvents } from './utils'
 
 import { ApplicationInsights } from '@microsoft/applicationinsights-web'
 import { ReactPlugin, withAITracking } from '@microsoft/applicationinsights-react-js'
@@ -18,7 +18,7 @@ let App = () => {
   const [timeZone, setTimeZone] = useState(localStorage.timeZone || Intl.DateTimeFormat().resolvedOptions().timeZone)
   useEffect(() => localStorage.timeZone = timeZone, [timeZone])
 
-  const [y, s, m] = getInitialState()
+  const [y, s, m, h] = getInitialState()
 
   const [year, setYear] = useState(y)
   useEffect(() => setQueryParam('y', year), [year])
@@ -54,6 +54,21 @@ let App = () => {
   }))
   const [specifiedOccurrences, setSpecifiedOccurrences] = useState(getSpecOccurrences())
   const updateSpecifiedOccurrences = () => setSpecifiedOccurrences(getSpecOccurrences())
+
+  // Events that are manually hidden with the eye icon
+  const [hiddenOccurrences, setHiddenOccurrences] = useState(h)
+  useEffect(() => console.log(hiddenOccurrences))
+  useEffect(() => {
+    const hide = hiddenOccurrences.map(x => x.join('_')).join(',')
+    if (hide.length > 0)
+      setQueryParam('hide', hide)
+    else
+      unsetQueryParam('hide')
+  })
+  // Updating clears hidden occurrences from no longer selected modules
+  const updateHiddenOccurrences = () => setHiddenOccurrences(
+    hiddenOccurrences.filter(([module]) => selectedModules.map(({ id }) => id).includes(module))
+  )
 
   // Update query string parameters and calendar events whenever anything changes
   useEffect(() => {
@@ -92,6 +107,16 @@ let App = () => {
           }
         }
       }
+      // Delete hidden occurrences
+      for (const [module, groupId, occurrence] of hiddenOccurrences) {
+        if (module !== id) continue
+        for (let i = eventsForModule.length - 1; i >= 0; i--) {
+          const event = eventsForModule[i]
+          if (event.activity === groupId && parseInt(event.occurrence) === occurrence) {
+            eventsForModule.splice(i, 1)
+          }
+        }
+      }
 
       // Add currently visible events to the calendar
       api.addEventSource({
@@ -100,11 +125,12 @@ let App = () => {
         events: parseEvents(eventsForModule, year, session, id)
       })
     })
-  }, [timetableData, year, session, selectedModules, calendar, timeZone, m, modules, specifiedOccurrences])
+  }, [timetableData, year, session, selectedModules, calendar, timeZone, m, modules, specifiedOccurrences, hiddenOccurrences])
 
   // Remove specified events for modules that have been removed
   useEffect(() => {
     updateSpecifiedOccurrences()
+    updateHiddenOccurrences()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedModules])
 
@@ -118,6 +144,9 @@ let App = () => {
     setSpecifiedOccurrences(specifiedOccurrences.filter(
       ([m, g, o]) => !(m === module && g === groupId && o === occurrence)
     ))
+  }
+  const hideOccurrence = (module, groupId, occurrence) => {
+    setHiddenOccurrences([...hiddenOccurrences, [module, groupId, occurrence]])
   }
 
   // Starting day of the week
@@ -137,7 +166,7 @@ let App = () => {
   const state = {
     timeZone, year, session, sessions, timetableData, modules, selectedModules, startingDay,
     setTimeZone, setYear, setSession, setSessions, setTimetableData, setModules, setSelectedModules,
-    selectOccurrence, resetOccurrence,
+    selectOccurrence, resetOccurrence, hideOccurrence,
   }
 
   // Settings FAB

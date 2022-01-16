@@ -42,15 +42,27 @@ export const getInitialState = () => {
     }
   }
 
+  let hidden = qs.get('hide')?.split(',')?.map(x => {
+    const [module, groupId, occurrence] = x.split('_')
+    return [module, groupId, parseInt(occurrence)]
+  }) ?? []
+
   qs.delete('y')
   qs.delete('s')
+  qs.delete('hide')
 
-  return [year || now.getFullYear(), session, Array.from(qs.entries()) || []]
+  return [year || now.getFullYear(), session, Array.from(qs.entries()) || [], hidden]
 }
 
 export const setQueryParam = (param, value) => {
   const qs = new URLSearchParams(window.location.search)
   qs.set(param, value ?? qs.get(param) ?? '') // if no value, just ensure param exists
+  window.history.replaceState(null, '', '?'+qs.toString())
+}
+
+export const unsetQueryParam = param => {
+  const qs = new URLSearchParams(window.location.search)
+  qs.delete(param)
   window.history.replaceState(null, '', '?'+qs.toString())
 }
 

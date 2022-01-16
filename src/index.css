@@ -221,6 +221,24 @@ div[id^=react-select] div {
   z-index: 100 !important;
 }
 
+.hide-button {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
+  display: none;
+  cursor: pointer;
+}
+
+.fc-timegrid-event-harness:hover .hide-button {
+  display: block;
+}
+
+.hide-button svg {
+  fill: white;
+}
+
 .fab {
     position: fixed;
     bottom: 1em;
